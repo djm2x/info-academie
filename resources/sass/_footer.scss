@@ -1,0 +1,36 @@
+.footer {
+    color: #a3b1be;
+    background-color: #2f4052;
+    padding: 0 3rem 1rem 3rem;
+
+    .images {
+        img {
+            width: 120px; 
+            height: 90px;
+            padding: 2px;
+
+            @media screen and (max-width: 600px) {
+                width: 100px; 
+                height: 90px;
+            }
+        }
+
+        
+    }
+}
+
+
+.last {
+    // height: 50px;
+    background-color: #293646;
+    color: #697686;
+    
+    a {
+        color: #697686;
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+
