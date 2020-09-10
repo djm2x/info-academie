@@ -67,9 +67,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        view()->share('cntsh', $this->cntsh);
-        view()->share('sang', $this->sang);
-        view()->share('partenaires', $this->partenaires);
-        view()->share('don', $this->don);
+        URL::forceScheme('https');
+
+        // view()->share('cntsh', $this->cntsh);
+        // view()->share('sang', $this->sang);
+        // view()->share('partenaires', $this->partenaires);
+        // view()->share('don', $this->don);
     }
 }
