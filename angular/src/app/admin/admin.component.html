@@ -1,144 +1,79 @@
-<!-- <app-header [userName]="currentUser"></app-header> -->
-<!-- <app-menu></app-menu>
-<div class="content-wrapper">
-  <router-outlet></router-outlet>
-</div>
-<app-footer></app-footer> -->
-
-<mat-toolbar color="primary" class="mat-elevation-z6">
+<mat-toolbar color="warn" class="mat-elevation-z6">
   <mat-toolbar-row>
     <button mat-button (click)="snav.toggle()" routerLinkActive="active">
       <mat-icon>menu</mat-icon>
     </button>
-    <p>Donneur du sang</p>
-    <!-- <button class="ml-3" mat-raised-button (click)="toWebSite()">Vers le site</button> -->
+    <span>App name</span>
 
-    <a class="ml-3 mat-raised-button mat-button-base" [href]="url" target="_blank" rel="noopener noreferrer">Vers le site</a>
-    <span class="example-spacer"></span>
+    <button mat-raised-button class="ml-5" [routerLink]="['/desktop']">Systeme-info</button>
+    <span style="flex: 1 1 auto;"></span>
 
-    <!-- <p>&nbsp;||&nbsp;organisme : {{session.getUser.organisme.label}}</p> -->
-    <button mat-raised-button color="warn" [matMenuTriggerFor]="beforeMenu">
-      <!-- {{session.user.nomComplete}}  -->
-      <!-- (<b>{{session.user.role.nom}} </b>) -->
-      (<b> {{session.user.name}} </b>)
-
+    <button mat-button [matMenuTriggerFor]="beforeMenu">
+      <!-- {{profile.name}} <b>({{profile.role}})</b> -->
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <!-- <button mat-menu-item [routerLink]="['/admin/compte']">Compte</button> -->
-      <button mat-menu-item (click)="disconnect()">Déconnecter</button>
+      <button mat-menu-item (click)="openDialog()">Info Compte</button>
+      <button mat-menu-item (click)="disconnect()">Se déconnecter</button>
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
-<!-- <button mat-button (click)="snav.toggle()" routerLinkActive="active">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <p>Système de suivi des recommandations</p>
-  <span class="example-spacer"></span>
-
-  <button mat-button [matMenuTriggerFor]="beforeMenu">{{session.getUser.nom}}</button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item [routerLink]="['/admin/compte']">Compte</button>
-    <button mat-menu-item (click)="disconnect()">Déconnecter</button>
-  </mat-menu> -->
-
-<mat-sidenav-container #sidenav class="example-sidenav-container" style="height: 100%;z-index: 9;">
-  <mat-sidenav #snav [mode]="(!mobileQuery.matches) ? 'side' : 'over'" [opened]="opened && !mobileQuery.matches"
-    [fixedInViewport]="true" fixedTopGap="50">
+<!--  -->
+<mat-sidenav-container #sidenav class="example-sidenav-container" style=" z-index: 9; height: 100vh;">
+  <mat-sidenav #snav [mode]="isMobileWidth ? 'push' : 'side'" [opened]="!isMobileWidth" [fixedInViewport]="true" fixedTopGap="49.9"
+  >
     <mat-nav-list class="list" style="width: 220px; padding: 0;">
-      <div class="logo">
-        <img src="../assets/logo.png" alt="marit logo" width="210">
-        <!-- <h1 style="font-weight: bold;">NEW APP</h1> -->
+      <div class="logo p-3">
+        <img src="assets/logo.png" alt="mourabit mohamed" width="100%">
       </div>
       <mat-divider></mat-divider>
-
-      <mat-list-item [routerLink]="['/admin/article']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Article</span>
+      <mat-list-item [routerLink]="['/admin/activite']" routerLinkActive="router-active">
+        <span>Activites</span>
         <mat-divider></mat-divider>
       </mat-list-item>
 
-      <mat-list-item [routerLink]="['/admin/actualite']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Actualite</span>
+      <mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-active">
+        <span>Users</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/ville']" routerLinkActive="router-active">
+        <span>Villes</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/detailUserActivite']" routerLinkActive="router-active">
+        <span>DetailUserActivites</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/typeActivite']" routerLinkActive="router-active">
+        <span>TypeActivites</span>
         <mat-divider></mat-divider>
       </mat-list-item>
 
-      <mat-list-item [routerLink]="['/admin/planification']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Planification</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
 
-      <mat-list-item [routerLink]="['/admin/activite']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Activite</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-
-      <mat-list-item [routerLink]="['/admin/blog']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Blog</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-
-      <mat-list-item [routerLink]="['/admin/galerie']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Galerie</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-
-      <mat-list-item [routerLink]="['/admin/contact']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>Contact</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-
-      <mat-list-item [routerLink]="['/admin/news-letter']" routerLinkActive="router-link-active">
-        <mat-icon>payment</mat-icon>&nbsp;<span>News Letter</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-
-      <mat-accordion>
-
-
+      <mat-accordion *ngIf="session.isAdmin">
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
           <mat-expansion-panel-header>
             <mat-panel-title>
               Paramétrage
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <mat-list-item [routerLink]="['/admin/region']" routerLinkActive="router-link-active">
-            <mat-icon>payment</mat-icon>&nbsp;<span>Region</span>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-
           <mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-link-active">
-            <mat-icon>redeem</mat-icon>&nbsp;<span>Utilisateurs</span>
+            <mat-icon>code</mat-icon>&nbsp;<span>....</span>
+            <mat-divider></mat-divider>
           </mat-list-item>
-          <!-- <mat-list-item *ngIf="false" [routerLink]="['/admin/role']" routerLinkActive="router-link-active">
-            <mat-icon>control_point_duplicate</mat-icon>&nbsp;<span>Role</span>
-          </mat-list-item> -->
-          <mat-divider></mat-divider>
-
+          
         </mat-expansion-panel>
       </mat-accordion>
       <mat-divider></mat-divider>
     </mat-nav-list>
-
   </mat-sidenav>
 
   <mat-sidenav-content>
-
-
-    <!-- <div style="margin: 65px auto 15px;" class="mybreadcrumb">
-        <div *ngFor="let s of patchRoute" class="items">
-          <a [routerLink]="['/home/connection']">{{ s !== '-1' ? s : 'nauveau'}}</a><mat-icon>navigate_next</mat-icon>
-        </div>
-      </div> -->
-    <main style="margin: 65px 0 0 5px;">
-      <router-outlet></router-outlet>
+    <main [@routeAnimations]="prepareRoute(o)" style="margin-top: 65px; overflow-x: hidden;">
+      <div class="ml-3 mr-3 mb-5">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
     </main>
-
-    <!-- <footer>
-        <mat-toolbar class="mt-2 text" color="primary">
-          <mat-toolbar-row style="height: 70px">
-            <span style="margin-left: auto; margin-right: auto;"> © {{ d | date:"dd/MMMM/yyyy" }} - Yaasin MOURABIT</span>
-          </mat-toolbar-row>
-        </mat-toolbar>
-      </footer> -->
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,81 +1,82 @@
 import { UowService } from 'src/app/services/uow.service';
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Activite } from 'src/app/models/models';
-import { Subject } from 'rxjs';
-import { SessionService } from 'src/app/shared';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { editorConfig } from '../../angular-editor';
-
+import { Subject, Subscription } from 'rxjs';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.scss']
 })
-export class UpdateComponent implements OnInit {
+export class UpdateComponent implements OnInit, OnDestroy {
+  subs: Subscription[] = [];
+
   myForm: FormGroup;
-  o = new Activite();
+  o: Activite;
   title = '';
-  config = editorConfig;
+  visualisation = false;
+  typeActivites = this.uow.typeActivites.get();
+
 
   folderToSaveInServer = 'activites';
 
-  imageTo = new Subject();
-  imageFrom = new Subject();
+  imageUrlTo = new Subject();
+imageUrlFrom = new Subject();
+
+
 
   eventSubmitFromParent = new Subject();
-  regions = this.uow.regions.get();
-  constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
-    , private fb: FormBuilder, private uow: UowService
-    , private session: SessionService) { }
 
-  ngOnInit() {
+  constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
+    , private fb: FormBuilder, private uow: UowService) { }
+
+  async ngOnInit() {
     this.o = this.data.model;
     this.title = this.data.title;
-
-    console.log(this.o)
+    this.visualisation = this.data.visualisation;
     this.createForm();
+    
+    this.imageUrlFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 
-    this.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 
     setTimeout(() => {
-      this.imageTo.next(this.o.imageUrl);
+       setTimeout(() => { this.imageUrlTo.next(this.o.imageUrl);;
+  }, 100);
     }, 100);
   }
+
+  
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   onOkClick(o: Activite): void {
+    let sub = null;
     if (o.id === 0) {
-      o.id = null;
-      this.uow.activites.post(o).subscribe(r => {
+      sub = this.uow.activites.post(o).subscribe(r => {
         this.eventSubmitFromParent.next(true);
         this.dialogRef.close(o);
       });
     } else {
-      this.uow.activites.put(o.id, o).subscribe(r => {
+      sub = this.uow.activites.put(o.id, o).subscribe(r => {
         this.eventSubmitFromParent.next(true);
         this.dialogRef.close(o);
       });
     }
-  }
 
-  get isAdmin() {
-    return this.session.user.role.toLowerCase() === 'admin';
+    this.subs.push(sub);
   }
 
   createForm() {
     this.myForm = this.fb.group({
-      id: this.o.id,
-      title: [this.o.title, Validators.required],
-      description: [this.o.description, Validators.required],
-      date: [this.o.date, Validators.required],
-      imageUrl: [this.o.imageUrl, Validators.required],
-      idRegion: [this.isAdmin ? +this.o.idRegion : +this.session.user.idRegion, Validators.required],
-      idUser: [+this.session.user.id, Validators.required],
+      id: [this.o.id, [Validators.required, ]],
+nom: [this.o.nom, [Validators.required, ]],
+nomAr: [this.o.nomAr, [Validators.required, ]],
+imageUrl: [this.o.imageUrl, [Validators.required, ]],
+idTypeActivite: [this.o.idTypeActivite, [Validators.required, ]],
+
     });
   }
 
@@ -84,31 +85,10 @@ export class UpdateComponent implements OnInit {
     this.createForm();
   }
 
-  get _config(): AngularEditorConfig {
-    return {
-      editable: true,
-      spellcheck: true,
-      height: '20rem',
-      minHeight: '5rem',
-      placeholder: 'Discription ...',
-      translate: 'no',
-      uploadUrl: 'no',
-      customClasses: [
-        {
-          name: 'quote',
-          class: 'quote',
-        },
-        {
-          name: 'redText',
-          class: 'redText'
-        },
-        {
-          name: 'titleText',
-          class: 'titleText',
-          tag: 'h1',
-        },
-      ]
-    };
+  ngOnDestroy(): void {
+    this.subs.forEach(e => {
+      e.unsubscribe();
+    });
   }
 
 }

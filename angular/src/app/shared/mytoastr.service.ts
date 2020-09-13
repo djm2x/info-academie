@@ -1,6 +1,5 @@
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -13,35 +12,31 @@ export class MyToastrService {
     warning: 'toast-warning'
   };
 
-  myConfig: Partial<IndividualConfig> = {
-    positionClass: 'toast-bottom-right',
-    // positionClass: 'toast-bottom-left',
+  myConfig = {
+    positionClass: 'toast-bottom-left',
     closeButton: true,
     disableTimeOut: false,
     tapToDismiss: false,
-    // preventDuplicates: false,
+    preventDuplicates: false,
   };
 
-  constructor(private toastr: ToastrService, private router: Router) { }
+  constructor(private toastr: ToastrService) { }
 
-  public toastError = (msg, description = '') => this.toastr.error(msg, description, this.myConfig);
-  public toastWarn = (msg, description = '') => this.toastr.warning(msg, description, this.myConfig);
-  public toastSuccess = (msg, description = '') => this.toastr.success(msg, description, this.myConfig);
-  public toastChat = (msg, description = '', idSender = 0) =>
-    this.toastr.success(msg, description, this.myConfig).onTap.subscribe(r => this.router.navigate(['admin/vacancier/chat/', idSender]))
+  public toastError = (msg, description) => this.toastr.error(msg, description, this.myConfig);
+  public toastSuccess = (msg, description) => this.toastr.success(msg, description, this.myConfig);
 
-  // toastNotif(o: any) {
-  //   switch (o.color) {
-  //     case 1:
-  //       return this.toastr.info('Sortie', o.msg, this.myConfig);
-  //     case 2:
-  //       return this.toastr.success('Entree', o.msg, this.myConfig);
-  //     case 3:
-  //       return this.toastr.warning('Warning', o.msg, this.myConfig);
-  //     default:
-  //       return this.toastr.error('Danger', o.msg, this.myConfig);
-  //   }
-  // }
+  toastNotif(o: any) {
+    switch (o.color) {
+      case 1:
+        return this.toastr.info('Sortie', o.msg, this.myConfig);
+      case 2:
+        return this.toastr.success('Entree', o.msg, this.myConfig);
+      case 3:
+        return this.toastr.warning('Warning', o.msg, this.myConfig);
+      default:
+        return this.toastr.error('Danger', o.msg, this.myConfig);
+    }
+  }
 
   // toastInfo = (title, msg) => {
   //   return this.toastr.info(msg, title, {

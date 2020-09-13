@@ -1,103 +1,56 @@
-// import {Time} from '@angular/common';
-
 export class User {
   id = 0;
-  name = 'user';
-  email = 'user@angular.io';
-  // email_verified_at = ''
-  phone = '00';
-  password = '123';
+  nom = '';
+  prenom = '';
+  imageUrl = '';
+  intro = '';
+  email = '';
+  tel = '';
+  adresse = '';
+  cin = '';
+  password = '';
   role = '';
-  idRegion = 0;
-  region = new Region();
-  // role = new Role();
-  // reservations: Reservation[] = [];
+  isActive = 0;
+  idVille = 0;
+
+  ville = new Ville();
+  userDetailUserActivites: DetailUserActivite[] = [];
 }
 
-export class Role {
+export class Ville {
   id = 0;
   nom = '';
-  users: User[] = [];
+  nomAr = '';
+
+  villeUsers: User[] = [];
 }
 
-export class Region {
+export class DetailUserActivite {
   id = 0;
-  name = '';
+  date = new Date();
+  idUser = 0;
+  idActivite = 0;
+
+  user = new User();
+  activite = new Activite();
+}
+
+export class TypeActivite {
+  id = 0;
+  nom = '';
+  nomAr = '';
   imageUrl = '';
-  users: User[] = [];
+
+  typeActiviteActivites: Activite[] = [];
 }
 
 export class Activite {
   id = 0;
-  title = '';
-  description = '';
-  date = new Date();
+  nom = '';
+  nomAr = '';
   imageUrl = '';
-  idRegion = 0;
-  idUser = 0;
-  users = new User();
-}
+  idTypeActivite = 0;
 
-export class Contact {
-  id = 0;
-  name = '';
-  email = '';
-  message = '';
-  phone = '';
-}
-
-export class Planification {
-  id = 0;
-  title = '';
-  description = '';
-  date = new Date();
-  imageUrl = '';
-  idRegion = 0;
-  idUser = 0;
-  users = new User();
-}
-
-export class President {
-  id = 0;
-  title = '';
-  titleAr = '';
-  description = '';
-  descriptionAr = '';
-  date = new Date();
-  imageUrl = '';
-}
-
-export class Actualite {
-  id = 0;
-  title = '';
-  titleAr = '';
-  description = '';
-  descriptionAr = '';
-  date = new Date();
-  imageUrl = '';
-}
-
-export class Blog {
-  id = 0;
-  title = '';
-  description = '';
-  date = new Date();
-  imageUrl = '';
-  idRegion = 0;
-  idUser = 0;
-  users = new User();
-}
-
-export class Galerie {
-  id = 0;
-  title = '';
-  description = '';
-  date = new Date();
-  imageUrl = '';
-}
-
-export class NewsLetter {
-  id = 0;
-  email = '';
-  date = new Date();
+  typeActivite = new TypeActivite();
+  activiteDetailUserActivites: DetailUserActivite[] = [];
 }

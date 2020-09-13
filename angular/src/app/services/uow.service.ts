@@ -1,57 +1,45 @@
-import { FileUploadService } from './file.upload.service';
+
 import { Injectable } from '@angular/core';
-import { RegionService } from './region.service';
-import { UserService } from './user.service';
-import { RoleService } from './role.service';
-import { listIcons } from './icons';
-import * as moment from 'moment';
-import { ActiviteService } from './activite.service';
 import { AccountService } from './account.service';
-import { PresidentService } from './president.service';
-import { PlanificationService } from './planification.service';
-import { GalerieService } from './galerie.service';
-import { BlogService } from './blog.service';
-import { ContactService } from './contact.service';
-import { SuperService } from './super.service';
-import { ActualiteService } from './actualite.service';
+import { UserService } from './user.service';
+import { VilleService } from './ville.service';
+import { DetailUserActiviteService } from './detailUserActivite.service';
+import { TypeActiviteService } from './typeActivite.service';
+import { ActiviteService } from './activite.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UowService {
-  presidents = new PresidentService();
-  planifications = new PlanificationService();
-  activites = new ActiviteService();
-  actualites = new ActualiteService();
-  galeries = new GalerieService();
-  blogs = new BlogService();
-  contacts = new ContactService();
-
-  files = new FileUploadService();
-  regions = new RegionService();
-  users = new UserService();
-  roles = new RoleService();
   accounts = new AccountService();
-  newsLetters = new SuperService('newsLetter');
+  users = new UserService();
+villes = new VilleService();
+detailUserActivites = new DetailUserActiviteService();
+typeActivites = new TypeActiviteService();
+activites = new ActiviteService();
 
-  profils = [
-    { id: 1, name: 'Role1', },
-    { id: 2, name: 'Role2', },
-    { id: 3, name: 'Administrateur' },
-  ];
-
-  positions = [1, 2, 3, 4, 5];
-  langs = ['fr', 'en', 'ar'];
-  rolesA = ['Admin', 'User'];
-
-  icons = listIcons;
-
+  
+  years = [...Array(new Date().getFullYear() - 2015).keys()].map(e => 2015 + e + 1);
+  months = [...Array(12).keys()].map(e => e + 1);
+  monthsAlpha = [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ].map((e, i) => {
+    return { id: i + 1, name: e };
+  });
   constructor() { }
 
-  valideDate(date: Date): any {
-    if (date === null) {
-      return null;
-    }
+  valideDate(date: Date): Date {
     date = new Date(date);
 
     const hoursDiff = date.getHours() - date.getTimezoneOffset() / 60;
@@ -59,6 +47,18 @@ export class UowService {
     date.setHours(hoursDiff);
     date.setMinutes(minutesDiff);
 
-    return moment(date).format('YYYY-MM-DD HH:mm:ss');
+    return date;
+  }
+
+  arrayToString(t: string[]) {
+    return t.map(e => `${e};`).reduce((p, c) => p + c);
+  }
+
+  stringToArray(s: string): string[] {
+    const t = s.split(';');
+
+    t.pop();
+
+    return t;
   }
 }

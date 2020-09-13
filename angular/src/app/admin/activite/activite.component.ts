@@ -1,17 +1,23 @@
-import { Component, OnInit, ViewChild, EventEmitter, Inject } from '@angular/core';
-import { MatPaginator, MatSort, MatDialog } from '@angular/material';
-import { merge } from 'rxjs';
+import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy } from '@angular/core';
+import { merge, Subscription, Subject } from 'rxjs';
 import { UpdateComponent } from './update/update.component';
 import { UowService } from 'src/app/services/uow.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Activite } from 'src/app/models/models';
-import { DeleteService } from 'src/app/layouts/delete/delete.service';
+import { ExcelService } from 'src/app/shared/excel.service';
+import { FormControl } from '@angular/forms';
+import { startWith } from 'rxjs/operators';
+import { MyrouteService } from '../myroute.service';
 
 @Component({
   selector: 'app-activite',
   templateUrl: './activite.component.html',
   styleUrls: ['./activite.component.scss']
 })
-export class ActiviteComponent implements OnInit {
+export class ActiviteComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   update = new EventEmitter();
@@ -19,27 +25,32 @@ export class ActiviteComponent implements OnInit {
   resultsLength = 0;
   isRateLimitReached = false;
 
-  dataSource = [];
-  columnDefs = [
-    { columnDef: 'imageUrl', headName: 'image' },
-    { columnDef: 'title', headName: '' },
-    { columnDef: 'date', headName: '' },
-    { columnDef: 'region', headName: '' },
-    // { columnDef: 'destination', headName: '' },
-    { columnDef: 'option', headName: 'OPTION' },
-  ].map(e => {
-    e.headName = e.headName === '' ? e.columnDef.toUpperCase() : e.headName.toUpperCase();
-    return e;
-  });
+  subs: Subscription[] = [];
 
-  displayedColumns = this.columnDefs.map(e => e.columnDef);
+  dataSource: Activite[] = [];
+  selectedList: Activite[] = [];
 
-  constructor(private uow: UowService, public dialog: MatDialog, private mydialog: DeleteService
-    , @Inject('BASE_URL') private url: string ) { }
+  displayedColumns = [/*'select',*/  'imageUrl', 'nom', 'nomAr', 'typeActivite', 'option'];
+
+  panelOpenState = false;
+
+  nom = new FormControl('');
+  nomAr = new FormControl('');
+  idTypeActivite = new FormControl(0);
+
+
+  typeActivites = this.uow.typeActivites.get();
+
+
+
+
+  constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    this.breadcrumb.name = 'Activites';
+  }
 
   ngOnInit() {
-    this.getPage(0, 10, 'id', 'desc');
-    merge(...[this.sort.sortChange, this.paginator.page, this.update]).subscribe(
+    const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
       r => {
         r === true ? this.paginator.pageIndex = 0 : r = r;
         !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
@@ -50,35 +61,60 @@ export class ActiviteComponent implements OnInit {
           this.paginator.pageSize,
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
+          this.nom.value === '' ? '*' : this.nom.value,
+          this.nomAr.value === '' ? '*' : this.nomAr.value,
+          this.idTypeActivite.value === 0 ? 0 : this.idTypeActivite.value,
+
         );
       }
     );
+
+
+
+    this.subs.push(sub);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir) {
-    this.uow.activites.getList(startIndex, pageSize, sortBy, sortDir).subscribe(
+  reset() {
+    this.nom.setValue('');
+    this.nomAr.setValue('');
+    this.idTypeActivite.setValue(0);
+
+    this.update.next(true);
+  }
+
+  generateExcel() {
+    this.excel.json_to_sheet(this.dataSource);
+  }
+
+  search() {
+    this.update.next(true);
+  }
+
+  getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idTypeActivite,) {
+    const sub = this.uow.activites.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idTypeActivite,).subscribe(
       (r: any) => {
-        console.log(r.token);
+        console.log(r.list);
         this.dataSource = r.list;
         this.resultsLength = r.count;
         this.isLoadingResults = false;
       }
     );
-  }
 
-  openDialog(o: Activite, text) {
+    this.subs.push(sub);
+  }
+  
+  openDialog(o: Activite, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
-      width: '75vw',
-      // height: '80vh',
+      width: '1100px',
       disableClose: true,
-      data: { model: o, title: text }
+      data: { model: o, title: text, visualisation: bool }
     });
 
     return dialogRef.afterClosed();
   }
 
   add() {
-    this.openDialog(new Activite(), 'Ajouter activité').subscribe(result => {
+    this.openDialog(new Activite(), `Ajouter ${this.breadcrumb.name}`, false).subscribe(result => {
       if (result) {
         this.update.next(true);
       }
@@ -86,18 +122,27 @@ export class ActiviteComponent implements OnInit {
   }
 
   edit(o: Activite) {
-    this.openDialog(o, 'Modifier activité').subscribe((result: Activite) => {
+    this.openDialog(o, `Modifier ${this.breadcrumb.name}`, false).subscribe((result: Activite) => {
       if (result) {
         this.update.next(true);
       }
     });
   }
 
-  async delete(o: Activite) {
-    const r = await this.mydialog.openDialog('activité').toPromise();
+  detail(o: Activite) {
+    this.openDialog(o, `Détail ${this.breadcrumb.name}`, true).subscribe((result: Activite) => {
+      if (result) {
+        this.update.next(true);
+      }
+    });
+  }
+
+  async delete(id: number) {
+    const r = await this.mydialog.openDialog(this.breadcrumb.name).toPromise();
     if (r === 'ok') {
-      this.uow.activites.delete(o.id).subscribe(() => this.update.next(true));
-      const d = await this.uow.files.deleteFiles([o.imageUrl.replace(';', '')], 'activites').toPromise();
+      const sub = this.uow.activites.delete(id).subscribe(() => this.update.next(true));
+
+      this.subs.push(sub);
     }
   }
 
@@ -114,6 +159,50 @@ export class ActiviteComponent implements OnInit {
 
   imgError(img: any) {
     img.src = 'assets/404.jpg';
+  }
+
+  //check box
+  //
+  isSelected(row: Activite): boolean {
+    return this.selectedList.find(e => e.id === row.id) ? true : false;
+  }
+
+  check(row: Activite) {
+    const i = this.selectedList.findIndex(o => row.id === o.id);
+    const existe: boolean = i !== -1;
+
+    existe ? this.selectedList.splice(i, 1) : this.selectedList.push(row);
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected(): boolean {
+    const numSelected = this.selectedList.length;
+    const numRows = this.dataSource.length;
+
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ? this.selectedList = [] : this.selectedList = Array.from(this.dataSource);
+  }
+
+  async deleteList() {
+    const r = await this.mydialog.openDialog('role').toPromise();
+    if (r === 'ok') {
+      const sub = this.uow.activites.deleteRange(this.selectedList).subscribe(() => {
+        this.selectedList = [];
+        this.update.next(true);
+      });
+
+      this.subs.push(sub);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(e => {
+      e.unsubscribe();
+    });
   }
 
 }

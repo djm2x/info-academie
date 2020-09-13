@@ -1,5 +1,5 @@
 import { Injectable, Component, Inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarRef, MAT_SNACK_BAR_DATA, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBarRef, MatSnackBar, MatSnackBarConfig, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +13,16 @@ export class SnackbarService {
     //   duration: 2000,
     // });
     const configs: MatSnackBarConfig<any> = {
-      panelClass: ['green-snackbar'],
+      panelClass: ['customClass'],
       data: message,
-      duration: 2000,
     };
 
     this.snackBarRef = this.snackBar.openFromComponent(MessageComponent, configs);
   }
 
-  openSnackBar(message: string, action = 'Ferme') {
+  openSnackBar(message: string, action = 'close') {
     this.snackBarRef = this.snackBar.open(message, action, {
-      panelClass: ['purple-snackbar'],
-      data: message,
-      duration: 2000,
+      duration: 10000,
     });
   }
 

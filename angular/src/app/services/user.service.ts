@@ -1,29 +1,23 @@
 import { SuperService } from './super.service';
 import { Injectable } from '@angular/core';
-
+import { User } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends SuperService<any> {
+export class UserService extends SuperService<User> {
 
   constructor() {
     super('users');
   }
 
-  // register(o: User) {
-  //   return http.post(`${url}/users/register`, o);
-  // }
+  getAll(startIndex, pageSize, sortBy, sortDir, nom, prenom, intro, email, tel, adresse, cin, role, isActive, idVille, ) {
 
-  getUsers(page, perPage, nom, prenom, organisme) {
-    // tslint:disable-next-line: max-line-length
-    return this.http.get(`${this.urlApi}/users/getUsers?start=` + (page - 1) * perPage + '&number=' + perPage + '&nom=' + nom + '&prenom=' + prenom + '&organisme=' + organisme)
+    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${prenom}/${intro}/${email}/${tel}/${adresse}/${cin}/${role}/${isActive}/${idVille}`);
   }
 
-  getAll(startIndex, pageSize, sortBy, sortDir, nom = '*', prenom = '*', organisme = 0) {
-    return this.http.get(
-      `${this.urlApi}/${this.controller}/GetAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${prenom}/${organisme}`
-      );
+  getAllForStatistique(nom, prenom, intro, email, tel, adresse, cin, role, isActive, idVille, ) {
+    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${nom}/${prenom}/${intro}/${email}/${tel}/${adresse}/${cin}/${role}/${isActive}/${idVille}`);
   }
 
 }

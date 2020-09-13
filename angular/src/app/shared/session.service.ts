@@ -1,98 +1,103 @@
-import { Injectable, PLATFORM_ID, Inject, EventEmitter } from '@angular/core';
-import { User } from '../models/models';
+import { Injectable } from '@angular/core';
+import { Utilisateur } from '../models/models';
 
 const USER = 'USER';
 const TOKEN = 'TOKEN';
-const ROLE = 'ROLE';
 
-const ID_1 = 1;
-const ID_2 = 2;
-const ID_3 = 3;
+const ADMIN = 'admin';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  public user = new User();
+
+  public user = new Utilisateur();
   public token = '';
-  public idRole = '';
-  public notif: EventEmitter<{ is: boolean, user: User, idRole?: number }> = new EventEmitter();
+
   constructor() {
     this.getSession();
   }
   // se connecter
-  public doSignIn(user: User, token, idRole) {
-    if (!user || !token || !idRole) {
+  public doSignIn(user: Utilisateur, token) {
+    if (!user || !token) {
       return;
     }
     this.user = user;
     this.token = token;
-    this.idRole = idRole;
     localStorage.setItem(USER, (JSON.stringify(this.user)));
     localStorage.setItem(TOKEN, (JSON.stringify(this.token)));
-    localStorage.setItem(ROLE, (JSON.stringify(this.idRole)));
-    this.notif.next({ is: true, user: this.user });
+  }
+
+  public updateUtilisateur(user: Utilisateur) {
+    if (!user) {
+      return;
+    }
+    this.user = user;
+    localStorage.setItem(USER, (JSON.stringify(this.user)));
   }
 
   // se deconnecter
   public doSignOut(): void {
-    this.user = new User();
+    this.user = new Utilisateur();
     localStorage.removeItem(USER);
     localStorage.removeItem(TOKEN);
-    localStorage.removeItem(ROLE);
-    this.notif.next({ is: false, user: this.user });
   }
 
   // this methode is for our auth guard
   get isSignedIn(): boolean {
-    // console.log(!!localStorage.getItem(USER) ||
-    // !!localStorage.getItem(TOKEN) ||
-    // !!localStorage.getItem(ROLE));
-    return !!localStorage.getItem(USER) ||
-      !!localStorage.getItem(TOKEN) ||
-      !!localStorage.getItem(ROLE)
-      ;
+    return (!!localStorage.getItem(USER)) || (!!localStorage.getItem(TOKEN));
   }
 
   public getSession(): void {
     try {
       this.user = JSON.parse(localStorage.getItem(USER));
       this.token = JSON.parse(localStorage.getItem(TOKEN));
-      this.idRole = JSON.parse(localStorage.getItem(ROLE));
-      // this.user = JSON.parse(atob(localStorage.getItem(USER)));
-      // this.token = JSON.parse(atob(localStorage.getItem(TOKEN)));
-      // this.idRole = JSON.parse(atob(localStorage.getItem(ROLE)));
-      this.notif.next({ is: true, user: this.user });
     } catch (error) {
-      this.user = new User();
+      this.user = new Utilisateur();
       this.token = '';
-      this.idRole = '';
-      console.warn('error localstorage data', error);
     }
-
-    // console.log('token here : ', this.token);
-    // console.log('idRole here : ', this.idRole);
   }
 
-  // get getUser() {
-  //   return this.user;
-  // }
+  get getUtilisateur() {
+    return this.user;
+  }
 
-  // get isCommercial() {
-  //   return this.user.idRole === ID_1;
-  // }
+  get isCentral() {
+    return this.user.idTypeprofil === 1;
+  }
 
-  // get isManager() {
-  //   return this.user.idRole === ID_2;
-  // }
+  get isRegional() {
+    return this.user.idTypeprofil === 2;
+  }
 
-  // get isAdmin() {
-  //   return this.user.idRole === ID_3;
-  // }
+  get isEnrUser() {
+    return this.user.departement.includes('EnRs & EE');
+  }
+
+  get isCombustibleUser() {
+    return this.user.departement.includes('Combustibles');
+  }
+
+  get isMineUser() {
+    return this.user.departement.includes('Mines');
+  }
+  get isAMAUser() {
+    return this.user.departement.includes('AMA');
+  }
+  get isControleUser() {
+    return this.user.departement.includes('Contrôle');
+  }
+
+  get isAdmin() {
+    return this.user.idTypeprofil === 3;
+  }
+
+  get typeProfil() {
+    if (this.user.idTypeprofil === 1)
+      return 'Centrale';
+    else if (this.user.idTypeprofil === 2)
+      return 'Régionale';
+    else
+      return 'Administrateur';
+  }
 }
-
-// class User {
-//   id: 0;
-//   name = '';
-// }
-

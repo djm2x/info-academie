@@ -23,9 +23,6 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
     UploadComponent,
     DownloadSheetComponent,
     UploadImageComponent,
-  ],
-  entryComponents: [
-    DownloadSheetComponent
   ]
 })
 export class ManageFilesModule { }

@@ -3,10 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ActiviteComponent } from './activite.component';
 
 
-
 const routes: Routes = [
-  { path: 'region', redirectTo: '', pathMatch: 'full'},
-  { path: '', component: ActiviteComponent }
+  { path: '', redirectTo: 'list', pathMatch: 'full'},
+  { path: 'list', component: ActiviteComponent }
 ];
 
 @NgModule({

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from './loader.service';
 import { LoaderInterceptor } from './loader-interceptor';
-import { routerTransition } from './animations';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -9,20 +8,27 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: 'loader.component.html',
   styleUrls: ['./loader.component.scss'],
   animations: [
-    trigger('tabAnimation', [
-        state('show', style({
-            opacity: 1,
-        })),
-        state('hide', style({
-            opacity: 0,
-        })),
-        transition('show => hide', animate('700ms ease-in-out')),
-        transition('hide => show', animate('700ms 0ms ease-in-out'))
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        // height: '200px',
+        right: 0,
+        // backgroundColor: 'yellow'
+      })),
+      state('closed', style({
+        // height: '100px',
+        // opacity: 0.5,
+        right: '-52px',
+        // backgroundColor: 'green'
+      })),
+      transition('open <=> closed', [
+        animate('0.5s')
+      ]),
     ]),
-  ]
+  ],
 })
 export class LoaderComponent implements OnInit {
-  isActive = false;
+  isOpen = true;
   constructor(public loader: LoaderService) { }
 
   ngOnInit() {
@@ -32,8 +38,5 @@ export class LoaderComponent implements OnInit {
     //   },
     //   e => console.log(e)
     // );
-    // this.loader.isLoading.subscribe(r => {
-    //   this.isActive = r;
-    // });
   }
 }

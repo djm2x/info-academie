@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -18,23 +18,60 @@ export class SnackBarService {
     this.snackBar.open(message, null, config);
   }
 
-  notifyOk(message: string) {
-    const config = {
-      panelClass: ['yellow-snackbar'],
-      duration: 7500,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: 'bottom',
-    };
+  manageStatusCode(code: number) {
+    // console.log(code);
+    switch (code) {
+      case 200: break;
+      case 199: this.notifyOk(code, this.listMessage(code)); break;
+      case 201: this.notifyOk(code, this.listMessage(code)); break;
+      case 204: this.notifyOk(code, this.listMessage(code)); break;
+      case 404: this.notifyAlert(code, this.listMessage(code)); break;
+      case 401: this.notifyAlert(code, this.listMessage(code)); break;
+      case 403: this.notifyAlert(code, this.listMessage(code)); break;
+      case 500: this.notifyAlert(code, this.listMessage(code)); break;
+      case 250: this.notifyOk(code, this.listMessage(code)); break;
+      default: this.notifyOk(code, this.listMessage(code)); break;
+    }
 
-    this.snackBar.open(message, null, config as any);
   }
 
-  notifyAlert(message: string) {
+  notifyOk(code, message: string) {
     const config = {
-      panelClass: ['alert-snackbar'],
-      duration: 15500
+      panelClass: ['green-snackbar'],
+      duration: 1500,
+      // horizontalPosition: this.horizontalPosition,
+      // verticalPosition: this.verticalPosition,
     };
 
     this.snackBar.open(message, null, config);
+  }
+
+  notifyAlert(code, message: string) {
+    const config = {
+      panelClass: ['alert-snackbar'],
+      duration: 1500
+    };
+
+    this.snackBar.open(message, null, config);
+  }
+
+  message(code) {
+
+  }
+
+  listMessage(code): string {
+    // source https://github.com/aspnet/AspNetCore/blob/master/src/Http/Http.Abstractions/src/StatusCodes.cs
+    const list = [
+      { code: 202, message: `Enregistrement a été bien supprimé`},
+      { code: 201, message: `Enregistrement a été bien ajouté`},
+      { code: 204, message: `Enregistrement a été bien edité`},
+      { code: 404, message: `Chemin non trouvé`},
+      { code: 401, message: `Chemin non autorisé`},
+      { code: 403, message: `Chemin Interdit`},
+      { code: 250, message: `Les enregistrements on été ajoutés`},
+      { code: 500, message: `Impossible d'effectuer cette opération`},
+    ];
+    const o = list.find(e => e.code === code);
+    return o ? o.message : `${code}: erreur inconnue`;
   }
 }

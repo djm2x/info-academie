@@ -1,4 +1,3 @@
-import { DeleteComponent } from './layouts/delete/delete.component';
 import { LoaderModule } from './loader/loader.module';
 import { MatModule } from './mat.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,19 +12,19 @@ import { InjectService } from './inject.service';
 import { AppRoutingModule } from './app-routing.module';
 import { MessageComponent } from './shared/snakebar.service';
 import { LoaderInterceptor } from './loader/loader-interceptor';
-import { MatDialogRef, MAT_DIALOG_DATA, MAT_DATE_LOCALE
-  , MatToolbarModule, MatProgressSpinnerModule, MatDividerModule
-  , MatButtonModule, MatSnackBarModule, MatDialogModule } from '@angular/material';
-import { ToastrModule } from 'ngx-toastr';
-
+import { DeleteComponent } from './components/delete/delete.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
     MessageComponent,
     DeleteComponent,
-  ],
-  entryComponents: [
-    DeleteComponent
   ],
   imports: [
     // ReactiveFormsModule,
@@ -39,10 +38,10 @@ import { ToastrModule } from 'ngx-toastr';
     MatButtonModule,
     MatSnackBarModule,
     MatDialogModule,
+    //
     // FormsModule,
     BrowserAnimationsModule,
     LoaderModule,
-    ToastrModule.forRoot(),
     // MatSnackBarModule,
     // MatProgressSpinnerModule,
   ],
@@ -53,8 +52,6 @@ import { ToastrModule } from 'ngx-toastr';
       useClass: LoaderInterceptor,
       multi: true
     },
-    { provide: MatDialogRef, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

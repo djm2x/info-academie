@@ -1,12 +1,10 @@
-import 'hammerjs';
 import { enableProdMode, StaticProvider } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-
-const port = '8000';
+const port = '5002';
 const host = 'http://localhost';
 
 const apiUrl = `${host}:${port}/api`;

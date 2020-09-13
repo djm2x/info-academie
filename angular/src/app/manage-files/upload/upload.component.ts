@@ -1,4 +1,4 @@
-import { FileUploadService } from './../../services/file.upload.service';
+import { FileUploadService } from '../../services/file.upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -100,8 +100,8 @@ export class UploadComponent implements OnInit {
   }
 
   async submit() {
-    
-    
+
+
     const formData = new FormData();
 
     this.files.forEach(e => {

@@ -16,7 +16,7 @@ add_alarm e193
 add_alert e003
 add_box e146
 add_circle e147
-add_circle_fill e148
+add_circle_outline e148
 add_location e567
 add_shopping_cart e854
 add_to_photos e39d
@@ -152,10 +152,10 @@ center_focus_weak e3b5
 change_history e86b
 chat e0b7
 chat_bubble e0ca
-chat_bubble_fill e0cb
+chat_bubble_outline e0cb
 check e5ca
 check_box e834
-check_box_fill_blank e835
+check_box_outline_blank e835
 check_circle e86c
 chevron_left e5cb
 chevron_right e5cc
@@ -259,7 +259,7 @@ email e0be
 enhanced_encryption e63f
 equalizer e01d
 error e000
-error_fill e001
+error_outline e001
 euro_symbol e926
 ev_station e56d
 event e878
@@ -397,7 +397,7 @@ headset_mic e311
 healing e3f3
 hearing e023
 help e887
-help_fill e8fd
+help_outline e8fd
 high_quality e024
 highlight e25f
 highlight_off e888
@@ -417,7 +417,7 @@ important_devices e912
 inbox e156
 indeterminate_check_box e909
 info e88e
-info_fill e88f
+info_outline e88f
 input e890
 insert_chart e24b
 insert_comment e24c
@@ -442,7 +442,7 @@ keyboard_tab e31c
 keyboard_voice e31d
 kitchen eb47
 label e892
-label_fill e893
+label_outline e893
 landscape e3f7
 language e894
 laptop e31e
@@ -459,7 +459,7 @@ lens e3fa
 library_add e02e
 library_books e02f
 library_music e030
-lightbulb_fill e90f
+lightbulb_outline e90f
 line_style e919
 line_weight e91a
 linear_scale e260
@@ -504,7 +504,7 @@ location_on e0c8
 location_searching e1b7
 lock e897
 lock_open e898
-lock_fill e899
+lock_outline e899
 looks e3fc
 looks_3 e3fb
 looks_4 e3fd
@@ -517,7 +517,7 @@ loupe e402
 low_priority e16d
 loyalty e89a
 mail e158
-mail_fill e0e1
+mail_outline e0e1
 map e55b
 markunread e159
 markunread_mailbox e89b
@@ -589,11 +589,11 @@ panorama_vertical e40e
 panorama_wide_angle e40f
 party_mode e7fa
 pause e034
-pause_circle_fill e035
-pause_circle_fill e036
+pause_circle_filled e035
+pause_circle_outline e036
 payment e8a1
 people e7fb
-people_fill e7fc
+people_outline e7fc
 perm_camera_mic e8a2
 perm_contact_calendar e8a3
 perm_data_setting e8a4
@@ -604,7 +604,7 @@ perm_phone_msg e8a8
 perm_scan_wifi e8a9
 person e7fd
 person_add e7fe
-person_fill e7ff
+person_outline e7ff
 person_pin e55a
 person_pin_circle e56a
 personal_video e63b
@@ -636,12 +636,12 @@ picture_as_pdf e415
 picture_in_picture e8aa
 picture_in_picture_alt e911
 pie_chart e6c4
-pie_chart_filld e6c5
+pie_chart_outlined e6c5
 pin_drop e55e
 place e55f
 play_arrow e037
-play_circle_fill e038
-play_circle_fill e039
+play_circle_filled e038
+play_circle_outline e039
 play_for_work e906
 playlist_add e03b
 playlist_add_check e065
@@ -678,7 +678,7 @@ redo e15a
 refresh e5d5
 remove e15b
 remove_circle e15c
-remove_circle_fill e15d
+remove_circle_outline e15d
 remove_from_queue e067
 remove_red_eye e417
 remove_shopping_cart e928

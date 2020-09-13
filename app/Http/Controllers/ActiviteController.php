@@ -3,83 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Activite;
-use Illuminate\Http\Request;
 
-class ActiviteController extends Controller
+class ActiviteController extends SuperController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(Activite $model)
     {
-        //
+        parent::__construct($model);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir) // : Collection
     {
-        //
-    }
+        $list = $this->_context
+            // ->where('idCircuit', $id)
+            // ->where('idCircuit', 'LIKE', "%{$value}%")
+            ->orderBy($sortBy, $sortDir)
+            ->skip($startIndex)
+            ->take($pageSize)
+            ->with('region')
+            ->get()
+            ;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $count = $this->_context->get()->count();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Activite  $activite
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Activite $activite)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Activite  $activite
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Activite $activite)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Activite  $activite
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Activite $activite)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Activite  $activite
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Activite $activite)
-    {
-        //
+        return ['list' => $list, 'count' => $count];
     }
 }
