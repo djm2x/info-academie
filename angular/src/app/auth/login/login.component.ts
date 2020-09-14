@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Utilisateur } from 'src/app/models/models';
+import { User } from 'src/app/models/models';
 import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
 import { SnackbarService } from 'src/app/shared/snakebar.service';
@@ -15,7 +15,7 @@ import { SnackBarService } from 'src/app/loader/snack-bar.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   myForm: FormGroup;
-  o = new Utilisateur();
+  o = new User();
   hide = true;
 
   code = '';
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     // test
-    this.o.email = 'dj-m2x@hotmail.com';
+    this.o.email = 'teacher@angular.io';
     this.o.password = '123';
     this.createForm();
 
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.password.hasError('required') ? 'You must enter a value' : '';
   }
 
-  submit(o: Utilisateur) {
+  submit(o: User) {
 
     this.uow.accounts.login(o).subscribe((r: any) => {
       // test
@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   resetForm() {
-    this.o = new Utilisateur();
+    this.o = new User();
     this.createForm();
   }
 

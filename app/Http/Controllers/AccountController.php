@@ -42,6 +42,18 @@ class AccountController extends SuperController
 
     public function register(Request $request)
     {
+        $user = $this->_context
+            ->where('email', $request->get('email'))
+            ->first()
+            ;
+
+        if ($user != null) {
+            return [
+                'code' => -1,
+                'message' => "Email existe deja : {$request->get('email')}"
+            ];
+        }
+
         return $this->_context->create($request->all());
     }
 

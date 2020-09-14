@@ -1,0 +1,21 @@
+{
+  "auth": {
+    "create": {
+      "Nom": "Nom",
+      "Prenom": "Prenom",
+      "Email": "Email",
+      "Password": "Password",
+      "Répéterlemotdepass": "Répéter le mot de pass",
+      "Role": "Role"
+    }
+  },
+  "admin": {
+    "lang": "Langage",
+    "Enregistre": "Enregistre",
+    "Retour": "Retour",
+    "header": {
+    },
+    "home": {
+    }
+  }
+}

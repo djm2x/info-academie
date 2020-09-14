@@ -18,13 +18,13 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('nom');
             $table->string('prenom');
-            $table->string('imageUrl');
-            $table->string('intro');
+            $table->string('imageUrl')->nullable(true);
+            $table->string('intro')->nullable(true);
             $table->string('email')->unique();
+            $table->string('password');
             $table->string('tel')->nullable(true);
             $table->string('adresse')->nullable(true);
             $table->string('cin')->nullable(true);
-            $table->string('password');
             $table->string('role');
             $table->boolean('isActive');
 

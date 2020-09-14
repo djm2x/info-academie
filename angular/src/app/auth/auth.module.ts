@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatModule } from '../mat.module';
 import { ResetComponent } from './reset/reset.component';
+// import { TranslateModule } from '@ngx-translate/core/public_api';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ResetComponent } from './reset/reset.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatModule,
+    // TranslateModule,
   ]
 })
 export class AuthModule { }

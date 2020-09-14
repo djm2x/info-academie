@@ -3,7 +3,6 @@ import { SessionService } from '../shared';
 import { Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../shared/animations';
 import { MediaService } from '../shared/media.service';
-import { ChatHubService } from './chat.hub.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,13 +17,12 @@ export class AdminComponent implements OnInit {
   panelOpenState = false;
   isMobileWidth = false;
   constructor(public session: SessionService, private router: Router
-    , public myMedia: MediaService, private chat: ChatHubService
+    , public myMedia: MediaService
     , private toastr: ToastrService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.myMedia.windowSizeChanged.subscribe(r => this.isMobileWidth = r.width <= 700);
 
-    this.chat.createConnection().startConnection();
 
     this.messageInComing();
   }

@@ -103,5 +103,5 @@ Route::get('/planifications/getLast/{city}', 'PlanificationController@getLast');
 Route::post('/accounts/login', 'AccountController@login');
 // Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');
 
-Route::post('/accounts/register', 'AccountController@register');
+Route::post('/accounts/create', 'AccountController@register');
 // Route::apiResource('accounts', 'UserController');

@@ -1,0 +1,24 @@
+{
+  "auth": {
+    "create": {
+      "Nom": "Nom",
+      "Prenom": "Prenom",
+      "Email": "Email",
+      "EmailnonValide": "Email non Valide",
+      "Password": "Mot de passe",
+      "Répéterlemotdepass": "Répéter le mot de pass",
+      "Role": "Role",
+      "Inscription": "Inscription",
+      "Connexion": "Connexion"
+    }
+  },
+  "admin": {
+    "lang": "Langage",
+    "Enregistre": "Enregistre",
+    "Retour": "Retour",
+    "header": {
+    },
+    "home": {
+    }
+  }
+}

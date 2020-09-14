@@ -5,6 +5,8 @@ import { LoaderService } from './loader.service';
 import { Router } from '@angular/router';
 import { SnackBarService } from './snack-bar.service';
 import { SessionService } from '../shared';
+import { DialogMessageComponent } from './dialog-message.component';
+import { MatDialog } from '@angular/material/dialog';
 // import { SessionService } from '../shared';
 
 @Injectable({
@@ -21,6 +23,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   constructor(private loaderService: LoaderService, public router: Router
     , public snackBar: SnackBarService , private session: SessionService
+    , public dialog: MatDialog
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -67,6 +70,8 @@ export class LoaderInterceptor implements HttpInterceptor {
               // this.toast.toastError(err.error);
               const er = err.error ? `${err.status}: ${err.error.Description}` : `${err.status}`
               this.snackBar.manageStatusCode(err.status);
+
+              this.openDialog(err);
               // console.warn('>>>>>>>>>>>>>>>>>>>>>>', err.status)
               // this.snackBar.notifyAlert(er);
               // this.snackBar.openSnackBar(`${err.status} : ${err.error.Description}`);
@@ -124,5 +129,15 @@ export class LoaderInterceptor implements HttpInterceptor {
     }
 
     // console.log(length, this.percentage)
+  }
+
+  openDialog(model: HttpErrorResponse) {
+    const dialogRef = this.dialog.open(DialogMessageComponent, {
+      width: '1100px',
+      disableClose: false,
+      data: { model }
+    });
+
+    return dialogRef.afterClosed();
   }
 }

@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 import { UowService } from 'src/app/services/uow.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/shared';
-import { Utilisateur } from 'src/app/models/models';
+import { User } from 'src/app/models/models';
 import { SnackBarService } from 'src/app/loader/snack-bar.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { SnackBarService } from 'src/app/loader/snack-bar.service';
 })
 export class ResetComponent implements OnInit {
   myForm: FormGroup;
-  o = new Utilisateur();
+  o = new User();
   code = '';
   hide = true;
   hide2 = true;

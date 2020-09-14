@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ToastrModule } from 'ngx-toastr';
+
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +49,18 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     LoaderModule,
     // MatSnackBarModule,
     // MatProgressSpinnerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+        deps: [HttpClient]
+      }
+    }),
+
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      // maxOpened: 1,
+    }), 
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr' },

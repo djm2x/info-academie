@@ -4,7 +4,8 @@ import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
 import { SnackbarService } from 'src/app/shared/snakebar.service';
 import { Router } from '@angular/router';
-import { Utilisateur } from 'src/app/models/models';
+import { User } from 'src/app/models/models';
+import { SnackBarService } from 'src/app/loader/snack-bar.service';
 
 @Component({
   selector: 'app-create',
@@ -13,27 +14,43 @@ import { Utilisateur } from 'src/app/models/models';
 })
 export class CreateComponent implements OnInit {
   myForm: FormGroup;
-  o = new Utilisateur();
+  o = new User();
   hide = true;
   hide2 = true;
   checkPassword = new FormControl('', [Validators.required]);
 
+
   constructor(private fb: FormBuilder, public uow: UowService
     , private router: Router, public session: SessionService
-    , private snackbar: SnackbarService) { }
+    , public snackBar: SnackBarService) { }
 
   async ngOnInit() {
     // test
+    this.o.nom = 'teacher';
+    this.o.prenom = 'teacher';
+    this.o.email = 'teacher2@angular.io';
+    this.o.password = '123';
+    this.o.role = 'teacher';
+    //
+    this.checkPassword.setValue('123');
     this.createForm();
+
   }
 
   createForm() {
     this.myForm = this.fb.group({
+      id: [this.o.id],
+      nom: [this.o.nom, [Validators.required]],
+      prenom: [this.o.prenom, [Validators.required]],
+      imageUrl: [this.o.imageUrl, []],
+      intro: [this.o.intro, []],
       email: [this.o.email, [Validators.required, Validators.email]],
       password: [this.o.password, [Validators.required]],
-      id: [this.o.id],
+      tel: [this.o.tel, []],
+      adresse: [this.o.adresse, []],
+      cin: [this.o.cin, []],
+      role: [this.o.role],
       isActive: [this.o.isActive],
-      idRole: [1],
     });
   }
 
@@ -54,15 +71,22 @@ export class CreateComponent implements OnInit {
       (this.checkPassword.value !== this.password.value ? 'les mot de pass sont pas les même' : '');
   }
 
-  submit(o: Utilisateur) {
-
+  submit(o: User) {
     this.uow.accounts.create(o).subscribe((r: any) => {
-      this.router.navigate(['/auth']);
+
+      console.log(r)
+      // this.router.navigate(['/auth']);
+      if (r.code < 0) {
+        this.snackBar.notifyAlert(400, r.message);
+      } else {
+        // this.snackBar.notifyOk(200, r.message);
+        this.router.navigate(['/auth']);
+      }
     });
   }
 
   resetForm() {
-    this.o = new Utilisateur();
+    this.o = new User();
     this.createForm();
   }
 }

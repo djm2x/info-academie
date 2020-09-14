@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Utilisateur } from '../models/models';
+import { User } from '../models/models';
 
 const USER = 'USER';
 const TOKEN = 'TOKEN';
@@ -11,14 +11,14 @@ const ADMIN = 'admin';
 })
 export class SessionService {
 
-  public user = new Utilisateur();
+  public user = new User();
   public token = '';
 
   constructor() {
     this.getSession();
   }
   // se connecter
-  public doSignIn(user: Utilisateur, token) {
+  public doSignIn(user: User, token) {
     if (!user || !token) {
       return;
     }
@@ -28,7 +28,7 @@ export class SessionService {
     localStorage.setItem(TOKEN, (JSON.stringify(this.token)));
   }
 
-  public updateUtilisateur(user: Utilisateur) {
+  public updateUser(user: User) {
     if (!user) {
       return;
     }
@@ -38,7 +38,7 @@ export class SessionService {
 
   // se deconnecter
   public doSignOut(): void {
-    this.user = new Utilisateur();
+    this.user = new User();
     localStorage.removeItem(USER);
     localStorage.removeItem(TOKEN);
   }
@@ -53,51 +53,26 @@ export class SessionService {
       this.user = JSON.parse(localStorage.getItem(USER));
       this.token = JSON.parse(localStorage.getItem(TOKEN));
     } catch (error) {
-      this.user = new Utilisateur();
+      this.user = new User();
       this.token = '';
     }
   }
 
-  get getUtilisateur() {
-    return this.user;
-  }
 
-  get isCentral() {
-    return this.user.idTypeprofil === 1;
-  }
-
-  get isRegional() {
-    return this.user.idTypeprofil === 2;
-  }
-
-  get isEnrUser() {
-    return this.user.departement.includes('EnRs & EE');
-  }
-
-  get isCombustibleUser() {
-    return this.user.departement.includes('Combustibles');
-  }
-
-  get isMineUser() {
-    return this.user.departement.includes('Mines');
-  }
-  get isAMAUser() {
-    return this.user.departement.includes('AMA');
-  }
-  get isControleUser() {
-    return this.user.departement.includes('Contrôle');
-  }
 
   get isAdmin() {
-    return this.user.idTypeprofil === 3;
+    return this.user.role === 'admin';
   }
 
   get typeProfil() {
-    if (this.user.idTypeprofil === 1)
+    if (this.user.role === 'student') {
       return 'Centrale';
-    else if (this.user.idTypeprofil === 2)
+    }
+    else if (this.user.role === 'prof') {
       return 'Régionale';
-    else
-      return 'Administrateur';
+    }
+    else {
+      return 'admin';
+    }
   }
 }
