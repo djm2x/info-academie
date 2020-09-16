@@ -10,6 +10,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
           <p style="font-weight: bold; line-height: 2.5;">
             {{model.error?.exception}} => {{model.error?.message}}
             {{model.error?.error?.message}}
+            
+            {{model.message}}
           </p>
         </div>
     </div>

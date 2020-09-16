@@ -20,6 +20,14 @@ export class AccountService extends SuperService<User> {
     return this.http.post(`${this.urlApi}/${this.controller}/create`, model);
   }
 
+  createProf(model) {
+    return this.http.post(`${this.urlApi}/${this.controller}/createProf`, model);
+  }
+
+  createStudent(model) {
+    return this.http.post(`${this.urlApi}/${this.controller}/createStudent`, model);
+  }
+
   sendEmailForResetPassword(email, url, lang) {
     return this.http.get(`${this.urlApi}/${this.controller}/sendEmailForResetPassword/${email}/${url}/${lang}`);
   }

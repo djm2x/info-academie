@@ -2,15 +2,16 @@ export class User {
   id = 0;
   nom = '';
   prenom = '';
-  imageUrl = '';
-  intro = '';
+  tel1 = '';
+  tel2 = '';
   email = '';
-  tel = '';
-  adresse = '';
-  cin = '';
   password = '';
-  role = '';
   isActive = 0;
+  date = new Date();
+  adresse = '';
+  imageUrl = '';
+  cin = '';
+  role = '';
   idVille = 0;
 
   ville = new Ville();
@@ -53,4 +54,58 @@ export class Activite {
 
   typeActivite = new TypeActivite();
   activiteDetailUserActivites: DetailUserActivite[] = [];
+}
+
+export class Prof {
+  id = 0;
+  experience = '';
+  approche = '';
+  intro = '';
+  videoUrl = '';
+  cvUrl = '';
+
+  prixHrWeb = 0;
+  prixHrHome = 0;
+  prixHrWebGroupe = 0;
+  prixHrHomeGroupe = 0;
+
+  idsActivites = '';
+  idsTypeCours = '';
+  idsLieuCours = '';
+  idsNiveauScolaires = '';
+  
+  idUser = '';
+  user = new User();
+}
+
+export class Student {
+  id = 0;
+  ecole = '';
+  niveau = '';
+  nomParent = '';
+  prenomParent = '';
+  tel1Parent = '';
+  tel2Parent = '';
+  
+
+  user = new User();
+  activite = new Activite();
+}
+
+export class TypeCours {
+  id = 0;
+  nom = '';
+  nomAr = '';
+}
+
+export class LieuCours {
+  id = 0;
+  nom = '';
+  nomAr = '';
+}
+
+export class NiveauScolaire {
+  id = 0;
+  nom = '';
+  nomAr = '';
 }

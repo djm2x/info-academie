@@ -1,0 +1,84 @@
+<mat-vertical-stepper linear>
+    <mat-step [stepControl]="myForm">
+        <form [formGroup]="myForm">
+
+            <div class="">
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.Nom' | translate  }}</mat-label>
+                    <input matInput formControlName="nom">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.Prenom' | translate  }}</mat-label>
+                    <input matInput formControlName="prenom">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.tel1' | translate  }}</mat-label>
+                    <input matInput formControlName="tel1">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.tel2' | translate  }}</mat-label>
+                    <input matInput formControlName="tel2">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.Email' | translate  }}</mat-label>
+                    <input matInput formControlName="email" placeholder="Email address">
+                    <mat-error *ngIf="emailError">{{ 'auth.create.EmailnonValide' | translate  }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.Password' | translate  }}</mat-label>
+                    <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="passwordError">{{passwordError}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-6 mb-4">
+                    <mat-label>{{ 'auth.create.Répéterlemotdepass' | translate  }}</mat-label>
+                    <input matInput [formControl]="checkPassword" placeholder="Répéter le mot de pass"
+                        [type]="hide2 ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="checkPassword.touched && checkPasswordError">{{checkPasswordError}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ 'auth.create.Adresse' | translate  }}</mat-label>
+                    <textarea matInput formControlName="adresse"></textarea>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>{{ 'auth.create.Ville' | translate  }}</mat-label>
+                    <mat-select formControlName="idVille">
+                        <mat-option *ngFor="let e of uow.villes.get()" [value]="e.id">
+                            {{ myTranslate.langSync === 'fr' ? e.nom : e.nomAr }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <app-upload-image class="col-md-12" nameBtn="Image" multiple="true"
+                    [folderToSaveInServer]="optImage.folderToSaveInServer" [propertyOfParent]="optImage.imageTo"
+                    [eventSubmitToParent]="optImage.imageFrom" [eventSubmitFromParent]="optImage.eventSubmitFromParent">
+                </app-upload-image>
+
+
+                {{myForm.value | json}}
+                <button class="col-md-12 mb-2" mat-raised-button color="accent"
+                    [disabled]="myForm.invalid || checkPasswordError !== ''"
+                    type="submit">{{ 'auth.create.Inscription' | translate  }}</button>
+            </div>
+
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="myFormProf">
+        <form [formGroup]="myFormProf">
+            ...
+        </form>
+    </mat-step>
+</mat-vertical-stepper>

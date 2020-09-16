@@ -21,11 +21,11 @@ class CreateVillesTable extends Migration
             $table->timestamps();
         });
 
-        DB::insert("INSERT INTO `villes` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
-            (1, 'Rabat', 'Rabat', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (2, 'CasaBlanca', 'CasaBlanca', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (3, 'Larache', 'Larache', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
-        ");
+        // DB::insert("INSERT INTO `villes` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
+        //     (1, 'Rabat', 'Rabat', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (2, 'CasaBlanca', 'CasaBlanca', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (3, 'Larache', 'Larache', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
+        // ");
     }
 
     /**

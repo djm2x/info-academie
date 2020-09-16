@@ -1,8 +1,12 @@
+<div class="row justify-content-center align-items-center m-0 pl-2 pr-2">
+    <mat-card class="mat-elevation-z8 mywith">
+
+
 
         <form [formGroup]="myForm" (ngSubmit)="submit(myForm.value)">
             <div class="d-flex flex-column justify-content-center align-items-center">
 
-                <img class="mb-4 mt-3" src="assets/logo_ministere_v2.png"  alt="logo" style="width: 100%;">
+                <img class="mb-4 mt-3" src="assets/logo_ministere_v2.png" alt="logo" style="width: 100%;">
 
                 <h2 style="text-align:center;">Suivi des activités <br> des services déconcentrés</h2>
 
@@ -16,20 +20,25 @@
 
                     <mat-form-field appearance="fill" class="col-md-12 p-0 mb-4">
                         <mat-label>Mot de passe</mat-label>
-                        <input matInput formControlName="password" placeholder="Mot de passe" [type]="hide ? 'password' : 'text'">
+                        <input matInput formControlName="password" placeholder="Mot de passe"
+                            [type]="hide ? 'password' : 'text'">
                         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
                         </mat-icon>
                     </mat-form-field>
 
-                      <button class="col-md-12 mb-2" [disabled]="myForm.invalid" mat-raised-button color="primary" type="submit">Connexion</button>
+                    <button class="col-md-12 mb-2" [disabled]="myForm.invalid" mat-raised-button color="primary"
+                        type="submit">Connexion</button>
 
 
-                      <button class="col-md-12" [routerLink]="['/auth/create']" mat-raised-button color="accent" type="button">Inscription</button>
+                    <button class="col-md-12" [routerLink]="['/auth/create']" mat-raised-button color="accent"
+                        type="button">Inscription</button>
 
-                      <div class="d-flex flex-row-reverse mt-2 mb-2">
+                    <div class="d-flex flex-row-reverse mt-2 mb-2">
                         <!-- <span style="cursor: pointer;" [routerLink]="['/auth/reset']">Mot de passe oublié?</span> -->
                         <!-- <span style="cursor: pointer;" >Mot de passe oublié?</span> -->
-                      </div>
+                    </div>
                 </div>
             </div>
         </form>
+    </mat-card>
+</div>

@@ -54,6 +54,13 @@ class AccountController extends SuperController
             ];
         }
 
+        // $data = User::create(['name'=>'first']);
+        // dd($data->id);
+
+        // $data = new User;
+        // $data->name = 'Test';
+        // $data->save();
+
         return $this->_context->create($request->all());
     }
 

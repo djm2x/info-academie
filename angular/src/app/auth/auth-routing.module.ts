@@ -16,7 +16,8 @@ const routes: Routes = [
       // { path: '**', redirectTo: 'home', pathMatch: 'full'},
       { path: 'login/:code', component: LoginComponent},
       { path: 'login', component: LoginComponent},
-      { path: 'create', component: CreateComponent},
+      // { path: 'create', component: CreateComponent},
+      { path: 'create', loadChildren: () => import('./create/create.module').then(m => m.CreateModule), data: {animation: 'create'} },
       { path: 'reset/:code', component: ResetComponent},
       { path: 'reset', component: ResetComponent},
     ]
