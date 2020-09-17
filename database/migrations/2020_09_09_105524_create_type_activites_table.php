@@ -22,11 +22,11 @@ class CreateTypeActivitesTable extends Migration
             $table->timestamps();
         });
 
-        // DB::insert("INSERT INTO `type_activites` (`id`, `nom`, `nomAr`, `imageUrl`, `created_at`, `updated_at`) VALUES
-        //     (1, 'Soutenance scolaire', 'الدفاع المدرسي', 'imageUrl', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-        //     (2, 'Langage', 'لغة', 'imageUrl', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-        //     (3, 'Activites paralelle', 'الأنشطة الموازية', 'imageUrl', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
-        // ");
+        DB::insert("INSERT INTO `type_activites` (`id`, `nom`, `nomAr`, `imageUrl`, `created_at`, `updated_at`) VALUES
+            (1, 'Soutenance scolaire', 'الدفاع المدرسي', 'imageUrl', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+            (2, 'Langage', 'لغة', 'imageUrl', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+            (3, 'Activites paralelle', 'الأنشطة الموازية', 'imageUrl', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
+        ");
     }
 
     /**

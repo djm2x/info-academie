@@ -9,6 +9,8 @@ export class MyTranslateService {
   lang = new BehaviorSubject(this.translate.currentLang);
   langSync = 'fr';
 
+  isFr = true;
+
   constructor(public translate: TranslateService) { }
 
   init() {
@@ -22,6 +24,8 @@ export class MyTranslateService {
     this.translate.use(currentLanguage);
     localStorage.setItem('lang', currentLanguage);
     this.langSync = currentLanguage;
+
+    this.isFr = this.langSync === 'fr';
   }
 
   // this function help to update our lang property, so we call it in app.componenet

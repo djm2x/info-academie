@@ -5,81 +5,41 @@ namespace App\Http\Controllers;
 use App\TypeActivite;
 use Illuminate\Http\Request;
 
-class TypeActiviteController extends Controller
+class TypeActiviteController extends SuperController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(TypeActivite $model)
     {
-        //
+        parent::__construct($model);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $idType, string $title) // : Collection
+    // {
+    //     $q = $this->_context;
+    //     // $b = $idType != '*';
+    //     if ($idType != '*') {
+    //         $q = $q->where('type', 'LIKE', "%{$idType}%");
+    //     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    //     if ($title != '*') {
+    //         $q = $q->where('title', 'LIKE', "%{$title}%");
+    //     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TypeActivite  $typeActivite
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TypeActivite $typeActivite)
-    {
-        //
-    }
+    //     $list = $q->orderBy($sortBy, $sortDir)
+    //         ->skip($startIndex)
+    //         ->take($pageSize)
+    //         ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\TypeActivite  $typeActivite
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TypeActivite $typeActivite)
-    {
-        //
-    }
+    //     $count = $this->_context->get()->count();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TypeActivite  $typeActivite
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TypeActivite $typeActivite)
-    {
-        //
-    }
+    //     return compact('list', 'count', 'idType');
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TypeActivite  $typeActivite
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TypeActivite $typeActivite)
+    public function getAllWithActivites() // : Collection
     {
-        //
+        $list = $this->_context
+            ->with(['activites'])
+            ->get();
+
+        return $list;
     }
 }

@@ -20,6 +20,12 @@ export class ProfComponent implements OnInit {
   prof = new Prof();
   hide = true;
   hide2 = true;
+
+  villes = this.uow.villes.get();
+
+  activites = this.uow.typeActivites.getAllWithActivites();
+  niveauScolaires = this.uow.niveauScolaires.get();
+
   checkPassword = new FormControl('', [Validators.required]);
   optImage = {
     folderToSaveInServer: '',
@@ -30,7 +36,7 @@ export class ProfComponent implements OnInit {
 
   constructor(private fb: FormBuilder, public uow: UowService
     , private router: Router, public session: SessionService
-    , public snackBar: SnackBarService, public myTranslate: MyTranslateService) { }
+    , public snackBar: SnackBarService, public myTrans: MyTranslateService) { }
 
   async ngOnInit() {
     // test
@@ -52,13 +58,50 @@ export class ProfComponent implements OnInit {
 
   }
 
+  checkboxChange(checked: boolean, id: number): void {
+    const fc = this.idsTypeActivites.value as string;
+    const existe = fc.includes(`;${id};`);
+
+    if (checked && !existe) {
+      this.idsTypeActivites.setValue(fc + `;${id};`)
+    } else if (!checked && existe) {
+      this.idsTypeActivites.setValue(fc.replace(`;${id};`, ''))
+    }
+  }
+
+  checkboxChange2(checked: boolean, id: number): void {
+    const fc = this.idsActivites.value as string;
+    const existe = fc.includes(`;${id};`);
+    
+    if (checked && !existe) {
+      this.idsActivites.setValue(fc + `;${id};`)
+    } else if (!checked && existe) {
+      this.idsActivites.setValue(fc.replace(`;${id};`, ''))
+    }
+  }
+
+  checkboxChange3(checked: boolean, id: number): void {
+    const fc = this.idsNiveauScolaires.value as string;
+    const existe = fc.includes(`;${id};`);
+    
+    if (checked && !existe) {
+      this.idsNiveauScolaires.setValue(fc + `;${id};`)
+    } else if (!checked && existe) {
+      this.idsNiveauScolaires.setValue(fc.replace(`;${id};`, ''))
+    }
+  }
+
+  isChecked(id: number): boolean {
+    return (this.idsActivites.value as string).includes(`;${id};`)
+  }
+
   createForm() {
     this.myForm = this.fb.group({
       id: [this.o.id],
       nom: [this.o.nom, [Validators.required]],
       prenom: [this.o.prenom, [Validators.required]],
-      tel1: [this.o.tel1, [Validators.required]],
-      tel2: [this.o.tel2, [Validators.required]],
+      tel1: [this.o.tel1, []],
+      tel2: [this.o.tel2, []],
       email: [this.o.email, [Validators.required, Validators.email]],
       password: [this.o.password, [Validators.required]],
       isActive: [this.o.isActive],
@@ -85,6 +128,7 @@ export class ProfComponent implements OnInit {
       prixHrWebGroupe: [this.prof.prixHrWebGroupe, []],
       prixHrHomeGroupe: [this.prof.prixHrHomeGroupe, []],
 
+      idsTypeActivites: [this.prof.idsTypeActivites],
       idsActivites: [this.prof.idsActivites],
       idsTypeCours: [this.prof.idsTypeCours],
       idsLieuCours: [this.prof.idsLieuCours],
@@ -93,6 +137,10 @@ export class ProfComponent implements OnInit {
       idUser: [this.prof.idUser],
     });
   }
+
+  get idsTypeActivites() { return this.myFormProf.get('idsTypeActivites'); }
+  get idsActivites() { return this.myFormProf.get('idsActivites'); }
+  get idsNiveauScolaires() { return this.myFormProf.get('idsNiveauScolaires'); }
 
   get email() { return this.myForm.get('email'); }
   get password() { return this.myForm.get('password'); }
@@ -113,7 +161,7 @@ export class ProfComponent implements OnInit {
 
   submit(o: User) {
     this.uow.accounts.create(o).subscribe((r: any) => {
-      
+
       this.optImage.eventSubmitFromParent.next({ id: r.id });
       console.log(r)
       // this.router.navigate(['/auth']);

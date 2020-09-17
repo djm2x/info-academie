@@ -26,6 +26,7 @@ class CreateProfsTable extends Migration
             $table->double('prixHrWebGroupe')->nullable(true);
             $table->double('prixHrHomeGroupe')->nullable(true);
 
+            $table->string('idsTypeActivites')->nullable(true);
             $table->string('idsActivites')->nullable(true);
             $table->string('idsTypeCours')->nullable(true);
             $table->string('idsLieuCours')->nullable(true);

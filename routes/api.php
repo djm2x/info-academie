@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TypeActiviteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,22 @@ Route::post('/files/angEditorUploadImage/{folder}', 'FilesController@angEditorUp
 Route::post('/files/uploadFiles/{folder}', 'FilesController@uploadFiles');
 Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
+// typeActivites  
+Route::get('/typeActivites/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeActiviteController@getAll');
+Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
+Route::apiResource('typeActivites', 'TypeActiviteController');
+
+// niveauScolaires  
+
+Route::get('/niveauScolaires/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'NiveauScolaireController@getAll');
+Route::apiResource('niveauScolaires', 'NiveauScolaireController');
+
+// villes
+Route::get('/villes/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'VilleController@getAll');
+Route::apiResource('villes', 'VilleController');
 //users
+
+
 
 Route::group(['middleware' => 'auth.jwt'], function () {
 

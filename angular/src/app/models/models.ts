@@ -42,7 +42,7 @@ export class TypeActivite {
   nomAr = '';
   imageUrl = '';
 
-  typeActiviteActivites: Activite[] = [];
+  activites: Activite[] = [];
 }
 
 export class Activite {
@@ -69,6 +69,7 @@ export class Prof {
   prixHrWebGroupe = 0;
   prixHrHomeGroupe = 0;
 
+  idsTypeActivites = '';
   idsActivites = '';
   idsTypeCours = '';
   idsLieuCours = '';

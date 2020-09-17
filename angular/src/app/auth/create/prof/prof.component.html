@@ -1,4 +1,4 @@
-<mat-vertical-stepper linear>
+<mat-horizontal-stepper [linear]="true">
     <mat-step [stepControl]="myForm">
         <form [formGroup]="myForm">
 
@@ -57,8 +57,8 @@
                 <mat-form-field appearance="fill" class="col-md-6">
                     <mat-label>{{ 'auth.create.Ville' | translate  }}</mat-label>
                     <mat-select formControlName="idVille">
-                        <mat-option *ngFor="let e of uow.villes.get()" [value]="e.id">
-                            {{ myTranslate.langSync === 'fr' ? e.nom : e.nomAr }}</mat-option>
+                        <mat-option *ngFor="let e of villes | async" [value]="e.id">
+                            {{ myTrans.langSync === 'fr' ? e.nom : e.nomAr }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
@@ -78,7 +78,35 @@
     </mat-step>
     <mat-step [stepControl]="myFormProf">
         <form [formGroup]="myFormProf">
-            ...
+
+            <div *ngFor="let e of activites | async; let i=index">
+                <mat-checkbox [checked]="idsTypeActivites.value.includes(';' + e.id + ';')"
+                    (change)="checkboxChange($event.checked, e.id)">
+                    {{myTrans.isFr ? e.nom : e.nomAr}}
+                </mat-checkbox>
+            </div>
+            <div *ngFor="let e of activites | async; let i=index">
+                {{myTrans.isFr ? e.nom : e.nomAr}} -
+                <span *ngFor="let c of e.activites">
+
+                    <mat-checkbox [checked]="idsActivites.value.includes(';' + c.id + ';')"
+                        (change)="checkboxChange2($event.checked, c.id)">
+                        {{myTrans.isFr ? c.nom : c.nomAr}}
+                    </mat-checkbox>
+                </span>
+            </div>
+            <mat-divider>
+            </mat-divider>
+            <div *ngFor="let e of niveauScolaires | async; let i=index">
+                <mat-checkbox [checked]="idsNiveauScolaires.value.includes(';' + e.id + ';')"
+                    (change)="checkboxChange3($event.checked, e.id)">
+                    {{myTrans.isFr ? e.nom : e.nomAr}}
+                </mat-checkbox>
+            </div>
         </form>
+
+        {{idsTypeActivites.value | json}}
+        {{idsActivites.value | json}}
+        {{idsNiveauScolaires.value | json}}
     </mat-step>
-</mat-vertical-stepper>
+</mat-horizontal-stepper>

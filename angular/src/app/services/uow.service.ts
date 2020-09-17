@@ -6,6 +6,7 @@ import { VilleService } from './ville.service';
 import { DetailUserActiviteService } from './detailUserActivite.service';
 import { TypeActiviteService } from './typeActivite.service';
 import { ActiviteService } from './activite.service';
+import { NiveauScolaireService } from './niveauScolaire.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class UowService {
 villes = new VilleService();
 detailUserActivites = new DetailUserActiviteService();
 typeActivites = new TypeActiviteService();
+niveauScolaires = new NiveauScolaireService();
 activites = new ActiviteService();
 
   

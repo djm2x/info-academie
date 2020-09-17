@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateNiveauScolairesTable extends Migration
@@ -19,6 +20,14 @@ class CreateNiveauScolairesTable extends Migration
             $table->string('nomAr');
             $table->timestamps();
         });
+        
+        DB::insert("INSERT INTO `niveau_scolaires` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
+            (1, 'Primaire', 'Primaire', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+            (2, 'Collège', 'Collège', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+            (3, 'Tronc commun', 'Tronc commun', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+            (4, '1er bac', '1er bac', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+            (5, '2eme bac', '2eme bac', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
+        ");
     }
 
     /**

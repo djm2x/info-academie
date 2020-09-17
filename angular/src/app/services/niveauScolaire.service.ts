@@ -1,14 +1,14 @@
 import { SuperService } from './super.service';
 import { Injectable } from '@angular/core';
-import { TypeActivite } from '../models/models';
+import { NiveauScolaire } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TypeActiviteService extends SuperService<TypeActivite> {
+export class NiveauScolaireService extends SuperService<NiveauScolaire> {
 
   constructor() {
-    super('typeActivites');
+    super('niveauScolaires');
   }
 
   getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, ) {
@@ -17,7 +17,7 @@ export class TypeActiviteService extends SuperService<TypeActivite> {
   }
 
   getAllWithActivites() {
-    return this.http.get<TypeActivite>(`${this.urlApi}/${this.controller}/getAllWithActivites`);
+    return this.http.get<NiveauScolaire>(`${this.urlApi}/${this.controller}/getAllWithActivites`);
   }
 
   
