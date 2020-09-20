@@ -73,39 +73,6 @@ export class ProfComponent implements OnInit {
     }
   }
 
-  // checkboxChange(checked: boolean, id: number): void {
-  //   const fc = this.idsTypeActivites.value as string;
-  //   const existe = fc.includes(`;${id};`);
-
-  //   if (checked && !existe) {
-  //     this.idsTypeActivites.setValue(fc + `;${id};`)
-  //   } else if (!checked && existe) {
-  //     this.idsTypeActivites.setValue(fc.replace(`;${id};`, ''))
-  //   }
-  // }
-
-  // checkboxChange2(checked: boolean, id: number): void {
-  //   const fc = this.idsActivites.value as string;
-  //   const existe = fc.includes(`;${id};`);
-    
-  //   if (checked && !existe) {
-  //     this.idsActivites.setValue(fc + `;${id};`)
-  //   } else if (!checked && existe) {
-  //     this.idsActivites.setValue(fc.replace(`;${id};`, ''))
-  //   }
-  // }
-
-  // checkboxChange3(checked: boolean, id: number): void {
-  //   const fc = this.idsNiveauScolaires.value as string;
-  //   const existe = fc.includes(`;${id};`);
-    
-  //   if (checked && !existe) {
-  //     this.idsNiveauScolaires.setValue(fc + `;${id};`)
-  //   } else if (!checked && existe) {
-  //     this.idsNiveauScolaires.setValue(fc.replace(`;${id};`, ''))
-  //   }
-  // }
-
   isChecked(id: number): boolean {
     return (this.idsActivites.value as string).includes(`;${id};`)
   }
@@ -124,7 +91,7 @@ export class ProfComponent implements OnInit {
       adresse: [this.o.adresse, []],
       imageUrl: [this.o.imageUrl, []],
       cin: [this.o.cin, []],
-      role: ['teacher'],
+      role: ['prof'],
       idVille: [this.o.idVille],
     });
   }
@@ -177,7 +144,8 @@ export class ProfComponent implements OnInit {
       (this.checkPassword.value !== this.password.value ? 'les mot de pass sont pas les même' : '');
   }
 
-  submit(o: User) {
+  submit(o: User, prof: Prof) {
+    o.id = null;
     this.uow.accounts.create(o).subscribe((r: any) => {
 
       this.optImage.eventSubmitFromParent.next({ id: r.id });
@@ -186,22 +154,13 @@ export class ProfComponent implements OnInit {
       if (r.code < 0) {
         this.snackBar.notifyAlert(400, r.message);
       } else {
-        // this.snackBar.notifyOk(200, r.message);
-        this.router.navigate(['/auth']);
-      }
-    });
-  }
-
-  submitProf(o: Prof) {
-    this.uow.accounts.createProf(o).subscribe((r: any) => {
-
-      console.log(r)
-      // this.router.navigate(['/auth']);
-      if (r.code < 0) {
-        this.snackBar.notifyAlert(400, r.message);
-      } else {
-        // this.snackBar.notifyOk(200, r.message);
-        this.router.navigate(['/auth']);
+        prof.id = null;
+        prof.idUser = r.id;
+        this.uow.profs.post(prof).subscribe(p => {
+          console.log(p)
+          // this.router.navigate(['/auth']);
+          // this.snackBar.notifyOk(200, r.message);
+        })
       }
     });
   }

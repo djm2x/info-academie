@@ -74,7 +74,7 @@
                         {{myForm.value | json}}
                         <button class="col-md-12 mb-2" mat-raised-button color="accent"
                             [disabled]="myForm.invalid || checkPasswordError !== ''"
-                            type="submit" (click)="submit(myForm.value)">{{ 'auth.create.Inscription' | translate  }}</button>
+                            type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
                     </div>
 
                 </form>
@@ -129,9 +129,13 @@
                         </mat-form-field>
 
                         {{myFormProf.value | json}}
-                        <!-- <button class="col-md-12 mb-2" mat-raised-button color="accent"
-                    [disabled]="myForm.invalid || checkPasswordError !== ''"
-                    type="submit">{{ 'auth.create.Inscription' | translate  }}</button> -->
+                        <button class="col-md-12 mb-2" mat-raised-button color="accent"
+                            [disabled]="myForm.invalid || checkPasswordError !== ''"
+                            type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+
+                        <div>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
                     </div>
 
                 </form>
@@ -180,12 +184,20 @@
                         </mat-checkbox>
                     </span>
 
-                    {{idsTypeCours.value | json}}
+                    <!-- {{idsTypeCours.value | json}}
                     {{idsLieuCours.value | json}}
                     {{idsTypeActivites.value | json}}
                     {{idsActivites.value | json}}
-                    {{idsNiveauScolaires.value | json}}
+                    {{idsNiveauScolaires.value | json}} -->
                 </div>
+
+                <button class="col-md-12 mb-2" mat-raised-button color="accent"
+                    [disabled]="myForm.invalid || checkPasswordError !== ''" type="submit"
+                    (click)="submit(myForm.value, myFormProf.value)">{{ 'auth.create.prof.Next' | translate  }}</button>
+
+
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
 
             </mat-step>
 

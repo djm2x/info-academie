@@ -8,8 +8,9 @@ const routes: Routes = [
   {
     path: '', component: AdminComponent,
     children: [
-      { path: '', redirectTo: 'ville', pathMatch: 'full' },
+      { path: '', redirectTo: 'dash', pathMatch: 'full' },
       // { path: 'dash', loadChildren: () => import('./dash/dash.module').then(m => m.DashModule), data: {animation: 'dash'} },
+      { path: 'dash', loadChildren: () => import('./dash/dash.module').then(m => m.DashModule) },
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), data: {animation: 'user'} },
       { path: 'ville', loadChildren: () => import('./ville/ville.module').then(m => m.VilleModule), data: {animation: 'ville'} },
       { path: 'detailUserActivite', loadChildren: () => import('./detailUserActivite/detailUserActivite.module').then(m => m.DetailUserActiviteModule), data: {animation: 'detailUserActivite'} },
@@ -17,7 +18,7 @@ const routes: Routes = [
       { path: 'activite', loadChildren: () => import('./activite/activite.module').then(m => m.ActiviteModule), data: {animation: 'activite'} },
       
     ]
-  }
+  },
 ];
 
 @NgModule({

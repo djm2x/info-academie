@@ -55,7 +55,12 @@ Route::apiResource('typeCours', 'TypeCoursController');
 // lieuCours
 Route::get('/lieuCours/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'LieuCoursController@getAll');
 Route::apiResource('lieuCours', 'LieuCoursController');
-
+// profs
+Route::get('/profs/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ProfController@getAll');
+Route::apiResource('profs', 'ProfController');
+// students
+Route::get('/students/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'StudentController@getAll');
+Route::apiResource('students', 'StudentController');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
 

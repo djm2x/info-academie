@@ -9,6 +9,9 @@ import { ActiviteService } from './activite.service';
 import { NiveauScolaireService } from './niveauScolaire.service';
 import { TypeCoursService } from './typeCours.service';
 import { LieuCoursService } from './lieuCours.service';
+import { ProfService } from './prof.service';
+import { StudentService } from './student.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +26,10 @@ export class UowService {
   activites = new ActiviteService();
   typeCours = new TypeCoursService();
   lieuCours = new LieuCoursService();
+  profs = new ProfService();
+  students = new StudentService();
 
+  niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
   years = [...Array(new Date().getFullYear() - 2015).keys()].map(e => 2015 + e + 1);
   months = [...Array(12).keys()].map(e => e + 1);
   monthsAlpha = [
@@ -40,7 +46,8 @@ export class UowService {
     'Novembre',
     'Décembre',
   ].map((e, i) => ({ id: i + 1, name: e }));
-  constructor() { }
+
+  constructor(private http: HttpClient) { }
 
   valideDate(date: Date): Date {
     date = new Date(date);

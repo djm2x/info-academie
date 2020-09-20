@@ -58,12 +58,12 @@ export class Activite {
 
 export class Prof {
   id = 0;
-  description = '';
-  experience = '';
-  approche = '';
-  intro = '';
-  videoUrl = '';
-  cvUrl = '';
+  description = 'description';
+  experience = 'experience';
+  approche = 'approche';
+  intro = 'intro';
+  videoUrl = 'videoUrl';
+  cvUrl = 'cvUrl';
 
   prixHrWeb = 0;
   prixHrHome = 0;
@@ -82,14 +82,14 @@ export class Prof {
 
 export class Student {
   id = 0;
-  ecole = '';
-  niveau = '';
-  nomParent = '';
-  prenomParent = '';
-  tel1Parent = '';
-  tel2Parent = '';
+  ecole = 'ecole';
+  niveau = '2';
+  nomParent = 'nomParent';
+  prenomParent = 'prenomParent';
+  tel1Parent = 'tel1Parent';
+  tel2Parent = 'tel2Parent';
   
-
+  idUser = 0;
   user = new User();
   activite = new Activite();
 }

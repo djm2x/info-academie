@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     // test
-    this.o.email = 'teacher@angular.io';
+    this.o.email = 'teacher2@angular.io';
     this.o.password = '123';
     this.createForm();
 
@@ -66,8 +66,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (r.code < 0) {
         this.snackBar.notifyAlert(400, r.message);
       } else {
+        // console.log(r)
         this.snackBar.notifyOk(200, r.message);
-        this.session.doSignIn(r.user, r.token);
+        this.session.doSignIn(r.user, r.child, r.token);
         this.router.navigate(['/admin']);
       }
     });
@@ -79,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.snackBar.notifyAlert(400, r.message);
       } else {
         this.snackBar.notifyOk(200, r.message);
-        this.session.doSignIn(r.user, r.token);
+        this.session.doSignIn(r.user, r.child, r.token);
         this.router.navigate(['/admin']);
       }
     });
