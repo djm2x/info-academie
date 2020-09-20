@@ -15,6 +15,7 @@ class CreateProfsTable extends Migration
     {
         Schema::create('profs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('description')->nullable(true);
             $table->string('experience')->nullable(true);
             $table->string('approche')->nullable(true);
             $table->string('intro')->nullable(true);

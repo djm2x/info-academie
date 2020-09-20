@@ -17,8 +17,7 @@ class SuperController extends Controller
 
     public function index()
     {
-        return 'mr';
-        // return $this->_context->get();
+        return $this->_context->get();
         // return $this->_context->all();
     }
 

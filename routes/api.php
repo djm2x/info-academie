@@ -49,8 +49,12 @@ Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 // villes
 Route::get('/villes/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'VilleController@getAll');
 Route::apiResource('villes', 'VilleController');
-//users
-
+// typeCours
+Route::get('/typeCours/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeCoursController@getAll');
+Route::apiResource('typeCours', 'TypeCoursController');
+// lieuCours
+Route::get('/lieuCours/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'LieuCoursController@getAll');
+Route::apiResource('lieuCours', 'LieuCoursController');
 
 
 Route::group(['middleware' => 'auth.jwt'], function () {

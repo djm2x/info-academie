@@ -15,12 +15,12 @@ export class SuperService<T> implements ISuperService {
     return this.http.get<{list: T[], count: number}>
             (`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}`);
   }
-  get = () => this.http.get<T[]>(`${this.urlApi}/${this.controller}/get`);
+  get = () => this.http.get<T[]>(`${this.urlApi}/${this.controller}`);
   count = () => this.http.get<number>(`${this.urlApi}/${this.controller}/count`);
-  getOne = (id) => this.http.get<T>(`${this.urlApi}/${this.controller}/get/${id}`);
-  post = (o: T) => this.http.post<T>(`${this.urlApi}/${this.controller}/post`, o);
-  put = (id: number | string, o: T) => this.http.put<any>(`${this.urlApi}/${this.controller}/put/${id}`, o);
-  delete = (id) => this.http.delete<any>(`${this.urlApi}/${this.controller}/delete/${id}`);
+  getOne = (id) => this.http.get<T>(`${this.urlApi}/${this.controller}/${id}`);
+  post = (o: T) => this.http.post<T>(`${this.urlApi}/${this.controller}`, o);
+  put = (id: number | string, o: T) => this.http.put<any>(`${this.urlApi}/${this.controller}/${id}`, o);
+  delete = (id) => this.http.delete<any>(`${this.urlApi}/${this.controller}/${id}`);
 
   updateRange(o: T[]) {
     return this.http.post(`${this.urlApi}/${this.controller}/updateRange`, o);

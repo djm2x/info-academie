@@ -25,8 +25,11 @@ export class ProfComponent implements OnInit {
 
   activites = this.uow.typeActivites.getAllWithActivites();
   niveauScolaires = this.uow.niveauScolaires.get();
+  typeCours = this.uow.typeCours.get();
+  lieuCours = this.uow.lieuCours.get();
 
   checkPassword = new FormControl('', [Validators.required]);
+
   optImage = {
     folderToSaveInServer: '',
     imageTo: new Subject<string>(),
@@ -58,38 +61,50 @@ export class ProfComponent implements OnInit {
 
   }
 
-  checkboxChange(checked: boolean, id: number): void {
-    const fc = this.idsTypeActivites.value as string;
+  checkboxChange(checked: boolean, id: number, property: string): void {
+    const prop = this.myFormProf.get(property);
+    const fc = prop.value as string;
     const existe = fc.includes(`;${id};`);
 
     if (checked && !existe) {
-      this.idsTypeActivites.setValue(fc + `;${id};`)
+      prop.setValue(fc + `;${id};`)
     } else if (!checked && existe) {
-      this.idsTypeActivites.setValue(fc.replace(`;${id};`, ''))
+      prop.setValue(fc.replace(`;${id};`, ''))
     }
   }
 
-  checkboxChange2(checked: boolean, id: number): void {
-    const fc = this.idsActivites.value as string;
-    const existe = fc.includes(`;${id};`);
+  // checkboxChange(checked: boolean, id: number): void {
+  //   const fc = this.idsTypeActivites.value as string;
+  //   const existe = fc.includes(`;${id};`);
+
+  //   if (checked && !existe) {
+  //     this.idsTypeActivites.setValue(fc + `;${id};`)
+  //   } else if (!checked && existe) {
+  //     this.idsTypeActivites.setValue(fc.replace(`;${id};`, ''))
+  //   }
+  // }
+
+  // checkboxChange2(checked: boolean, id: number): void {
+  //   const fc = this.idsActivites.value as string;
+  //   const existe = fc.includes(`;${id};`);
     
-    if (checked && !existe) {
-      this.idsActivites.setValue(fc + `;${id};`)
-    } else if (!checked && existe) {
-      this.idsActivites.setValue(fc.replace(`;${id};`, ''))
-    }
-  }
+  //   if (checked && !existe) {
+  //     this.idsActivites.setValue(fc + `;${id};`)
+  //   } else if (!checked && existe) {
+  //     this.idsActivites.setValue(fc.replace(`;${id};`, ''))
+  //   }
+  // }
 
-  checkboxChange3(checked: boolean, id: number): void {
-    const fc = this.idsNiveauScolaires.value as string;
-    const existe = fc.includes(`;${id};`);
+  // checkboxChange3(checked: boolean, id: number): void {
+  //   const fc = this.idsNiveauScolaires.value as string;
+  //   const existe = fc.includes(`;${id};`);
     
-    if (checked && !existe) {
-      this.idsNiveauScolaires.setValue(fc + `;${id};`)
-    } else if (!checked && existe) {
-      this.idsNiveauScolaires.setValue(fc.replace(`;${id};`, ''))
-    }
-  }
+  //   if (checked && !existe) {
+  //     this.idsNiveauScolaires.setValue(fc + `;${id};`)
+  //   } else if (!checked && existe) {
+  //     this.idsNiveauScolaires.setValue(fc.replace(`;${id};`, ''))
+  //   }
+  // }
 
   isChecked(id: number): boolean {
     return (this.idsActivites.value as string).includes(`;${id};`)
@@ -117,8 +132,9 @@ export class ProfComponent implements OnInit {
   createFormProf() {
     this.myFormProf = this.fb.group({
       id: [this.prof.id],
-      experience: [this.prof.experience, [Validators.required]],
-      approche: [this.prof.approche, [Validators.required]],
+      description: [this.prof.description, []],
+      experience: [this.prof.experience, []],
+      approche: [this.prof.approche, []],
       intro: [this.prof.intro],
       videoUrl: [this.prof.videoUrl],
       cvUrl: [this.prof.cvUrl],
@@ -140,6 +156,8 @@ export class ProfComponent implements OnInit {
 
   get idsTypeActivites() { return this.myFormProf.get('idsTypeActivites'); }
   get idsActivites() { return this.myFormProf.get('idsActivites'); }
+  get idsTypeCours() { return this.myFormProf.get('idsTypeCours'); }
+  get idsLieuCours() { return this.myFormProf.get('idsLieuCours'); }
   get idsNiveauScolaires() { return this.myFormProf.get('idsNiveauScolaires'); }
 
   get email() { return this.myForm.get('email'); }

@@ -2,24 +2,37 @@
 
   <input hidden multiple accept="image/*" #file1 type="file" (change)="upload($event.target.files)">
   <!-- {{file1 | json}} -->
-  <button mat-raised-button  type="button" (click)="openInput(file1)" color="accent" style="height: fit-content;">
-    <mat-icon>add</mat-icon> {{nameBtn}}
-  </button>
-  &nbsp;&nbsp;
-  <ng-container *ngIf="multiple; else elseTemplate" class="ml-3" >
+
+
+  <ng-container *ngIf="multiple; else elseTemplate" class="ml-3">
+    <button mat-raised-button type="button" (click)="openInput(file1)" color="accent" style="height: fit-content;">
+      <mat-icon>add</mat-icon> {{nameBtn}}
+    </button>
+    &nbsp;&nbsp;
     <div *ngFor="let e of Images; let i=index" style="font-size: .7em;margin: 0;">
       <!-- {{e.image}} -->
-      <img #img (error)="imgError(img)"  [src]="e.image" style="width: 70px; height: 70px;">
+      <img #img (error)="imgError(img)" [src]="e.image" style="width: 70px; height: 70px;">
       <button mat-icon-button color="warn" (click)="removeFromImages(e.name)" type="button">
         <mat-icon style="font-size: 1.3em !important;">delete_sweep</mat-icon>
       </button>
     </div>
   </ng-container>
+
+  <!-- one image -->
   <ng-template #elseTemplate>
-    <img #img (error)="imgError(img)" [src]="oneImage" style="width: 70px; height: 70px;">
-    <button mat-icon-button color="warn" (click)="remove(oneImage)" type="button">
-      <mat-icon style="font-size: 1.3em !important;">delete_sweep</mat-icon>
-    </button>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-12 mb-2">
+        <img #img (error)="imgError(img)" [src]="oneImage" style="width: 170px; height: 170px;">
+        <button mat-icon-button color="warn" (click)="remove(oneImage)" type="button">
+          <mat-icon style="font-size: 1.3em !important;">delete_sweep</mat-icon>
+        </button>
+      </div>
+      <button mat-raised-button type="button" (click)="openInput(file1)" color="accent" style="height: fit-content;">
+        <mat-icon>add</mat-icon> {{nameBtn}}
+      </button>
+            <div class="col-md-12">
+      </div>
+    </div>
   </ng-template>
 
   <!-- <div class="col-md-12">

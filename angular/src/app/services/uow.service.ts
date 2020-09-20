@@ -7,6 +7,8 @@ import { DetailUserActiviteService } from './detailUserActivite.service';
 import { TypeActiviteService } from './typeActivite.service';
 import { ActiviteService } from './activite.service';
 import { NiveauScolaireService } from './niveauScolaire.service';
+import { TypeCoursService } from './typeCours.service';
+import { LieuCoursService } from './lieuCours.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +16,14 @@ import { NiveauScolaireService } from './niveauScolaire.service';
 export class UowService {
   accounts = new AccountService();
   users = new UserService();
-villes = new VilleService();
-detailUserActivites = new DetailUserActiviteService();
-typeActivites = new TypeActiviteService();
-niveauScolaires = new NiveauScolaireService();
-activites = new ActiviteService();
+  villes = new VilleService();
+  detailUserActivites = new DetailUserActiviteService();
+  typeActivites = new TypeActiviteService();
+  niveauScolaires = new NiveauScolaireService();
+  activites = new ActiviteService();
+  typeCours = new TypeCoursService();
+  lieuCours = new LieuCoursService();
 
-  
   years = [...Array(new Date().getFullYear() - 2015).keys()].map(e => 2015 + e + 1);
   months = [...Array(12).keys()].map(e => e + 1);
   monthsAlpha = [
@@ -36,9 +39,7 @@ activites = new ActiviteService();
     'Octobre',
     'Novembre',
     'Décembre',
-  ].map((e, i) => {
-    return { id: i + 1, name: e };
-  });
+  ].map((e, i) => ({ id: i + 1, name: e }));
   constructor() { }
 
   valideDate(date: Date): Date {

@@ -2,17 +2,17 @@ export class User {
   id = 0;
   nom = '';
   prenom = '';
-  tel1 = '';
-  tel2 = '';
+  tel1 = '00';
+  tel2 = '00';
   email = '';
   password = '';
   isActive = 0;
   date = new Date();
-  adresse = '';
+  adresse = 'temara';
   imageUrl = '';
   cin = '';
   role = '';
-  idVille = 0;
+  idVille = 1;
 
   ville = new Ville();
   userDetailUserActivites: DetailUserActivite[] = [];
@@ -58,6 +58,7 @@ export class Activite {
 
 export class Prof {
   id = 0;
+  description = '';
   experience = '';
   approche = '';
   intro = '';
