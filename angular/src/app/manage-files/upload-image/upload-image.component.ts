@@ -46,7 +46,7 @@ export class UploadImageComponent implements OnInit {
           this.oneImage = 'assets/404.jpg';
         } else {
           // console.log(imageUrl);
-          this.oneImage = `${this.url}/${this.folderToSaveInServer}/${imageUrl}`;
+          this.oneImage = `${this.url}/${this.folderToSaveInServer.replace('_', '/')}/${imageUrl}`;
         }
       } else {
         l.forEach((e, i) => {
@@ -260,7 +260,7 @@ export class UploadImageComponent implements OnInit {
       const r = await this.filesService.uploadFiles(formData, this.folderToSaveInServer).toPromise();
       const r2 = await this.filesService.deleteFiles(this.listToDelete, this.folderToSaveInServer).toPromise();
 
-      console.log(r, r2)
+      console.log(this.folderToSaveInServer, r, r2)
     }
 
     // if (action.name && action.name === 'delete') {

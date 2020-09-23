@@ -29,6 +29,10 @@ body {
   background-color: #2A6EBB;
 }
 
+.mat-drawer-content {
+  overflow-x: hidden !important;
+}
+
 .green-snackbar {
   background-color: green;
   color: white;

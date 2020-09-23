@@ -62,10 +62,14 @@ Route::apiResource('profs', 'ProfController');
 Route::get('/students/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'StudentController@getAll');
 Route::apiResource('students', 'StudentController');
 
+// users
+Route::get('/users/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
+Route::apiResource('users', 'UserController');
+
 Route::group(['middleware' => 'auth.jwt'], function () {
 
-    Route::get('/users/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
-    Route::apiResource('users', 'UserController');
+    // Route::get('/users/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
+    // Route::apiResource('users', 'UserController');
 
     //regions
     Route::get('/regions/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'RegionController@getList');

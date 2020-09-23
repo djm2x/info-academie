@@ -15,7 +15,8 @@ export class User {
   idVille = 1;
 
   ville = new Ville();
-  userDetailUserActivites: DetailUserActivite[] = [];
+  activites: DetailUserActivite[] = [];
+  contactUs: ContactUs[] = [];
 }
 
 export class Ville {
@@ -110,4 +111,24 @@ export class NiveauScolaire {
   id = 0;
   nom = '';
   nomAr = '';
+}
+
+export class Message {
+  id = 0;
+  object = '';
+  msg = '';
+  date = new Date();
+  idUser = 0;
+  idReceiver = 0;
+  user = new User();
+  receiver = new User();
+}
+
+export class ContactUs {
+  id = 0;
+  object = '';
+  msg = '';
+  date = new Date();
+  idUser = 0;
+  user = new User();
 }

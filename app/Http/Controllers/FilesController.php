@@ -11,7 +11,6 @@ class FilesController extends Controller
 {
 
     public function uploadFiles2(Request $request, string $folder) // : Collection
-
     {
         // $request->validate([
         //     'file' => 'required|mimes:pdf,xlx,csv|max:2048',
@@ -130,7 +129,21 @@ class FilesController extends Controller
                 // "files" => $files,
                 // "i" => $i,
             ];
-        } else {
+        } else if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = $file->getClientOriginalName();
+            // $extension = $file->getClientOriginalExtension();
+
+            // $picture = date('His') . '-' . $filename;
+
+            // Storage::disk('public')->put($filename, 'Contents');
+            // php artisan storage:link
+
+            $file->move(public_path(str_replace('_', '\\', $folder)), $filename);
+
+            return response()->json(["message" => "Image Uploaded Succesfully"]);
+        } 
+        else {
             return ["message" => "Select image first.", 'filesUploaded' => $length];
         }
     }

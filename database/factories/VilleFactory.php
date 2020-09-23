@@ -8,5 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Ville::class, function (Faker $faker) {
     return [
         //
+        'nom' => $faker->city,
+        'nomAr' => $faker->city,
     ];
 });

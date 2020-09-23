@@ -18,7 +18,7 @@ class UserController extends SuperController
             ->orderBy($sortBy, $sortDir)
             ->skip($startIndex)
             ->take($pageSize)
-            ->with('region')
+            // ->with('region')
             ->get()
             ;
 

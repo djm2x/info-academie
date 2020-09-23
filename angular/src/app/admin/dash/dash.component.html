@@ -1,14 +1,18 @@
 <mat-toolbar color="warn" class="mat-elevation-z6">
     <mat-toolbar-row>
-      <button mat-button [routerLink]="['/admin/dash/me']" routerLinkActive="active">
-        <!-- <mat-icon>menu</mat-icon> -->
-        {{ 'admin.dash.me.Moi' | translate  }}
-      </button>
+
+      <button mat-button color="primary" mat-raised-button class="mx-1" [routerLink]="['/admin/dash/me']" routerLinkActive="active">{{ 'admin.dash.me.Moi' | translate  }}</button>
+      <button mat-button color="primary" mat-raised-button class="mx-1" [routerLink]="['/admin/dash/courriel']" routerLinkActive="active">{{ 'admin.dash.me.Message' | translate  }}</button>
+      <button mat-button color="primary" mat-raised-button class="mx-1" [routerLink]="['/admin/dash/calendar']" routerLinkActive="active">{{ 'admin.dash.me.Calandrie' | translate  }}</button>
+      <button mat-button color="primary" mat-raised-button class="mx-1" [routerLink]="['/admin/dash/cours']" routerLinkActive="active">{{ 'admin.dash.me.Cours' | translate  }}</button>
+      <button mat-button color="primary" mat-raised-button class="mx-1" [routerLink]="['/admin/dash/info']" routerLinkActive="active">{{ 'admin.dash.me.Informations' | translate  }}</button>
+      <button mat-button color="primary" mat-raised-button class="mx-1" [routerLink]="['/admin/dash/facteurs']" routerLinkActive="active">{{ 'admin.dash.me.Facteurs' | translate  }}</button>
   
+
+
       <span style="flex: 1 1 auto;"></span>
-      <button mat-raised-button class="ml-5" [routerLink]="['/desktop']">
-        {{ 'admin.dash.me.Contacte-nous' | translate  }}
-    </button>
+
+      <button mat-raised-button class="ml-5" [routerLink]="['/admin/dash/contactus']">{{ 'admin.dash.me.Contacte-nous' | translate  }}</button>
   
     </mat-toolbar-row>
   </mat-toolbar>

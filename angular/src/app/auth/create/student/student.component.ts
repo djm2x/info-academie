@@ -47,7 +47,7 @@ export class StudentComponent implements OnInit {
     this.checkPassword.setValue('123');
     this.createForm();
     this.createFormStudent();
-    this.optImage.folderToSaveInServer = this.o.id === 0 ? 'prof' : `prof_${this.o.id}`;
+    this.optImage.folderToSaveInServer = this.o.id === 0 ? 'student' : `student_${this.o.id}`;
     this.optImage.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 
     setTimeout(() => {
@@ -132,7 +132,7 @@ export class StudentComponent implements OnInit {
     this.createForm();
   }
 
-  resetFormProf() {
+  resetFormStudent() {
     this.student = new Student();
     this.createFormStudent();
   }

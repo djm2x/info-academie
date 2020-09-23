@@ -24,6 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     ToastrModule.forRoot({
       preventDuplicates: true,
       // maxOpened: 1,
-    }), 
+    }),
+
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }), 
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr' },

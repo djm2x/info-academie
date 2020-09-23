@@ -22,4 +22,9 @@ export class MeComponent implements OnInit {
     }
   }
 
+  imgError(img: any) {
+
+    img.src = 'assets/404.jpg';
+  }
+
 }

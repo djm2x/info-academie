@@ -42,16 +42,24 @@ export class SessionService {
     localStorage.setItem(TOKEN, (JSON.stringify(this.token)));
   }
 
-  public updateUser(user: User) {
+  public updateUser(user: User, child: Prof | Student) {
     if (!user) {
       return;
     }
     this.user = user;
     localStorage.setItem(USER, (JSON.stringify(this.user)));
+
+    if (this.user.role === 'student') {
+      this.student = child as Student;
+      localStorage.setItem(STUDENT, (JSON.stringify(this.student)));
+    } else if (this.user.role === 'prof') {
+      this.prof = child as Prof;
+      localStorage.setItem(PROF, (JSON.stringify(this.prof)));
+    }
   }
 
-  get isProf() { return this.user.role = PROF.toLowerCase(); }
-  get isStudent() { return this.user.role = STUDENT.toLowerCase(); }
+  get isProf() { return this.user.role === PROF.toLowerCase(); }
+  get isStudent() { return this.user.role === STUDENT.toLowerCase(); }
   get role() { return this.user.role; }
 
   // se deconnecter
@@ -77,9 +85,9 @@ export class SessionService {
       this.token = JSON.parse(localStorage.getItem(TOKEN));
 
       if (this.user.role === 'student') {
-        this.student = JSON.parse(localStorage.getItem(TOKEN));
+        this.student = JSON.parse(localStorage.getItem(STUDENT));
       } else if (this.user.role === 'prof') {
-        this.prof = JSON.parse(localStorage.getItem(TOKEN));
+        this.prof = JSON.parse(localStorage.getItem(PROF));
       }
 
     } catch (error) {

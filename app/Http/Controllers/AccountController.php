@@ -37,7 +37,7 @@ class AccountController extends SuperController
             return ['code' => 0];
         }
 
-        $user->password = "";
+        // $user->password = "";
         $child = null;
 
         if ($user->role == 'student') {
@@ -49,7 +49,7 @@ class AccountController extends SuperController
         return [
             'code' => 1, 
             'user' => $user, 
-            'id' => $user->id, 
+            // 'id' => $user->id, 
             'child' => $child, 
             'token' => $this->createToken($user)
         ];

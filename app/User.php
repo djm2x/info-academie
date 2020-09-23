@@ -33,4 +33,8 @@ class User extends Model implements JWTSubject
     {
         return ['myrole'];
     }
+
+    // public function getAuthIdentifierName() {
+    //     return $this->getKey();
+    // }
 }
