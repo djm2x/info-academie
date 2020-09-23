@@ -21,13 +21,13 @@ class CreateNiveauScolairesTable extends Migration
             $table->timestamps();
         });
         
-        DB::insert("INSERT INTO `niveau_scolaires` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
-            (1, 'Primaire', 'Primaire', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (2, 'Collège', 'Collège', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (3, 'Tronc commun', 'Tronc commun', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (4, '1er bac', '1er bac', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (5, '2eme bac', '2eme bac', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
-        ");
+        // DB::insert("INSERT INTO `niveau_scolaires` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
+        //     (1, 'Primaire', 'Primaire', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (2, 'Collège', 'Collège', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (3, 'Tronc commun', 'Tronc commun', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (4, '1er bac', '1er bac', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (5, '2eme bac', '2eme bac', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
+        // ");
     }
 
     /**

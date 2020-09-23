@@ -21,11 +21,11 @@ class CreateLieuCoursTable extends Migration
             $table->timestamps();
         });
         
-        DB::insert("INSERT INTO `lieu_cours` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
-            (1, 'Donner des cours à distance', 'Donner des cours à distance', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (2, 'Aller au domicile de lélève', 'Aller au domicile de lélève', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (3, 'Accueillez létudiant chez moi', 'Accueillez létudiant chez moi', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
-        ");
+        // DB::insert("INSERT INTO `lieu_cours` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
+        //     (1, 'Donner des cours à distance', 'Donner des cours à distance', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (2, 'Aller au domicile de lélève', 'Aller au domicile de lélève', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (3, 'Accueillez létudiant chez moi', 'Accueillez létudiant chez moi', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
+        // ");
     }
 
     /**

@@ -16,7 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ecole')->nullable(true);
-            $table->string('niveau')->nullable(true);
+            $table->integer('niveau');
             $table->string('nomParent')->nullable(true);
             $table->string('prenomParent')->nullable(true);
             $table->string('tel1Parent')->nullable(true);

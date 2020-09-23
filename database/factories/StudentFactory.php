@@ -6,15 +6,15 @@ use App\Student;
 use Faker\Generator as Faker;
 
 $factory->define(Student::class, function (Faker $faker) {
-    static $i = 50;
+    static $i = 51;
     return [
         //
         'ecole' => $faker->domainName ,
-        'niveau' => $faker->randomNumber(1, 12) ,
+        'niveau' => $faker->numberBetween(1, 12) ,
         'nomParent' => $faker->firstNameMale ,
         'prenomParent' => $faker->lastName ,
         'tel1Parent' => $faker->phoneNumber,
         'tel2Parent' => $faker->phoneNumber,
-        'idUser' => $i ,
+        'idUser' => $i++ ,
     ];
 });

@@ -19,12 +19,12 @@ $factory->define(Prof::class, function (Faker $faker) {
         'prixHrHome' => $faker->numberBetween(20, 100),
         'prixHrWebGroupe' => $faker->numberBetween(20, 100),
         'prixHrHomeGroupe' => $faker->numberBetween(20, 100),
-        'idsTypeActivites' => $faker->randomElement(';1;',';2;',';3;'),
-        'idsActivites' => $faker->randomElement(';1;',';2;',';3;'),
-        'idsTypeCours' => $faker->randomElement(';1;',';2;'),
-        'idsLieuCours' => $faker->randomElement(';1;',';2;',';3;'),
-        'idsNiveauScolaires' => $faker->randomElement(';1;',';2;',';3;',';4;',';5;'),
-        'idUser' => $i,
+        'idsTypeActivites' => $faker->randomElement([';1;',';2;',';3;']),
+        'idsActivites' => $faker->randomElement([';1;',';2;',';3;']),
+        'idsTypeCours' => $faker->randomElement([';1;',';2;']),
+        'idsLieuCours' => $faker->randomElement([';1;',';2;',';3;']),
+        'idsNiveauScolaires' => $faker->randomElement([';1;',';2;',';3;',';4;',';5;']),
+        'idUser' => $i++,
     ];
 
     // function generator() {

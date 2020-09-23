@@ -21,10 +21,10 @@ class CreateTypeCoursTable extends Migration
             $table->timestamps();
         });
         
-        DB::insert("INSERT INTO `type_cours` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
-            (1, 'Cours individuel', 'Cours individuel', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
-            (2, 'Cours pour groupe', 'Cours pour groupe', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
-        ");
+        // DB::insert("INSERT INTO `type_cours` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
+        //     (1, 'Cours individuel', 'Cours individuel', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
+        //     (2, 'Cours pour groupe', 'Cours pour groupe', '2020-09-09 12:23:57', '2020-09-09 12:23:57')
+        // ");
     }
 
     /**

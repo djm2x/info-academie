@@ -116,10 +116,14 @@ export class NiveauScolaire {
 export class Message {
   id = 0;
   object = '';
-  msg = '';
+  message = '';
+  vu = false;
   date = new Date();
   idUser = 0;
+  senderName = '';
   idReceiver = 0;
+  idCours = 0;
+
   user = new User();
   receiver = new User();
 }
