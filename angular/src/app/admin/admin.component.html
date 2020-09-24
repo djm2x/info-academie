@@ -19,38 +19,20 @@
 </mat-toolbar>
 <!--  -->
 <mat-sidenav-container #sidenav class="example-sidenav-container" style=" z-index: 9; height: 100vh;">
-  <mat-sidenav #snav [mode]="isMobileWidth ? 'push' : 'side'" [opened]="!isMobileWidth" [fixedInViewport]="true" fixedTopGap="49.9"
-  >
+  <mat-sidenav #snav [mode]="isMobileWidth ? 'push' : 'side'" [opened]="!isMobileWidth" [fixedInViewport]="true"
+    fixedTopGap="49.9">
     <mat-nav-list class="list" style="width: 220px; padding: 0;">
       <div class="logo p-3">
-        <img src="assets/logo.png" alt="mourabit mohamed" width="100%">
+        <img src="assets/404.jpg" alt="mourabit mohamed" width="100%">
       </div>
       <mat-divider></mat-divider>
-      <mat-list-item [routerLink]="['/admin/activite']" routerLinkActive="router-active">
-        <span>Activites</span>
+      <mat-list-item [routerLink]="['/admin/dash']" routerLinkActive="router-active">
+        <span>Dash</span>
         <mat-divider></mat-divider>
       </mat-list-item>
 
-      <mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-active">
-        <span>Users</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-      <mat-list-item [routerLink]="['/admin/ville']" routerLinkActive="router-active">
-        <span>Villes</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-      <mat-list-item [routerLink]="['/admin/detailUserActivite']" routerLinkActive="router-active">
-        <span>DetailUserActivites</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-      <mat-list-item [routerLink]="['/admin/typeActivite']" routerLinkActive="router-active">
-        <span>TypeActivites</span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-
-
-      <mat-accordion *ngIf="session.isAdmin">
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-accordion>
+        <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
 
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -58,11 +40,72 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-link-active">
+          <mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-active">
             <mat-icon>code</mat-icon>&nbsp;<span>....</span>
             <mat-divider></mat-divider>
           </mat-list-item>
+
+        </mat-expansion-panel> -->
+
+        <mat-expansion-panel [ngClass]="{'router-link-active': actuelRoute.includes('settings') }"
+          (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class=" titleDomaine">
+              Paramétrage
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list-item [routerLink]="['/admin/settings/activite']" routerLinkActive="router-active">
+            <span>Activites</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/prof']" routerLinkActive="router-active">
+            <span>Profs</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/student']" routerLinkActive="router-active">
+            <span>Students</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/message']" routerLinkActive="router-active">
+            <span>Messages</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/contactUs']" routerLinkActive="router-active">
+            <span>ContactUss</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+          <mat-list-item [routerLink]="['/admin/settings/user']" routerLinkActive="router-active">
+            <span>Users</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/ville']" routerLinkActive="router-active">
+            <span>Villes</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <!-- <mat-list-item [routerLink]="['/admin/settings/detailUserActivite']" routerLinkActive="router-active">
+            <span>DetailUserActivites</span>
+            <mat-divider></mat-divider>
+          </mat-list-item> -->
+          <mat-list-item [routerLink]="['/admin/settings/typeActivite']" routerLinkActive="router-active">
+            <span>TypeActivites</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/typeCours']" routerLinkActive="router-active">
+            <span>TypeCourss</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/lieuCours']" routerLinkActive="router-active">
+            <span>lieuCours</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/settings/niveauScolaire']" routerLinkActive="router-active">
+            <span>NiveauScolaires</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
           
+
         </mat-expansion-panel>
       </mat-accordion>
       <mat-divider></mat-divider>

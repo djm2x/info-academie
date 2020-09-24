@@ -9,16 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-pdo_sqlite": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "grohiro/laravel-camelcase-json": "~2.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
         "laravel/sanctum": "^2.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
-        "tymon/jwt-auth": "dev-develop",
-        "ext-pdo_sqlite": "*"
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

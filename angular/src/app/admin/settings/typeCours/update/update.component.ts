@@ -18,7 +18,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   visualisation = false;
   
 
-  folderToSaveInServer = 'typeCourss';
+  folderToSaveInServer = 'typeCours';
 
   /*{imagesInit}*/
 
@@ -33,8 +33,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.visualisation = this.data.visualisation;
     this.createForm();
     if (this.o.id !== 0) {
-      this.selectChange('region', this.o.idRegion);
-      this.selectChange('province', this.o.idProvince);
+      
       setTimeout(() => this.createForm(), 300);
     }
     /*{imagesFrom}*/
@@ -44,17 +43,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }, 100);
   }
 
-  selectChange(name: string, id: number) {
-    if (name === 'region') {
-      this.uow.provinces.getByForeignkey(id).subscribe(r => {
-        this.provinces = r;
-      });
-    } else if (name === 'province'){
-      this.uow.communes.getByForeignkey(id).subscribe(r => {
-        this.communes = r;
-      });
-    }
-  }
+  
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -63,12 +52,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
   onOkClick(o: TypeCours): void {
     let sub = null;
     if (o.id === 0) {
-      sub = this.uow.typeCourss.post(o).subscribe(r => {
+      sub = this.uow.typeCours.post(o).subscribe(r => {
         
         this.dialogRef.close(o);
       });
     } else {
-      sub = this.uow.typeCourss.put(o.id, o).subscribe(r => {
+      sub = this.uow.typeCours.put(o.id, o).subscribe(r => {
         
         this.dialogRef.close(o);
       });

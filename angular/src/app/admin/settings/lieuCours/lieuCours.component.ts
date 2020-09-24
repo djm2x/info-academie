@@ -48,7 +48,7 @@ nomAr = new FormControl('');
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
-      this.breadcrumb.name = 'LieuCourss';
+      this.breadcrumb.name = 'lieuCours';
     }
 
   ngOnInit() {
@@ -70,20 +70,10 @@ this.nomAr.value === '' ? '*' : this.nomAr.value,
       }
     );
 
-    const sub2 = merge(...[this.chartTabSelectedEvent, this.update]).pipe(startWith(null as any)).subscribe(r => {
-
-      if (this.isChartTabSelected) {
-        this.getAllForStatistique(
-          this.nom.value === '' ? '*' : this.nom.value,
-this.nomAr.value === '' ? '*' : this.nomAr.value,
-
-        );
-      }
-    }
-    );
+    
 
     this.subs.push(sub);
-    this.subs.push(sub2);
+    
   }
 
   reset() {
@@ -93,16 +83,14 @@ this.nomAr.setValue('');
     this.update.next(true);
   }
 
-  generateExcel() {
-    this.excel.json_to_sheet(this.dataSource);
-  }
+  
 
   search() {
     this.update.next(true);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr,) {
-    const sub = this.uow.lieuCourss.getAll(startIndex, pageSize, sortBy, sortDir,  nom, nomAr,).subscribe(
+    const sub = this.uow.lieuCours.getAll(startIndex, pageSize, sortBy, sortDir,  nom, nomAr,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -114,32 +102,9 @@ this.nomAr.setValue('');
     this.subs.push(sub);
   }
 
-  getAllForStatistique( nom, nomAr,) {
-    const sub = this.uow.lieuCourss.getAllForStatistique( nom, nomAr,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
+  
 
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({barChartLabels, barChartData, title: 'LieuCours'});
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
-  selectedIndexChange(index: number) {
-    // this.isListTabSelected = index === 0;
-    // this.isChartTabSelected = index === 1;
-    // this.listTabSelectedEvent.next(index === 0);
-    // this.chartTabSelectedEvent.next(index === 1);
-  }
+  
 
   openDialog(o: LieuCours, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
@@ -178,7 +143,7 @@ this.nomAr.setValue('');
   async delete(id: number) {
     const r = await this.mydialog.openDialog(this.breadcrumb.name).toPromise();
     if (r === 'ok') {
-      const sub = this.uow.lieuCourss.delete(id).subscribe(() => this.update.next(true));
+      const sub = this.uow.lieuCours.delete(id).subscribe(() => this.update.next(true));
 
       this.subs.push(sub);
     }
@@ -192,7 +157,7 @@ this.nomAr.setValue('');
       return urlImage;
     }
 
-    return `${this.url}/lieuCourss/${urlImage.replace(';', '')}`;
+    return `${this.url}/lieuCours/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {
@@ -228,7 +193,7 @@ this.nomAr.setValue('');
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.lieuCourss.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.lieuCours.deleteRange(this.selectedList).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

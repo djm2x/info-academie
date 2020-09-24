@@ -18,7 +18,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   visualisation = false;
   users = this.uow.users.get();
 receivers = this.uow.users.get();
-courss = this.uow.courss.get();
+// courss = this.uow.courss.get();
 
 
   folderToSaveInServer = 'messages';
@@ -36,8 +36,7 @@ courss = this.uow.courss.get();
     this.visualisation = this.data.visualisation;
     this.createForm();
     if (this.o.id !== 0) {
-      this.selectChange('region', this.o.idRegion);
-      this.selectChange('province', this.o.idProvince);
+      
       setTimeout(() => this.createForm(), 300);
     }
     /*{imagesFrom}*/
@@ -47,17 +46,7 @@ courss = this.uow.courss.get();
     }, 100);
   }
 
-  selectChange(name: string, id: number) {
-    if (name === 'region') {
-      this.uow.provinces.getByForeignkey(id).subscribe(r => {
-        this.provinces = r;
-      });
-    } else if (name === 'province'){
-      this.uow.communes.getByForeignkey(id).subscribe(r => {
-        this.communes = r;
-      });
-    }
-  }
+  
 
   onNoClick(): void {
     this.dialogRef.close();

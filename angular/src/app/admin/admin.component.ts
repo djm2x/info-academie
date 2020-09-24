@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../shared';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../shared/animations';
 import { MediaService } from '../shared/media.service';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class AdminComponent implements OnInit {
   panelOpenState = false;
   isMobileWidth = false;
+  actuelRoute = this.router.url;
   constructor(public session: SessionService, private router: Router
     , public myMedia: MediaService
     , private toastr: ToastrService, public dialog: MatDialog) { }
@@ -25,6 +26,8 @@ export class AdminComponent implements OnInit {
 
 
     this.messageInComing();
+
+    this.getRoute();
   }
 
   messageInComing() {
@@ -53,6 +56,16 @@ export class AdminComponent implements OnInit {
   //     this.router.navigate(['admin/ticketSupport/update', chat.idTicketSupport]);
   //   } )
   // }
+
+  getRoute() {
+    this.router.events.pipe().subscribe(route => {
+      if (route instanceof NavigationStart) {
+        this.actuelRoute = route.url;
+        // console.log(route);
+        // console.log(this.route);
+      }
+    });
+  }
 
   disconnect() {
     this.session.doSignOut();

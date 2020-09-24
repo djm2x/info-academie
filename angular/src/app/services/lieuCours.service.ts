@@ -5,7 +5,7 @@ import { LieuCours } from '../models/models';
 @Injectable({
   providedIn: 'root'
 })
-export class LieuCoursService extends SuperService<LieuCours> {
+export class lieuCourservice extends SuperService<LieuCours> {
 
   constructor() {
     super('lieuCours');

@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentSeeder::class);
         $this->call(TypeActiviteSeeder::class);
         $this->call(ActiviteSeeder::class);
-        $this->call(LieuCoursSeeder::class);
+        $this->call(lieuCourseeder::class);
         $this->call(TypeCoursSeeder::class);
         $this->call(NiveauScolaireSeeder::class);
 
@@ -86,7 +86,7 @@ class VilleSeeder extends Seeder
     }
 }
 
-class LieuCoursSeeder extends Seeder
+class lieuCourseeder extends Seeder
 {
     public function run()
     {

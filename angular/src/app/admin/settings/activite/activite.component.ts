@@ -10,7 +10,7 @@ import { Activite } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { MyrouteService } from '../myroute.service';
+import { MyrouteService } from '../../myroute.service';
 
 @Component({
   selector: 'app-activite',
@@ -38,11 +38,7 @@ export class ActiviteComponent implements OnInit, OnDestroy {
   nomAr = new FormControl('');
   idTypeActivite = new FormControl(0);
 
-
   typeActivites = this.uow.typeActivites.get();
-
-
-
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
@@ -79,12 +75,10 @@ export class ActiviteComponent implements OnInit, OnDestroy {
     this.nomAr.setValue('');
     this.idTypeActivite.setValue(0);
 
-    this.update.next(true);
+    this.update.next(true); 
   }
 
-  generateExcel() {
-    this.excel.json_to_sheet(this.dataSource);
-  }
+  
 
   search() {
     this.update.next(true);

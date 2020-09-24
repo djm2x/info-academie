@@ -10,7 +10,7 @@ import { DetailUserActivite } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { MyrouteService } from '../myroute.service';
+import { MyrouteService } from '../../myroute.service';
 
 @Component({
   selector: 'app-detailUserActivite',
@@ -81,9 +81,7 @@ this.idActivite.setValue(0);
     this.update.next(true);
   }
 
-  generateExcel() {
-    this.excel.json_to_sheet(this.dataSource);
-  }
+  
 
   search() {
     this.update.next(true);

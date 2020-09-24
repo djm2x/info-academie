@@ -15,19 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
-Route::namespace('Api')->group(function () {
-});
-
-// teste state
-Route::get('/state/one', 'PlanificationController@state');
-
-// testApi
-Route::get('/home/list', 'HomeController@testApi');
+// Route::namespace('Api')->group(function () {
+// });
 
 // FILES UPLOAD
 
@@ -36,101 +30,48 @@ Route::post('/files/angEditorUploadImage/{folder}', 'FilesController@angEditorUp
 Route::post('/files/uploadFiles/{folder}', 'FilesController@uploadFiles');
 Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
-// typeActivites  
-Route::get('/typeActivites/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeActiviteController@getAll');
-Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
-Route::apiResource('typeActivites', 'TypeActiviteController');
+// Route::group(['middleware' => 'camel.case'], function () {
+    // typeActivites  
+    Route::get('/typeActivites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeActiviteController@getAll');
+    Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
+    Route::apiResource('typeActivites', 'TypeActiviteController');
 
-// niveauScolaires  
-
-Route::get('/niveauScolaires/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'NiveauScolaireController@getAll');
-Route::apiResource('niveauScolaires', 'NiveauScolaireController');
-
-// villes
-Route::get('/villes/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'VilleController@getAll');
-Route::apiResource('villes', 'VilleController');
-// typeCours
-Route::get('/typeCours/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeCoursController@getAll');
-Route::apiResource('typeCours', 'TypeCoursController');
-// lieuCours
-Route::get('/lieuCours/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'LieuCoursController@getAll');
-Route::apiResource('lieuCours', 'LieuCoursController');
-// profs
-Route::get('/profs/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ProfController@getAll');
-Route::apiResource('profs', 'ProfController');
-// students
-Route::get('/students/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'StudentController@getAll');
-Route::apiResource('students', 'StudentController');
-
-// users
-Route::get('/users/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
-Route::apiResource('users', 'UserController');
-
-Route::group(['middleware' => 'auth.jwt'], function () {
-
-    // Route::get('/users/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
-    // Route::apiResource('users', 'UserController');
-
-    //regions
-    Route::get('/regions/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'RegionController@getList');
-    Route::apiResource('regions', 'RegionController');
-
-    //activite
-    Route::get('/activites/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ActiviteController@getAll');
+    // activites  
+    Route::get('/activites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idTypeActivite}', 'ActiviteController@getAll');
     Route::apiResource('activites', 'ActiviteController');
 
-    //planifications
-    Route::get('/planifications/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'PlanificationController@getAll');
-    Route::apiResource('planifications', 'PlanificationController');
+    // niveauScolaires  
+    Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'NiveauScolaireController@getAll');
+    Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
-    //presidents
-    Route::get('/presidents/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'PresidentController@getList');
-    Route::apiResource('presidents', 'PresidentController');
+    // villes
+    Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'VilleController@getAll');
+    Route::apiResource('villes', 'VilleController');
 
-    //galeries
-    Route::get('/galeries/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'GalerieController@getList');
-    Route::apiResource('galeries', 'GalerieController');
+    // typeCours
+    Route::get('/typeCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeCoursController@getAll');
+    Route::apiResource('typeCours', 'TypeCoursController');
 
-    //blogs
-    Route::get('/blogs/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'BlogController@getAll');
-    Route::apiResource('blogs', 'BlogController');
+    // lieuCours
+    Route::get('/lieuCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'LieuCoursController@getAll');
+    Route::apiResource('lieuCours', 'LieuCoursController');
 
-    
+    // profs
+    Route::get('/profs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ProfController@getAll');
+    Route::apiResource('profs', 'ProfController');
 
-    //contacts
-    Route::get('/contacts/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ContactController@getList');
-    // Route::apiResource('contacts', 'ContactController');
-    Route::get('/contacts/{id}', 'ContactController@show');
-    Route::delete('/contacts/{id}', 'ContactController@destroy');
-    Route::put('/contacts/{id}', 'ContactController@update');
+    // students
+    Route::get('/students/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'StudentController@getAll');
+    Route::apiResource('students', 'StudentController');
 
-    // news letter
-    Route::get('/newsLetter/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'NewsLetterController@getList');
-    // Route::apiResource('newsLetter', 'NewsLetterController');
-    Route::get('/newsLetter/{id}', 'NewsLetterController@show');
-    Route::delete('/newsLetter/{id}', 'NewsLetterController@destroy');
-    Route::put('/newsLetter/{id}', 'NewsLetterController@update');
-    //actualite
-    Route::get('/actualites/getList/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ActualiteController@getAll');
-    Route::apiResource('actualites', 'ActualiteController');
-});
+    // users
+    Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
+    Route::apiResource('users', 'UserController');
 
-//actulaite
-Route::get('/actualites/pageApi/{startIndex}/{pageSize}', 'ActualiteController@pageApi');
-Route::get('/actualites/news/{count}', 'ActualiteController@news');
-
-Route::post('/contacts', 'ContactController@store');
-Route::post('/newsLetter', 'NewsLetterController@store');
-
-//activite
-Route::get('/activites/listApi/{startIndex}/{pageSize}/{idRegion}/{dateOrderDir}', 'ActiviteController@listApi');
-//planifications
-Route::get('/planifications/getLast/{city}', 'PlanificationController@getLast');
-
-
-//accounts
-Route::post('/accounts/login', 'AccountController@login');
-// Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');
-
-Route::post('/accounts/create', 'AccountController@register');
-// Route::apiResource('accounts', 'UserController');
+    //accounts
+    Route::post('/accounts/login', 'AccountController@login');
+    // Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');
+    Route::post('/accounts/create', 'AccountController@register');
+// });
+// Route::group(['middleware' => 'auth.jwt'], function () {
+// });

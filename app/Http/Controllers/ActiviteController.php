@@ -11,7 +11,7 @@ class ActiviteController extends SuperController
         parent::__construct($model);
     }
 
-    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir) // : Collection
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $nomAr, string $idTypeActivite) // : Collection
     {
         $list = $this->_context
             // ->where('idCircuit', $id)
@@ -19,9 +19,15 @@ class ActiviteController extends SuperController
             ->orderBy($sortBy, $sortDir)
             ->skip($startIndex)
             ->take($pageSize)
-            ->with('region')
+            // ->with(['typeActivite:id,nom'])
+            // ->with('subcategory.category')
+            // ->get(['id', 'nom', 'nomAr', 'imageUrl', 'type_activite.nom'])
             ->get()
             ;
+
+            // $users = App\User::with(['posts' => function ($query) {
+            //     $query->orderBy('created_at', 'desc');
+            // }])->get();
 
         $count = $this->_context->get()->count();
 

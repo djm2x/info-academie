@@ -8,10 +8,12 @@ import { TypeActiviteService } from './typeActivite.service';
 import { ActiviteService } from './activite.service';
 import { NiveauScolaireService } from './niveauScolaire.service';
 import { TypeCoursService } from './typeCours.service';
-import { LieuCoursService } from './lieuCours.service';
+import { lieuCourservice } from './lieuCours.service';
 import { ProfService } from './prof.service';
 import { StudentService } from './student.service';
 import { HttpClient } from '@angular/common/http';
+import { ContactUsService } from './contactUs.service';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +27,12 @@ export class UowService {
   niveauScolaires = new NiveauScolaireService();
   activites = new ActiviteService();
   typeCours = new TypeCoursService();
-  lieuCours = new LieuCoursService();
+  lieuCours = new lieuCourservice();
   profs = new ProfService();
   students = new StudentService();
+
+  messages = new MessageService();
+  contactUss = new ContactUsService();
 
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
   years = [...Array(new Date().getFullYear() - 2015).keys()].map(e => 2015 + e + 1);

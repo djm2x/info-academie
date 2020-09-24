@@ -70,20 +70,8 @@ this.nomAr.value === '' ? '*' : this.nomAr.value,
       }
     );
 
-    const sub2 = merge(...[this.chartTabSelectedEvent, this.update]).pipe(startWith(null as any)).subscribe(r => {
-
-      if (this.isChartTabSelected) {
-        this.getAllForStatistique(
-          this.nom.value === '' ? '*' : this.nom.value,
-this.nomAr.value === '' ? '*' : this.nomAr.value,
-
-        );
-      }
-    }
-    );
-
     this.subs.push(sub);
-    this.subs.push(sub2);
+    
   }
 
   reset() {
@@ -93,9 +81,7 @@ this.nomAr.setValue('');
     this.update.next(true);
   }
 
-  generateExcel() {
-    this.excel.json_to_sheet(this.dataSource);
-  }
+  
 
   search() {
     this.update.next(true);
@@ -114,32 +100,9 @@ this.nomAr.setValue('');
     this.subs.push(sub);
   }
 
-  getAllForStatistique( nom, nomAr,) {
-    const sub = this.uow.niveauScolaires.getAllForStatistique( nom, nomAr,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
+  
 
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({barChartLabels, barChartData, title: 'NiveauScolaire'});
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
-  selectedIndexChange(index: number) {
-    // this.isListTabSelected = index === 0;
-    // this.isChartTabSelected = index === 1;
-    // this.listTabSelectedEvent.next(index === 0);
-    // this.chartTabSelectedEvent.next(index === 1);
-  }
+  
 
   openDialog(o: NiveauScolaire, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {

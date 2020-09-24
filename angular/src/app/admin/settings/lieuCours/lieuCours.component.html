@@ -1,4 +1,4 @@
-<!-- <app-title title="LieuCourss"></app-title> -->
+<!-- <app-title title="lieuCours"></app-title> -->
 
 <div class="d-flex flex-row-reverse pt-3 mb-3">
   <button mat-raised-button color="primary" (click)="add()">
@@ -25,18 +25,7 @@
     <mat-divider> </mat-divider>
 
     <div class="mt-2">
-      <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>Mois</mat-label>
-        <mat-select [formControl]="mois" readonly>
-          <mat-option *ngFor="let e of uow.monthsAlpha" [value]="e.id">{{ e.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>Années</mat-label>
-        <mat-select [formControl]="annee" readonly>
-          <mat-option *ngFor="let e of uow.years" [value]="e">{{ e }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      
       <mat-form-field appearance="fill" class="col-md-6">
                     <mat-label>nom</mat-label>
                     <input matInput [formControl]="nom" required>

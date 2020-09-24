@@ -73,21 +73,8 @@ this.idUser.value === 0 ? 0 : this.idUser.value,
       }
     );
 
-    const sub2 = merge(...[this.chartTabSelectedEvent, this.update]).pipe(startWith(null as any)).subscribe(r => {
-
-      if (this.isChartTabSelected) {
-        this.getAllForStatistique(
-          this.object.value === '' ? '*' : this.object.value,
-this.msg.value === '' ? '*' : this.msg.value,
-this.idUser.value === 0 ? 0 : this.idUser.value,
-
-        );
-      }
-    }
-    );
-
     this.subs.push(sub);
-    this.subs.push(sub2);
+    
   }
 
   reset() {
@@ -98,9 +85,7 @@ this.idUser.setValue(0);
     this.update.next(true);
   }
 
-  generateExcel() {
-    this.excel.json_to_sheet(this.dataSource);
-  }
+  
 
   search() {
     this.update.next(true);
@@ -119,32 +104,8 @@ this.idUser.setValue(0);
     this.subs.push(sub);
   }
 
-  getAllForStatistique( object, msg, idUser,) {
-    const sub = this.uow.contactUss.getAllForStatistique( object, msg, idUser,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
-
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({barChartLabels, barChartData, title: 'ContactUs'});
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
-  selectedIndexChange(index: number) {
-    // this.isListTabSelected = index === 0;
-    // this.isChartTabSelected = index === 1;
-    // this.listTabSelectedEvent.next(index === 0);
-    // this.chartTabSelectedEvent.next(index === 1);
-  }
+ 
+  
 
   openDialog(o: ContactUs, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {

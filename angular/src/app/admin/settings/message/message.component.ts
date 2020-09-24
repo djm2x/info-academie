@@ -44,7 +44,7 @@ idCours = new FormControl(0);
 
   users = this.uow.users.get();
 receivers = this.uow.users.get();
-courss = this.uow.courss.get();
+// courss = this.uow.courss.get();
 
 
   dataSubject = new Subject();
@@ -81,24 +81,8 @@ this.idCours.value === 0 ? 0 : this.idCours.value,
       }
     );
 
-    const sub2 = merge(...[this.chartTabSelectedEvent, this.update]).pipe(startWith(null as any)).subscribe(r => {
-
-      if (this.isChartTabSelected) {
-        this.getAllForStatistique(
-          this.object.value === '' ? '*' : this.object.value,
-this.message.value === '' ? '*' : this.message.value,
-this.idUser.value === 0 ? 0 : this.idUser.value,
-this.senderName.value === '' ? '*' : this.senderName.value,
-this.idReceiver.value === 0 ? 0 : this.idReceiver.value,
-this.idCours.value === 0 ? 0 : this.idCours.value,
-
-        );
-      }
-    }
-    );
-
     this.subs.push(sub);
-    this.subs.push(sub2);
+    
   }
 
   reset() {
@@ -112,9 +96,7 @@ this.idCours.setValue(0);
     this.update.next(true);
   }
 
-  generateExcel() {
-    this.excel.json_to_sheet(this.dataSource);
-  }
+  
 
   search() {
     this.update.next(true);
@@ -133,32 +115,7 @@ this.idCours.setValue(0);
     this.subs.push(sub);
   }
 
-  getAllForStatistique( object, message, idUser, senderName, idReceiver, idCours,) {
-    const sub = this.uow.messages.getAllForStatistique( object, message, idUser, senderName, idReceiver, idCours,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
-
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({barChartLabels, barChartData, title: 'Message'});
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
-  selectedIndexChange(index: number) {
-    // this.isListTabSelected = index === 0;
-    // this.isChartTabSelected = index === 1;
-    // this.listTabSelectedEvent.next(index === 0);
-    // this.chartTabSelectedEvent.next(index === 1);
-  }
+  
 
   openDialog(o: Message, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {

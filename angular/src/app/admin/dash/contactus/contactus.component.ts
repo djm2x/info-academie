@@ -26,7 +26,7 @@ export class ContactusComponent implements OnInit {
   async ngOnInit() {
     // test
     this.o.object = 'object';
-    this.o.msg = 'msg';
+    this.o.message = 'message';
     this.createForm()
   }
 
@@ -34,7 +34,7 @@ export class ContactusComponent implements OnInit {
     this.myForm = this.fb.group({
       id: [this.o.id],
       object: [this.o.object, [Validators.required]],
-      msg: [this.o.msg, [Validators.required]],
+      message: [this.o.message, [Validators.required]],
       date: [this.o.date, []],
       idUser: [this.session.user.id, []],
     });
