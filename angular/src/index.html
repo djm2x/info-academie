@@ -1,17 +1,20 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <base href="/">
+  <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>MEM</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" href="assets/fav.png" />
 </head>
+
 <body>
   <style>
-    body{
-      --background: #737373;
+    body {
+      --background: #ffffff;
+      --footer-text-color: black;
       --spinner-circle: #e45c0d;
       --spinner-background: var(--background);
     }
@@ -43,7 +46,7 @@
     .footer p {
       margin: 0;
       font-weight: bold;
-      color: white;
+      color: var(--footer-text-color);
     }
 
     .circle {
@@ -99,7 +102,7 @@
 
   <div id="splash-screen">
     <div class="header">
-      <img src="assets/logo.png" width="350">
+      <img src="assets/icon.jpg" width="250">
     </div>
     <div class="circle">
       <div class="spinner"></div>
@@ -107,9 +110,13 @@
     </div>
     <div class="footer">
       <img src="assets/fav.png" width="35">
-      <p>&nbsp;Suivi des activités des services déconcentrés</p>
+      <p>&copy; <span id="date"></span>&nbsp;info-academie</p>
     </div>
   </div>
   <app-root></app-root>
+  <script>
+    document.querySelector('#date').innerHTML = new Date().getFullYear();
+  </script>
 </body>
+
 </html>

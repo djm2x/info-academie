@@ -105,6 +105,7 @@ export class ProfComponent implements OnInit {
       intro: [this.prof.intro],
       videoUrl: [this.prof.videoUrl],
       cvUrl: [this.prof.cvUrl],
+      note: [this.prof.note, []],
 
       prixHrWeb: [this.prof.prixHrWeb],
       prixHrHome: [this.prof.prixHrHome, []],

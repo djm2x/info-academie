@@ -1,7 +1,31 @@
 <div class="row justify-content-center align-items-center w-100" style="height: 100vh;">
-    
-    
-    <button mat-raised-button [routerLink]="['/auth/create/prof']" class="mx-2">Prof</button>
-    <button mat-raised-button [routerLink]="['/auth/create/student']" class="mx-2">Student</button>
-           
+
+
+    <mat-card class="mat-elevation-z8">
+
+        <div class="row p-2">
+
+
+            <div class="d-flex flex-column justify-content-between">
+                <img src="assets/prof.jpg" alt="" style="width: 350px;">
+                <button mat-raised-button [routerLink]="['/auth/create/prof']" style="height: 50px;" color="primary" class="mx-2 mt-2">Prof</button>
+            </div>
+
+            <mat-divider [vertical]="true"> </mat-divider>
+
+            <div class="d-flex flex-column justify-content-between">
+                <img src="assets/student.jpg" alt="" style="width: 350px;">
+                <button mat-raised-button [routerLink]="['/auth/create/student']" style="height: 50px;" color="accent" class="mx-2 mt-2">Student</button>
+
+            </div>
+        </div>
+
+        <button class="col-md-12 my-3" mat-raised-button color="warn" [routerLink]="['/auth']"
+        type="submit">Connexion</button>
+
+
+    </mat-card>
+
+
+
 </div>

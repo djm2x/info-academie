@@ -3,7 +3,7 @@
 
 <head>
     @yield('entete')
-    <title>Donneur du sang</title>
+    <title>Info-academie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -36,7 +36,7 @@
         <div class="{{ request()->is('/') ? '' : 'container' }}">
             <div class="row">
                 <div class="{{ request()->is('/') || strpos(Request::path(), 'actualite') === 0 ? (strpos(Request::path(), 'actualite') === 0 ? 'col-md-8 p-1 mt-1' : 'col-md-12') : 'col-sm-12 col-md-8 p-1 mt-1' }}">
-                    @include('title')
+                    {{-- @include('title') --}}
                     {{-- {{strpos(Request::path(), 'actualite')}}   class="{{ request()->is('/') ? 'm-0' : 'ml-2 mr-2' }}"--}}
                     <div  class="{{ request()->is('/') ? '' : 'card' }}" style="border-radius: 0">
                         <article  class="{{ request()->is('/') ? 'm-0' : 'ml-2 mr-2' }}">
@@ -63,15 +63,15 @@
         @include('footer')
     </footer>
 
-    <div class="sociel">
+    {{-- <div class="sociel">
         <a><i class="fab fa-facebook-square"></i></a>
         <a><i class="fab fa-twitter-square"></i></a>
         <a><i class="fab fa-instagram-square"></i></a>
         <a><i class="fab fa-youtube-square"></i></a>
 
-    </div>
+    </div> --}}
 
-    <a id="btn" class="d-flex justify-content-center align-items-center"><i class="fas fa-arrow-up text-white"></i></a>
+    <a id="btn" class="d-flex justify-content-center align-items-center" style="background-color:#4c4c4c;"><i class="fas fa-arrow-up text-white"></i></a>
 
     <!-- Scripts -->
     <script>

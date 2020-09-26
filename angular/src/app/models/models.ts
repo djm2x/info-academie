@@ -65,6 +65,7 @@ export class Prof {
   intro = 'intro';
   videoUrl = 'videoUrl';
   cvUrl = 'cvUrl';
+  note = 0;
 
   prixHrWeb = 0;
   prixHrHome = 0;

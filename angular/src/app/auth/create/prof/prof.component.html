@@ -15,7 +15,7 @@
                         </div>
 
                         <mat-form-field appearance="fill" class="col-md-6">
-                            <mat-label>{{ 'auth.create.Nom' | translate  }}</mat-label>
+                            <mat-label>{{ 'auth.nom' | translate  }}</mat-label>
                             <input matInput formControlName="nom">
                         </mat-form-field>
 
@@ -71,10 +71,16 @@
                             <textarea matInput formControlName="adresse"></textarea>
                         </mat-form-field>
 
-                        {{myForm.value | json}}
-                        <button class="col-md-12 mb-2" mat-raised-button color="accent"
-                            [disabled]="myForm.invalid || checkPasswordError !== ''"
-                            type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+                        <!-- {{myForm.value | json}} -->
+                        <div class="d-flex justify-content-between">
+
+                            <button matStepperNext class="ml-3 mb-2" mat-raised-button color="primary"
+                                [disabled]="myForm.invalid || checkPasswordError !== ''"
+                                type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+
+                            <button mat-raised-button [routerLink]="['/auth/create/choose']" >Retour</button>
+                        </div>
+
                     </div>
 
                 </form>
@@ -83,21 +89,21 @@
                 <form [formGroup]="myFormProf">
 
                     <div class="">
-                        <mat-form-field appearance="fill" class="col-md-12">
+                        <mat-form-field appearance="fill" class="col-md-6">
                             <mat-label>{{ 'auth.create.Intro' | translate  }}</mat-label>
                             <textarea matInput formControlName="intro"></textarea>
                         </mat-form-field>
-                        <mat-form-field appearance="fill" class="col-md-12">
+                        <mat-form-field appearance="fill" class="col-md-6">
                             <mat-label>{{ 'auth.create.Description' | translate  }}</mat-label>
                             <textarea matInput formControlName="description"></textarea>
                         </mat-form-field>
 
-                        <mat-form-field appearance="fill" class="col-md-12">
+                        <mat-form-field appearance="fill" class="col-md-6">
                             <mat-label>{{ 'auth.create.Experience' | translate  }}</mat-label>
                             <textarea matInput formControlName="experience"></textarea>
                         </mat-form-field>
 
-                        <mat-form-field appearance="fill" class="col-md-12">
+                        <mat-form-field appearance="fill" class="col-md-6">
                             <mat-label>{{ 'auth.create.Approche' | translate  }}</mat-label>
                             <textarea matInput formControlName="approche"></textarea>
                         </mat-form-field>
@@ -131,13 +137,19 @@
                             <input matInput formControlName="prixHrHomeGroupe">
                         </mat-form-field>
 
-                        {{myFormProf.value | json}}
-                        <button class="col-md-12 mb-2" mat-raised-button color="accent"
+                        <!-- {{myFormProf.value | json}} -->
+                        <button matStepperNext class="ml-3 mb-2" mat-raised-button color="primary"
                             [disabled]="myForm.invalid || checkPasswordError !== ''"
                             type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
 
-                        <div>
-                            <button mat-button matStepperNext>Next</button>
+
+                        <div class="d-flex justify-content-between">
+
+                            <button matStepperNext mat-raised-button color="primary"
+                                [disabled]="myForm.invalid || checkPasswordError !== ''"
+                                type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+
+                            <button mat-raised-button matStepperPrevious>Retour</button>
                         </div>
                     </div>
 
@@ -145,46 +157,58 @@
             </mat-step>
             <mat-step>
                 <div>
-
-                    <div *ngFor="let e of activites | async; let i=index">
+                    <h3>Type d'activite</h3>
+                    <div *ngFor="let e of activites | async; let i=index" class="mb-2">
                         <mat-checkbox [checked]="idsTypeActivites.value.includes(';' + e.id + ';')"
                             (change)="checkboxChange($event.checked, e.id, 'idsTypeActivites')">
                             {{myTrans.isFr ? e.nom : e.nomAr}}
                         </mat-checkbox>
                     </div>
-                    <div *ngFor="let e of activites | async; let i=index">
+                    <mat-divider></mat-divider>
+                    <h3 class="pt-3">Les activites</h3>
+                    <div *ngFor="let e of activites | async; let i=index" class="mb-2">
                         {{myTrans.isFr ? e.nom : e.nomAr}} -
                         <span *ngFor="let c of e.activites">
 
-                            <mat-checkbox [checked]="idsActivites.value.includes(';' + c.id + ';')"
+                            <mat-checkbox class="mr-2" [checked]="idsActivites.value.includes(';' + c.id + ';')"
                                 (change)="checkboxChange($event.checked, c.id, 'idsActivites')">
                                 {{myTrans.isFr ? c.nom : c.nomAr}}
                             </mat-checkbox>
                         </span>
                     </div>
                     <mat-divider></mat-divider>
-                    <span *ngFor="let e of niveauScolaires | async; let i=index">
-                        <mat-checkbox [checked]="idsNiveauScolaires.value.includes(';' + e.id + ';')"
-                            (change)="checkboxChange($event.checked, e.id, 'idsNiveauScolaires')">
-                            {{myTrans.isFr ? e.nom : e.nomAr}}
-                        </mat-checkbox>
-                    </span>
+                    <h3 class="pt-3">Niveau Scolaires</h3>
+                    <div class="mb-2">
+
+                        <span *ngFor="let e of niveauScolaires | async; let i=index" class="mb-2">
+                            <mat-checkbox class="mr-2" [checked]="idsNiveauScolaires.value.includes(';' + e.id + ';')"
+                                (change)="checkboxChange($event.checked, e.id, 'idsNiveauScolaires')">
+                                {{myTrans.isFr ? e.nom : e.nomAr}}
+                            </mat-checkbox>
+                        </span>
+                    </div>
                     <mat-divider></mat-divider>
-                    <span *ngFor="let e of typeCours | async; let i=index">
-                        <mat-checkbox [checked]="idsTypeCours.value.includes(';' + e.id + ';')"
-                            (change)="checkboxChange($event.checked, e.id, 'idsTypeCours')">
-                            {{myTrans.isFr ? e.nom : e.nomAr}}
-                        </mat-checkbox>
-                    </span>
+                    <h3 class="pt-3">Type Cours</h3>
+                    <div class="mb-2">
+
+                        <span *ngFor="let e of typeCours | async; let i=index" class="mb-2">
+                            <mat-checkbox class="mr-2" [checked]="idsTypeCours.value.includes(';' + e.id + ';')"
+                                (change)="checkboxChange($event.checked, e.id, 'idsTypeCours')">
+                                {{myTrans.isFr ? e.nom : e.nomAr}}
+                            </mat-checkbox>
+                        </span>
+                    </div>
 
                     <mat-divider></mat-divider>
-
-                    <span *ngFor="let e of lieuCours | async; let i=index">
-                        <mat-checkbox [checked]="idsLieuCours.value.includes(';' + e.id + ';')"
-                            (change)="checkboxChange($event.checked, e.id, 'idsLieuCours')">
-                            {{myTrans.isFr ? e.nom : e.nomAr}}
-                        </mat-checkbox>
-                    </span>
+                    <h3 class="pt-3">Lieu Cours</h3>
+                    <div class="mb-2">
+                        <span *ngFor="let e of lieuCours | async; let i=index" class="mb-2">
+                            <mat-checkbox class="mr-2" [checked]="idsLieuCours.value.includes(';' + e.id + ';')"
+                                (change)="checkboxChange($event.checked, e.id, 'idsLieuCours')">
+                                {{myTrans.isFr ? e.nom : e.nomAr}}
+                            </mat-checkbox>
+                        </span>
+                    </div>
 
                     <!-- {{idsTypeCours.value | json}}
                     {{idsLieuCours.value | json}}
@@ -192,13 +216,15 @@
                     {{idsActivites.value | json}}
                     {{idsNiveauScolaires.value | json}} -->
                 </div>
+                <div class="d-flex justify-content-between">
 
-                <button class="col-md-12 mb-2" mat-raised-button color="accent"
-                    [disabled]="myForm.invalid || checkPasswordError !== ''" type="submit"
-                    (click)="submit(myForm.value, myFormProf.value)">{{ 'auth.create.prof.Next' | translate  }}</button>
+                    <button mat-raised-button color="primary" [disabled]="myForm.invalid || checkPasswordError !== ''"
+                        type="submit"
+                        (click)="submit(myForm.value, myFormProf.value)">{{ 'auth.create.prof.Valider' | translate  }}</button>
 
 
-                <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button matStepperPrevious>Retour</button>
+                </div>
                 <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
 
             </mat-step>

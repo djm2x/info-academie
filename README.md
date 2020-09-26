@@ -22,6 +22,11 @@ php artisan migrate
 
 php artisan tinker
 
+protected static $categories = array(
+        'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nightlife',
+        'fashion', 'people', 'nature', 'sports', 'technics', 'transport'
+    );
+
 sqlite3 database/database.sqlite 
 .tables 
 .schema membre

@@ -21,7 +21,7 @@ $factory->define(Activite::class, function (Faker $faker) {
     return [
         'nom' => $list[$i][0],
         'nomAr' => $list[$i][1],
-        'imageUrl' => 'assets/404.jpg',
+        'imageUrl' => $faker->imageUrl(640, 480, 'business'),
         'idTypeActivite' => $list[$i++][2],
     ];
 });

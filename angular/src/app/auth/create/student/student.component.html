@@ -15,7 +15,7 @@
                         </div>
 
                         <mat-form-field appearance="fill" class="col-md-6">
-                            <mat-label>{{ 'auth.create.Nom' | translate  }}</mat-label>
+                            <mat-label>{{ 'auth.nom' | translate  }}</mat-label>
                             <input matInput formControlName="nom">
                         </mat-form-field>
 
@@ -71,10 +71,16 @@
                             <textarea matInput formControlName="adresse"></textarea>
                         </mat-form-field>
 
-                        {{myForm.value | json}}
-                        <button class="col-md-12 mb-2" mat-raised-button color="accent"
-                            [disabled]="myForm.invalid || checkPasswordError !== ''"
-                            type="button" >{{ 'auth.create.prof.Next' | translate  }}</button>
+                        <!-- {{myForm.value | json}} -->
+                        <div class="d-flex justify-content-between">
+
+                            <button matStepperNext class="ml-3 mb-2" mat-raised-button color="primary"
+                                [disabled]="myForm.invalid || checkPasswordError !== ''"
+                                type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+
+                            <button mat-raised-button [routerLink]="['/auth/create/choose']">Retour</button>
+                        </div>
+
                     </div>
 
                 </form>
@@ -116,10 +122,18 @@
                             <input matInput formControlName="tel2Parent">
                         </mat-form-field>
 
-                        <button class="col-md-12 mb-2" mat-raised-button color="accent"
-                            [disabled]="myForm.invalid || checkPasswordError !== ''"
-                            type="submit" (click)="submit(myForm.value, myFormStudent.value)">{{ 'auth.create.prof.Next' | translate  }}</button>
 
+
+
+                        <div class="d-flex justify-content-between">
+
+                            <button mat-raised-button color="primary"
+                                [disabled]="myForm.invalid || checkPasswordError !== ''" type="submit"
+                                (click)="submit(myForm.value, myFormStudent.value)">{{ 'auth.create.prof.Valider' | translate  }}</button>
+
+
+                            <button mat-raised-button matStepperPrevious>Retour</button>
+                        </div>
                     </div>
 
                 </form>

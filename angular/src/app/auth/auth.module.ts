@@ -8,7 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatModule } from '../mat.module';
 import { ResetComponent } from './reset/reset.component';
-// import { TranslateModule } from '@ngx-translate/core/public_api';
+import { TranslateModule } from '@ngx-translate/core';
+import { MyTranslateService } from '../my.translate.service';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { ResetComponent } from './reset/reset.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatModule,
-    // TranslateModule,
+    TranslateModule,
   ]
 })
-export class AuthModule { }
+export class AuthModule {
+  // constructor(public mytranslate: MyTranslateService) {}
+ }

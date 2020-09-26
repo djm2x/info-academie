@@ -6,6 +6,7 @@ use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
+    static $i = 1;
     return [
         'nom' => $faker->firstName(),
         'prenom' => $faker->lastName,
@@ -16,9 +17,9 @@ $factory->define(User::class, function (Faker $faker) {
         'isActive' => $faker->boolean,
         'date' => $faker->dateTime,
         'adresse' => $faker->address,
-        'imageUrl' => 'assets/404.jpg',
+        'imageUrl' => $faker->imageUrl(640, 480, 'people'), // 'assets/404.jpg',
         'cin' => $faker->creditCardNumber,
-        'role' => $faker->randomElement(['prof', 'student']),
+        'role' => $i <= 50 ? 'prof' : 'student',
         'idVille' => $faker->numberBetween(1, 3),
     ];
 });

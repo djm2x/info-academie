@@ -21,6 +21,7 @@ class CreateProfsTable extends Migration
             $table->string('intro')->nullable(true);
             $table->string('videoUrl')->nullable(true);
             $table->string('cvUrl')->nullable(true);
+            $table->integer('note');
 
             $table->double('prixHrWeb')->nullable(true);
             $table->double('prixHrHome')->nullable(true);

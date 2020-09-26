@@ -70,13 +70,11 @@ idVille = new FormControl(0);
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
 this.prenom.value === '' ? '*' : this.prenom.value,
-this.intro.value === '' ? '*' : this.intro.value,
 this.email.value === '' ? '*' : this.email.value,
 this.tel.value === '' ? '*' : this.tel.value,
 this.adresse.value === '' ? '*' : this.adresse.value,
 this.cin.value === '' ? '*' : this.cin.value,
 this.role.value === '' ? '*' : this.role.value,
-this.isActive.value === 0 ? 0 : this.isActive.value,
 this.idVille.value === 0 ? 0 : this.idVille.value,
 
         );
@@ -110,8 +108,8 @@ this.idVille.setValue(0);
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, nom, prenom, intro, email, tel, adresse, cin, role, isActive, idVille,) {
-    const sub = this.uow.users.getAll(startIndex, pageSize, sortBy, sortDir,  nom, prenom, intro, email, tel, adresse, cin, role, isActive, idVille,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, nom, prenom, email, tel, adresse, cin, role, idVille,) {
+    const sub = this.uow.users.getAll(startIndex, pageSize, sortBy, sortDir,  nom, prenom, email, tel, adresse, cin, role, idVille,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;

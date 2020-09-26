@@ -23,21 +23,14 @@
     .card-title a{
         padding-left: calc(1.25rem - 5px) ;
         color: white;
-        /* background-color: gray; */
     }
  </style>
 
 
 <section class="sidenav h-100">
-    <div class="card mb-2">
-        <video  width="100%"  controls >
-            <source src="{{ asset('videos/spot_publicitaire.mp4') }}" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-    </div>
 
 
-        <div class="card mb-2">
+        {{-- <div class="card mb-2">
             <div class="card-title">
                 <h5><a href="/actualite">@lang('menu.Actualite')</a></h5>
             </div>
@@ -46,17 +39,32 @@
 
                 </div>
             </div>
+        </div> --}}
+
+        <div class="card mb-2" style="height: 10vh;">
+            <div class="card-title">
+                <h5><a href="/actualite">Disponibilité semaine</a></h5>
+            </div>
+            <div class="card-body">
+                
+            </div>
         </div>
 
-
-
-    <div class="card mb-2" style="height: 45vh;">
+    <div class="card mb-2">
         <div class="card-title">
-            <h5><a href="/actualite">Test</a></h5>
+            <h5><a href="/actualite">Partager cette page</a></h5>
         </div>
         <div class="card-body">
-            <div class="d-flex flex-column" id="test" class="row">
+            {{-- <div class="d-flex flex-column" id="test" class="row">
 
+            </div> --}}
+
+            <div class="d-flex mb-3">
+                <a><i class="fab fa-facebook-square" style="font-size: 50px; margin: 0 2px;"></i></a>
+                <a><i class="fab fa-twitter-square" style="font-size: 50px; margin: 0 2px;"></i></a>
+                <a><i class="fab fa-instagram-square" style="font-size: 50px; margin: 0 2px;"></i></a>
+                <a><i class="fab fa-youtube-square" style="font-size: 50px; margin: 0 2px;"></i></a>
+        
             </div>
         </div>
     </div>
@@ -72,7 +80,7 @@
 
         window.addEventListener("DOMContentLoaded", () => {
             console.log('DOMContentLoaded')
-            getPage();
+            // getPage();
         });
 
         async function getPage() {

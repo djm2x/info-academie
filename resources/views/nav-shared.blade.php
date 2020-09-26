@@ -36,15 +36,15 @@
         
     </li>
     
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="{{ request()->is('activite') ? 'nav-link active' : 'nav-link' }}" href="{{ route('activite') }}">@lang('menu.Connecter')</a>
-    </li>
+    </li> --}}
     {{-- <li class="nav-item">
         <a class="{{ request()->is('actualite') ? 'nav-link active' : 'nav-link' }}" href="{{ route('actualite') }}">@lang('menu.Actualite')</a>
     </li> --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="{{ request()->is('galerie') ? 'nav-link active' : 'nav-link' }}" href="{{ route('galerie') }}">@lang('menu.Enregistre')</a>
-    </li>
+    </li> --}}
     {{-- <li class="nav-item ml-3">
         <a class="btn btn-warning" href="{{ route('admin') }}">Back-office</a>
     </li> --}}

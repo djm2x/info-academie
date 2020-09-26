@@ -47,7 +47,7 @@
 
         </mat-expansion-panel> -->
 
-        <mat-expansion-panel [ngClass]="{'router-link-active': actuelRoute.includes('settings') }"
+        <mat-expansion-panel [expanded]="actuelRoute.includes('settings')" [ngClass]="{'router-link-active': actuelRoute.includes('settings') }"
           (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title class=" titleDomaine">
@@ -59,14 +59,14 @@
             <span>Activites</span>
             <mat-divider></mat-divider>
           </mat-list-item>
-          <mat-list-item [routerLink]="['/admin/settings/prof']" routerLinkActive="router-active">
+          <!-- <mat-list-item [routerLink]="['/admin/settings/prof']" routerLinkActive="router-active">
             <span>Profs</span>
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item [routerLink]="['/admin/settings/student']" routerLinkActive="router-active">
             <span>Students</span>
             <mat-divider></mat-divider>
-          </mat-list-item>
+          </mat-list-item> -->
           <mat-list-item [routerLink]="['/admin/settings/message']" routerLinkActive="router-active">
             <span>Messages</span>
             <mat-divider></mat-divider>

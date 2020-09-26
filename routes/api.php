@@ -65,7 +65,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     Route::apiResource('students', 'StudentController');
 
     // users
-    Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'UserController@getAll');
+    Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{email}/{tel}/{adresse}/{cin}/{role}/{idVille}', 'UserController@getAll');
     Route::apiResource('users', 'UserController');
 
     //accounts
