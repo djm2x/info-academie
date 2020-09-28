@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(TypeActivite::class, function (Faker $faker) {
     static $i = 0;
-    $list = ['Soutenance scolaire', 'Langage', 'Activites paralelle'];
+    $list = ['Soutien scolaire', 'Langues', 'Activites paralelle'];
     $listAr = ['الدفاع المدرسي', 'لغة', 'الأنشطة الموازية'];
 
     return [
