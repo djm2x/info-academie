@@ -42,9 +42,13 @@
     {{-- <li class="nav-item">
         <a class="{{ request()->is('actualite') ? 'nav-link active' : 'nav-link' }}" href="{{ route('actualite') }}">@lang('menu.Actualite')</a>
     </li> --}}
-    {{-- <li class="nav-item">
-        <a class="{{ request()->is('galerie') ? 'nav-link active' : 'nav-link' }}" href="{{ route('galerie') }}">@lang('menu.Enregistre')</a>
-    </li> --}}
+    <li class="nav-item">
+        <a class="nav-link" href="/auth/login">@lang('menu.Connecter')</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/auth/create">@lang('menu.Enregistre')</a>
+    </li>
     {{-- <li class="nav-item ml-3">
         <a class="btn btn-warning" href="{{ route('admin') }}">Back-office</a>
     </li> --}}

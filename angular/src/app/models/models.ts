@@ -59,6 +59,7 @@ export class Activite {
 
 export class Prof {
   id = 0;
+  lien = '';
   description = 'description';
   experience = 'experience';
   approche = 'approche';

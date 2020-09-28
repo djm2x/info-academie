@@ -120,13 +120,14 @@ export class UpdateComponent implements OnInit {
       imageUrl: [this.o.imageUrl, []],
       cin: [this.o.cin, []],
       role: ['prof'],
-      idVille: [this.o.idVille],
+      idVille: [+this.o.idVille],
     });
   }
 
   createFormProf() {
     this.myFormProf = this.fb.group({
       id: [this.prof.id],
+      lien: [this.prof.lien, []],
       description: [this.prof.description, []],
       experience: [this.prof.experience, []],
       approche: [this.prof.approche, []],

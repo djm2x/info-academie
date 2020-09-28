@@ -32,9 +32,9 @@ class AccountController extends SuperController
             ;
 
         if ($user == null) {
-            return ['code' => -1];
+            return ['code' => -1, 'message' => 'Email érroné'];
         } else if ($user->password != $password) {
-            return ['code' => 0];
+            return ['code' => 0, 'message' => 'Mot de passe érroné'];
         }
 
         // $user->password = "";
@@ -51,7 +51,8 @@ class AccountController extends SuperController
             'user' => $user, 
             // 'id' => $user->id, 
             'child' => $child, 
-            'token' => $this->createToken($user)
+            'token' => $this->createToken($user),
+            'message' => 'Connexion reussite'
         ];
     }
 

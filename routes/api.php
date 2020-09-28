@@ -67,6 +67,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     // profs
     Route::get('/profs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ProfController@getAll');
     Route::get('/profs/getByIdUser/{id}', 'ProfController@getByIdUser');
+    Route::get('/profs/updateLink/{id}/{lien}', 'ProfController@updateLink');
     Route::apiResource('profs', 'ProfController');
 
     // students
@@ -77,7 +78,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     // users
     Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{email}/{tel}/{adresse}/{cin}/{role}/{idVille}', 'UserController@getAll');
     Route::apiResource('users', 'UserController');
-
+    
     //accounts
     Route::post('/accounts/login', 'AccountController@login');
     // Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');

@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       //   this.router.navigate(['/admin']);
       // }
       if (r.code < 0) {
+        // console.log(r)
         this.snackBar.notifyAlert(400, r.message);
       } else {
         // console.log(r)

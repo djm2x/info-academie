@@ -52,7 +52,7 @@ export class ProfComponent implements OnInit {
     this.checkPassword.setValue('123');
     this.createForm();
     this.createFormProf();
-    this.optImage.folderToSaveInServer = this.o.id === 0 ? 'prof' : `prof_${this.o.id}`;
+    this.optImage.folderToSaveInServer = this.o.id === 0 ? 'users' : `users_${this.o.id}`;
     this.optImage.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 
     setTimeout(() => {
@@ -99,6 +99,7 @@ export class ProfComponent implements OnInit {
   createFormProf() {
     this.myFormProf = this.fb.group({
       id: [this.prof.id],
+      lien: [this.prof.lien, []],
       description: [this.prof.description, []],
       experience: [this.prof.experience, []],
       approche: [this.prof.approche, []],
@@ -159,7 +160,7 @@ export class ProfComponent implements OnInit {
         prof.idUser = r.id;
         this.uow.profs.post(prof).subscribe(p => {
           console.log(p)
-          // this.router.navigate(['/auth']);
+          this.router.navigate(['/auth']);
           // this.snackBar.notifyOk(200, r.message);
         })
       }

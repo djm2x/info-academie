@@ -7,6 +7,7 @@ import { DashComponent } from './dash.component';
 import { InfoComponent } from './info/info.component';
 import { MeComponent } from './me/me.component';
 import { MessageComponent } from './message/message.component';
+import { ProfsComponent } from './profs/profs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'calendar', component: CalendarComponent, },
       { path: 'contactus', component: ContactusComponent, },
       { path: 'info', component: InfoComponent, },
+      { path: 'profs', component: ProfsComponent, },
     ]
   },
 ];

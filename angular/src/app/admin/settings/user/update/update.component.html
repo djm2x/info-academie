@@ -75,7 +75,7 @@
           </div>
 
       </form>
-      <mat-divider></mat-divider>
+      <mat-divider [inset]="true" class="m-2"></mat-divider>
 
       
       <form *ngIf="o.role === 'prof'" [formGroup]="myFormProf">
@@ -101,6 +101,11 @@
                   <mat-label>{{ 'auth.create.Approche' | translate  }}</mat-label>
                   <textarea matInput formControlName="approche"></textarea>
               </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>{{ 'auth.create.LienVisioconférence' | translate  }}</mat-label>
+                <input matInput formControlName="lien">
+            </mat-form-field>
 
               <mat-form-field appearance="fill" class="col-md-12">
                   <mat-label>{{ 'auth.create.VideoUrl' | translate  }}</mat-label>
@@ -136,7 +141,7 @@
           </div>
 
       </form>
-      <mat-divider></mat-divider> 
+      <mat-divider [inset]="true" class="m-2"></mat-divider> 
       <div *ngIf="o.role === 'prof'">
 
           <div *ngFor="let e of activites | async; let i=index" class="col-md-12"> 
@@ -145,7 +150,7 @@
                   {{myTrans.isFr ? e.nom : e.nomAr}}
               </mat-checkbox>
           </div>
-          <mat-divider></mat-divider>
+          <mat-divider [inset]="true" class="m-2"></mat-divider>
           <div *ngFor="let e of activites | async; let i=index" class="col-md-12">
               {{myTrans.isFr ? e.nom : e.nomAr}} -
               <span *ngFor="let c of e.activites">
@@ -156,14 +161,14 @@
                   </mat-checkbox>
               </span>
           </div>
-          <mat-divider></mat-divider>
+          <mat-divider [inset]="true" class="m-2"></mat-divider>
           <span *ngFor="let e of niveauScolaires | async; let i=index" class="col-md-12">
               <mat-checkbox [checked]="isChecked(e.id, 'idsNiveauScolaires')"
                   (change)="checkboxChange($event.checked, e.id, 'idsNiveauScolaires')">
                   {{myTrans.isFr ? e.nom : e.nomAr}}
               </mat-checkbox>
           </span>
-          <mat-divider></mat-divider>
+          <mat-divider [inset]="true" class="m-2"></mat-divider>
           <span *ngFor="let e of typeCours | async; let i=index" class="col-md-12">
               <mat-checkbox [checked]="isChecked(e.id, 'idsTypeCours')"
                   (change)="checkboxChange($event.checked, e.id, 'idsTypeCours')">
@@ -171,7 +176,7 @@
               </mat-checkbox>
           </span>
 
-          <mat-divider></mat-divider>
+          <mat-divider [inset]="true" class="m-2"></mat-divider>
 
           <span *ngFor="let e of lieuCours | async; let i=index" class="col-md-12">
               <mat-checkbox [checked]="isChecked(e.id, 'idsLieuCours')"

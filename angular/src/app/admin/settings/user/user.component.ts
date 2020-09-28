@@ -75,7 +75,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.adresse.value === '' ? '*' : this.adresse.value,
           this.cin.value === '' ? '*' : this.cin.value,
           this.role.value === '' ? '*' : this.role.value,
-          this.idVille.value === 0 ? 0 : this.idVille.value,
+          this.idVille.value === 0 ? 0 : this.idVille.value, 
 
         );
       }

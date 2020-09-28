@@ -75,7 +75,7 @@
             </div>
 
         </form>
-        <mat-divider></mat-divider>
+        <mat-divider [inset]="true" class="my-2"></mat-divider>  
 
         
         <form *ngIf="session.isProf" [formGroup]="myFormProf">
@@ -100,6 +100,11 @@
                 <mat-form-field appearance="fill" class="col-md-12">
                     <mat-label>{{ 'auth.create.Approche' | translate  }}</mat-label>
                     <textarea matInput formControlName="approche"></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="col-md-12">
+                    <mat-label>{{ 'auth.create.LienVisioconférence' | translate  }}</mat-label>
+                    <input matInput formControlName="lien">
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="col-md-12">
@@ -135,7 +140,8 @@
             </div>
 
         </form>
-        <mat-divider></mat-divider> 
+        <mat-divider *ngIf="session.isProf" [inset]="true" class="py-2"></mat-divider>  
+        
         <div *ngIf="session.isProf">
 
             <div *ngFor="let e of activites | async; let i=index" class="col-md-12"> 
@@ -144,7 +150,7 @@
                     {{myTrans.isFr ? e.nom : e.nomAr}}
                 </mat-checkbox>
             </div>
-            <mat-divider></mat-divider>
+            <mat-divider [inset]="true" class="my-2"></mat-divider>  
             <div *ngFor="let e of activites | async; let i=index" class="col-md-12">
                 {{myTrans.isFr ? e.nom : e.nomAr}} -
                 <span *ngFor="let c of e.activites">
@@ -155,14 +161,14 @@
                     </mat-checkbox>
                 </span>
             </div>
-            <mat-divider></mat-divider>
+            <mat-divider [inset]="true" class="my-2"></mat-divider>  
             <span *ngFor="let e of niveauScolaires | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsNiveauScolaires')"
                     (change)="checkboxChange($event.checked, e.id, 'idsNiveauScolaires')">
                     {{myTrans.isFr ? e.nom : e.nomAr}}
                 </mat-checkbox>
             </span>
-            <mat-divider></mat-divider>
+            <mat-divider [inset]="true" class="my-2"></mat-divider>  
             <span *ngFor="let e of typeCours | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsTypeCours')"
                     (change)="checkboxChange($event.checked, e.id, 'idsTypeCours')">
@@ -170,7 +176,7 @@
                 </mat-checkbox>
             </span>
 
-            <mat-divider></mat-divider>
+            <mat-divider [inset]="true" class="my-2"></mat-divider>  
 
             <span *ngFor="let e of lieuCours | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsLieuCours')"
@@ -232,8 +238,8 @@
             </div>
             
         </form>
-        <button class="col-md-12 mb-2" mat-raised-button color="accent"
+        <button class=" my-2" mat-raised-button color="primary"
             [disabled]="myForm.invalid || checkPasswordError !== ''" type="submit"
-            (click)="submit(myForm.value, myFormProf.value, myFormStudent.value)">{{ 'auth.create.prof.Next' | translate  }}</button>
+            (click)="submit(myForm.value, myFormProf.value, myFormStudent.value)">Valider</button>
     </mat-card>
 </div>

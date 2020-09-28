@@ -47,7 +47,7 @@ export class StudentComponent implements OnInit {
     this.checkPassword.setValue('123');
     this.createForm();
     this.createFormStudent();
-    this.optImage.folderToSaveInServer = this.o.id === 0 ? 'student' : `student_${this.o.id}`;
+    this.optImage.folderToSaveInServer = this.o.id === 0 ? 'users' : `users_${this.o.id}`;
     this.optImage.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 
     setTimeout(() => {
@@ -120,7 +120,7 @@ export class StudentComponent implements OnInit {
         student.idUser = r.id;
         this.uow.students.post(student).subscribe(p => {
           console.log(p)
-          // this.router.navigate(['/auth']);
+          this.router.navigate(['/auth']);
           // this.snackBar.notifyOk(200, r.message);
         })
       }

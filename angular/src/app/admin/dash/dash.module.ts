@@ -14,10 +14,11 @@ import { CalendarModule } from 'angular-calendar';
 import { ContactusComponent } from './contactus/contactus.component';
 import { InfoComponent } from './info/info.component';
 import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
+import { ProfsComponent } from './profs/profs.component';
 
 
 @NgModule({
-  declarations: [DashComponent, MeComponent, MessageComponent, CalendarComponent, ContactusComponent, InfoComponent],
+  declarations: [DashComponent, MeComponent, MessageComponent, CalendarComponent, ContactusComponent, InfoComponent, ProfsComponent],
   imports: [
     CommonModule,
     DashRoutingModule,

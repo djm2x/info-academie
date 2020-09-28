@@ -9,6 +9,7 @@ $factory->define(Prof::class, function (Faker $faker) {
     static $i = 1;
     return [
         //
+        'lien' => 'https://meet.google.com/iib-cxdx-joe',
         'description' => $faker->paragraph(),
         'experience' => $faker->paragraph(),
         'approche' => $faker->paragraph(),

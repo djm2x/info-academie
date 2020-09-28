@@ -47,10 +47,10 @@ class UserController extends SuperController
         $q = $this->_context
             ->where($matchThese)
             ->orderBy($sortBy, $sortDir);
-            
+
         $count = $q->count();
 
-        $list = $q->skip($startIndex)
+        $list = $q->skip($startIndex) 
             ->take($pageSize)
             ->with(['ville'])
             ->get();
@@ -58,4 +58,6 @@ class UserController extends SuperController
 
         return ['list' => $list, 'count' => $count];
     }
+
+    
 }
