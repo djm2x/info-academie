@@ -1,85 +1,240 @@
-<div class="dialog">
-  <h1 mat-dialog-title>
-    <mat-toolbar role="toolbar" class="task-header">
-      <span>{{title}}</span>
-    </mat-toolbar>
-    <mat-divider></mat-divider>
-  </h1>
-  <div class="content">
-    <mat-dialog-content>
+<div class="row justify-content-center align-items-center m-0 px-2" style="height: 100vh;">
+  <mat-card class="mat-elevation-z8 mywith">
 
       <form [formGroup]="myForm">
-        <mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>nom</mat-label>
-                    <input matInput formControlName="nom" required>
-                </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>prenom</mat-label>
-                    <input matInput formControlName="prenom" required>
-                </mat-form-field>
+          <div class="">
+              <div>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>intro</mat-label>
-                    <input matInput formControlName="intro" required>
-                </mat-form-field>
+                  <app-upload-image class="col-md-12" nameBtn="Image" [multiple]="false"
+                      [folderToSaveInServer]="optImage.folderToSaveInServer" [propertyOfParent]="optImage.imageTo"
+                      [eventSubmitToParent]="optImage.imageFrom"
+                      [eventSubmitFromParent]="optImage.eventSubmitFromParent">
+                  </app-upload-image>
+              </div>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>email</mat-label>
-                    <input matInput formControlName="email" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Nom' | translate  }}</mat-label>
+                  <input matInput formControlName="nom">
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>tel</mat-label>
-                    <input matInput formControlName="tel" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Prenom' | translate  }}</mat-label>
+                  <input matInput formControlName="prenom">
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>adresse</mat-label>
-                    <input matInput formControlName="adresse" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.tel1' | translate  }}</mat-label>
+                  <input matInput formControlName="tel1">
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>cin</mat-label>
-                    <input matInput formControlName="cin" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.tel2' | translate  }}</mat-label>
+                  <input matInput formControlName="tel2">
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>password</mat-label>
-                    <input matInput formControlName="password" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Ville' | translate  }}</mat-label>
+                  <mat-select formControlName="idVille">
+                      <mat-option *ngFor="let e of villes | async" [value]="e.id">
+                          {{ myTrans.langSync === 'fr' ? e.nom : e.nomAr }}</mat-option>
+                  </mat-select>
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>role</mat-label>
-                    <input matInput formControlName="role" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Email' | translate  }}</mat-label>
+                  <input matInput formControlName="email" placeholder="Email address">
+                  <mat-error *ngIf="emailError">{{ 'auth.create.EmailnonValide' | translate  }}</mat-error>
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>isActive</mat-label>
-                    <input matInput formControlName="isActive" required>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Password' | translate  }}</mat-label>
+                  <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+                  </mat-icon>
+                  <mat-error *ngIf="passwordError">{{passwordError}}</mat-error>
+              </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>villes</mat-label>
-                    <mat-select formControlName="idVille">
-                        <mat-option *ngFor="let e of villes | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Répéterlemotdepass' | translate  }}</mat-label>
+                  <input matInput [formControl]="checkPassword" placeholder="Répéter le mot de pass"
+                      [type]="hide2 ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}
+                  </mat-icon>
+                  <mat-error *ngIf="checkPassword.touched && checkPasswordError">{{checkPasswordError}}
+                  </mat-error>
+              </mat-form-field>
 
-<div class="col-md-12">
-                    <app-upload-image nameBtn="Image" [folderToSaveInServer]="folderToSaveInServer" [propertyOfParent]="imageUrlTo"
-                        [eventSubmitToParent]="imageUrlFrom" [eventSubmitFromParent]="eventSubmitFromParent">
-                    </app-upload-image>
-                </div>
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.Adresse' | translate  }}</mat-label>
+                  <textarea matInput formControlName="adresse"></textarea>
+              </mat-form-field>
 
+              <!-- {{myForm.value | json}} -->
+
+          </div>
 
       </form>
+      <mat-divider></mat-divider>
 
-    </mat-dialog-content>
+      
+      <form *ngIf="o.role === 'prof'" [formGroup]="myFormProf">
 
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onNoClick()" type="button">Annuler</button>
-      <button mat-raised-button color="primary" *ngIf="!visualisation" (click)="onOkClick(myForm.value)" [disabled]="myForm.invalid" cdkFocusInitial>Enregistre</button>
-    </mat-dialog-actions>
-  </div>
+          <div class="">  
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.Intro' | translate  }}</mat-label>
+                  <textarea matInput formControlName="intro"></textarea>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.Description' | translate  }}</mat-label>
+                  <textarea matInput formControlName="description"></textarea>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.Experience' | translate  }}</mat-label>
+                  <textarea matInput formControlName="experience"></textarea>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.Approche' | translate  }}</mat-label>
+                  <textarea matInput formControlName="approche"></textarea>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.VideoUrl' | translate  }}</mat-label>
+                  <input matInput formControlName="videoUrl">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-12">
+                  <mat-label>{{ 'auth.create.CvUrl' | translate  }}</mat-label>
+                  <input matInput formControlName="cvUrl">
+              </mat-form-field>
+           
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.PrixHrWeb' | translate  }}</mat-label>
+                  <input matInput formControlName="prixHrWeb">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.PrixHrHome' | translate  }}</mat-label>
+                  <input matInput formControlName="prixHrHome">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.PrixHrWebGroupe' | translate  }}</mat-label>
+                  <input matInput formControlName="prixHrWebGroupe">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.PrixHrHomeGroupe' | translate  }}</mat-label>
+                  <input matInput formControlName="prixHrHomeGroupe">
+              </mat-form-field>
+
+             
+          </div>
+
+      </form>
+      <mat-divider></mat-divider> 
+      <div *ngIf="o.role === 'prof'">
+
+          <div *ngFor="let e of activites | async; let i=index" class="col-md-12"> 
+              <mat-checkbox [checked]="isChecked(e.id, 'idsTypeActivites')"
+                  (change)="checkboxChange($event.checked, e.id, 'idsTypeActivites')">
+                  {{myTrans.isFr ? e.nom : e.nomAr}}
+              </mat-checkbox>
+          </div>
+          <mat-divider></mat-divider>
+          <div *ngFor="let e of activites | async; let i=index" class="col-md-12">
+              {{myTrans.isFr ? e.nom : e.nomAr}} -
+              <span *ngFor="let c of e.activites">
+
+                  <mat-checkbox [checked]="isChecked(c.id, 'idsActivites')"
+                      (change)="checkboxChange($event.checked, c.id, 'idsActivites')">
+                      {{myTrans.isFr ? c.nom : c.nomAr}}
+                  </mat-checkbox>
+              </span>
+          </div>
+          <mat-divider></mat-divider>
+          <span *ngFor="let e of niveauScolaires | async; let i=index" class="col-md-12">
+              <mat-checkbox [checked]="isChecked(e.id, 'idsNiveauScolaires')"
+                  (change)="checkboxChange($event.checked, e.id, 'idsNiveauScolaires')">
+                  {{myTrans.isFr ? e.nom : e.nomAr}}
+              </mat-checkbox>
+          </span>
+          <mat-divider></mat-divider>
+          <span *ngFor="let e of typeCours | async; let i=index" class="col-md-12">
+              <mat-checkbox [checked]="isChecked(e.id, 'idsTypeCours')"
+                  (change)="checkboxChange($event.checked, e.id, 'idsTypeCours')">
+                  {{myTrans.isFr ? e.nom : e.nomAr}}
+              </mat-checkbox>
+          </span>
+
+          <mat-divider></mat-divider>
+
+          <span *ngFor="let e of lieuCours | async; let i=index" class="col-md-12">
+              <mat-checkbox [checked]="isChecked(e.id, 'idsLieuCours')"
+                  (change)="checkboxChange($event.checked, e.id, 'idsLieuCours')">
+                  {{myTrans.isFr ? e.nom : e.nomAr}}
+              </mat-checkbox>
+          </span>
+
+          <!-- {{idsTypeCours.value | json}}
+                  {{idsLieuCours.value | json}}
+                  {{idsTypeActivites.value | json}}
+                  {{idsActivites.value | json}}
+                  {{idsNiveauScolaires.value | json}} -->
+      </div>
+
+      <!-- {{myFormProf.value | json}} -->
+
+
+
+
+
+      <form *ngIf="o.role === 'student'" [formGroup]="myFormStudent">
+
+          <div class="mt-3">
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Ecole' | translate  }}</mat-label>
+                  <input matInput formControlName="ecole">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Niveau' | translate  }}</mat-label>
+                  <mat-select formControlName="niveau">
+                      <mat-option *ngFor="let e of niveaux | async" [value]="e.name">
+                          {{ e.name }}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.NomParent' | translate  }}</mat-label>
+                  <input matInput formControlName="nomParent">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.PrenomParent' | translate  }}</mat-label>
+                  <input matInput formControlName="prenomParent">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Tel1Parent' | translate  }}</mat-label>
+                  <input matInput formControlName="tel1Parent">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                  <mat-label>{{ 'auth.create.Tel2Parent' | translate  }}</mat-label>
+                  <input matInput formControlName="tel2Parent">
+              </mat-form-field>
+
+              
+          </div>
+          
+      </form>
+      <button class="col-md-12 mb-2" mat-raised-button color="accent"
+          [disabled]="myForm.invalid || checkPasswordError !== ''" type="submit"
+          (click)="submit(myForm.value, myFormProf.value, myFormStudent.value)">{{ 'auth.create.prof.Next' | translate  }}</button>
+  </mat-card>
 </div>

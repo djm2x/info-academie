@@ -11,13 +11,9 @@ export class MessageService extends SuperService<Message> {
     super('messages');
   }
 
-  getAll(startIndex, pageSize, sortBy, sortDir, object, message, idUser, senderName, idReceiver, idCours, ) {
+  getAll(startIndex, pageSize, sortBy, sortDir, object, message, idUser/*, senderName, idReceiver, idCours, */) {
 
-    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${object}/${message}/${idUser}/${senderName}/${idReceiver}/${idCours}`);
-  }
-
-  getAllForStatistique(object, message, idUser, senderName, idReceiver, idCours, ) {
-    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${object}/${message}/${idUser}/${senderName}/${idReceiver}/${idCours}`);
+    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${object}/${message}/${idUser}`);
   }
 
 }

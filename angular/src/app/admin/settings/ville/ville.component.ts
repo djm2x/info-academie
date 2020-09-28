@@ -145,7 +145,7 @@ this.nomAr.setValue('');
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -153,7 +153,7 @@ this.nomAr.setValue('');
       return urlImage;
     }
 
-    return `${this.url}/villes/${urlImage.replace(';', '')}`;
+    return `${this.url}/villes/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

@@ -47,12 +47,12 @@ export class InfoComponent implements OnInit {
   async ngOnInit() {
     this.initForms();
 
-    let folder = '';
-    if (this.session.isProf) {
-      folder = 'prof';
-    } else if (this.session.isStudent) {
-      folder = 'student';
-    }
+    let folder = 'users';
+    // if (this.session.isProf) {
+    //   folder = 'prof';
+    // } else if (this.session.isStudent) {
+    //   folder = 'student';
+    // }
     this.optImage.folderToSaveInServer = this.o.id === 0 ? folder : `${folder}_${this.o.id}`;
     this.optImage.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 

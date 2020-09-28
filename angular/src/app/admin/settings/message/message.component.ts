@@ -35,16 +35,16 @@ export class MessageComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   object = new FormControl('');
-message = new FormControl('');
-idUser = new FormControl(0);
-senderName = new FormControl('');
-idReceiver = new FormControl(0);
-idCours = new FormControl(0);
+  message = new FormControl('');
+  idUser = new FormControl(0);
+  senderName = new FormControl('');
+  idReceiver = new FormControl(0);
+  idCours = new FormControl(0);
 
 
   users = this.uow.users.get();
-receivers = this.uow.users.get();
-// courss = this.uow.courss.get();
+  receivers = this.uow.users.get();
+  // courss = this.uow.courss.get();
 
 
   dataSubject = new Subject();
@@ -54,9 +54,9 @@ receivers = this.uow.users.get();
   chartTabSelectedEvent = new Subject();
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
-      this.breadcrumb.name = 'Messages';
-    }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    this.breadcrumb.name = 'Messages';
+  }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -71,39 +71,39 @@ receivers = this.uow.users.get();
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.object.value === '' ? '*' : this.object.value,
-this.message.value === '' ? '*' : this.message.value,
-this.idUser.value === 0 ? 0 : this.idUser.value,
-this.senderName.value === '' ? '*' : this.senderName.value,
-this.idReceiver.value === 0 ? 0 : this.idReceiver.value,
-this.idCours.value === 0 ? 0 : this.idCours.value,
+          this.message.value === '' ? '*' : this.message.value,
+          this.idUser.value === 0 ? 0 : this.idUser.value,
+          // this.senderName.value === '' ? '*' : this.senderName.value,
+          // this.idReceiver.value === 0 ? 0 : this.idReceiver.value,
+          // this.idCours.value === 0 ? 0 : this.idCours.value,
 
         );
       }
     );
 
     this.subs.push(sub);
-    
+
   }
 
   reset() {
     this.object.setValue('');
-this.message.setValue('');
-this.idUser.setValue(0);
-this.senderName.setValue('');
-this.idReceiver.setValue(0);
-this.idCours.setValue(0);
+    this.message.setValue('');
+    this.idUser.setValue(0);
+    this.senderName.setValue('');
+    this.idReceiver.setValue(0);
+    this.idCours.setValue(0);
 
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, object, message, idUser, senderName, idReceiver, idCours,) {
-    const sub = this.uow.messages.getAll(startIndex, pageSize, sortBy, sortDir,  object, message, idUser, senderName, idReceiver, idCours,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, object, message, idUser/*, senderName, idReceiver, idCours,*/) {
+    const sub = this.uow.messages.getAll(startIndex, pageSize, sortBy, sortDir, object, message, idUser/*, senderName, idReceiver, idCours,*/).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -115,7 +115,7 @@ this.idCours.setValue(0);
     this.subs.push(sub);
   }
 
-  
+
 
   openDialog(o: Message, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
@@ -160,7 +160,7 @@ this.idCours.setValue(0);
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -168,7 +168,7 @@ this.idCours.setValue(0);
       return urlImage;
     }
 
-    return `${this.url}/messages/${urlImage.replace(';', '')}`;
+    return `${this.url}/messages/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

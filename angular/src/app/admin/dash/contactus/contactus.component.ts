@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { SnackBarService } from 'src/app/loader/snack-bar.service';
-import { Message } from 'src/app/models/models';
+import { ContactUs, Message } from 'src/app/models/models';
 import { MyTranslateService } from 'src/app/my.translate.service';
 import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
@@ -17,7 +17,7 @@ import { SessionService } from 'src/app/shared';
 export class ContactusComponent implements OnInit {
   myForm: FormGroup;
   myFormStudent: FormGroup;
-  o = new Message();
+  o = new ContactUs();
 
   constructor(private fb: FormBuilder, public uow: UowService
     , private router: Router, public session: SessionService
@@ -26,7 +26,7 @@ export class ContactusComponent implements OnInit {
   async ngOnInit() {
     // test
     this.o.object = 'object';
-    this.o.message = 'message';
+    this.o.msg = 'msg';
     this.createForm()
   }
 
@@ -34,22 +34,22 @@ export class ContactusComponent implements OnInit {
     this.myForm = this.fb.group({
       id: [this.o.id],
       object: [this.o.object, [Validators.required]],
-      message: [this.o.message, [Validators.required]],
+      msg: [this.o.msg, [Validators.required]],
       date: [this.o.date, []],
       idUser: [this.session.user.id, []],
     });
   }
 
-  submit(o: Message) {
+  submit(o: ContactUs) {
     o.id = null;
-    this.uow.accounts.create(o).subscribe((r: any) => {
+    this.uow.contactUss.post(o).subscribe((r: any) => {
 
 
     });
   }
 
   resetForm() {
-    this.o = new Message();
+    this.o = new ContactUs();
     this.createForm();
   }
 

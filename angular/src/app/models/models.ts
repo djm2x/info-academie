@@ -53,7 +53,7 @@ export class Activite {
   imageUrl = '';
   idTypeActivite = 0;
 
-  typeActivite = new TypeActivite();
+  type_activite = new TypeActivite();
   activiteDetailUserActivites: DetailUserActivite[] = [];
 }
 

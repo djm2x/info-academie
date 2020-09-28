@@ -19,7 +19,7 @@ $factory->define(User::class, function (Faker $faker) {
         'adresse' => $faker->address,
         'imageUrl' => $faker->imageUrl(640, 480, 'people'), // 'assets/404.jpg',
         'cin' => $faker->creditCardNumber,
-        'role' => $i <= 50 ? 'prof' : 'student',
+        'role' => $i++ <= 50 ? 'prof' : 'student',
         'idVille' => $faker->numberBetween(1, 3),
     ];
 });

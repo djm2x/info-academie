@@ -85,14 +85,14 @@
             <td mat-cell *matCellDef="let row">{{row.nomAr}}</td>
           </ng-container>
           <ng-container matColumnDef="imageUrl">
-            <th mat-header-cell *matHeaderCellDef>Type Activite</th>
-            <td mat-cell *matCellDef="let row">
-              <img #img (error)="imgError(img)" [src]="displayImage(row.imageUrl)" alt="" srcset="">
+            <th mat-header-cell *matHeaderCellDef>Image</th>
+            <td mat-cell *matCellDef="let row"> 
+              <img #img (error)="imgError(img)" [src]="displayImage(row.imageUrl, row.id)" alt="" srcset="">
             </td>
           </ng-container>
           <ng-container matColumnDef="typeActivite">
             <th mat-header-cell *matHeaderCellDef>Type Activite</th>
-            <td mat-cell *matCellDef="let row">{{row.typeActivite}}</td>
+            <td mat-cell *matCellDef="let row">{{row.type_activite.nom}}</td>
           </ng-container>
           <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
             <th mat-header-cell *matHeaderCellDef>

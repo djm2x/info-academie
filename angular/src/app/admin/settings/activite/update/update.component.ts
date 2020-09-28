@@ -22,7 +22,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   folderToSaveInServer = 'activites';
 
   imageUrlTo = new Subject();
-imageUrlFrom = new Subject();
+  imageUrlFrom = new Subject();
 
 
 
@@ -33,20 +33,21 @@ imageUrlFrom = new Subject();
 
   async ngOnInit() {
     this.o = this.data.model;
+    this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
     this.title = this.data.title;
     this.visualisation = this.data.visualisation;
     this.createForm();
-    
+
     this.imageUrlFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
 
-
+    console.log(this.o)
     setTimeout(() => {
-       setTimeout(() => { this.imageUrlTo.next(this.o.imageUrl);;
-  }, 100);
+      this.imageUrlTo.next(this.o.imageUrl);;
     }, 100);
+
   }
 
-  
+
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -56,12 +57,12 @@ imageUrlFrom = new Subject();
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.activites.post(o).subscribe(r => {
-        this.eventSubmitFromParent.next(true);
+        this.eventSubmitFromParent.next({ id: r.id });
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.activites.put(o.id, o).subscribe(r => {
-        this.eventSubmitFromParent.next(true);
+        this.eventSubmitFromParent.next({ id: o.id });
         this.dialogRef.close(o);
       });
     }
@@ -71,11 +72,11 @@ imageUrlFrom = new Subject();
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-nom: [this.o.nom, [Validators.required, ]],
-nomAr: [this.o.nomAr, [Validators.required, ]],
-imageUrl: [this.o.imageUrl, [Validators.required, ]],
-idTypeActivite: [this.o.idTypeActivite, [Validators.required, ]],
+      id: [this.o.id, [Validators.required,]],
+      nom: [this.o.nom, [Validators.required,]],
+      nomAr: [this.o.nomAr, [Validators.required,]],
+      imageUrl: [this.o.imageUrl, [Validators.required,]],
+      idTypeActivite: [+this.o.idTypeActivite, [Validators.required,]],
 
     });
   }

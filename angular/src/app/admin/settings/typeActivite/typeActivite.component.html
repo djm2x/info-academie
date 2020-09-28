@@ -80,7 +80,7 @@
       <ng-container matColumnDef="imageUrl">
         <th mat-header-cell *matHeaderCellDef>imageUrl</th>
         <td mat-cell *matCellDef="let row">
-          <img #img (error)="imgError(img)" [src]="displayImage(row.imageUrl)" alt="" srcset="">
+          <img #img (error)="imgError(img)" [src]="displayImage(row.imageUrl, row.id)" alt="" srcset="">
         </td>
       </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">

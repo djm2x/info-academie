@@ -9,13 +9,15 @@
 
         <mat-form-field appearance="fill" class="col-md-12">
             <mat-label>{{ 'admin.dash.contactus.Message' | translate  }}</mat-label>
-            <textarea rows="5" matInput formControlName="message"></textarea>
+            <textarea rows="5" matInput formControlName="msg"></textarea>
         </mat-form-field>
 
-        {{myForm.value | json}}
-        <button class="col-md-12 mb-2" mat-raised-button color="accent"
+        <!-- {{myForm.value | json}} -->
+        <button class="mb-2" mat-raised-button color="primary"
             [disabled]="myForm.invalid"
             (click)="submit(myForm.value)">{{ 'admin.Valider' | translate  }}</button>
+
+          
     </div>
 
 </form>

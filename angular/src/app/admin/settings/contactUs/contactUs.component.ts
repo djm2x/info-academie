@@ -35,11 +35,11 @@ export class ContactUsComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   object = new FormControl('');
-msg = new FormControl('');
-idUser = new FormControl(0);
+  msg = new FormControl('');
+  idUser = new FormControl(0);
 
 
-  users = this.uow.users.get();
+  // users = this.uow.users.get();
 
 
   dataSubject = new Subject();
@@ -49,9 +49,9 @@ idUser = new FormControl(0);
   chartTabSelectedEvent = new Subject();
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
-      this.breadcrumb.name = 'ContactUss';
-    }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    this.breadcrumb.name = 'ContactUss';
+  }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -66,33 +66,33 @@ idUser = new FormControl(0);
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.object.value === '' ? '*' : this.object.value,
-this.msg.value === '' ? '*' : this.msg.value,
-this.idUser.value === 0 ? 0 : this.idUser.value,
+          this.msg.value === '' ? '*' : this.msg.value,
+          this.idUser.value === 0 ? 0 : this.idUser.value,
 
         );
       }
     );
 
     this.subs.push(sub);
-    
+
   }
 
   reset() {
     this.object.setValue('');
-this.msg.setValue('');
-this.idUser.setValue(0);
+    this.msg.setValue('');
+    this.idUser.setValue(0);
 
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, object, msg, idUser,) {
-    const sub = this.uow.contactUss.getAll(startIndex, pageSize, sortBy, sortDir,  object, msg, idUser,).subscribe(
+    const sub = this.uow.contactUss.getAll(startIndex, pageSize, sortBy, sortDir, object, msg, idUser,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -104,8 +104,8 @@ this.idUser.setValue(0);
     this.subs.push(sub);
   }
 
- 
-  
+
+
 
   openDialog(o: ContactUs, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
@@ -150,7 +150,7 @@ this.idUser.setValue(0);
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -158,7 +158,7 @@ this.idUser.setValue(0);
       return urlImage;
     }
 
-    return `${this.url}/contactUss/${urlImage.replace(';', '')}`;
+    return `${this.url}/contactUss/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

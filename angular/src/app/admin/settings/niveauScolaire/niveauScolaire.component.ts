@@ -147,7 +147,7 @@ this.nomAr.setValue('');
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -155,7 +155,7 @@ this.nomAr.setValue('');
       return urlImage;
     }
 
-    return `${this.url}/niveauScolaires/${urlImage.replace(';', '')}`;
+    return `${this.url}/niveauScolaires/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

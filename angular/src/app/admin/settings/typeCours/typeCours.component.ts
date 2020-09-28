@@ -35,10 +35,10 @@ export class TypeCoursComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   nom = new FormControl('');
-nomAr = new FormControl('');
+  nomAr = new FormControl('');
 
 
-  
+
 
   dataSubject = new Subject();
   isListTabSelected = true;
@@ -47,9 +47,9 @@ nomAr = new FormControl('');
   chartTabSelectedEvent = new Subject();
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
-      this.breadcrumb.name = 'TypeCours';
-    }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    this.breadcrumb.name = 'TypeCours';
+  }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -64,31 +64,31 @@ nomAr = new FormControl('');
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
-this.nomAr.value === '' ? '*' : this.nomAr.value,
+          this.nomAr.value === '' ? '*' : this.nomAr.value,
 
         );
       }
     );
 
-    
-    
+
+
   }
 
   reset() {
     this.nom.setValue('');
-this.nomAr.setValue('');
+    this.nomAr.setValue('');
 
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr,) {
-    const sub = this.uow.typeCours.getAll(startIndex, pageSize, sortBy, sortDir,  nom, nomAr,).subscribe(
+    const sub = this.uow.typeCours.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -100,9 +100,9 @@ this.nomAr.setValue('');
     this.subs.push(sub);
   }
 
-  
 
-  
+
+
 
   openDialog(o: TypeCours, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
@@ -147,7 +147,7 @@ this.nomAr.setValue('');
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -155,7 +155,7 @@ this.nomAr.setValue('');
       return urlImage;
     }
 
-    return `${this.url}/typeCours/${urlImage.replace(';', '')}`;
+    return `${this.url}/typeCours/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

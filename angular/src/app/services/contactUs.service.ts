@@ -8,7 +8,7 @@ import { ContactUs } from '../models/models';
 export class ContactUsService extends SuperService<ContactUs> {
 
   constructor() {
-    super('contactUss');
+    super('contactUs');
   }
 
   getAll(startIndex, pageSize, sortBy, sortDir, object, msg, idUser, ) {

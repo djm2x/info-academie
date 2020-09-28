@@ -16,8 +16,8 @@ export class ProfService extends SuperService<Prof> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${experience}/${approche}/${intro}/${videoUrl}/${cvUrl}/${prixHrWeb}/${prixHrHome}/${prixHrWebGroupe}/${prixHrHomeGroupe}/${idsTypeActivites}/${idsActivites}/${idsTypeCours}/${idsLieuCours}/${idsNiveauScolaires}/${idUser}`);
   }
 
-  getAllForStatistique(experience, approche, intro, videoUrl, cvUrl, prixHrWeb, prixHrHome, prixHrWebGroupe, prixHrHomeGroupe, idsTypeActivites, idsActivites, idsTypeCours, idsLieuCours, idsNiveauScolaires, idUser, ) {
-    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${experience}/${approche}/${intro}/${videoUrl}/${cvUrl}/${prixHrWeb}/${prixHrHome}/${prixHrWebGroupe}/${prixHrHomeGroupe}/${idsTypeActivites}/${idsActivites}/${idsTypeCours}/${idsLieuCours}/${idsNiveauScolaires}/${idUser}`);
+  getByIdUser(id: number) {
+    return this.http.get<Prof>(`${this.urlApi}/${this.controller}/getByIdUser/${id}`);
   }
 
 }

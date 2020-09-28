@@ -4,15 +4,15 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span [routerLink]="['/admin']" routerLinkActive="active">App name</span>
-
+    <a class="ml-3 mat-raised-button mat-button-base" [href]="url" target="_blank" rel="noopener noreferrer">Vers le site</a>
     <!-- <button mat-raised-button class="ml-5" [routerLink]="['/desktop']">Systeme-info</button> -->
     <span style="flex: 1 1 auto;"></span>
 
     <button mat-button [matMenuTriggerFor]="beforeMenu">
-      <!-- {{profile.name}} <b>({{profile.role}})</b> --> ME
+      {{profile.name}} <b>({{profile.role}})</b>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="openDialog()">Info Compte</button>
+      <button mat-menu-item [routerLink]="['/admin/dash/me']" routerLinkActive="router-link" >Info Compte</button>
       <button mat-menu-item (click)="disconnect()">Se déconnecter</button>
     </mat-menu>
   </mat-toolbar-row>
@@ -67,12 +67,12 @@
             <span>Students</span>
             <mat-divider></mat-divider>
           </mat-list-item> -->
-          <mat-list-item [routerLink]="['/admin/settings/message']" routerLinkActive="router-active">
+          <!-- <mat-list-item [routerLink]="['/admin/settings/message']" routerLinkActive="router-active">
             <span>Messages</span>
             <mat-divider></mat-divider>
-          </mat-list-item>
+          </mat-list-item> -->
           <mat-list-item [routerLink]="['/admin/settings/contactUs']" routerLinkActive="router-active">
-            <span>ContactUss</span>
+            <span>Contact Nous</span>
             <mat-divider></mat-divider>
           </mat-list-item>
 
@@ -89,19 +89,19 @@
             <mat-divider></mat-divider>
           </mat-list-item> -->
           <mat-list-item [routerLink]="['/admin/settings/typeActivite']" routerLinkActive="router-active">
-            <span>TypeActivites</span>
+            <span>Type Activites</span>
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item [routerLink]="['/admin/settings/typeCours']" routerLinkActive="router-active">
-            <span>TypeCourss</span>
+            <span>Type Cours</span>
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item [routerLink]="['/admin/settings/lieuCours']" routerLinkActive="router-active">
-            <span>lieuCours</span>
+            <span>lieu Cours</span>
             <mat-divider></mat-divider>
           </mat-list-item>
           <mat-list-item [routerLink]="['/admin/settings/niveauScolaire']" routerLinkActive="router-active">
-            <span>NiveauScolaires</span>
+            <span>Niveau Scolaires</span>
             <mat-divider></mat-divider>
           </mat-list-item>
           

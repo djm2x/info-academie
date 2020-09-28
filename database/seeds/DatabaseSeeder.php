@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         Model::unguard(); // Disable mass assignment
 
-        $this->call(VilleSeeder::class);
+        // $this->call(VilleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ProfSeeder::class);
         $this->call(StudentSeeder::class);

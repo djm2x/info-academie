@@ -15,11 +15,18 @@
     </div>
 
     <div class="col-md-7">
-        <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.LienCours' | translate  }}</button>
+        <button mat-raised-button class="col-md-12 p-2 m-2" [routerLink]="['/admin/dash/contactus']" >Lien Cours</button>
+        <button mat-raised-button disabled class="col-md-12 p-2 m-2" [routerLink]="['/admin/dash/contactus']" >Message</button>
+        <button mat-raised-button class="col-md-12 p-2 m-2" [routerLink]="['/admin/dash/calendar']" >Calandrie</button>
+        <button mat-raised-button disabled class="col-md-12 p-2 m-2" [routerLink]="['/admin/dash/contactus']" >Cours</button>
+        <button mat-raised-button class="col-md-12 p-2 m-2" [routerLink]="['/admin/dash/info']" >Informations</button>
+        <button mat-raised-button disabled class="col-md-12 p-2 m-2" [routerLink]="['/admin/dash/contactus']" >Facteurs</button>
+
+        <!-- <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.LienCours' | translate  }}</button>
         <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.Message' | translate  }}</button>
         <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.Calandrie' | translate  }}</button>
         <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.Cours' | translate  }}</button>
         <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.Informations' | translate  }}</button>
-        <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.Facteurs' | translate  }}</button>
+        <button mat-raised-button class="m-2" color="warn">{{ 'admin.dash.me.Facteurs' | translate  }}</button> -->
     </div>
 </div>

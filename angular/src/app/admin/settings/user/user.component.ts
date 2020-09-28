@@ -30,31 +30,31 @@ export class UserComponent implements OnInit, OnDestroy {
   dataSource: User[] = [];
   selectedList: User[] = [];
 
-  displayedColumns = [/*'select',*/  'imageUrl', 'nom', 'prenom', 'intro', 'email', 'tel', 'adresse', 'cin', 'role', 'isActive', 'ville', 'option'];
+  displayedColumns = [/*'select',*/  'imageUrl', 'nom', 'email', 'tel', 'cin', 'role', 'isActive', 'ville', 'option'];
 
   panelOpenState = false;
 
   nom = new FormControl('');
-prenom = new FormControl('');
-intro = new FormControl('');
-email = new FormControl('');
-tel = new FormControl('');
-adresse = new FormControl('');
-cin = new FormControl('');
-role = new FormControl('');
-isActive = new FormControl(0);
-idVille = new FormControl(0);
+  prenom = new FormControl('');
+  intro = new FormControl('');
+  email = new FormControl('');
+  tel = new FormControl('');
+  adresse = new FormControl('');
+  cin = new FormControl('');
+  role = new FormControl('');
+  isActive = new FormControl(0);
+  idVille = new FormControl(0);
 
 
   villes = this.uow.villes.get();
 
 
-  
+
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
-      this.breadcrumb.name = 'Users';
-    }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    this.breadcrumb.name = 'Users';
+  }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -69,47 +69,47 @@ idVille = new FormControl(0);
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
-this.prenom.value === '' ? '*' : this.prenom.value,
-this.email.value === '' ? '*' : this.email.value,
-this.tel.value === '' ? '*' : this.tel.value,
-this.adresse.value === '' ? '*' : this.adresse.value,
-this.cin.value === '' ? '*' : this.cin.value,
-this.role.value === '' ? '*' : this.role.value,
-this.idVille.value === 0 ? 0 : this.idVille.value,
+          this.prenom.value === '' ? '*' : this.prenom.value,
+          this.email.value === '' ? '*' : this.email.value,
+          this.tel.value === '' ? '*' : this.tel.value,
+          this.adresse.value === '' ? '*' : this.adresse.value,
+          this.cin.value === '' ? '*' : this.cin.value,
+          this.role.value === '' ? '*' : this.role.value,
+          this.idVille.value === 0 ? 0 : this.idVille.value,
 
         );
       }
     );
 
-   
+
 
     this.subs.push(sub);
-    
+
   }
 
   reset() {
     this.nom.setValue('');
-this.prenom.setValue('');
-this.intro.setValue('');
-this.email.setValue('');
-this.tel.setValue('');
-this.adresse.setValue('');
-this.cin.setValue('');
-this.role.setValue('');
-this.isActive.setValue(0);
-this.idVille.setValue(0);
+    this.prenom.setValue('');
+    this.intro.setValue('');
+    this.email.setValue('');
+    this.tel.setValue('');
+    this.adresse.setValue('');
+    this.cin.setValue('');
+    this.role.setValue('');
+    this.isActive.setValue(0);
+    this.idVille.setValue(0);
 
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, prenom, email, tel, adresse, cin, role, idVille,) {
-    const sub = this.uow.users.getAll(startIndex, pageSize, sortBy, sortDir,  nom, prenom, email, tel, adresse, cin, role, idVille,).subscribe(
+    const sub = this.uow.users.getAll(startIndex, pageSize, sortBy, sortDir, nom, prenom, email, tel, adresse, cin, role, idVille,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -121,9 +121,9 @@ this.idVille.setValue(0);
     this.subs.push(sub);
   }
 
-  
 
-  
+
+
 
   openDialog(o: User, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
@@ -168,7 +168,7 @@ this.idVille.setValue(0);
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -176,7 +176,7 @@ this.idVille.setValue(0);
       return urlImage;
     }
 
-    return `${this.url}/users/${urlImage.replace(';', '')}`;
+    return `${this.url}/users/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

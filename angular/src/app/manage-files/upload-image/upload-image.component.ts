@@ -36,10 +36,9 @@ export class UploadImageComponent implements OnInit {
 
       this.listOfNames = l;
       this.listToDelete = [];
-      console.log(l);
 
       if (!this.multiple) {
-        const imageUrl = l.length !== 0 ? l[0] : null;
+        const imageUrl = l.length !== 0 ? l[0] : r;
         if (imageUrl !== null && imageUrl.startsWith('http')) {
           this.oneImage = imageUrl;
         } else if (!imageUrl) {
@@ -66,8 +65,6 @@ export class UploadImageComponent implements OnInit {
     this.eventSubmitFromParent.subscribe(async r => {
       await this.submit(r);
     });
-
-
   }
 
   upload(files: FileList) {

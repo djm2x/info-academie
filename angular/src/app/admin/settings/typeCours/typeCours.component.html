@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-row-reverse pt-3 mb-3">
   <button mat-raised-button color="primary" (click)="add()">
-    <mat-icon>add</mat-icon> TypeCours
+    <mat-icon>add</mat-icon> Type Cours
   </button>
   <!-- &nbsp;
   <button mat-raised-button color="accent" (click)="generateExcel()">
@@ -25,14 +25,15 @@
     <mat-divider> </mat-divider>
 
     <div class="mt-2">
-      
+
       <mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>nom</mat-label>
-                    <input matInput [formControl]="nom" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>nomAr</mat-label>
-                    <input matInput [formControl]="nomAr" required>
-                </mat-form-field>
+        <mat-label>nom</mat-label>
+        <input matInput [formControl]="nom" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>nomAr</mat-label>
+        <input matInput [formControl]="nomAr" required>
+      </mat-form-field>
     </div>
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
@@ -69,12 +70,13 @@
         </td>
       </ng-container> -->
       <ng-container matColumnDef="nom">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                    <td mat-cell *matCellDef="let row">{{row.nom}}</td>
-                </ng-container><ng-container matColumnDef="nomAr">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom Ar</th>
-                    <td mat-cell *matCellDef="let row">{{row.nomAr}}</td>
-                </ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+        <td mat-cell *matCellDef="let row">{{row.nom}}</td>
+      </ng-container>
+      <ng-container matColumnDef="nomAr">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom Ar</th>
+        <td mat-cell *matCellDef="let row">{{row.nomAr}}</td>
+      </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>
           <!-- <button mat-icon-button color="warn" [disabled]="selectedList.length === 0" (click)="deleteList()">

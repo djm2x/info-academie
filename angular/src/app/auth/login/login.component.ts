@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/models';
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   code = '';
   constructor(private fb: FormBuilder, public uow: UowService
     , private router: Router, public session: SessionService
-    , private route: ActivatedRoute, public snackBar: SnackBarService) { }
+    , private route: ActivatedRoute, public snackBar: SnackBarService
+    , @Inject('BASE_URL') public url: string) { }
 
   async ngOnInit() {
     // test

@@ -142,7 +142,7 @@
                    
                         <div class="col-md-6 col-sm-6 col-lg-4 pl-1 pr-1 justify-content-center align-items-center">
                             <div class="card m-1">
-                                <img src="{{strpos($e->activites[$i]->imageUrl, 'http') !== false ? $e->activites[$i]->imageUrl : url('activites/'.$e->activites[$i]->id.'/'.$e->activites[$i]->imageUrl)}}" 
+                                <img src="{{strpos($e->activites[$i]->imageUrl, 'http') !== false ? $e->activites[$i]->imageUrl : url('activites/'.$e->activites[$i]->id.'/'.str_replace(';', '', $e->activites[$i]->imageUrl))}}" 
                                 onerror="this.onerror=null;this.src='/assets/404.png';" class="card-img-top" alt="...">
                                 
                                 <div class="card-body">

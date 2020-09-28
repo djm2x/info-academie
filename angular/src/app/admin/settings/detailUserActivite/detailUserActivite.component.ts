@@ -147,7 +147,7 @@ this.idActivite.setValue(0);
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -155,7 +155,7 @@ this.idActivite.setValue(0);
       return urlImage;
     }
 
-    return `${this.url}/detailUserActivites/${urlImage.replace(';', '')}`;
+    return `${this.url}/detailUserActivites/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

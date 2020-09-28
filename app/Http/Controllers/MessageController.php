@@ -5,81 +5,42 @@ namespace App\Http\Controllers;
 use App\Message;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class MessageController extends SuperController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(Message $model)
     {
-        //
+        parent::__construct($model);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $object, string $message, int $idUser) // : Collection
     {
-        //
-    }
+        $matchThese = [ ];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($object != '*') {
+            array_push($matchThese, ['object', 'LIKE', "%{$object}%"]);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Message $message)
-    {
-        //
-    }
+        if ($message != '*') {
+            array_push($matchThese, ['message', 'LIKE', "%{$message}%"]);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
+        if ($idUser != 0) {
+            array_push($matchThese, ['idUser', $idUser]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Message $message)
-    {
-        //
-    }
+        $q = $this->_context
+            ->where($matchThese)
+            ->orderBy($sortBy, $sortDir);
+            
+        $count = $q->count();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Message $message)
-    {
-        //
+        $list = $q->skip($startIndex)
+            ->skip($startIndex)
+            ->take($pageSize)
+            // ->with(['typeActivite:id,nom'])
+            ->get()
+            ;
+
+        return ['list' => $list, 'count' => $count];
     }
 }

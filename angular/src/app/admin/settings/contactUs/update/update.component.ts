@@ -16,7 +16,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   o: ContactUs;
   title = '';
   visualisation = false;
-  users = this.uow.users.get();
+  // users = this.uow.users.get();
 
 
   folderToSaveInServer = 'contactUss';
@@ -30,7 +30,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.o = this.data.model;
-    this.title = this.data.title;
+    this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
+    this.title = 'Par ' + this.o.user.nom;
     this.visualisation = this.data.visualisation;
     this.createForm();
     if (this.o.id !== 0) {

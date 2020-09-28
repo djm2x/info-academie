@@ -11,44 +11,50 @@ class UserController extends SuperController
         parent::__construct($model);
     }
 
-    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $prenom, string $email, string $tel, string $adresse, string $cin, string $role, string $idVille) // : Collection
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $prenom, string $email, string $tel, string $adresse, string $cin, string $role, int $idVille) // : Collection
     {
-        $q = $this->_context;
-            // ->where('idCircuit',string $$id)
-            if ($nom != '*') {
-                $q->where('nom', 'LIKE', "%{$nom}%");
-            }
-            if ($prenom != '*') {
-                $q->where('prenom', 'LIKE', "%{$prenom}%");
-            }
-            if ($email != '*') {
-                $q->where('email', 'LIKE', "%{$email}%");
-            }
-            if ($tel != '*') {
-                $q->where('tel', 'LIKE', "%{$tel}%");
-            }
-            if ($adresse != '*') {
-                $q->where('adresse', 'LIKE', "%{$adresse}%");
-            }
-            if ($cin != '*') {
-                $q->where('cin', 'LIKE', "%{$cin}%");
-            }
-            if ($role != '*') {
-                $q->where('role', 'LIKE', "%{$role}%");
-            }
-            if ($idVille != '*') {
-                $q->where('idVille', 'LIKE', "%{$idVille}%");
-            }
 
+        $matchThese = [];
+
+        if ($nom != '*') {
+            array_push($matchThese, ['nom', 'LIKE', "%{$nom}%"]);
+        }
+
+        if ($prenom != '*') {
+            array_push($matchThese, ['prenom', 'LIKE', "%{$prenom}%"]);
+        }
+
+        if ($email != '*') {
+            array_push($matchThese, ['email', 'LIKE', "%{$email}%"]);
+        }
+        if ($tel != '*') {
+            array_push($matchThese, ['tel', 'LIKE', "%{$tel}%"]);
+        }
+        if ($adresse != '*') {
+            array_push($matchThese, ['adresse', 'LIKE', "%{$adresse}%"]);
+        }
+        if ($cin != '*') {
+            array_push($matchThese, ['cin', 'LIKE', "%{$cin}%"]);
+        }
+        if ($role != '*') {
+            array_push($matchThese, ['role', 'LIKE', "%{$role}%"]);
+        }
+        if ($idVille != 0) {
+            array_push($matchThese, ['idVille', $idVille]);
+        }
+
+
+        $q = $this->_context
+            ->where($matchThese)
+            ->orderBy($sortBy, $sortDir);
             
-            $list = $q
-            ->orderBy($sortBy, $sortDir)
-            ->skip($startIndex)
+        $count = $q->count();
+
+        $list = $q->skip($startIndex)
             ->take($pageSize)
-            // ->with('region')
+            ->with(['ville'])
             ->get();
 
-        $count = $this->_context->get()->count();
 
         return ['list' => $list, 'count' => $count];
     }

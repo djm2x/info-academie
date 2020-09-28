@@ -87,7 +87,7 @@ export class ActiviteComponent implements OnInit, OnDestroy {
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idTypeActivite,) {
     const sub = this.uow.activites.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idTypeActivite,).subscribe(
       (r: any) => {
-        console.log(r.list);
+        console.log(r);
         this.dataSource = r.list;
         this.resultsLength = r.count;
         this.isLoadingResults = false;
@@ -140,7 +140,7 @@ export class ActiviteComponent implements OnInit, OnDestroy {
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -148,7 +148,7 @@ export class ActiviteComponent implements OnInit, OnDestroy {
       return urlImage;
     }
 
-    return `${this.url}/activites/${urlImage.replace(';', '')}`;
+    return `${this.url}/activites/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

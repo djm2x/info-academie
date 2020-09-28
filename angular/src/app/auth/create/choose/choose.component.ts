@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-choose',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChooseComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject('BASE_URL') public url: string) { }
 
   ngOnInit(): void {
   }

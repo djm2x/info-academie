@@ -12,27 +12,32 @@ class TypeActiviteController extends SuperController
         parent::__construct($model);
     }
 
-    // public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $idType, string $title) // : Collection
-    // {
-    //     $q = $this->_context;
-    //     // $b = $idType != '*';
-    //     if ($idType != '*') {
-    //         $q = $q->where('type', 'LIKE', "%{$idType}%");
-    //     }
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $nomAr) // : Collection
+    {
+        $matchThese = [ ];
 
-    //     if ($title != '*') {
-    //         $q = $q->where('title', 'LIKE', "%{$title}%");
-    //     }
+        if ($nom != '*') {
+            array_push($matchThese, ['nom', 'LIKE', "%{$nom}%"]);
+        }
 
-    //     $list = $q->orderBy($sortBy, $sortDir)
-    //         ->skip($startIndex)
-    //         ->take($pageSize)
-    //         ->get();
+        if ($nomAr != '*') {
+            array_push($matchThese, ['nomAr', 'LIKE', "%{$nomAr}%"]);
+        }
 
-    //     $count = $this->_context->get()->count();
+        $q = $this->_context
+            ->where($matchThese)
+            ->orderBy($sortBy, $sortDir);
+            
+        $count = $q->count();
 
-    //     return compact('list', 'count', 'idType');
-    // }
+        $list = $q->skip($startIndex)
+            ->skip($startIndex)
+            ->take($pageSize)
+            ->get()
+            ;
+
+        return ['list' => $list, 'count' => $count];
+    }
 
     public function getAllWithActivites() // : Collection
     {

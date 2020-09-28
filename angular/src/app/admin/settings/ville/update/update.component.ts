@@ -29,6 +29,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.o = this.data.model;
+    this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
     this.title = this.data.title;
     this.visualisation = this.data.visualisation;
     this.createForm();

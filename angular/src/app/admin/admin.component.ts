@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SessionService } from '../shared';
 import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../shared/animations';
@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   isMobileWidth = false;
   actuelRoute = this.router.url;
   constructor(public session: SessionService, private router: Router
-    , public myMedia: MediaService
+    , public myMedia: MediaService, @Inject('BASE_URL') public url: string
     , private toastr: ToastrService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -75,7 +75,7 @@ export class AdminComponent implements OnInit {
   get profile() {
     return {
       name: this.session.user.nom + ' ' + this.session.user.prenom,
-      // role: this.session.isAdmin ? 'Admin' : this.session.isAgentSi ? 'Agent SI' : this.session.isUser ? 'Collaborateur' : 'Financier',
+      role: this.session.user.role.toUpperCase(),
     }
   }
 

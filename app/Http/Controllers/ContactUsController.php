@@ -5,81 +5,42 @@ namespace App\Http\Controllers;
 use App\ContactUs;
 use Illuminate\Http\Request;
 
-class ContactUsController extends Controller
+class ContactUsController extends SuperController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(ContactUs $model)
     {
-        //
+        parent::__construct($model);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $object, string $message, int $idUser) // : Collection
     {
-        //
-    }
+        $matchThese = [ ];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($object != '*') {
+            array_push($matchThese, ['object', 'LIKE', "%{$object}%"]);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ContactUs  $contactUs
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ContactUs $contactUs)
-    {
-        //
-    }
+        if ($message != '*') {
+            array_push($matchThese, ['message', 'LIKE', "%{$message}%"]);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ContactUs  $contactUs
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ContactUs $contactUs)
-    {
-        //
-    }
+        if ($idUser != 0) {
+            array_push($matchThese, ['idUser', $idUser]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ContactUs  $contactUs
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ContactUs $contactUs)
-    {
-        //
-    }
+        $q = $this->_context
+            ->where($matchThese)
+            ->orderBy($sortBy, $sortDir);
+            
+        $count = $q->count();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ContactUs  $contactUs
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ContactUs $contactUs)
-    {
-        //
+        $list = $q->skip($startIndex)
+            ->skip($startIndex)
+            ->take($pageSize)
+            ->with(['user:id,nom'])
+            ->get()
+            ;
+
+        return ['list' => $list, 'count' => $count];
     }
 }

@@ -32,7 +32,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
 // Route::group(['middleware' => 'camel.case'], function () {
     // typeActivites  
-    Route::get('/typeActivites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeActiviteController@getAll');
+    Route::get('/typeActivites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeActiviteController@getAll');
     Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
     Route::apiResource('typeActivites', 'TypeActiviteController');
 
@@ -40,28 +40,38 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     Route::get('/activites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idTypeActivite}', 'ActiviteController@getAll');
     Route::apiResource('activites', 'ActiviteController');
 
+    // messages  
+    Route::get('/messages/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{message}/{idUser}', 'MessageController@getAll');
+    Route::apiResource('messages', 'MessageController');
+
+    // contactUs  
+    Route::get('/contactUs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{message}/{idUser}', 'ContactUsController@getAll');
+    Route::apiResource('contactUs', 'ContactUsController');
+
     // niveauScolaires  
-    Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'NiveauScolaireController@getAll');
+    Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'NiveauScolaireController@getAll');
     Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
     // villes
-    Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'VilleController@getAll');
+    Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'VilleController@getAll');
     Route::apiResource('villes', 'VilleController');
 
     // typeCours
-    Route::get('/typeCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'TypeCoursController@getAll');
+    Route::get('/typeCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeCoursController@getAll');
     Route::apiResource('typeCours', 'TypeCoursController');
 
     // lieuCours
-    Route::get('/lieuCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'LieuCoursController@getAll');
+    Route::get('/lieuCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'LieuCoursController@getAll');
     Route::apiResource('lieuCours', 'LieuCoursController');
 
     // profs
     Route::get('/profs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ProfController@getAll');
+    Route::get('/profs/getByIdUser/{id}', 'ProfController@getByIdUser');
     Route::apiResource('profs', 'ProfController');
 
     // students
     Route::get('/students/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'StudentController@getAll');
+    Route::get('/students/getByIdUser/{id}', 'StudentController@getByIdUser');
     Route::apiResource('students', 'StudentController');
 
     // users

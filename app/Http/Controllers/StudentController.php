@@ -28,4 +28,9 @@ class StudentController extends SuperController
 
         return ['list' => $list, 'count' => $count];
     }
+
+    public function getByIdUser(int $id)
+    {
+        return $this->_context->where('idUser', $id)->first();
+    }
 }

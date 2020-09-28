@@ -35,17 +35,17 @@ export class TypeActiviteComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   nom = new FormControl('');
-nomAr = new FormControl('');
+  nomAr = new FormControl('');
 
 
-  
 
-  
+
+
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
-      this.breadcrumb.name = 'TypeActivites';
-    }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    this.breadcrumb.name = 'TypeActivites';
+  }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -60,35 +60,34 @@ nomAr = new FormControl('');
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
-this.nomAr.value === '' ? '*' : this.nomAr.value,
-
+          this.nomAr.value === '' ? '*' : this.nomAr.value,
         );
       }
     );
 
-    
+
 
     this.subs.push(sub);
-    
+
   }
 
   reset() {
     this.nom.setValue('');
-this.nomAr.setValue('');
+    this.nomAr.setValue('');
 
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr,) {
-    const sub = this.uow.typeActivites.getAll(startIndex, pageSize, sortBy, sortDir,  nom, nomAr,).subscribe(
+    const sub = this.uow.typeActivites.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr,).subscribe(
       (r: any) => {
-        console.log(r.list);
+        console.log(r);
         this.dataSource = r.list;
         this.resultsLength = r.count;
         this.isLoadingResults = false;
@@ -98,7 +97,7 @@ this.nomAr.setValue('');
     this.subs.push(sub);
   }
 
-  
+
 
 
 
@@ -145,7 +144,7 @@ this.nomAr.setValue('');
     }
   }
 
-  displayImage(urlImage: string) {
+  displayImage(urlImage: string, id: number) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -153,7 +152,7 @@ this.nomAr.setValue('');
       return urlImage;
     }
 
-    return `${this.url}/typeActivites/${urlImage.replace(';', '')}`;
+    return `${this.url}/typeActivites/${id}/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {

@@ -14,6 +14,11 @@ class User extends Model implements JWTSubject
 
     protected $guarded = [];
 
+    public function ville()
+    {
+        return $this->belongsTo(Ville::class, 'idVille');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -33,8 +38,4 @@ class User extends Model implements JWTSubject
     {
         return ['myrole'];
     }
-
-    // public function getAuthIdentifierName() {
-    //     return $this->getKey();
-    // }
 }
