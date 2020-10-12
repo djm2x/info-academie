@@ -12,7 +12,7 @@ $factory->define(User::class, function (Faker $faker) {
         'prenom' => $faker->lastName,
         'tel1' => $faker->phoneNumber,
         'tel2' => $faker->phoneNumber,
-        'email' => $faker->unique()->safeEmail,
+        'email' => $i != 1 ? $faker->unique()->safeEmail : 'prof@angular.io',
         'password' => '123',
         'isActive' => $faker->boolean,
         'date' => $faker->dateTime,

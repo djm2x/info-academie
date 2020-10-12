@@ -25,7 +25,7 @@ receivers = this.uow.users.get();
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -37,17 +37,13 @@ receivers = this.uow.users.get();
     this.visualisation = this.data.visualisation;
     this.createForm();
     if (this.o.id !== 0) {
-      
+
       setTimeout(() => this.createForm(), 300);
     }
-    /*{imagesFrom}*/
 
-    setTimeout(() => {
-       /*{imagesTo}*/
-    }, 100);
   }
 
-  
+
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -57,12 +53,12 @@ receivers = this.uow.users.get();
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.messages.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.messages.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }

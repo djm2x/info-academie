@@ -1,8 +1,8 @@
-<!-- <app-title title="Messages"></app-title> -->
+<!-- <app-title title="Videos"></app-title> -->
 
 <div class="d-flex flex-row-reverse pt-3 mb-3">
   <button mat-raised-button color="primary" (click)="add()">
-    <mat-icon>add</mat-icon> Message
+    <mat-icon>add</mat-icon> Video
   </button>
   <!-- &nbsp;
   <button mat-raised-button color="accent" (click)="generateExcel()">
@@ -27,30 +27,17 @@
     <div class="mt-2">
 
       <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>object</mat-label>
-        <input matInput [formControl]="object" required>
+        <mat-label>title</mat-label>
+        <input matInput [formControl]="title" required>
+      </mat-form-field>
+      <!-- <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>order</mat-label>
+        <input matInput [formControl]="order" required>
       </mat-form-field>
       <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>message</mat-label>
-        <input matInput [formControl]="message" required>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>users</mat-label>
-        <mat-select [formControl]="idUser">
-          <mat-option *ngFor="let e of users | async" [value]="e.id">{{ e.nom }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>senderName</mat-label>
-        <input matInput [formControl]="senderName" required>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="col-md-6">
-        <mat-label>receivers</mat-label>
-        <mat-select [formControl]="idReceiver">
-          <mat-option *ngFor="let e of receivers | async" [value]="e.id">{{ e.nom }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
+        <mat-label>urlVideo</mat-label>
+        <input matInput [formControl]="urlVideo" required>
+      </mat-form-field> -->
     </div>
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
@@ -87,37 +74,21 @@
           </mat-checkbox>
         </td>
       </ng-container> -->
-      <ng-container matColumnDef="object">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Object</th>
-        <td mat-cell *matCellDef="let row">{{row.object}}</td>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let row">{{row.title}}</td>
       </ng-container>
-      <ng-container matColumnDef="message">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
-        <td mat-cell *matCellDef="let row">{{row.message}}</td>
-      </ng-container>
-      <ng-container matColumnDef="vu">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Vu</th>
-        <td mat-cell *matCellDef="let row">{{row.vu ? 'Oui' : 'Non'}}</td>
+      <ng-container matColumnDef="order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order</th>
+        <td mat-cell *matCellDef="let row">{{row.order}}</td>
       </ng-container>
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
         <td mat-cell *matCellDef="let row">{{row.date | date : "dd/MM/yyyy"}}</td>
       </ng-container>
-      <ng-container matColumnDef="user">
-        <th mat-header-cell *matHeaderCellDef>User</th>
-        <td mat-cell *matCellDef="let row">{{row.user}}</td>
-      </ng-container>
-      <ng-container matColumnDef="senderName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sender Name</th>
-        <td mat-cell *matCellDef="let row">{{row.senderName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="receiver">
-        <th mat-header-cell *matHeaderCellDef>Receiver</th>
-        <td mat-cell *matCellDef="let row">{{row.receiver}}</td>
-      </ng-container>
-      <ng-container matColumnDef="cours">
-        <th mat-header-cell *matHeaderCellDef>Cours</th>
-        <td mat-cell *matCellDef="let row">{{row.cours}}</td>
+      <ng-container matColumnDef="urlVideo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Url Video</th>
+        <td mat-cell *matCellDef="let row">{{row.urlVideo}}</td>
       </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>

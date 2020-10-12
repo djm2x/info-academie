@@ -104,7 +104,17 @@
             <span>Niveau Scolaires</span>
             <mat-divider></mat-divider>
           </mat-list-item>
-          
+
+          <mat-list-item [routerLink]="['/admin/settings/video']" routerLinkActive="router-active">
+            <span>Video</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+          <mat-list-item [routerLink]="['/admin/settings/offreProf']" routerLinkActive="router-active">
+            <span>offre Prof</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
 
         </mat-expansion-panel>
       </mat-accordion>

@@ -24,7 +24,7 @@ activites = this.uow.activites.get();
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -35,15 +35,11 @@ activites = this.uow.activites.get();
     this.title = this.data.title;
     this.visualisation = this.data.visualisation;
     this.createForm();
-    
-    /*{imagesFrom}*/
 
-    setTimeout(() => {
-       /*{imagesTo}*/
-    }, 100);
+
   }
 
-  
+
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -53,12 +49,12 @@ activites = this.uow.activites.get();
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.detailUserActivites.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.detailUserActivites.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }

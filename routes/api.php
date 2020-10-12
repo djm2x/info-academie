@@ -31,30 +31,38 @@ Route::post('/files/uploadFiles/{folder}', 'FilesController@uploadFiles');
 Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
 // Route::group(['middleware' => 'camel.case'], function () {
-    // typeActivites  
+    // typeActivites
     Route::get('/typeActivites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeActiviteController@getAll');
     Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
     Route::apiResource('typeActivites', 'TypeActiviteController');
 
-    // activites  
+    // activites
     Route::get('/activites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idTypeActivite}', 'ActiviteController@getAll');
     Route::apiResource('activites', 'ActiviteController');
 
-    // messages  
+    // messages
     Route::get('/messages/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{message}/{idUser}', 'MessageController@getAll');
     Route::apiResource('messages', 'MessageController');
 
-    // contactUs  
+    // contactUs
     Route::get('/contactUs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{message}/{idUser}', 'ContactUsController@getAll');
     Route::apiResource('contactUs', 'ContactUsController');
 
-    // niveauScolaires  
+    // niveauScolaires
     Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'NiveauScolaireController@getAll');
     Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
     // villes
     Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'VilleController@getAll');
     Route::apiResource('villes', 'VilleController');
+
+    // videos
+    Route::get('/videos/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}', 'VideoController@getAll');
+    Route::apiResource('videos', 'VideoController');
+
+    // offreProfs
+    Route::get('/offreProfs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'OffreProfController@getAll');
+    Route::apiResource('offreProfs', 'OffreProfController');
 
     // typeCours
     Route::get('/typeCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeCoursController@getAll');
@@ -78,7 +86,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     // users
     Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{email}/{tel}/{adresse}/{cin}/{role}/{idVille}', 'UserController@getAll');
     Route::apiResource('users', 'UserController');
-    
+
     //accounts
     Route::post('/accounts/login', 'AccountController@login');
     // Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');

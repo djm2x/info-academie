@@ -2,7 +2,7 @@ import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ContactUs } from 'src/app/models/models';
+import { OffreProf } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 @Component({
   selector: 'app-update',
@@ -13,13 +13,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   myForm: FormGroup;
-  o: ContactUs;
+  o: OffreProf;
   title = '';
   visualisation = false;
-  // users = this.uow.users.get();
+  typeCourss = this.uow.typeCours.get();
 
 
-  folderToSaveInServer = 'contactUss';
+  folderToSaveInServer = 'offreProfs';
 
   /*{imagesInit}*/
 
@@ -30,14 +30,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.o = this.data.model;
-    this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
-    this.title = 'Par ' + this.o.user.nom;
+    this.title = this.data.title;
     this.visualisation = this.data.visualisation;
     this.createForm();
-    if (this.o.id !== 0) {
 
-      setTimeout(() => this.createForm(), 300);
-    }
 
   }
 
@@ -47,15 +43,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  onOkClick(o: ContactUs): void {
+  onOkClick(o: OffreProf): void {
     let sub = null;
     if (o.id === 0) {
-      sub = this.uow.contactUss.post(o).subscribe(r => {
+      sub = this.uow.offreProfs.post(o).subscribe(r => {
 
         this.dialogRef.close(o);
       });
     } else {
-      sub = this.uow.contactUss.put(o.id, o).subscribe(r => {
+      sub = this.uow.offreProfs.put(o.id, o).subscribe(r => {
 
         this.dialogRef.close(o);
       });
@@ -66,17 +62,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-object: [this.o.object, [Validators.required, ]],
-msg: [this.o.msg, [Validators.required, ]],
-date: [this.o.date, [Validators.required, ]],
-idUser: [this.o.idUser, [Validators.required, ]],
+      id: [this.o.id, [Validators.required,]],
+      interval: [this.o.interval, [Validators.required,]],
+      value: [this.o.value, [Validators.required,]],
+      idTypeCours: [+this.o.idTypeCours, [Validators.required,]],
 
     });
   }
 
   resetForm() {
-    this.o = new ContactUs();
+    this.o = new OffreProf();
     this.createForm();
   }
 

@@ -19,6 +19,8 @@ const routes: Routes = [
       { path: 'niveauScolaire', loadChildren: () => import('./niveauScolaire/niveauScolaire.module').then(m => m.NiveauScolaireModule), data: { animation: 'niveauScolaire' } },
       { path: 'message', loadChildren: () => import('./message/message.module').then(m => m.MessageModule), data: { animation: 'message' } },
       { path: 'contactUs', loadChildren: () => import('./contactUs/contactUs.module').then(m => m.ContactUsModule), data: { animation: 'contactUs' } },
+      { path: 'video', loadChildren: () => import('./video/video.module').then(m => m.VideoModule), data: { animation: 'video' } },
+      { path: 'offreProf', loadChildren: () => import('./offreProf/offreProf.module').then(m => m.OffreProfModule), data: { animation: 'offreProf' } },
 
     ]
   }

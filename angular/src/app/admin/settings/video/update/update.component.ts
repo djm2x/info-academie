@@ -2,7 +2,7 @@ import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ContactUs } from 'src/app/models/models';
+import { Video } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 @Component({
   selector: 'app-update',
@@ -13,13 +13,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   myForm: FormGroup;
-  o: ContactUs;
+  o: Video;
   title = '';
   visualisation = false;
-  // users = this.uow.users.get();
 
 
-  folderToSaveInServer = 'contactUss';
+  folderToSaveInServer = 'videos';
 
   /*{imagesInit}*/
 
@@ -30,14 +29,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.o = this.data.model;
-    this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
-    this.title = 'Par ' + this.o.user.nom;
+    this.title = this.data.title;
     this.visualisation = this.data.visualisation;
     this.createForm();
-    if (this.o.id !== 0) {
 
-      setTimeout(() => this.createForm(), 300);
-    }
 
   }
 
@@ -47,15 +42,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  onOkClick(o: ContactUs): void {
+  onOkClick(o: Video): void {
     let sub = null;
     if (o.id === 0) {
-      sub = this.uow.contactUss.post(o).subscribe(r => {
+      sub = this.uow.videos.post(o).subscribe(r => {
 
         this.dialogRef.close(o);
       });
     } else {
-      sub = this.uow.contactUss.put(o.id, o).subscribe(r => {
+      sub = this.uow.videos.put(o.id, o).subscribe(r => {
 
         this.dialogRef.close(o);
       });
@@ -67,16 +62,17 @@ export class UpdateComponent implements OnInit, OnDestroy {
   createForm() {
     this.myForm = this.fb.group({
       id: [this.o.id, [Validators.required, ]],
-object: [this.o.object, [Validators.required, ]],
-msg: [this.o.msg, [Validators.required, ]],
+title: [this.o.title, [Validators.required, ]],
+order: [this.o.order, [Validators.required, ]],
+description: [this.o.description, [Validators.required, ]],
 date: [this.o.date, [Validators.required, ]],
-idUser: [this.o.idUser, [Validators.required, ]],
+urlVideo: [this.o.urlVideo, [Validators.required, ]],
 
     });
   }
 
   resetForm() {
-    this.o = new ContactUs();
+    this.o = new Video();
     this.createForm();
   }
 

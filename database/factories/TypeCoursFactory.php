@@ -7,8 +7,18 @@ use Faker\Generator as Faker;
 
 $factory->define(TypeCours::class, function (Faker $faker) {
     static $i = 0;
-    $list = ['Cours individuel', 'Cours pour groupe'];
-    $listAr = ['دروس فردية', 'دروس جماعية'];
+    $list = [
+        'Cours a domicile individuel',
+        'Cours a domicile groupe',
+        'Cours en ligne individuel',
+        'Cours en ligne groupe',
+    ];
+    $listAr = [
+        "دروس منزلية فردية",
+        "دروس جماعية في المنزل",
+        "دورة فردية عبر الإنترنت" ,
+        "دورة جماعية عبر الإنترنت" ,
+    ];
 
     return [
         //

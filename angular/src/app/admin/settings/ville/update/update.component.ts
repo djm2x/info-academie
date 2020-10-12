@@ -16,13 +16,13 @@ export class UpdateComponent implements OnInit, OnDestroy {
   o: Ville;
   title = '';
   visualisation = false;
-  
+
 
   folderToSaveInServer = 'villes';
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -33,15 +33,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.title = this.data.title;
     this.visualisation = this.data.visualisation;
     this.createForm();
-    
-    /*{imagesFrom}*/
 
-    setTimeout(() => {
-       /*{imagesTo}*/
-    }, 100);
+
   }
 
-  
+
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -51,12 +47,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.villes.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.villes.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }

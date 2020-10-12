@@ -19,6 +19,7 @@ class CreateTypeActivitesTable extends Migration
             $table->string('nom');
             $table->string('nomAr');
             $table->string('imageUrl');
+            $table->boolean('active');
             $table->timestamps();
         });
 

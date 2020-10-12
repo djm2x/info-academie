@@ -14,6 +14,8 @@ import { StudentService } from './student.service';
 import { HttpClient } from '@angular/common/http';
 import { ContactUsService } from './contactUs.service';
 import { MessageService } from './message.service';
+import { VideoService } from './video.service';
+import { OffreProfService } from './offreProf.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,8 @@ export class UowService {
 
   messages = new MessageService();
   contactUss = new ContactUsService();
+  videos = new VideoService();
+  offreProfs = new OffreProfService();
 
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
   years = [...Array(new Date().getFullYear() - 2015).keys()].map(e => 2015 + e + 1);

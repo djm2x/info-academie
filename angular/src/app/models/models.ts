@@ -42,6 +42,7 @@ export class TypeActivite {
   nom = '';
   nomAr = '';
   imageUrl = '';
+  active = false;
 
   activites: Activite[] = [];
 }
@@ -78,7 +79,7 @@ export class Prof {
   idsTypeCours = '';
   idsLieuCours = '';
   idsNiveauScolaires = '';
-  
+
   idUser = '';
   user = new User();
 }
@@ -91,7 +92,7 @@ export class Student {
   prenomParent = 'prenomParent';
   tel1Parent = 'tel1Parent';
   tel2Parent = 'tel2Parent';
-  
+
   idUser = 0;
   user = new User();
   activite = new Activite();
@@ -137,4 +138,21 @@ export class ContactUs {
   date = new Date();
   idUser = 0;
   user = new User();
+}
+
+export class Video {
+  id = 0;
+  title = '';
+  order = 0;
+  description = '';
+  date = new Date();
+  urlVideo = '';
+}
+
+export class OffreProf {
+  id = 0;
+  interval = '';
+  value = 0;
+  idTypeCours = 0;
+  type_cours = new TypeCours();
 }
