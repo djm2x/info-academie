@@ -1,4 +1,4 @@
-import { FileUploadService } from '../../services/file.upload.service';
+import { FileUploadService } from '../file.upload.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -36,16 +36,17 @@ export class UploadImageComponent implements OnInit {
 
       this.listOfNames = l;
       this.listToDelete = [];
+      console.log(l);
 
       if (!this.multiple) {
-        const imageUrl = l.length !== 0 ? l[0] : r;
+        const imageUrl = l.length !== 0 ? l[0] : null;
         if (imageUrl !== null && imageUrl.startsWith('http')) {
           this.oneImage = imageUrl;
         } else if (!imageUrl) {
           this.oneImage = 'assets/404.jpg';
         } else {
           // console.log(imageUrl);
-          this.oneImage = `${this.url}/${this.folderToSaveInServer.replace('_', '/')}/${imageUrl}`;
+          this.oneImage = `${this.url}/${this.folderToSaveInServer}/${imageUrl}`;
         }
       } else {
         l.forEach((e, i) => {
@@ -65,6 +66,8 @@ export class UploadImageComponent implements OnInit {
     this.eventSubmitFromParent.subscribe(async r => {
       await this.submit(r);
     });
+
+
   }
 
   upload(files: FileList) {
@@ -257,7 +260,7 @@ export class UploadImageComponent implements OnInit {
       const r = await this.filesService.uploadFiles(formData, this.folderToSaveInServer).toPromise();
       const r2 = await this.filesService.deleteFiles(this.listToDelete, this.folderToSaveInServer).toPromise();
 
-      console.log(this.folderToSaveInServer, r, r2)
+      console.log(r, r2)
     }
 
     // if (action.name && action.name === 'delete') {

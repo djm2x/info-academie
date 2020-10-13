@@ -1,6 +1,10 @@
-import { FileUploadService } from '../../services/file.upload.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
-import { Subject } from 'rxjs';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { from, Subject } from 'rxjs';
+import { concatAll, map } from 'rxjs/operators';
+import { FileUploadService } from '../file.upload.service';
+import { ProgressComponent } from '../progress/progress.component';
 
 @Component({
   selector: 'app-upload',
@@ -8,20 +12,41 @@ import { Subject } from 'rxjs';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
+  accepts = {
+    doc: 'application/pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    video: 'video/mp4,video/*',
+    audio: 'audio/*',
+    image: 'image/*',
+    doc2: '.pdf,.doc,.docx',
+  };
+
+
   listOfNames: string[] = [];
   listToDelete: string[] = [];
   files: File[] = [];
+
+  // @Input() multiple = true;
+  // @Input() showSubmitButton = true;
   @Input() nameBtn = '';
-  @Input() folderToSaveInServer = 'folder';
+  // @Input() folderToSaveInServer = 'folder';
 
-  @Input() propertyOfParent = new Subject();
-  @Input() eventSubmitToParent = new Subject();
-  @Input() eventSubmitFromParent = new Subject();
+  // @Input() propertyOfParent = new Subject();
+  // @Input() eventSubmitToParent = new Subject();
+  // @Input() eventSubmitFromParent = new Subject();
 
-  constructor(private filesService: FileUploadService) { }
+  @Input() config = {
+    multiple: true,
+    showSubmitButton: true,
+    folderToSaveInServer: 'folder',
+    propertyStringToParent: new Subject(),
+    propertyStringToUploader: new Subject(),
+    eventSubmitToUploader: new Subject(),
+  }
+
+  constructor(private service: FileUploadService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
-    this.propertyOfParent.subscribe((r: string) => {
+    this.config.propertyStringToUploader.subscribe((r: string) => {
       console.log(r);
       const l = r.split(';');
 
@@ -31,7 +56,7 @@ export class UploadComponent implements OnInit {
       this.listToDelete = [];
     });
     //
-    this.eventSubmitFromParent.subscribe(async r => {
+    this.config.eventSubmitToUploader.subscribe(async r => {
       await this.submit();
     });
 
@@ -96,31 +121,41 @@ export class UploadComponent implements OnInit {
       propertyOfParent += `${r};`;
     });
 
-    this.eventSubmitToParent.next(propertyOfParent);
+    this.config.propertyStringToParent.next(propertyOfParent);
   }
 
   async submit() {
-
-
-    const formData = new FormData();
-
-    this.files.forEach(e => {
-
-      const name = this.setFileName(e);
-
-      formData.append(name, e, name);
-
+    const obs = this.bottomSheet.open(ProgressComponent, {
+      data: { files: this.files, folder: this.config.folderToSaveInServer },
+      panelClass: 'my-component-bottom-sheet',
     });
 
-
-    if (formData) {
-      await this.filesService.uploadFiles(formData, this.folderToSaveInServer).toPromise();
-      await this.filesService.deleteFiles(this.listToDelete, this.folderToSaveInServer).toPromise();
-    }
+    obs.afterDismissed().subscribe((r) => {
+      console.log('Bottom sheet has been dismissed ', r);
+    });
   }
 
   setFileName(e: File) {
     return `${e.lastModified}_${e.name}`;
+  }
+
+  /** Return distinct message for sent, upload progress, & response events */
+  private getEventMessage(event: HttpEvent<any>, file: File) {
+    switch (event.type) {
+      case HttpEventType.Sent:
+        return `Uploading file "${file.name.substring(0, 10)}" of size ${file.size}.`;
+
+      case HttpEventType.UploadProgress:
+        // Compute and show the % done:
+        const percentDone = Math.round(100 * event.loaded / event.total);
+        return `File "${file.name.substring(0, 10)}" is ${percentDone}% uploaded.`;
+
+      case HttpEventType.Response:
+        return `File "${file.name.substring(0, 10)}" was completely uploaded!`;
+
+      default:
+        return `File "${file.name.substring(0, 10)}" surprising upload event: ${event.type}.`;
+    }
   }
 
 }
