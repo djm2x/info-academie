@@ -100,24 +100,24 @@ class FilesController extends Controller
         foreach ($filenames as $filename) {
             // Storage::disk('public')->delete("{$folder}/{$file}");
             $path = str_replace('\\', '/', public_path(str_replace('_', '/', $folder))."\\".$filename);
+            $deleted = File::delete($path);
 
-            if (File::exists($path)) {
-                try {
-                    // unlink($path);
-                    $deleted = File::delete(public_path(str_replace('_', '/', $folder))."\\".$filename);
-                } catch (\Throwable $th) {
+            // if (File::exists($path)) {
+            //     try {
+            //         // unlink($path);
+            //     } catch (\Throwable $th) {
 
-                }
-            }
+            //     }
+            // }
             array_push($filesDeleted, "{$folder}/{$filename}");
         }
 
         return [
             // 'message' => count($filenames) == 0 ? "empty files" : "delete successfuly",
             'fileDeleted' => $filesDeleted,
-            'path' => $path,
+            // 'path' => $path,
             // 'deleted' => $deleted,
-            'existe' => File::exists($path)
+            // 'existe' => File::exists($path)
         ];
     }
 

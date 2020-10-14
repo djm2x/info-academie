@@ -59,7 +59,8 @@ class HomeController extends Controller
             ->get()
             ;
 
-        $vidoes = $this->vidoes
+        $videos = $this->videos
+            ->orderBy('order', 'asc')
             ->get()
             ;
 
@@ -89,7 +90,7 @@ class HomeController extends Controller
         // $actualites = $this->actualite->orderBy('date', 'desc')->skip(0)->take(3)->get();
 
         // dd($groupes);
-        return view('page/home', compact('users', 'typeActivites', 'profs', 'vidoes'));
+        return view('page/home', compact('users', 'typeActivites', 'profs', 'videos'));
     }
 
     public function profs(int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire)

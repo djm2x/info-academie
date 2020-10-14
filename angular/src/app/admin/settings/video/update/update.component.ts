@@ -20,7 +20,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   config = {
     multiple: false,
     showSubmitButton: false,
-    folderToSaveInServer: 'vidoes',
+    folderToSaveInServer: 'videos',
     propertyStringToParent: new Subject(),
     propertyStringToUploader: new Subject(),
     eventSubmitToUploader: new Subject(),
