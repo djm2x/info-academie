@@ -7,7 +7,7 @@
                 <mat-icon>add</mat-icon> {{nameBtn}}
             </button>
 
-            <button mat-raised-button type="button" (click)="submit()" color="primary">
+            <button *ngIf="config.showSubmitButton" mat-raised-button type="button" (click)="submit()" color="primary">
               <mat-icon>add</mat-icon> Submit
           </button>
 

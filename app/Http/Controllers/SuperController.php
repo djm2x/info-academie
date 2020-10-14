@@ -128,10 +128,13 @@ class SuperController extends Controller
 
     public function store(Request $request)
     {
-        return $this->_context->create($request->all());
-        // return [
-        //     'me' => $request->all()
-        // ];
+        $model = $request->all();
+
+        if (env('DB_CONNECTION') == 'sqlite') {
+            $model['id'] = null;
+        }
+
+        return $this->_context->create($model);
     }
 
     public function show($id)

@@ -75,6 +75,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       id: [this.o.id, [Validators.required,]],
       nom: [this.o.nom, [Validators.required,]],
       nomAr: [this.o.nomAr, [Validators.required,]],
+      active: [this.o.active, [Validators.required,]],
       imageUrl: [this.o.imageUrl, [Validators.required,]],
 
     });

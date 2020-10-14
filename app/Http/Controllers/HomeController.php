@@ -12,6 +12,7 @@ use App\Prof;
 use App\TypeActivite;
 use App\TypeCours;
 use App\User;
+use App\Video;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -24,15 +25,17 @@ class HomeController extends Controller
     protected  $typeCours;
     protected  $lieuCours;
     protected  $niveauScolaires;
+    protected  $videos;
 
-    public function __construct( 
-        User $users, 
-        Prof $profs, 
-        TypeActivite $typeActivites, 
+    public function __construct(
+        User $users,
+        Prof $profs,
+        TypeActivite $typeActivites,
         Activite $activites,
         TypeCours $typeCours,
         LieuCours $lieuCours,
-        NiveauScolaire $niveauScolaires
+        NiveauScolaire $niveauScolaires,
+        Video $videos
         )
     {
         $this->users = $users;
@@ -42,9 +45,10 @@ class HomeController extends Controller
         $this->typeCours = $typeCours;
         $this->lieuCours = $lieuCours;
         $this->niveauScolaires = $niveauScolaires;
+        $this->videos = $videos;
     }
 
-    
+
     public function index()
     {
         // $activites = $this->activites
@@ -55,7 +59,12 @@ class HomeController extends Controller
             ->get()
             ;
 
+        $vidoes = $this->vidoes
+            ->get()
+            ;
+
         $typeActivites = $this->typeActivites
+            ->where('active', true)
             ->with(['activites'])
             ->get()
             ;
@@ -80,12 +89,12 @@ class HomeController extends Controller
         // $actualites = $this->actualite->orderBy('date', 'desc')->skip(0)->take(3)->get();
 
         // dd($groupes);
-        return view('page/home', compact('users', 'typeActivites', 'profs'));
+        return view('page/home', compact('users', 'typeActivites', 'profs', 'vidoes'));
     }
 
     public function profs(int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire)
     {
-        
+
         //->where(1, '<>', 1);
         $activites = $this->activites->get();
 
@@ -118,7 +127,7 @@ class HomeController extends Controller
             array_push($matchThese, ['idsNiveauScolaires', 'LIKE', "%;{$niveauScolaire};%"]);
         }
 
-        
+
         $q = $this->profs
             ->where($matchThese)
             ->with(['user'])
@@ -139,7 +148,7 @@ class HomeController extends Controller
 
     public function prof(int $id)
     {
-        
+
         $model = $this->profs->with(['user'])->find($id);
 
         $typeActivites = $this->typeActivites->get();

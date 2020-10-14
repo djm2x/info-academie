@@ -17,12 +17,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
   title = '';
   visualisation = false;
 
-
-  folderToSaveInServer = 'videos';
-
-  /*{imagesInit}*/
-
-
+  config = {
+    multiple: false,
+    showSubmitButton: false,
+    folderToSaveInServer: 'vidoes',
+    propertyStringToParent: new Subject(),
+    propertyStringToUploader: new Subject(),
+    eventSubmitToUploader: new Subject(),
+  }
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -33,7 +35,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.visualisation = this.data.visualisation;
     this.createForm();
 
+    this.config.propertyStringToParent.subscribe(r => this.myForm.get('urlVideo').setValue(r));
 
+    setTimeout(() => {
+      this.config.propertyStringToUploader.next(this.o.urlVideo);
+    }, 100);
   }
 
 
@@ -47,12 +53,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
     if (o.id === 0) {
       sub = this.uow.videos.post(o).subscribe(r => {
 
+        this.config.eventSubmitToUploader.next();
+        // return
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.videos.put(o.id, o).subscribe(r => {
 
         this.dialogRef.close(o);
+        this.config.eventSubmitToUploader.next();
       });
     }
 
@@ -61,12 +70,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-title: [this.o.title, [Validators.required, ]],
-order: [this.o.order, [Validators.required, ]],
-description: [this.o.description, [Validators.required, ]],
-date: [this.o.date, [Validators.required, ]],
-urlVideo: [this.o.urlVideo, [Validators.required, ]],
+      id: [this.o.id, [Validators.required,]],
+      title: [this.o.title, [Validators.required,]],
+      order: [this.o.order, [Validators.required,]],
+      description: [this.o.description, []],
+      date: [this.o.date, [Validators.required,]],
+      urlVideo: [this.o.urlVideo, [Validators.required,]],
 
     });
   }

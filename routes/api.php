@@ -62,6 +62,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
     // offreProfs
     Route::get('/offreProfs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'OffreProfController@getAll');
+    Route::get('/offreProfs/getAll2', 'OffreProfController@getAll2');
     Route::apiResource('offreProfs', 'OffreProfController');
 
     // typeCours

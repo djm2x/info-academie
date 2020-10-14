@@ -35,8 +35,11 @@
           <mat-label>urlVideo</mat-label>
           <input matInput formControlName="urlVideo" required>
         </mat-form-field>
+        <div class="col-md-6">
+          <app-upload nameBtn="Upload" [config]="config"></app-upload>
+        </div>
 
-
+        {{myForm.value | json}}
       </form>
 
     </mat-dialog-content>

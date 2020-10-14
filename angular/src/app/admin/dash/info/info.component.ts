@@ -179,7 +179,7 @@ export class InfoComponent implements OnInit {
   }
 
   async submit(o: User, prof: Prof, student: Student) {
-    // o.id = null;
+    // // o.id = null;
     console.log(prof)
     try {
       await this.uow.users.put(o.id, o).toPromise();
@@ -201,7 +201,7 @@ export class InfoComponent implements OnInit {
     }
   }
 
-  
+
 
   resetForm() {
     this.o = new User();

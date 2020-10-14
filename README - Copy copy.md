@@ -64,5 +64,5 @@ dotnet publish -o D:/chemin souhaite
 ```
 
 ### Useful Angular cli command:
-ng g m settings --route settings --module admin
+ng g m offre --route offre --module dash
 

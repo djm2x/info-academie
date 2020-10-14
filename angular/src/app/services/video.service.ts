@@ -16,8 +16,4 @@ export class VideoService extends SuperService<Video> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${title}`);
   }
 
-  getAllForStatistique(title, order, urlVideo, ) {
-    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${title}/${order}/${urlVideo}`);
-  }
-
 }

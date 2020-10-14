@@ -71,7 +71,7 @@ export class UpdateComponent implements OnInit {
         setTimeout(() => this.optImage.imageTo.next(this.o.imageUrl), 100);
       });
     }
-    
+
     this.optImage.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
   }
 
@@ -188,7 +188,7 @@ export class UpdateComponent implements OnInit {
   }
 
   async submit(o: User, prof: Prof, student: Student) {
-    // o.id = null;
+    // // o.id = null;
     try {
       await this.uow.users.put(o.id, o).toPromise();
 
@@ -197,7 +197,7 @@ export class UpdateComponent implements OnInit {
       } else if (this.o.role === 'prof') {
         await this.uow.students.put(student.id, student).toPromise();
       }
-      
+
       this.router.navigate(['/admin/settings/user']);
       this.optImage.eventSubmitFromParent.next({ id: o.id });
       // this.snackBar.notifyOk(200, r.message);

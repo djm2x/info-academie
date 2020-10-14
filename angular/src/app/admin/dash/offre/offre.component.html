@@ -1,0 +1,31 @@
+<div class="" *ngIf="session.user.role === 'prof'">
+
+  <h3>Pack professeur</h3>
+  <ul>
+    <li>Pour chauqe service vous avez un pourcentage</li>
+    <li>Ce pourcentage est varie selon votre performance</li>
+    <li>Bonus de mois</li>
+    <li>Des primes de semestre</li>
+    <li>Tombola de l'année</li>
+  </ul>
+
+  <div class="row mx-2">
+
+    <div class="col-md-3" *ngFor="let e of offresProfs; let i=index">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{e.type_cours.nom}}</mat-card-title>
+          <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-text">Pourcentage : {{e.interval}}</p>
+          <p class="card-text">Offre du {{month}} {{e.value}} %</p>
+        </mat-card-content>
+        <!-- <mat-card-actions>
+          <button mat-button>Ok</button>
+        </mat-card-actions> -->
+      </mat-card>
+
+    </div>
+  </div>
+</div>

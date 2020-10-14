@@ -17,7 +17,7 @@ export class ProgressComponent implements OnInit {
   list: { fileId: number, name: string, progressValue: Subject<number> }[] = [];
   uploadCompleted = 0;
 
-  constructor(private bottomSheetRef: MatBottomSheetRef<any>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: IData
+  constructor(public bottomSheetRef: MatBottomSheetRef<any>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: IData
     , private service: FileUploadService) { }
 
   ngOnInit() {
@@ -39,17 +39,19 @@ export class ProgressComponent implements OnInit {
     const obs = [];
     this.list = [];
 
-    this.files.forEach(e => {
+    this.files.forEach((e, i) => {
 
       const name = `${e.size}_${e.lastModified}_${e.name}`;
 
       this.list.push({ fileId: e.size + e.lastModified, name: e.name, progressValue: new Subject() });
 
-      formData.append('files', e, name);
+      formData.append(`file_${i}`, e, name);
 
       obs.push(this.service.uploadFiles(formData, this.folder).pipe(map(r => this.getEventMessage(r, e))))
 
     });
+
+    formData.append('length', `${this.files.length}`);
 
     from(obs).pipe(concatAll()).subscribe(r => {
       // console.log(this.getControl().controls.map(e => e.value.progressValue))
@@ -58,8 +60,12 @@ export class ProgressComponent implements OnInit {
         setTimeout(() => {
           this.bottomSheetRef.dismiss('.');
         }, 500);
+
+        console.log(r)
       }
     });
+
+    // this.service.uploadFiles0(formData, this.folder).subscribe(r => console.log(r));
   }
 
   updateListOfProgress(fileId: number, progressValue: number) {
@@ -93,7 +99,7 @@ export class ProgressComponent implements OnInit {
         return `File "${file.name.substring(0, 10)}" was completely uploaded!`;
 
       default:
-        return `File "${file.name.substring(0, 10)}" surprising upload event: ${event.type}.`;
+        return `File "${file.name.substring(0, 10)}" surprising upload event: ${event}.`;
     }
   }
 

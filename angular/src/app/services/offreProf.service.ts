@@ -16,8 +16,8 @@ export class OffreProfService extends SuperService<OffreProf> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}`);
   }
 
-  getAllForStatistique(interval, value, idTypeCours, ) {
-    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${interval}/${value}/${idTypeCours}`);
+  getAll2() {
+    return this.http.get<OffreProf[]>(`${this.urlApi}/${this.controller}/getAll2`);
   }
 
 }

@@ -41,7 +41,7 @@ export class ContactusComponent implements OnInit {
   }
 
   submit(o: ContactUs) {
-    o.id = null;
+    // o.id = null;
     this.uow.contactUss.post(o).subscribe((r: any) => {
 
 

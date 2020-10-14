@@ -11,6 +11,7 @@ import { ExcelService } from 'src/app/shared/excel.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
+import { FileUploadService } from 'src/app/services/file.upload.service';
 
 @Component({
   selector: 'app-video',
@@ -48,7 +49,8 @@ export class VideoComponent implements OnInit, OnDestroy {
   chartTabSelectedEvent = new Subject();
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string
+    , public breadcrumb: MyrouteService, private service: FileUploadService) {
     this.breadcrumb.name = 'Videos';
   }
 
@@ -104,26 +106,6 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
-  getAllForStatistique(title, order, urlVideo,) {
-    const sub = this.uow.videos.getAllForStatistique(title, order, urlVideo,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
-
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({ barChartLabels, barChartData, title: 'Video' });
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
   selectedIndexChange(index: number) {
     // this.isListTabSelected = index === 0;
     // this.isChartTabSelected = index === 1;
@@ -165,11 +147,11 @@ export class VideoComponent implements OnInit, OnDestroy {
     });
   }
 
-  async delete(id: number) {
+  async delete(o: Video) {
     const r = await this.mydialog.openDialog(this.breadcrumb.name).toPromise();
     if (r === 'ok') {
-      const sub = this.uow.videos.delete(id).subscribe(() => this.update.next(true));
-
+      this.service.deleteFiles([o.urlVideo.replace(';', '')], 'videos').subscribe(rr => console.log(rr));
+      const sub = this.uow.videos.delete(o.id).subscribe(() => this.update.next(true));
       this.subs.push(sub);
     }
   }

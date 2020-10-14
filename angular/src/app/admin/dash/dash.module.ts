@@ -15,10 +15,20 @@ import { ContactusComponent } from './contactus/contactus.component';
 import { InfoComponent } from './info/info.component';
 import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
 import { ProfsComponent } from './profs/profs.component';
+import { OffreComponent } from './offre/offre.component';
 
 
 @NgModule({
-  declarations: [DashComponent, MeComponent, MessageComponent, CalendarComponent, ContactusComponent, InfoComponent, ProfsComponent],
+  declarations: [
+    DashComponent,
+    MeComponent,
+    MessageComponent,
+    CalendarComponent,
+    ContactusComponent,
+    InfoComponent,
+    ProfsComponent,
+    OffreComponent,
+  ],
   imports: [
     CommonModule,
     DashRoutingModule,

@@ -30,7 +30,7 @@ export class TypeActiviteComponent implements OnInit, OnDestroy {
   dataSource: TypeActivite[] = [];
   selectedList: TypeActivite[] = [];
 
-  displayedColumns = [/*'select',*/  'imageUrl', 'nom', 'nomAr', 'option'];
+  displayedColumns = [/*'select',*/  'imageUrl', 'nom', 'nomAr', 'active', 'option'];
 
   panelOpenState = false;
 

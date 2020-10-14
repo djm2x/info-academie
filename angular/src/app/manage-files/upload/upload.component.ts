@@ -70,7 +70,13 @@ export class UploadComponent implements OnInit {
       // on récupère le i-ème fichier
       const file = files.item(i);
 
-      this.listOfNames.push(this.setFileName(file));
+      if (this.config.multiple) {
+        this.listOfNames.push(this.setFileName(file));
+      } else {
+        this.listToDelete.push(this.listOfNames[0])
+        this.listOfNames = [this.setFileName(file)];
+      }
+
       this.sendPropertyOfParent();
 
       this.files.push(file);
@@ -130,32 +136,17 @@ export class UploadComponent implements OnInit {
       panelClass: 'my-component-bottom-sheet',
     });
 
-    obs.afterDismissed().subscribe((r) => {
+    obs.afterDismissed().subscribe(async (r) => {
       console.log('Bottom sheet has been dismissed ', r);
+
+      const r2 = await this.service.deleteFiles(this.listToDelete, this.config.folderToSaveInServer).toPromise();
+
+      console.log(r2)
     });
   }
 
   setFileName(e: File) {
-    return `${e.lastModified}_${e.name}`;
-  }
-
-  /** Return distinct message for sent, upload progress, & response events */
-  private getEventMessage(event: HttpEvent<any>, file: File) {
-    switch (event.type) {
-      case HttpEventType.Sent:
-        return `Uploading file "${file.name.substring(0, 10)}" of size ${file.size}.`;
-
-      case HttpEventType.UploadProgress:
-        // Compute and show the % done:
-        const percentDone = Math.round(100 * event.loaded / event.total);
-        return `File "${file.name.substring(0, 10)}" is ${percentDone}% uploaded.`;
-
-      case HttpEventType.Response:
-        return `File "${file.name.substring(0, 10)}" was completely uploaded!`;
-
-      default:
-        return `File "${file.name.substring(0, 10)}" surprising upload event: ${event.type}.`;
-    }
+    return `${e.size}_${e.lastModified}_${e.name}`;
   }
 
 }

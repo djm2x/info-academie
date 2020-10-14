@@ -75,12 +75,12 @@
             </div>
 
         </form>
-        <mat-divider [inset]="true" class="my-2"></mat-divider>  
+        <mat-divider [inset]="true" class="my-2"></mat-divider>
 
-        
+
         <form *ngIf="session.isProf" [formGroup]="myFormProf">
 
-            <div class="">  
+            <div class="">
 
                 <mat-form-field appearance="fill" class="col-md-12">
                     <mat-label>{{ 'auth.create.Intro' | translate  }}</mat-label>
@@ -136,21 +136,21 @@
                     <input matInput formControlName="prixHrHomeGroupe">
                 </mat-form-field>
 
-               
+
             </div>
 
         </form>
-        <mat-divider *ngIf="session.isProf" [inset]="true" class="py-2"></mat-divider>  
-        
+        <mat-divider *ngIf="session.isProf" [inset]="true" class="py-2"></mat-divider>
+
         <div *ngIf="session.isProf">
 
-            <div *ngFor="let e of activites | async; let i=index" class="col-md-12"> 
+            <div *ngFor="let e of activites | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsTypeActivites')"
                     (change)="checkboxChange($event.checked, e.id, 'idsTypeActivites')">
                     {{myTrans.isFr ? e.nom : e.nomAr}}
                 </mat-checkbox>
             </div>
-            <mat-divider [inset]="true" class="my-2"></mat-divider>  
+            <mat-divider [inset]="true" class="my-2"></mat-divider>
             <div *ngFor="let e of activites | async; let i=index" class="col-md-12">
                 {{myTrans.isFr ? e.nom : e.nomAr}} -
                 <span *ngFor="let c of e.activites">
@@ -161,14 +161,14 @@
                     </mat-checkbox>
                 </span>
             </div>
-            <mat-divider [inset]="true" class="my-2"></mat-divider>  
+            <mat-divider [inset]="true" class="my-2"></mat-divider>
             <span *ngFor="let e of niveauScolaires | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsNiveauScolaires')"
                     (change)="checkboxChange($event.checked, e.id, 'idsNiveauScolaires')">
                     {{myTrans.isFr ? e.nom : e.nomAr}}
                 </mat-checkbox>
             </span>
-            <mat-divider [inset]="true" class="my-2"></mat-divider>  
+            <mat-divider [inset]="true" class="my-2"></mat-divider>
             <span *ngFor="let e of typeCours | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsTypeCours')"
                     (change)="checkboxChange($event.checked, e.id, 'idsTypeCours')">
@@ -176,14 +176,14 @@
                 </mat-checkbox>
             </span>
 
-            <mat-divider [inset]="true" class="my-2"></mat-divider>  
+            <!-- <mat-divider [inset]="true" class="my-2"></mat-divider>
 
             <span *ngFor="let e of lieuCours | async; let i=index" class="col-md-12">
                 <mat-checkbox [checked]="isChecked(e.id, 'idsLieuCours')"
                     (change)="checkboxChange($event.checked, e.id, 'idsLieuCours')">
                     {{myTrans.isFr ? e.nom : e.nomAr}}
                 </mat-checkbox>
-            </span>
+            </span> -->
 
             <!-- {{idsTypeCours.value | json}}
                     {{idsLieuCours.value | json}}
@@ -234,9 +234,9 @@
                     <input matInput formControlName="tel2Parent">
                 </mat-form-field>
 
-                
+
             </div>
-            
+
         </form>
         <button class=" my-2" mat-raised-button color="primary"
             [disabled]="myForm.invalid || checkPasswordError !== ''" type="submit"

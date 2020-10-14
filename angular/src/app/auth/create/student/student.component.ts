@@ -107,7 +107,7 @@ export class StudentComponent implements OnInit {
   }
 
   submit(o: User, student: Student) {
-    o.id = null;
+    // o.id = null;
     this.uow.accounts.create(o).subscribe((r: any) => {
 
       this.optImage.eventSubmitFromParent.next({ id: r.id });

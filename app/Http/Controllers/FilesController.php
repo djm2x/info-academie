@@ -5,33 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class FilesController extends Controller
 {
 
-    public function uploadFiles2(Request $request, string $folder) // : Collection
+    public function uploadFiles(Request $request, string $folder) // : Collection
     {
-        // $request->validate([
-        //     'file' => 'required|mimes:pdf,xlx,csv|max:2048',
-        // ]);
+        $request->validate([
+            // 'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+            // 'file' => 'required',
+            // 'file'=> 'required|mimes:mp4|max:4096',
+        ]);
 
-        //dd($request->all());
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = $file->getClientOriginalName();
-            // $extension = $file->getClientOriginalExtension();
+        $allowedfileExtension = ['pdf', 'jpg', 'png', 'docx'];
 
-            // $picture = date('His') . '-' . $filename;
+        $length =  $request->get('length');
 
-            // Storage::disk('public')->put($filename, 'Contents');
-            // php artisan storage:link
+        if ($length != 0/*$request->hasFile('file0')*/) {
 
-            $file->move(public_path(str_replace('_', '\\', $folder)), $filename);
+            $filesAdded = [];
+            for ($i=0; $i < $length; $i++) {
 
-            return response()->json(["message" => "Image Uploaded Succesfully"]);
+                $file = $request->file("file_{$i}");
+
+                $filename = $file->getClientOriginalName();
+                // $extension = $file->getClientOriginalExtension();
+
+                $file->move(public_path(str_replace('_', '/', $folder)), $filename);
+
+                array_push($filesAdded, str_replace('_', '/', $folder)."/{$filename}");
+            }
+
+            return [
+                "message" => "Images Uploaded Succesfully",
+                "filesUploaded" => $filesAdded,
+            ];
         } else {
-            return response()->json(["message" => "Select image first."]);
+            return response()->json(["message" => "Select file first."]);
         }
     }
 
@@ -84,36 +96,49 @@ class FilesController extends Controller
 
         // $folder = str_replace('_', '/', $folder);
         $filesDeleted = [];
+        $path = '';
         foreach ($filenames as $filename) {
             // Storage::disk('public')->delete("{$folder}/{$file}");
-            File::delete(public_path(str_replace('_', '/', $folder))."/{$filename}");
+            $path = str_replace('\\', '/', public_path(str_replace('_', '/', $folder))."\\".$filename);
 
+            if (File::exists($path)) {
+                try {
+                    // unlink($path);
+                    $deleted = File::delete(public_path(str_replace('_', '/', $folder))."\\".$filename);
+                } catch (\Throwable $th) {
+
+                }
+            }
             array_push($filesDeleted, "{$folder}/{$filename}");
         }
 
         return [
-            'message' => count($filenames) == 0 ? "empty files" : "delete successfuly",
+            // 'message' => count($filenames) == 0 ? "empty files" : "delete successfuly",
             'fileDeleted' => $filesDeleted,
+            'path' => $path,
+            // 'deleted' => $deleted,
+            'existe' => File::exists($path)
         ];
     }
 
-    public function uploadFiles(Request $request, string $folder) // : Collection
+    public function uploadFiles0(Request $request, string $folder) // : Collection
     {
         $request->validate([
             // 'file' => 'required|mimes:pdf,xlx,csv|max:2048',
             // 'file' => 'required',
+            // 'file'=> 'required|mimes:mp4|max:4096',
         ]);
 
         $allowedfileExtension = ['pdf', 'jpg', 'png', 'docx'];
 
         $length =  $request->get('length');
-        
+
         if ($length != 0/*$request->hasFile('file0')*/) {
 
             $filesAdded = [];
             for ($i=0; $i < $length; $i++) {
 
-                $file = $request->file("file{$i}");
+                $file = $request->file("file_{$i}");
 
                 $filename = $file->getClientOriginalName();
                 // $extension = $file->getClientOriginalExtension();
@@ -122,16 +147,31 @@ class FilesController extends Controller
 
                 array_push($filesAdded, str_replace('_', '/', $folder)."/{$filename}");
             }
-            
+
             return [
-                "message" => "Images Uploaded Succesfully", 
+                "message" => "Images Uploaded Succesfully",
                 "filesUploaded" => $filesAdded,
                 // "files" => $files,
                 // "i" => $i,
             ];
-        } else if ($request->hasFile('file')) {
-            $file = $request->file('file');
+        } else if ($request->hasFile('files') || $request->file('files') != null) {
+
+
+            $file = $request->file('files');
             $filename = $file->getClientOriginalName();
+            // $filename = $request->file->getClientOriginalName();
+
+
+            // $filePath = $request->file('file')->storeAs(str_replace('_', '\\', $folder), $filename, 'public');
+
+            $file->move(public_path(str_replace('_', '\\', $folder)), $filename);
+
+
+            // $path = Storage::putFileAs(
+            //     str_replace('_', '\\', $folder), $file, $filename
+            // );
+
+
             // $extension = $file->getClientOriginalExtension();
 
             // $picture = date('His') . '-' . $filename;
@@ -139,12 +179,13 @@ class FilesController extends Controller
             // Storage::disk('public')->put($filename, 'Contents');
             // php artisan storage:link
 
-            $file->move(public_path(str_replace('_', '\\', $folder)), $filename);
 
-            return response()->json(["message" => "Image Uploaded Succesfully"]);
-        } 
+            return response()->json([
+                "message" => "Image Uploaded Succesfully",
+            ]);
+        }
         else {
-            return ["message" => "Select image first.", 'filesUploaded' => $length];
+            return ["message" => "Select image first.", 'filesUploaded' => $request->hasFile('file')];
         }
     }
 }

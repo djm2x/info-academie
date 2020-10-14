@@ -147,7 +147,7 @@ export class ProfComponent implements OnInit {
   }
 
   submit(o: User, prof: Prof) {
-    o.id = null;
+    // o.id = null;
     this.uow.accounts.create(o).subscribe((r: any) => {
 
       this.optImage.eventSubmitFromParent.next({ id: r.id });

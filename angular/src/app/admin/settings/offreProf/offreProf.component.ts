@@ -105,26 +105,6 @@ export class OffreProfComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
-  getAllForStatistique(interval, value, idTypeCours,) {
-    const sub = this.uow.offreProfs.getAllForStatistique(interval, value, idTypeCours,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
-
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({ barChartLabels, barChartData, title: 'OffreProf' });
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
   selectedIndexChange(index: number) {
     // this.isListTabSelected = index === 0;
     // this.isChartTabSelected = index === 1;

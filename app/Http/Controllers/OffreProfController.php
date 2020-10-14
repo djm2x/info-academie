@@ -35,4 +35,15 @@ class OffreProfController extends SuperController
 
         return ['list' => $list, 'count' => $count];
     }
+
+    public function getAll2() // : Collection
+    {
+        $list = $this->_context
+            ->orderBy('id', 'asc')
+            ->with(['typeCours:id,nom,nomAr'])
+            ->get()
+            ;
+
+        return $list;
+    }
 }
