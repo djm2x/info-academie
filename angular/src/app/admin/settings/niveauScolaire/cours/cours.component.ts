@@ -1,23 +1,22 @@
 import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy } from '@angular/core';
 import { merge, Subscription, Subject } from 'rxjs';
-import { UpdateComponent } from './update/update.component';
+import { UpdateCoursComponent } from './update/update.component';
 import { UowService } from 'src/app/services/uow.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
-import { NiveauScolaire } from 'src/app/models/models';
+import { Cours } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { MyrouteService } from '../../myroute.service';
 
 @Component({
-  selector: 'app-niveauScolaire',
-  templateUrl: './niveauScolaire.component.html',
-  styleUrls: ['./niveauScolaire.component.scss']
+  selector: 'app-cours',
+  templateUrl: './cours.component.html',
+  styleUrls: ['./cours.component.scss']
 })
-export class NiveauScolaireComponent implements OnInit, OnDestroy {
+export class CoursComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   update = new EventEmitter();
@@ -27,15 +26,21 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
 
-  dataSource: NiveauScolaire[] = [];
-  selectedList: NiveauScolaire[] = [];
+  dataSource: Cours[] = [];
+  selectedList: Cours[] = [];
 
-  displayedColumns = ['nom', 'nomAr', 'idCycle', 'coursLigneGroupe', 'coursLigneIndividuel', 'coursDomicileGroupe', 'coursDomicileIndividuel', 'option'];
+  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'filesUrl', 'niveauScolaire', 'option'];
 
   panelOpenState = false;
 
   nom = new FormControl('');
-  nomAr = new FormControl('');
+nomAr = new FormControl('');
+filesUrl = new FormControl('');
+idNiveauScolaire = new FormControl(0);
+
+
+  niveauScolaires = this.uow.niveauScolaires.get();
+
 
   dataSubject = new Subject();
   isListTabSelected = true;
@@ -44,9 +49,8 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
   chartTabSelectedEvent = new Subject();
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
-    this.breadcrumb.name = 'NiveauScolaires';
-  }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) {
+    }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -61,31 +65,51 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
-          this.nomAr.value === '' ? '*' : this.nomAr.value,
+this.nomAr.value === '' ? '*' : this.nomAr.value,
+this.filesUrl.value === '' ? '*' : this.filesUrl.value,
+this.idNiveauScolaire.value === 0 ? 0 : this.idNiveauScolaire.value,
 
         );
       }
     );
 
-    this.subs.push(sub);
+    const sub2 = merge(...[this.chartTabSelectedEvent, this.update]).pipe(startWith(null as any)).subscribe(r => {
 
+      if (this.isChartTabSelected) {
+        this.getAllForStatistique(
+          this.nom.value === '' ? '*' : this.nom.value,
+this.nomAr.value === '' ? '*' : this.nomAr.value,
+this.filesUrl.value === '' ? '*' : this.filesUrl.value,
+this.idNiveauScolaire.value === 0 ? 0 : this.idNiveauScolaire.value,
+
+        );
+      }
+    }
+    );
+
+    this.subs.push(sub);
+    this.subs.push(sub2);
   }
 
   reset() {
     this.nom.setValue('');
-    this.nomAr.setValue('');
+this.nomAr.setValue('');
+this.filesUrl.setValue('');
+this.idNiveauScolaire.setValue(0);
 
     this.update.next(true);
   }
 
-
+  generateExcel() {
+    this.excel.json_to_sheet(this.dataSource);
+  }
 
   search() {
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr,) {
-    const sub = this.uow.niveauScolaires.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, filesUrl, idNiveauScolaire,) {
+    const sub = this.uow.cours.getAll(startIndex, pageSize, sortBy, sortDir,  nom, nomAr, filesUrl, idNiveauScolaire,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -97,12 +121,35 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
+  getAllForStatistique( nom, nomAr, filesUrl, idNiveauScolaire,) {
+    const sub = this.uow.cours.getAllForStatistique( nom, nomAr, filesUrl, idNiveauScolaire,).subscribe(
+      (r: any[]) => {
+        console.log(r);
+        const barChartLabels = r.map(e => e.name);
+        const barChartData = [
+          { data: [], label: 'name' },
+        ];
 
+        r.forEach(e => {
+          barChartData[0].data.push(e.value);
+        });
 
+        this.dataSubject.next({barChartLabels, barChartData, title: 'Cours'});
+      }
+    );
 
+    this.subs.push(sub);
+  }
 
-  openDialog(o: NiveauScolaire, text, bool) {
-    const dialogRef = this.dialog.open(UpdateComponent, {
+  selectedIndexChange(index: number) {
+    // this.isListTabSelected = index === 0;
+    // this.isChartTabSelected = index === 1;
+    // this.listTabSelectedEvent.next(index === 0);
+    // this.chartTabSelectedEvent.next(index === 1);
+  }
+
+  openDialog(o: Cours, text, bool) {
+    const dialogRef = this.dialog.open(UpdateCoursComponent, {
       width: '1100px',
       disableClose: true,
       data: { model: o, title: text, visualisation: bool }
@@ -112,23 +159,23 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
   }
 
   add() {
-    this.openDialog(new NiveauScolaire(), `Ajouter ${this.breadcrumb.name}`, false).subscribe(result => {
+    this.openDialog(new Cours(), `Ajouter Cours`, false).subscribe(result => {
       if (result) {
         this.update.next(true);
       }
     });
   }
 
-  edit(o: NiveauScolaire) {
-    this.openDialog(o, `Modifier ${this.breadcrumb.name}`, false).subscribe((result: NiveauScolaire) => {
+  edit(o: Cours) {
+    this.openDialog(o, `Modifier Cours`, false).subscribe((result: Cours) => {
       if (result) {
         this.update.next(true);
       }
     });
   }
 
-  detail(o: NiveauScolaire) {
-    this.openDialog(o, `Détail ${this.breadcrumb.name}`, true).subscribe((result: NiveauScolaire) => {
+  detail(o: Cours) {
+    this.openDialog(o, `Détail Cours`, true).subscribe((result: Cours) => {
       if (result) {
         this.update.next(true);
       }
@@ -136,15 +183,15 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
   }
 
   async delete(id: number) {
-    const r = await this.mydialog.openDialog(this.breadcrumb.name).toPromise();
+    const r = await this.mydialog.openDialog('Cours').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.niveauScolaires.delete(id).subscribe(() => this.update.next(true));
+      const sub = this.uow.cours.delete(id).subscribe(() => this.update.next(true));
 
       this.subs.push(sub);
     }
   }
 
-  displayImage(urlImage: string, id: number) {
+  displayImage(urlImage: string) {
     if (!urlImage) {
       return 'assets/404.jpg';
     }
@@ -152,7 +199,7 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
       return urlImage;
     }
 
-    return `${this.url}/niveauScolaires/${id}/${urlImage.replace(';', '')}`;
+    return `${this.url}/cours/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {
@@ -161,11 +208,11 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
 
   //check box
   //
-  isSelected(row: NiveauScolaire): boolean {
+  isSelected(row: Cours): boolean {
     return this.selectedList.find(e => e.id === row.id) ? true : false;
   }
 
-  check(row: NiveauScolaire) {
+  check(row: Cours) {
     const i = this.selectedList.findIndex(o => row.id === o.id);
     const existe: boolean = i !== -1;
 
@@ -188,7 +235,7 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.niveauScolaires.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.cours.deleteRange(this.selectedList).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

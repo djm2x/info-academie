@@ -114,6 +114,21 @@ export class NiveauScolaire {
   id = 0;
   nom = '';
   nomAr = '';
+  idCycle = 0;
+  coursLigneGroupe = 0;
+  coursLigneIndividuel = 0;
+  coursDomicileGroupe = 0;
+  coursDomicileIndividuel = 0;
+}
+
+export class Cours {
+  id = 0;
+  nom = '';
+  nomAr = '';
+  filesUrl = '';
+  vidoesUrl = '';
+  idNiveauScolaire = 0;
+  niveauScolaire = new NiveauScolaire();
 }
 
 export class Message {

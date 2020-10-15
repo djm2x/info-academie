@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\NiveauScolaire;
+use App\Cours;
 use Illuminate\Http\Request;
 
-class NiveauScolaireController extends SuperController
+class CoursController extends SuperController
 {
-    public function __construct(NiveauScolaire $model)
+    public function __construct(Cours $model)
     {
         parent::__construct($model);
     }
 
-    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $nomAr) // : Collection
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $nomAr, string $idNiveauScolaire) // : Collection
     {
         $matchThese = [ ];
 
@@ -24,6 +24,10 @@ class NiveauScolaireController extends SuperController
             array_push($matchThese, ['nomAr', 'LIKE', "%{$nomAr}%"]);
         }
 
+        if ($idNiveauScolaire != 0) {
+            array_push($matchThese, ['idNiveauScolaire', $idNiveauScolaire]);
+        }
+
         $q = $this->_context
             ->where($matchThese)
             ->orderBy($sortBy, $sortDir);
@@ -31,20 +35,10 @@ class NiveauScolaireController extends SuperController
         $count = $q->count();
 
         $list = $q->skip($startIndex)
-            ->skip($startIndex)
             ->take($pageSize)
             ->get()
             ;
 
         return ['list' => $list, 'count' => $count];
-    }
-
-    public function getAll2()
-    {
-        $list = $this->_context
-            ->get()
-            ;
-
-        return $list;
     }
 }

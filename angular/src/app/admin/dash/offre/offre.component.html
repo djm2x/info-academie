@@ -29,3 +29,36 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="session.user.role === 'student'">
+  <div class="row mx-2">
+
+    <div class="col-md-3" *ngFor="let e of (offreStudentsDescription | async); let i=index">
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{e.pack}}</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <p class="mt-2">{{e.description}}</p>
+          <mat-divider></mat-divider>
+          <div class="p-2">
+            <ul class="p-0">
+              <li *ngFor="let o of e.options;">{{o}}</li>
+            </ul>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- <button mat-button>Ok</button> -->
+          <button *ngIf="e.btn !== ''" [disabled]="offresStudents.length === 0" color="primary" mat-raised-button (click)="openDialog()">
+            {{ e.btn }} <mat-icon>arrow_right_alt</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+  </div>
+
+
+</div>

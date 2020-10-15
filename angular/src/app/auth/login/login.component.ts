@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   myForm: FormGroup;
   o = new User();
   hide = true;
-
+  profil = true;
   code = '';
   constructor(private fb: FormBuilder, public uow: UowService
     , private router: Router, public session: SessionService
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     // test
-    this.o.email = 'prof@angular.io';
+    this.o.email = `${this.profil ? 'prof' : 'student'}@angular.io`;
     this.o.password = '123';
     this.createForm();
 
@@ -35,6 +35,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.code && this.code !== '') {
       this.submitCodeCommingFromEmail();
     }
+  }
+
+  changeProfil() {
+    this.profil = !this.profil;
+    this.myForm.get('email').setValue(this.profil ? 'prof@angular.io' : 'student@angular.io')
   }
 
   createForm() {

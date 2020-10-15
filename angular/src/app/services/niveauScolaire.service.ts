@@ -16,12 +16,7 @@ export class NiveauScolaireService extends SuperService<NiveauScolaire> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${nomAr}`);
   }
 
-  getAllWithActivites() {
-    return this.http.get<NiveauScolaire>(`${this.urlApi}/${this.controller}/getAllWithActivites`);
+  getAll2() {
+    return this.http.get<NiveauScolaire[]>(`${this.urlApi}/${this.controller}/getAll2`);
   }
-
-  
-
-
-
 }

@@ -18,9 +18,19 @@ class CreateNiveauScolairesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nom');
             $table->string('nomAr');
+            $table->integer('idCycle');
+            $table->integer('coursLigneGroupe');
+            $table->integer('coursLigneIndividuel');
+            $table->integer('coursDomicileGroupe');
+            $table->integer('coursDomicileIndividuel');
             $table->timestamps();
         });
-        
+
+
+
+
+
+
         // DB::insert("INSERT INTO `niveau_scolaires` (`id`, `nom`, `nomAr`, `created_at`, `updated_at`) VALUES
         //     (1, 'Primaire', 'Primaire', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),
         //     (2, 'Collège', 'Collège', '2020-09-09 12:23:57', '2020-09-09 12:23:57'),

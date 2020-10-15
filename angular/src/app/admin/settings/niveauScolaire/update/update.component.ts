@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NiveauScolaire } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
@@ -13,50 +14,54 @@ export class UpdateComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   myForm: FormGroup;
-  o: NiveauScolaire;
+  o = new NiveauScolaire();
   title = '';
   visualisation = false;
 
-
   folderToSaveInServer = 'niveauScolaires';
 
-  /*{imagesInit}*/
-
-
-
-  constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
-    , private fb: FormBuilder, private uow: UowService) { }
+  cycles = this.uow.cycles;
+  id = 0;
+  constructor(private fb: FormBuilder, private uow: UowService
+    , private route: ActivatedRoute, private router: Router) { }
 
   async ngOnInit() {
-    this.o = this.data.model;
-    this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
-    this.title = this.data.title;
-    this.visualisation = this.data.visualisation;
+    // this.o = this.data.model;
+    // this.folderToSaveInServer = this.folderToSaveInServer + '_' + this.o.id;
+    // this.title = this.data.title;
+    // this.visualisation = this.data.visualisation;
+    // this.createForm();
+    // if (this.o.id !== 0) {
+
+    //   setTimeout(() => this.createForm(), 300);
+    // }
+
     this.createForm();
-    if (this.o.id !== 0) {
+    this.id = +this.route.snapshot.paramMap.get('id');
 
-      setTimeout(() => this.createForm(), 300);
+    this.title = 'Ajouter Niveau Scolaire';
+
+    if (this.id !== 0) {
+      this.uow.niveauScolaires.getOne(this.id).subscribe(async r => {
+        this.o = r as NiveauScolaire;
+        console.log(this.o);
+        this.title = 'Modifier Niveau Scolaire';
+        this.createForm()
+      });
     }
-
   }
 
-
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onOkClick(o: NiveauScolaire): void {
+  submit(o: NiveauScolaire): void {
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.niveauScolaires.post(o).subscribe(r => {
 
-        this.dialogRef.close(o);
+        this.router.navigate(['/admin/settings/user']);
       });
     } else {
       sub = this.uow.niveauScolaires.put(o.id, o).subscribe(r => {
 
-        this.dialogRef.close(o);
+        this.router.navigate(['/admin/settings/user']);
       });
     }
 
@@ -65,10 +70,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-nom: [this.o.nom, [Validators.required, ]],
-nomAr: [this.o.nomAr, [Validators.required, ]],
-
+      id: [this.o.id, [Validators.required,]],
+      nom: [this.o.nom, [Validators.required,]],
+      nomAr: [this.o.nomAr, [Validators.required,]],
+      idCycle: [+this.o.idCycle, [Validators.required,]],
+      coursLigneGroupe: [this.o.coursLigneGroupe, [Validators.required,]],
+      coursLigneIndividuel: [this.o.coursLigneIndividuel, [Validators.required,]],
+      coursDomicileGroupe: [this.o.coursDomicileGroupe, [Validators.required,]],
+      coursDomicileIndividuel: [this.o.coursDomicileIndividuel, [Validators.required,]],
     });
   }
 

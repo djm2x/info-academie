@@ -17,7 +17,7 @@ $factory->define(Prof::class, function (Faker $faker) {
         'videoUrl' => '',
         'cvUrl' => '',
         'note' => $faker->numberBetween(100, 1000),
-        'prixHrWeb' => $faker->numberBetween(20, 100),  
+        'prixHrWeb' => $faker->numberBetween(20, 100),
         'prixHrHome' => $faker->numberBetween(20, 100),
         'prixHrWebGroupe' => $faker->numberBetween(20, 100),
         'prixHrHomeGroupe' => $faker->numberBetween(20, 100),
@@ -25,7 +25,7 @@ $factory->define(Prof::class, function (Faker $faker) {
         'idsActivites' => implode("",$faker->randomElements([';1;',';2;',';3;',';4;',';5;',';6;',';7;',';8;',';9;'], 3)),
         'idsTypeCours' => implode("",$faker->randomElements([';1;',';2;'])),
         'idsLieuCours' => implode("",$faker->randomElements([';1;',';2;',';3;'], 2)),
-        'idsNiveauScolaires' => implode("",$faker->randomElements([';1;',';2;',';3;',';4;',';5;'], 3)),
+        'idsNiveauScolaires' => implode("",$faker->randomElements([';1;',';2;',';3;',';4;',';5;',';6;',';7;',';8;',';9;'], 4)),
         'idUser' => $i++,
     ];
 
@@ -33,9 +33,9 @@ $factory->define(Prof::class, function (Faker $faker) {
     //     for ($i = 1; $i <= 10; ++$i)
     //         yield $i;
     // }
-    
+
     // $number = generator();
-    
+
     // $factory->define(\App\Episode::class, function (Faker $faker, array $extraData) use ($factory, &$number) {
     //     if (is_null($number->current())) {
     //         $number = generator();

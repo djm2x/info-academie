@@ -61,6 +61,7 @@ class HomeController extends Controller
 
         $videos = $this->videos
             ->orderBy('order', 'asc')
+            ->take(3)
             ->get()
             ;
 
@@ -128,7 +129,6 @@ class HomeController extends Controller
             array_push($matchThese, ['idsNiveauScolaires', 'LIKE', "%;{$niveauScolaire};%"]);
         }
 
-
         $q = $this->profs
             ->where($matchThese)
             ->with(['user'])
@@ -140,9 +140,6 @@ class HomeController extends Controller
             ->take($pageSize)
             ->get()
             ;
-
-
-
 
         return view('page/profs', compact('profs', 'activites', 'count'));
     }
@@ -160,5 +157,28 @@ class HomeController extends Controller
         $niveauScolaires = $this->niveauScolaires->get();
 
         return view('page/prof', compact('model', 'typeActivites', 'activites', 'typeCours', 'lieuCours', 'niveauScolaires'));
+    }
+
+    public function videos(int $startIndex, int $pageSize)
+    {
+
+        $videos = $this->videos
+            ->orderBy('order', 'asc')
+            ->skip($startIndex)
+            ->take($pageSize)
+            ->get()
+            ;
+
+        return view('page/videos', compact('videos'));
+    }
+
+    public function video(int $id)
+    {
+        $model = $this->videos
+            ->where('id', $id)
+            ->get()
+            ;
+
+        return view('page/video', compact('model'));
     }
 }

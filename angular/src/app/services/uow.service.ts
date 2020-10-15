@@ -16,6 +16,7 @@ import { ContactUsService } from './contactUs.service';
 import { MessageService } from './message.service';
 import { VideoService } from './video.service';
 import { OffreProfService } from './offreProf.service';
+import { CoursService } from './cours.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,11 @@ export class UowService {
   contactUss = new ContactUsService();
   videos = new VideoService();
   offreProfs = new OffreProfService();
+  cours = new CoursService();
 
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
+  cycles = this.http.get<{ id: number, name: string, nameAr: string }[]>('assets/json/cycles.json');
+  offres = this.http.get<{ id: number, pack: string, description: string, btn: string, options: string[] }[]>('assets/json/offres.json');
   years = [...Array(new Date().getFullYear() - 2015).keys()].map(e => 2015 + e + 1);
   months = [...Array(12).keys()].map(e => e + 1);
   monthsAlpha = [

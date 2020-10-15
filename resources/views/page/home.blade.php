@@ -186,8 +186,8 @@
                 <div class="row">
                     @foreach ($videos as $e)
 
-                        <div class="col-md-6 col-sm-6 col-lg-4 pl-1 pr-1 justify-content-center align-items-center">
-                            <div class="card" style="margin-top: 100px">
+                        <div class="col-md-6 col-sm-6 col-lg-4 pl-1 pr-1 justify-content-center align-items-center mt-2">
+                            <div class="card">
 
                                 @if(strpos($e->urlVideo, 'http') !== false)
                                 <iframe src="{{  url(str_replace('/watch?v=', '/embed/',$e->urlVideo)) }}"
@@ -201,7 +201,7 @@
                                 @endif
 
                                 <div class="card-body">
-                                    <p class="h5 text-dark font-weight-bold">{{$e->title}}</p>
+                                    <p class="h5 mt-2 text-dark font-weight-bold">{{$e->title}}</p>
                                     {{-- <p class="card-text m-0 text-dark font-weight-bold">{{substr($e->intro, 0, 100)}}</p> --}}
                                     {{-- <p class="card-text m-0 text-dark text-muted">
                                         {{substr($e->description, 0, 100)}} ...
@@ -219,7 +219,7 @@
                     @endforeach
 
                 </div>
-                <a class="btn btn-danger mt-3 ml-2" href="profs/0/20/0/0/0/0/0">
+                <a class="btn btn-danger mt-3 ml-2" href="videos/0/20">
                     {{-- {{ app()->getLocale() == 'fr' ? $e->activites[$i]->nom : $e->activites[$i]->nomAr }} --}}
                     Voir plus ...
                 </a>

@@ -50,7 +50,12 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
     // niveauScolaires
     Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'NiveauScolaireController@getAll');
+    Route::get('/niveauScolaires/getAll2', 'NiveauScolaireController@getAll2');
     Route::apiResource('niveauScolaires', 'NiveauScolaireController');
+
+    // cours
+    Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}', 'CoursController@getAll');
+    Route::apiResource('cours', 'CoursController');
 
     // villes
     Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'VilleController@getAll');

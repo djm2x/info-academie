@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 
 Route::get('', 'HomeController@index')->name('home');
 Route::get('/profs/{startIndex}/{pageSize}/{typeActivite}/{activite}/{typeCours}/{lieuCours}/{niveauScolaire}', 'HomeController@profs')->name('profs');
+Route::get('/videos/{startIndex}/{pageSize}', 'HomeController@videos')->name('videos');
 Route::get('/profs/{id}', 'HomeController@prof')->name('prof');
 
 

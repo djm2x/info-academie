@@ -12,7 +12,7 @@ php artisan make:migration modifier_champs_table_membres --table="membres"
 php artisan make:migration add_foreignkey_userID_to_table_members --table="membres" 
 php artisan migrate:rollback --step=1
 
-php artisan make:model OffreProf -mcrf
+php artisan make:model Cours -mcrf
 
 php artisan make:migration creer_table_membres --create="membres"
 

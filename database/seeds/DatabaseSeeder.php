@@ -1,6 +1,7 @@
 <?php
 
 use App\Activite;
+use App\Cours;
 use App\LieuCours;
 use App\NiveauScolaire;
 use App\OffreProf;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NiveauScolaireSeeder::class);
         $this->call(VideoSeeder::class);
         $this->call(OffreProfSeeder::class);
+        $this->call(CoursSeeder::class);
 
         Model::reguard(); // Enable mass assignment
     }
@@ -110,7 +112,7 @@ class NiveauScolaireSeeder extends Seeder
 {
     public function run()
     {
-        factory(NiveauScolaire::class, 5)->create();
+        factory(NiveauScolaire::class, 12)->create();
     }
 }
 
@@ -118,7 +120,7 @@ class VideoSeeder extends Seeder
 {
     public function run()
     {
-        factory(Video::class, 3)->create();
+        factory(Video::class, 6)->create();
     }
 }
 
@@ -127,5 +129,13 @@ class OffreProfSeeder extends Seeder
     public function run()
     {
         factory(OffreProf::class, 4)->create();
+    }
+}
+
+class CoursSeeder extends Seeder
+{
+    public function run()
+    {
+        factory(Cours::class, 36)->create();
     }
 }

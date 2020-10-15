@@ -35,6 +35,10 @@
                         </a>
                     <div class="d-flex flex-row-reverse mt-2 mb-2">
                         <!-- <span style="cursor: pointer;" [routerLink]="['/auth/reset']">Mot de passe oublié?</span> -->
+                        <span style="cursor: pointer; color: black;"
+                          (click)="changeProfil()" >
+                          teste avec un <b>{{!profil ? 'Prof' : 'Student'}}</b>
+                        </span>
                         <!-- <span style="cursor: pointer;" >Mot de passe oublié?</span> -->
                     </div>
                 </div>
