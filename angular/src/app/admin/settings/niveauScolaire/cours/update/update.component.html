@@ -31,7 +31,25 @@
           </mat-select>
         </mat-form-field>
 
+        <div class="col-md-6 mt-2 mb-2" formArrayName="vidoesUrl">
 
+          <div *ngFor="let e of getControl('vidoesUrl').controls; let i=index;" [formGroupName]="i">
+            <div class="">
+              <mat-form-field appearance="fill" class="col-md-10">
+                <mat-label>Requirement En {{ i+1 }}</mat-label>
+                <input matInput formControlName="d" required>
+              </mat-form-field>
+              <button *ngIf="i > 0" mat-icon-button (click)="removeAt(i, 'vidoesUrl')">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <button class="ml-3" mat-raised-button color="accent" type="button" (click)="add('vidoesUrl')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        {{myForm.value | json}}
       </form>
 
     </mat-dialog-content>

@@ -59,6 +59,7 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
     // branches
     Route::get('/branches/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}', 'BrancheController@getAll');
+    Route::get('/branches/getByForeignkey/{propertyName}/{value}', 'BrancheController@getByForeignkey');
     Route::apiResource('branches', 'BrancheController');
 
     // villes

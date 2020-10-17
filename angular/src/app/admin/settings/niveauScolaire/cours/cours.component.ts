@@ -37,7 +37,7 @@ export class CoursComponent implements OnInit, OnDestroy {
   nomAr = new FormControl('');
   @Input() idNiveauScolaire = 0;
   idBranche = new FormControl(0);
-  niveauScolaires = this.uow.niveauScolaires.get();
+  branches ;
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) {
@@ -45,7 +45,7 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('pere : ', this.idNiveauScolaire);
-    const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
+    const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update, this.idBranche.valueChanges]).pipe(startWith(null as any)).subscribe(
       r => {
         r === true ? this.paginator.pageIndex = 0 : r = r;
         !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
@@ -64,6 +64,8 @@ export class CoursComponent implements OnInit, OnDestroy {
         );
       }
     );
+
+    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.idNiveauScolaire)
 
     this.subs.push(sub);
   }
@@ -110,7 +112,9 @@ export class CoursComponent implements OnInit, OnDestroy {
   }
 
   add() {
-    this.openDialog(new Cours(), `Ajouter Cours`, false).subscribe(result => {
+    const o = new Cours();
+    o.idNiveauScolaire = this.idNiveauScolaire;
+    this.openDialog(o, `Ajouter Cours`, false).subscribe(result => {
       if (result) {
         this.update.next(true);
       }
@@ -118,6 +122,7 @@ export class CoursComponent implements OnInit, OnDestroy {
   }
 
   edit(o: Cours) {
+    o.idNiveauScolaire = this.idNiveauScolaire;
     this.openDialog(o, `Modifier Cours`, false).subscribe((result: Cours) => {
       if (result) {
         this.update.next(true);

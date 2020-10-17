@@ -37,12 +37,12 @@ class SuperController extends Controller
 
     public function getByForeignkey(string $propertyName, $value): Collection
     {
-        $res = $this->_context
+        $list = $this->_context
             ->where($propertyName, $value)
             ->get()
             ;
 
-        return $res;
+        return $list;
     }
 
     public function autocomplete(string $column, $value): Collection

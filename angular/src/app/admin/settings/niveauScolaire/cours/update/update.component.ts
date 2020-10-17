@@ -1,6 +1,6 @@
 import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Cours } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
   o: Cours;
   title = '';
   visualisation = false;
-  branches = this.uow.branches.get();
+  branches;
 
 
   folderToSaveInServer = 'cours';
@@ -31,7 +31,7 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.o = this.data.model;
     this.title = this.data.title;
-    this.visualisation = this.data.visualisation;
+    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.o.idNiveauScolaire)
     this.createForm();
   }
 
@@ -62,7 +62,8 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
       nom: [this.o.nom, [Validators.required,]],
       nomAr: [this.o.nomAr, [Validators.required,]],
       filesUrl: [this.o.filesUrl, [Validators.required,]],
-      vidoesUrl: [this.o.vidoesUrl, [Validators.required,]],
+      // vidoesUrl: [this.o.vidoesUrl, [Validators.required,]],
+      vidoesUrl: this.fb.array([{value: ''}].map(i => this.fb.group(i)) as FormGroup[]),
       idBranche: [this.o.idBranche, [Validators.required,]],
       idNiveauScolaire: [this.o.idNiveauScolaire, [Validators.required,]],
     });
@@ -71,6 +72,18 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
   resetForm() {
     this.o = new Cours();
     this.createForm();
+  }
+
+  getControl(name: string): FormArray {
+    return this.myForm.get(name) as FormArray;
+  }
+
+  add(name: string) {
+    this.getControl(name).push(this.fb.group({ value: '' }));
+  }
+
+  removeAt(i: number, name: string) {
+    this.getControl(name).removeAt(i);
   }
 
   ngOnDestroy(): void {

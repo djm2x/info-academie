@@ -42,8 +42,8 @@ export class SuperService<T> implements ISuperService {
     return this.http.get(`${this.urlApi}/${this.controller}/autocomplete/${column}/${name}`);
   }
 
-  getByForeignkey(id) {
-    return this.http.get<T[]>(`${this.urlApi}/${this.controller}/getByForeignkey/${id}`);
+  getByForeignkey(propertyName: string, value: number) {
+    return this.http.get<T[]>(`${this.urlApi}/${this.controller}/getByForeignkey/${propertyName}/${value}`);
   }
 
 }
