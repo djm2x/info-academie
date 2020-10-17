@@ -37,28 +37,15 @@
 
                                 <div class="card-body">
                                     <p class="h5 mt-2 text-dark font-weight-bold">{{$e->title}}</p>
-                                    {{-- <p class="card-text m-0 text-dark font-weight-bold">{{substr($e->intro, 0, 100)}}</p> --}}
-                                    {{-- <p class="card-text m-0 text-dark text-muted">
-                                        {{substr($e->description, 0, 100)}} ...
-                                    </p> --}}
-                                    {{-- <div class="d-flex flex-row-reverse justify-content-between align-items-center mt-3">
-                                        <span><i class="fas fa-star"></i> {{$e->note}}</span>
-
-                                        <a class="btn btn-primary text-uppercase" href="profs/{{$e->id}}">
-                                           Detail <i class="fas fa-arrow-right"></i>
-                                        </a>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
                 </div>
-                <a class="btn btn-danger mt-3 ml-2" href="profs/0/20/0/0/0/0/0">
-                    {{-- {{ app()->getLocale() == 'fr' ? $e->activites[$i]->nom : $e->activites[$i]->nomAr }} --}}
-                    Voir plus ...
-                </a>
-                {{-- <hr class="mb-0"> --}}
+
+                <div class="d-flex justify-content-center">
+                    {!! $videos->withQueryString()->links() !!}
+                </div>
             </div>
 
 

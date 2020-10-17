@@ -1,8 +1,8 @@
-<!-- <app-title title="Courss"></app-title> -->
+<!-- <app-title title="Branches"></app-title> -->
 
 <div class="d-flex flex-row-reverse pt-3 mb-3">
   <button mat-raised-button color="primary" (click)="add()">
-    <mat-icon>add</mat-icon> Cours
+    <mat-icon>add</mat-icon> Branche
   </button>
   <!-- &nbsp;
   <button mat-raised-button color="accent" (click)="generateExcel()">
@@ -10,7 +10,7 @@
   </button> -->
 </div>
 
-<mat-accordion *ngIf="false">
+<mat-accordion>
   <mat-expansion-panel expanded (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title class="d-flex align-items-center">
@@ -81,18 +81,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom Ar</th>
         <td mat-cell *matCellDef="let row">{{row.nomAr}}</td>
       </ng-container>
-      <ng-container matColumnDef="filesUrl">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Files Url</th>
-        <td mat-cell *matCellDef="let row">{{row.filesUrl}}</td>
-      </ng-container>
       <ng-container matColumnDef="niveauScolaire">
         <th mat-header-cell *matHeaderCellDef>Niveau Scolaire</th>
         <td mat-cell *matCellDef="let row">{{row.niveau_scolaire.nom}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="branche">
-        <th mat-header-cell *matHeaderCellDef>branche</th>
-        <td mat-cell *matCellDef="let row">{{row.branche?.nom}}</td>
       </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>

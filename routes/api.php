@@ -54,8 +54,12 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
     // cours
-    Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}', 'CoursController@getAll');
+    Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}/{idBranche}', 'CoursController@getAll');
     Route::apiResource('cours', 'CoursController');
+
+    // branches
+    Route::get('/branches/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}', 'BrancheController@getAll');
+    Route::apiResource('branches', 'BrancheController');
 
     // villes
     Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'VilleController@getAll');

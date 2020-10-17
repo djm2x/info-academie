@@ -2,24 +2,24 @@ import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Cours } from 'src/app/models/models';
+import { Branche } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 @Component({
-  selector: 'app-update-cours',
+  selector: 'app-update',
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.scss']
 })
-export class UpdateCoursComponent implements OnInit, OnDestroy {
+export class UpdateComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   myForm: FormGroup;
-  o: Cours;
+  o: Branche;
   title = '';
   visualisation = false;
-  branches = this.uow.branches.get();
+  niveauScolaires = this.uow.niveauScolaires.get();
 
 
-  folderToSaveInServer = 'cours';
+  folderToSaveInServer = 'branches';
 
   /*{imagesInit}*/
 
@@ -39,15 +39,15 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  onOkClick(o: Cours): void {
+  onOkClick(o: Branche): void {
     let sub = null;
     if (o.id === 0) {
-      sub = this.uow.cours.post(o).subscribe(r => {
+      sub = this.uow.branches.post(o).subscribe(r => {
 
         this.dialogRef.close(o);
       });
     } else {
-      sub = this.uow.cours.put(o.id, o).subscribe(r => {
+      sub = this.uow.branches.put(o.id, o).subscribe(r => {
 
         this.dialogRef.close(o);
       });
@@ -61,15 +61,13 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
       id: [this.o.id, [Validators.required,]],
       nom: [this.o.nom, [Validators.required,]],
       nomAr: [this.o.nomAr, [Validators.required,]],
-      filesUrl: [this.o.filesUrl, [Validators.required,]],
-      vidoesUrl: [this.o.vidoesUrl, [Validators.required,]],
-      idBranche: [this.o.idBranche, [Validators.required,]],
       idNiveauScolaire: [this.o.idNiveauScolaire, [Validators.required,]],
+
     });
   }
 
   resetForm() {
-    this.o = new Cours();
+    this.o = new Branche();
     this.createForm();
   }
 

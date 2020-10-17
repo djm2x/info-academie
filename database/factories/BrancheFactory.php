@@ -1,61 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\View;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Branche;
+use Faker\Generator as Faker;
 
-Route::get('', 'HomeController@index')->name('home');
-Route::get('/profs/{startIndex}/{pageSize}/{typeActivite}/{activite}/{typeCours}/{lieuCours}/{niveauScolaire}/{prof}', 'HomeController@profs')->name('profs');
-Route::get('/videos/{startIndex}/{pageSize}', 'HomeController@videos')->name('videos');
-Route::get('/profs/{id}', 'HomeController@prof')->name('prof');
-
-
-
-Route::get('/phpinfo', function() {
-    return phpinfo();
-});
-
-Route::get('localization/{locale}', function ($locale) {
-    if (! in_array($locale, ['fr', 'ar'])) {
-        abort(400);
-    }
-    // dd($locale);
-    // App::setLocale($locale);
-
-    // $locale2 = App::getLocale();
-
-    // dd($locale2);
-
-    //
-    Session::put('locale', $locale);
-    return redirect()->back();
-
-    // $locale = App::getLocale();
-
-    // if (App::isLocale('en')) {
-    //     //
-    // }
-});
-
-
-Route::fallback(function (string $route) {
-
-    if(beginWith($route, "admin") || beginWith($route, "auth")) {
-        return View::make('index');
-    }
-
-    // return redirect('');
-});
-
-
-function beginWith($str, $begnString) {
-    $len = strlen($begnString);
-    return (substr($str, 0, $len) === $begnString);
-}
-
-Route::get('/length', function() {
+$factory->define(Branche::class, function (Faker $faker) {
+    static $i = 0;
     $list = [
         [10, 'Tronc Commun', 'جذع مشترك'],
         [10, 'Sciences', '     علم'],
@@ -79,6 +30,9 @@ Route::get('/length', function() {
         [12, 'Lettres', '     حروف'],
         [12, 'Sciences Humaines', '     علوم اجتماعية'],
     ];
-    return count($list);
+    return [
+        'nom' => $list[$i][1],
+        'nomAr' => $list[$i][2],
+        'idNiveauScolaire' => $list[$i++][0],
+    ];
 });
-

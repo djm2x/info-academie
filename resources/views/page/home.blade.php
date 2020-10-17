@@ -88,7 +88,7 @@
 
                                 <div class="d-flex justify-content-center align-items-center" style="margin-top: -100px;">
                                     <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('profs/'.$e->id.'/'.$e->imageUrl)}}"
-                                    onerror="this.onerror=null;this.src='/assets/404.png';" class="rounded-circle" alt="..." style="width: 200px; height: 200px;">
+                                    onerror="this.onerror=null;this.src='/assets/prof.jpg';" class="rounded-circle" alt="..." style="width: 200px; height: 200px;">
                                 </div>
 
 
@@ -113,7 +113,7 @@
                         </div>
                         @endforeach
 
-                        <a class="btn btn-danger mt-3 ml-2" href="profs/0/20/0/0/0/0/0">
+                        <a class="btn btn-danger mt-3 ml-2" href="profs/0/20/0/0/0/0/0/*">
                             {{-- {{ app()->getLocale() == 'fr' ? $e->activites[$i]->nom : $e->activites[$i]->nomAr }} --}}
                             Voir plus ...
                         </a>
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                     @endfor
-                    <a class="btn btn-danger ml-2 mt-3" href={{"profs/0/20/" . $e->id . "/0/0/0/0"}}>
+                    <a class="btn btn-danger ml-2 mt-3" href={{"profs/0/20/" . $e->id . "/0/0/0/0/*"}}>
                         Voir plus ...
                     </a>
                 </div>
@@ -219,7 +219,7 @@
                     @endforeach
 
                 </div>
-                <a class="btn btn-danger mt-3 ml-2" href="videos/0/20">
+                <a class="btn btn-danger mt-3 ml-2" href="videos/0/3">
                     {{-- {{ app()->getLocale() == 'fr' ? $e->activites[$i]->nom : $e->activites[$i]->nomAr }} --}}
                     Voir plus ...
                 </a>

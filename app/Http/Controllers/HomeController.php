@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    /**
+     * @var User
+     */
     protected  $users;
     protected  $profs;
     protected  $typeActivites;
@@ -80,11 +83,11 @@ class HomeController extends Controller
 
         // dd($typeActivites);
 
-            // $countryOfCity = City::find(request()->pickupcity)->country_id;
+            // $idForein = City::find(request()->pickupcity)->country_id;
 
-            // $Circuits->whereHas('Localisations' , function($query) use ($countryOfCity)
+            // $Circuits->whereHas('Localisations' , function($query) use ($idForein)
             // {
-            //     $query->where('country_id','=', $countryOfCity);
+            //     $query->where('country_id','=', $idForein);
             // })
 
         // actualite
@@ -94,35 +97,39 @@ class HomeController extends Controller
         return view('page/home', compact('users', 'typeActivites', 'profs', 'videos'));
     }
 
-    public function profs(int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire)
+    public function profs(Request $request
+    , int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire, string $prof)
     {
-
+        // $activite = $request->input('activite');
+        // $typeCours = $request->input('typeCours');
+        // $niveauScolaire = $request->input('niveauScolaire');
         //->where(1, '<>', 1);
         $activites = $this->activites->get();
+        $typeCourss = $this->typeCours->get();
+        $niveauScolaires = $this->niveauScolaires->get();
 
         $matchThese = [ ];
 
+        if ($prof != '*') {
+            array_push($matchThese, ['user.nom', 'LIKE', "%{$prof}%"]);
+        }
+
         if ($typeActivite != 0) {
-            // $q->orWhere('idsTypeActivites', 'LIKE', "%;{$typeActivite};%");
-            // dd($typeActivite);
             array_push($matchThese, ['idsTypeActivites', 'LIKE', "%;{$typeActivite};%"]);
         }
 
         if ($activite !== 0) {
-            // $q->orWhere('idsActivites', 'LIKE', "%;{$activite};%");
-            // dd($activite);
             array_push($matchThese, ['idsActivites', 'LIKE', "%;{$activite};%"]);
         }
 
         if ($typeCours != 0) {
-            // $q->orWhere('idsTypeCours', 'LIKE', "%;{$typeCours};%");
             array_push($matchThese, ['idsTypeCours', 'LIKE', "%;{$typeCours};%"]);
         }
 
-        if ($lieuCours != 0) {
-            // $q->orWhere('idsLieuCours', 'LIKE', "%;{$lieuCours};%");
-            array_push($matchThese, ['idsLieuCours', 'LIKE', "%;{$lieuCours};%"]);
-        }
+        // if ($lieuCours != 0) {
+        //     // $q->orWhere('idsLieuCours', 'LIKE', "%;{$lieuCours};%");
+        //     array_push($matchThese, ['idsLieuCours', 'LIKE', "%;{$lieuCours};%"]);
+        // }
 
         if ($niveauScolaire != 0) {
             // $q->orWhere('idsNiveauScolaires', 'LIKE', "%;{$niveauScolaire};%");
@@ -136,13 +143,72 @@ class HomeController extends Controller
 
         $count = $q->count();
 
-        $profs = $q->skip($startIndex)
-            ->take($pageSize)
-            ->get()
+        $profs = $q
+            // ->skip($startIndex)
+            // ->take($pageSize)
+            ->paginate($pageSize)
+            // ->appends(request()->except('page'))
+            // ->get()
             ;
 
-        return view('page/profs', compact('profs', 'activites', 'count'));
+        return view('page/profs', compact('profs', 'activites', 'count', 'typeCourss', 'niveauScolaires'));
     }
+
+    // public function profs0(Request $req)
+    // {
+    //     // $activite = $request->input('activite');
+    //     // $typeCours = $request->input('typeCours');
+    //     // $niveauScolaire = $request->input('niveauScolaire');
+    //     //->where(1, '<>', 1);
+    //     $activites = $this->activites->get();
+    //     $typeCourss = $this->typeCours->get();
+    //     $niveauScolaires = $this->niveauScolaires->get();
+
+    //     $matchThese = [ ];
+
+    //     if ($prof != '') {
+    //         array_push($matchThese, ['user.nom', 'LIKE', "%{$prof}%"]);
+    //     }
+
+    //     if ($typeActivite != 0) {
+    //         array_push($matchThese, ['idsTypeActivites', 'LIKE', "%;{$typeActivite};%"]);
+    //     }
+
+    //     if ($activite !== 0) {
+    //         array_push($matchThese, ['idsActivites', 'LIKE', "%;{$activite};%"]);
+    //     }
+
+    //     if ($typeCours != 0) {
+    //         array_push($matchThese, ['idsTypeCours', 'LIKE', "%;{$typeCours};%"]);
+    //     }
+
+    //     // if ($lieuCours != 0) {
+    //     //     // $q->orWhere('idsLieuCours', 'LIKE', "%;{$lieuCours};%");
+    //     //     array_push($matchThese, ['idsLieuCours', 'LIKE', "%;{$lieuCours};%"]);
+    //     // }
+
+    //     if ($niveauScolaire != 0) {
+    //         // $q->orWhere('idsNiveauScolaires', 'LIKE', "%;{$niveauScolaire};%");
+    //         array_push($matchThese, ['idsNiveauScolaires', 'LIKE', "%;{$niveauScolaire};%"]);
+    //     }
+
+    //     $q = $this->profs
+    //         ->where($matchThese)
+    //         ->with(['user'])
+    //         ->orderBy('note', 'desc');
+
+    //     $count = $q->count();
+
+    //     $profs = $q
+    //         // ->skip($startIndex)
+    //         // ->take($pageSize)
+    //         ->paginate($pageSize)
+    //         // ->appends(request()->except('page'))
+    //         // ->get()
+    //         ;
+
+    //     return view('page/profs', compact('profs', 'activites', 'count', 'typeCourss', 'niveauScolaires'));
+    // }
 
     public function prof(int $id)
     {
@@ -164,9 +230,11 @@ class HomeController extends Controller
 
         $videos = $this->videos
             ->orderBy('order', 'asc')
-            ->skip($startIndex)
-            ->take($pageSize)
-            ->get()
+            // ->skip($startIndex)
+            // ->take($pageSize)
+            ->paginate($pageSize)
+            ->appends(request()->except('page'))
+            // ->get()
             ;
 
         return view('page/videos', compact('videos'));

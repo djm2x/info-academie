@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Cours;
+use App\Branche;
 use Illuminate\Http\Request;
 
-class CoursController extends SuperController
+class BrancheController extends SuperController
 {
-    public function __construct(Cours $model)
+    public function __construct(Branche $model)
     {
         parent::__construct($model);
     }
 
-    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir
-        , string $nom, string $nomAr, int $idNiveauScolaire, int $idBranche) // : Collection
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $nomAr, string $idNiveauScolaire) // : Collection
     {
         $matchThese = [ ];
 
@@ -25,12 +24,8 @@ class CoursController extends SuperController
             array_push($matchThese, ['nomAr', 'LIKE', "%{$nomAr}%"]);
         }
 
-        // if ($idNiveauScolaire != 0) {
-        // }
-        array_push($matchThese, ['idNiveauScolaire', $idNiveauScolaire]);
-
-        if ($idBranche != 0) {
-            array_push($matchThese, ['idBranche', $idBranche]);
+        if ($idNiveauScolaire != 0) {
+            array_push($matchThese, ['idNiveauScolaire', $idNiveauScolaire]);
         }
 
         $q = $this->_context
@@ -41,7 +36,7 @@ class CoursController extends SuperController
 
         $list = $q->skip($startIndex)
             ->take($pageSize)
-            ->with(['niveauScolaire:id,nom,nomAr', 'branche:id,nom,nomAr'])
+            ->with(['niveauScolaire:id,nom,nomAr'])
             ->get()
             ;
 

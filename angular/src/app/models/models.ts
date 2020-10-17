@@ -121,14 +121,24 @@ export class NiveauScolaire {
   coursDomicileIndividuel = 0;
 }
 
+export class Branche {
+  id = 0;
+  nom = '';
+  nomAr = '';
+  idNiveauScolaire = 0;
+  niveau_scolaire = new NiveauScolaire();
+}
+
 export class Cours {
   id = 0;
   nom = '';
   nomAr = '';
   filesUrl = '';
   vidoesUrl = '';
+  idBranche = 0;
+  branche = new Branche();
   idNiveauScolaire = 0;
-  niveauScolaire = new NiveauScolaire();
+  niveau_scolaire = new NiveauScolaire();
 }
 
 export class Message {

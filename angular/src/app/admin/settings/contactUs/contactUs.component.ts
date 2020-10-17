@@ -42,11 +42,7 @@ export class ContactUsComponent implements OnInit, OnDestroy {
   // users = this.uow.users.get();
 
 
-  dataSubject = new Subject();
-  isListTabSelected = true;
-  isChartTabSelected = true;
-  listTabSelectedEvent = new Subject();
-  chartTabSelectedEvent = new Subject();
+
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {

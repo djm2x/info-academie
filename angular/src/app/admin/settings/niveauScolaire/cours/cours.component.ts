@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy, Input } from '@angular/core';
 import { merge, Subscription, Subject } from 'rxjs';
 import { UpdateCoursComponent } from './update/update.component';
 import { UowService } from 'src/app/services/uow.service';
@@ -29,30 +29,22 @@ export class CoursComponent implements OnInit, OnDestroy {
   dataSource: Cours[] = [];
   selectedList: Cours[] = [];
 
-  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'filesUrl', 'niveauScolaire', 'option'];
+  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'filesUrl', 'niveauScolaire', 'branche', 'option'];
 
   panelOpenState = false;
 
   nom = new FormControl('');
-nomAr = new FormControl('');
-filesUrl = new FormControl('');
-idNiveauScolaire = new FormControl(0);
-
-
+  nomAr = new FormControl('');
+  @Input() idNiveauScolaire = 0;
+  idBranche = new FormControl(0);
   niveauScolaires = this.uow.niveauScolaires.get();
 
-
-  dataSubject = new Subject();
-  isListTabSelected = true;
-  isChartTabSelected = true;
-  listTabSelectedEvent = new Subject();
-  chartTabSelectedEvent = new Subject();
-
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) {
-    }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) {
+  }
 
   ngOnInit() {
+    console.log('pere : ', this.idNiveauScolaire);
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
       r => {
         r === true ? this.paginator.pageIndex = 0 : r = r;
@@ -65,37 +57,21 @@ idNiveauScolaire = new FormControl(0);
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
-this.nomAr.value === '' ? '*' : this.nomAr.value,
-this.filesUrl.value === '' ? '*' : this.filesUrl.value,
-this.idNiveauScolaire.value === 0 ? 0 : this.idNiveauScolaire.value,
+          this.nomAr.value === '' ? '*' : this.nomAr.value,
+          this.idNiveauScolaire === 0 ? 0 : this.idNiveauScolaire,
+          this.idBranche.value === 0 ? 0 : this.idBranche.value,
 
         );
       }
-    );
-
-    const sub2 = merge(...[this.chartTabSelectedEvent, this.update]).pipe(startWith(null as any)).subscribe(r => {
-
-      if (this.isChartTabSelected) {
-        this.getAllForStatistique(
-          this.nom.value === '' ? '*' : this.nom.value,
-this.nomAr.value === '' ? '*' : this.nomAr.value,
-this.filesUrl.value === '' ? '*' : this.filesUrl.value,
-this.idNiveauScolaire.value === 0 ? 0 : this.idNiveauScolaire.value,
-
-        );
-      }
-    }
     );
 
     this.subs.push(sub);
-    this.subs.push(sub2);
   }
 
   reset() {
     this.nom.setValue('');
-this.nomAr.setValue('');
-this.filesUrl.setValue('');
-this.idNiveauScolaire.setValue(0);
+    this.nomAr.setValue('');
+    // this.idNiveauScolaire.setValue(0);
 
     this.update.next(true);
   }
@@ -108,8 +84,8 @@ this.idNiveauScolaire.setValue(0);
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, filesUrl, idNiveauScolaire,) {
-    const sub = this.uow.cours.getAll(startIndex, pageSize, sortBy, sortDir,  nom, nomAr, filesUrl, idNiveauScolaire,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche) {
+    const sub = this.uow.cours.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -121,32 +97,7 @@ this.idNiveauScolaire.setValue(0);
     this.subs.push(sub);
   }
 
-  getAllForStatistique( nom, nomAr, filesUrl, idNiveauScolaire,) {
-    const sub = this.uow.cours.getAllForStatistique( nom, nomAr, filesUrl, idNiveauScolaire,).subscribe(
-      (r: any[]) => {
-        console.log(r);
-        const barChartLabels = r.map(e => e.name);
-        const barChartData = [
-          { data: [], label: 'name' },
-        ];
 
-        r.forEach(e => {
-          barChartData[0].data.push(e.value);
-        });
-
-        this.dataSubject.next({barChartLabels, barChartData, title: 'Cours'});
-      }
-    );
-
-    this.subs.push(sub);
-  }
-
-  selectedIndexChange(index: number) {
-    // this.isListTabSelected = index === 0;
-    // this.isChartTabSelected = index === 1;
-    // this.listTabSelectedEvent.next(index === 0);
-    // this.chartTabSelectedEvent.next(index === 1);
-  }
 
   openDialog(o: Cours, text, bool) {
     const dialogRef = this.dialog.open(UpdateCoursComponent, {

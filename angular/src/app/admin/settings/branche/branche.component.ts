@@ -6,18 +6,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
-import { OffreProf } from 'src/app/models/models';
+import { Branche } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
 
 @Component({
-  selector: 'app-offreProf',
-  templateUrl: './offreProf.component.html',
-  styleUrls: ['./offreProf.component.scss']
+  selector: 'app-branche',
+  templateUrl: './branche.component.html',
+  styleUrls: ['./branche.component.scss']
 })
-export class OffreProfComponent implements OnInit, OnDestroy {
+export class BrancheComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   update = new EventEmitter();
@@ -27,26 +27,24 @@ export class OffreProfComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
 
-  dataSource: OffreProf[] = [];
-  selectedList: OffreProf[] = [];
+  dataSource: Branche[] = [];
+  selectedList: Branche[] = [];
 
-  displayedColumns = [/*'select',*/  'interval', 'value', 'typeCours', 'option'];
+  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'niveauScolaire', 'option'];
 
   panelOpenState = false;
 
-  interval = new FormControl('');
-  value = new FormControl(0);
-  idTypeCours = new FormControl(0);
+  nom = new FormControl('');
+  nomAr = new FormControl('');
+  idNiveauScolaire = new FormControl(0);
 
-
-  typeCourss = this.uow.typeCours.get();
-
+  niveauScolaires = this.uow.niveauScolaires.get();
 
 
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
-    this.breadcrumb.name = 'OffreProfs';
+    this.breadcrumb.name = 'Branches';
   }
 
   ngOnInit() {
@@ -61,9 +59,9 @@ export class OffreProfComponent implements OnInit, OnDestroy {
           this.paginator.pageSize,
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
-          this.interval.value === '' ? '*' : this.interval.value,
-          this.value.value === 0 ? 0 : this.value.value,
-          this.idTypeCours.value === 0 ? 0 : this.idTypeCours.value,
+          this.nom.value === '' ? '*' : this.nom.value,
+          this.nomAr.value === '' ? '*' : this.nomAr.value,
+          this.idNiveauScolaire.value === 0 ? 0 : this.idNiveauScolaire.value,
 
         );
       }
@@ -73,9 +71,9 @@ export class OffreProfComponent implements OnInit, OnDestroy {
   }
 
   reset() {
-    this.interval.setValue('');
-    this.value.setValue(0);
-    this.idTypeCours.setValue(0);
+    this.nom.setValue('');
+    this.nomAr.setValue('');
+    this.idNiveauScolaire.setValue(0);
 
     this.update.next(true);
   }
@@ -88,8 +86,8 @@ export class OffreProfComponent implements OnInit, OnDestroy {
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, interval, value, idTypeCours,) {
-    const sub = this.uow.offreProfs.getAll(startIndex, pageSize, sortBy, sortDir, interval, value, idTypeCours,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire,) {
+    const sub = this.uow.branches.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -101,9 +99,7 @@ export class OffreProfComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
-
-
-  openDialog(o: OffreProf, text, bool) {
+  openDialog(o: Branche, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
       width: '1100px',
       disableClose: true,
@@ -114,23 +110,23 @@ export class OffreProfComponent implements OnInit, OnDestroy {
   }
 
   add() {
-    this.openDialog(new OffreProf(), `Ajouter ${this.breadcrumb.name}`, false).subscribe(result => {
+    this.openDialog(new Branche(), `Ajouter ${this.breadcrumb.name}`, false).subscribe(result => {
       if (result) {
         this.update.next(true);
       }
     });
   }
 
-  edit(o: OffreProf) {
-    this.openDialog(o, `Modifier ${this.breadcrumb.name}`, false).subscribe((result: OffreProf) => {
+  edit(o: Branche) {
+    this.openDialog(o, `Modifier ${this.breadcrumb.name}`, false).subscribe((result: Branche) => {
       if (result) {
         this.update.next(true);
       }
     });
   }
 
-  detail(o: OffreProf) {
-    this.openDialog(o, `Détail ${this.breadcrumb.name}`, true).subscribe((result: OffreProf) => {
+  detail(o: Branche) {
+    this.openDialog(o, `Détail ${this.breadcrumb.name}`, true).subscribe((result: Branche) => {
       if (result) {
         this.update.next(true);
       }
@@ -140,7 +136,7 @@ export class OffreProfComponent implements OnInit, OnDestroy {
   async delete(id: number) {
     const r = await this.mydialog.openDialog(this.breadcrumb.name).toPromise();
     if (r === 'ok') {
-      const sub = this.uow.offreProfs.delete(id).subscribe(() => this.update.next(true));
+      const sub = this.uow.branches.delete(id).subscribe(() => this.update.next(true));
 
       this.subs.push(sub);
     }
@@ -154,7 +150,7 @@ export class OffreProfComponent implements OnInit, OnDestroy {
       return urlImage;
     }
 
-    return `${this.url}/offreProfs/${urlImage.replace(';', '')}`;
+    return `${this.url}/branches/${urlImage.replace(';', '')}`;
   }
 
   imgError(img: any) {
@@ -163,11 +159,11 @@ export class OffreProfComponent implements OnInit, OnDestroy {
 
   //check box
   //
-  isSelected(row: OffreProf): boolean {
+  isSelected(row: Branche): boolean {
     return this.selectedList.find(e => e.id === row.id) ? true : false;
   }
 
-  check(row: OffreProf) {
+  check(row: Branche) {
     const i = this.selectedList.findIndex(o => row.id === o.id);
     const existe: boolean = i !== -1;
 
@@ -190,7 +186,7 @@ export class OffreProfComponent implements OnInit, OnDestroy {
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.offreProfs.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.branches.deleteRange(this.selectedList).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

@@ -8,16 +8,12 @@ import { Cours } from '../models/models';
 export class CoursService extends SuperService<Cours> {
 
   constructor() {
-    super('courss');
+    super('cours');
   }
 
-  getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, filesUrl, idNiveauScolaire, ) {
+  getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche) {
 
-    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${nomAr}/${filesUrl}/${idNiveauScolaire}`);
-  }
-
-  getAllForStatistique(nom, nomAr, filesUrl, idNiveauScolaire, ) {
-    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${nom}/${nomAr}/${filesUrl}/${idNiveauScolaire}`);
+    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${nomAr}/${idNiveauScolaire}/${idBranche}`);
   }
 
 }

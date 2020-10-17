@@ -42,11 +42,7 @@ export class VideoComponent implements OnInit, OnDestroy {
 
 
 
-  dataSubject = new Subject();
-  isListTabSelected = true;
-  isChartTabSelected = true;
-  listTabSelectedEvent = new Subject();
-  chartTabSelectedEvent = new Subject();
+
 
   constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string
@@ -106,12 +102,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.subs.push(sub);
   }
 
-  selectedIndexChange(index: number) {
-    // this.isListTabSelected = index === 0;
-    // this.isChartTabSelected = index === 1;
-    // this.listTabSelectedEvent.next(index === 0);
-    // this.chartTabSelectedEvent.next(index === 1);
-  }
+
 
   openDialog(o: Video, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {

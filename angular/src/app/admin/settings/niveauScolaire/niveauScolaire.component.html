@@ -1,7 +1,7 @@
 <!-- <app-title title="NiveauScolaires"></app-title> -->
 
 <div class="d-flex flex-row-reverse pt-3 mb-3">
-  <button mat-raised-button color="primary" (click)="add()">
+  <button mat-raised-button color="primary" [routerLink]="['/admin/settings/niveauScolaire/update', 0]">
     <mat-icon>add</mat-icon> NiveauScolaire
   </button>
   <!-- &nbsp;

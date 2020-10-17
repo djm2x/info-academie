@@ -19,15 +19,10 @@
           <input matInput formControlName="nomAr" required>
         </mat-form-field>
 
-        <!-- <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>filesUrl</mat-label>
-          <input matInput formControlName="filesUrl" required>
-        </mat-form-field> -->
-
         <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>branches</mat-label>
+          <mat-label>niveauScolaires</mat-label>
           <mat-select formControlName="idNiveauScolaire">
-            <mat-option *ngFor="let e of branches | async" [value]="e.id">{{ e.nom }}</mat-option>
+            <mat-option *ngFor="let e of niveauScolaires | async" [value]="e.id">{{ e.nom }}</mat-option>
           </mat-select>
         </mat-form-field>
 

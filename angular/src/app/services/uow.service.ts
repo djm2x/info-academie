@@ -17,6 +17,7 @@ import { MessageService } from './message.service';
 import { VideoService } from './video.service';
 import { OffreProfService } from './offreProf.service';
 import { CoursService } from './cours.service';
+import { BrancheService } from './branche.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,7 @@ export class UowService {
   videos = new VideoService();
   offreProfs = new OffreProfService();
   cours = new CoursService();
+  branches = new BrancheService();
 
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
   cycles = this.http.get<{ id: number, name: string, nameAr: string }[]>('assets/json/cycles.json');
