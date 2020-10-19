@@ -143,9 +143,12 @@ export class CoursComponent implements OnInit, OnDestroy {
     if (r === 'ok') {
       const sub = this.uow.cours.delete(o.id).subscribe(() => this.update.next(true));
 
-      const deletes = o.filesUrl.slice(0, -1).split(';').map(e => `cours_${o.id}/${e}`);
+      if (o.filesUrl && o.filesUrl !== '') {
+        const deletes = o.filesUrl.slice(0, -1).split(';').map(e => `cours_${o.id}/${e}`);
 
-      const d = await this.uow.files.deleteFiles(deletes, 'galeries').toPromise();
+        const d = await this.uow.files.deleteFiles(deletes, 'galeries').toPromise();
+
+      }
 
       this.subs.push(sub);
     }
