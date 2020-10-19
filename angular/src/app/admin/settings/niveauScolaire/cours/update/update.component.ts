@@ -1,6 +1,6 @@
 import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Cours } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
@@ -13,26 +13,47 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   myForm: FormGroup;
+  videosUrls = new FormArray([new FormControl('')]);
   o: Cours;
   title = '';
   visualisation = false;
   branches;
 
-
-  folderToSaveInServer = 'cours';
-
-  /*{imagesInit}*/
-
-
+  config = {
+    multiple: true,
+    showSubmitButton: false,
+    folderToSaveInServer: 'cours',
+    propertyStringToParent: new Subject(),
+    propertyStringToUploader: new Subject(),
+    eventSubmitToUploader: new Subject(),
+  }
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.o = this.data.model;
     this.title = this.data.title;
-    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.o.idNiveauScolaire)
+    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.o.idNiveauScolaire);
+
     this.createForm();
+    const videosUrl: string = this.myForm.get('videosUrl').value;
+    // this.videosUrls.setValue(videosUrl ? videosUrl.split(';') : ['']);
+
+    if (videosUrl) {
+      this.videosUrls.removeAt(0);
+      videosUrl.split(';').map(e => this.videosUrls.push(new FormControl(e)));
+    }
+
+    this.videosUrls.valueChanges.subscribe((r: string[]) => {
+      this.myForm.get('videosUrl').setValue(r.join(';'));
+    });
+
+    this.config.propertyStringToParent.subscribe(r => this.myForm.get('filesUrl').setValue(r));
+
+    setTimeout(() => {
+      this.config.propertyStringToUploader.next(this.o.filesUrl);
+    }, 100);
   }
 
   onNoClick(): void {
@@ -43,12 +64,12 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.cours.post(o).subscribe(r => {
-
+        this.config.eventSubmitToUploader.next({ id: r.id });
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.cours.put(o.id, o).subscribe(r => {
-
+        this.config.eventSubmitToUploader.next({ id: o.id });
         this.dialogRef.close(o);
       });
     }
@@ -61,10 +82,10 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
       id: [this.o.id, [Validators.required,]],
       nom: [this.o.nom, [Validators.required,]],
       nomAr: [this.o.nomAr, [Validators.required,]],
-      filesUrl: [this.o.filesUrl, [Validators.required,]],
-      // vidoesUrl: [this.o.vidoesUrl, [Validators.required,]],
-      vidoesUrl: this.fb.array([{value: ''}].map(i => this.fb.group(i)) as FormGroup[]),
-      idBranche: [this.o.idBranche, [Validators.required,]],
+      filesUrl: [this.o.filesUrl],
+      videosUrl: [this.o.videosUrl],
+      // vidoesUrl: this.fb.array([{value: ''}].map(i => this.fb.group(i)) as FormGroup[]),
+      idBranche: [+this.o.idBranche, [Validators.required,]],
       idNiveauScolaire: [this.o.idNiveauScolaire, [Validators.required,]],
     });
   }
@@ -74,16 +95,8 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
     this.createForm();
   }
 
-  getControl(name: string): FormArray {
-    return this.myForm.get(name) as FormArray;
-  }
-
-  add(name: string) {
-    this.getControl(name).push(this.fb.group({ value: '' }));
-  }
-
-  removeAt(i: number, name: string) {
-    this.getControl(name).removeAt(i);
+  add() {
+    this.videosUrls.push(new FormControl(''));
   }
 
   ngOnDestroy(): void {

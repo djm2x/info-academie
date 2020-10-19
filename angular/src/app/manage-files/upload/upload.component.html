@@ -1,13 +1,13 @@
 <div class="row" >
     <div class="col-md-12 mb-3">
         <div class="myrow">
-            <input hidden type="file" [accept]="accepts.video" #e [multiple]="config.multiple" (change)="upload(e.files)">
+            <input hidden type="file" [accept]="accepts[accept]" #e [multiple]="config.multiple" (change)="upload(e.files)">
 
             <button mat-raised-button type="button" (click)="openInput(e)" color="accent">
                 <mat-icon>add</mat-icon> {{nameBtn}}
             </button>
 
-            <button *ngIf="config.showSubmitButton" mat-raised-button type="button" (click)="submit()" color="primary">
+            <button *ngIf="config.showSubmitButton" mat-raised-button type="button" (click)="submit(null)" color="primary">
               <mat-icon>add</mat-icon> Submit
           </button>
 

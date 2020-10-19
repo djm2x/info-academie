@@ -134,7 +134,7 @@ export class Cours {
   nom = '';
   nomAr = '';
   filesUrl = '';
-  vidoesUrl = '';
+  videosUrl = '';
   idBranche = 0;
   branche = new Branche();
   idNiveauScolaire = 0;

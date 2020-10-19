@@ -29,7 +29,7 @@ export class CoursComponent implements OnInit, OnDestroy {
   dataSource: Cours[] = [];
   selectedList: Cours[] = [];
 
-  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'filesUrl', 'niveauScolaire', 'branche', 'option'];
+  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'filesUrl', 'videosUrl', 'niveauScolaire', 'branche', 'option'];
 
   panelOpenState = false;
 
@@ -138,10 +138,14 @@ export class CoursComponent implements OnInit, OnDestroy {
     });
   }
 
-  async delete(id: number) {
+  async delete(o: Cours) {
     const r = await this.mydialog.openDialog('Cours').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.cours.delete(id).subscribe(() => this.update.next(true));
+      const sub = this.uow.cours.delete(o.id).subscribe(() => this.update.next(true));
+
+      const deletes = o.filesUrl.slice(0, -1).split(';').map(e => `cours_${o.id}/${e}`);
+
+      const d = await this.uow.files.deleteFiles(deletes, 'galeries').toPromise();
 
       this.subs.push(sub);
     }

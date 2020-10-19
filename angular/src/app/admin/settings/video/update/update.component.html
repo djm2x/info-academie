@@ -36,7 +36,7 @@
           <input matInput formControlName="urlVideo" required>
         </mat-form-field>
         <div class="col-md-6">
-          <app-upload nameBtn="Upload" [config]="config"></app-upload>
+          <app-upload nameBtn="Upload" accept="video" [config]="config"></app-upload>
         </div>
 
         {{myForm.value | json}}

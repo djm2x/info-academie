@@ -12,14 +12,14 @@ import { ProgressComponent } from '../progress/progress.component';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  accepts = {
-    doc: 'application/pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    video: 'video/mp4,video/*',
-    audio: 'audio/*',
-    image: 'image/*',
-    doc2: '.pdf,.doc,.docx',
-  };
 
+  accepts = {
+    doc: 'application/pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document' ,
+    video: 'video/mp4,video/*' ,
+    audio: 'audio/*' ,
+    image: 'image/*' ,
+    doc2: '.pdf,.doc,.docx' ,
+  };
 
   listOfNames: string[] = [];
   listToDelete: string[] = [];
@@ -28,6 +28,7 @@ export class UploadComponent implements OnInit {
   // @Input() multiple = true;
   // @Input() showSubmitButton = true;
   @Input() nameBtn = '';
+  @Input() accept = 'doc';
   // @Input() folderToSaveInServer = 'folder';
 
   // @Input() propertyOfParent = new Subject();
@@ -46,8 +47,11 @@ export class UploadComponent implements OnInit {
   constructor(private service: FileUploadService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
+
     this.config.propertyStringToUploader.subscribe((r: string) => {
-      console.log(r);
+      if (!r) {
+        return;
+      }
       const l = r.split(';');
 
       l.pop();
@@ -57,7 +61,7 @@ export class UploadComponent implements OnInit {
     });
     //
     this.config.eventSubmitToUploader.subscribe(async r => {
-      await this.submit();
+      await this.submit(r);
     });
 
 
@@ -130,7 +134,12 @@ export class UploadComponent implements OnInit {
     this.config.propertyStringToParent.next(propertyOfParent);
   }
 
-  async submit() {
+  async submit(value) {
+    // cas for new element added
+    if (value.id && !this.config.folderToSaveInServer.includes('_')) {
+      this.config.folderToSaveInServer = `${this.config.folderToSaveInServer}_${value.id}`;
+    }
+
     const obs = this.bottomSheet.open(ProgressComponent, {
       data: { files: this.files, folder: this.config.folderToSaveInServer },
       panelClass: 'my-component-bottom-sheet',
