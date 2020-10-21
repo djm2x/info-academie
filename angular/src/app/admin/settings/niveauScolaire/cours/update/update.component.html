@@ -6,7 +6,7 @@
     <mat-divider></mat-divider>
   </h1>
   <div class="content">
-    <mat-dialog-content>
+    <mat-dialog-content style="overflow-x: hidden;">
 
       <form [formGroup]="myForm">
         <mat-form-field appearance="fill" class="col-md-6">
@@ -30,33 +30,36 @@
             <mat-option *ngFor="let e of branches | async" [value]="e.id">{{ e.nom }}</mat-option>
           </mat-select>
         </mat-form-field>
-
-
-
-        {{myForm.value | json}}
+        <!-- {{myForm.value | json}} -->
       </form>
+      <mat-divider>
+      </mat-divider>
+      <div class="row mt-3">
+        <div class="col-md-6 mt-2 mb-2">
 
-      <div class="col-md-6">
-        <app-upload nameBtn="Upload" [config]="config"></app-upload>
-      </div>
-
-      <div class="col-md-6 mt-2 mb-2">
-
-        <div *ngFor="let e of videosUrls.controls; index as i;">
-          <div class="">
-            <mat-form-field appearance="fill" class="col-md-10">
-              <mat-label>Video {{ i+1 }}</mat-label>
-              <input matInput [formControl]="videosUrls.controls[i]" required>
-            </mat-form-field>
-            <button *ngIf="i > 0" mat-icon-button (click)="videosUrls.removeAt(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
+          <div *ngFor="let e of videosUrls.controls; index as i;">
+            <div class="">
+              <mat-form-field appearance="fill" class="col-md-10">
+                <mat-label>Video {{ i+1 }}</mat-label>
+                <input matInput [formControl]="videosUrls.controls[i]" required>
+              </mat-form-field>
+              <button *ngIf="i > 0" mat-icon-button (click)="videosUrls.removeAt(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
           </div>
+          <button class="ml-3" mat-raised-button type="button" (click)="add()">
+            <mat-icon>add</mat-icon> Video
+          </button>
         </div>
-        <button class="ml-3" mat-raised-button color="accent" type="button" (click)="add()">
-          <mat-icon>add</mat-icon>
-        </button>
+
+        <div class="col-md-6 p-0">
+          <app-upload nameBtn="Upload les docs" [config]="config"></app-upload>
+        </div>
       </div>
+
+
+
 
       <!-- {{videosUrls.value | json}} -->
 

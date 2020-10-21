@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ContactusComponent } from './contactus/contactus.component';
+import { CoursComponent } from './cours/cours.component';
 
 import { DashComponent } from './dash.component';
 import { InfoComponent } from './info/info.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'info', component: InfoComponent, },
       { path: 'profs', component: ProfsComponent, },
       { path: 'offre', component: OffreComponent, },
+      { path: 'cours', component: CoursComponent, },
     ]
   },
 ];

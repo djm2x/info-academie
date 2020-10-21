@@ -27,7 +27,7 @@ $factory->define(Cours::class, function (Faker $faker) {
         'nom' => $list[$i][1],
         'nomAr' => $list[$i][2],
         'filesUrl' => '',
-        'videosUrl' => '',
+        'videosUrl' => 'https://www.youtube.com/watch?v=5GI5Xma6WHA;https://www.youtube.com/watch?v=Pqe3kKoG_Ao;https://www.youtube.com/watch?v=vNjbwk4S-LI;',
         'idBranche' => $list[$i][0] == 10 ? 1 : ($list[$i][0] == 11 ? 6 : ($list[$i][0] == 12 ? 13 : null)),
         'idNiveauScolaire' => $list[$i++][0],
     ];

@@ -28,6 +28,7 @@ export class UploadComponent implements OnInit {
   // @Input() multiple = true;
   // @Input() showSubmitButton = true;
   @Input() nameBtn = '';
+  @Input() color = '';
   @Input() accept = 'doc';
   // @Input() folderToSaveInServer = 'folder';
 

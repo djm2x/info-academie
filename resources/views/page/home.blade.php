@@ -76,7 +76,7 @@
             <div class="col-md-12 justify-content-center">
                 <div class="d-flex justify-content-center align-items-center mb-3">
 
-                    <p class="h1">Nous professeur ont du talent</p>
+                    <p class="h1">Nos professeur ont du talent</p>
 
                 </div>
 

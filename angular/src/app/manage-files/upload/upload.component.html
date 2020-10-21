@@ -3,11 +3,11 @@
         <div class="myrow">
             <input hidden type="file" [accept]="accepts[accept]" #e [multiple]="config.multiple" (change)="upload(e.files)">
 
-            <button mat-raised-button type="button" (click)="openInput(e)" color="accent">
+            <button mat-raised-button type="button" (click)="openInput(e)" [color]="color">
                 <mat-icon>add</mat-icon> {{nameBtn}}
             </button>
 
-            <button *ngIf="config.showSubmitButton" mat-raised-button type="button" (click)="submit(null)" color="primary">
+            <button *ngIf="config.showSubmitButton" mat-raised-button type="button" (click)="submit(null)" [color]="color">
               <mat-icon>add</mat-icon> Submit
           </button>
 

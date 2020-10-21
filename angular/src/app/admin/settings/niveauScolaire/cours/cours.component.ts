@@ -35,7 +35,8 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   nom = new FormControl('');
   nomAr = new FormControl('');
-  @Input() idNiveauScolaire = 0;
+  idNiveauScolaire = 0;
+  @Input()  parentObs = new Subject<number>();
   idBranche = new FormControl(0);
   branches ;
 
@@ -43,10 +44,18 @@ export class CoursComponent implements OnInit, OnDestroy {
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.parentObs.subscribe(r => {
+      this.idNiveauScolaire = r;
+
+      this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.idNiveauScolaire);
+
+      this.update.next(true);
+    });
+
     console.log('pere : ', this.idNiveauScolaire);
-    const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update, this.idBranche.valueChanges]).pipe(startWith(null as any)).subscribe(
-      r => {
+    const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update, this.idBranche.valueChanges])
+      .pipe(startWith(null as any)).subscribe(async r => {
         r === true ? this.paginator.pageIndex = 0 : r = r;
         !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
@@ -65,7 +74,7 @@ export class CoursComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.idNiveauScolaire)
+
 
     this.subs.push(sub);
   }
@@ -84,6 +93,27 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   search() {
     this.update.next(true);
+  }
+
+  toList(urls: string): string[] {
+    if (urls) {
+      const l = urls.split(';');
+      l.pop();
+
+      return l;
+    } else {
+      return [];
+    }
+
+  }
+
+  openLink(elementUrl: string, id: number) {
+    if (elementUrl.includes('http')) {
+      window.open(elementUrl, '_blanc');
+    } else {
+      const url = `${this.url}/cours/${id}/${elementUrl}`;
+      window.open(url, '_blanc');
+    }
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche) {
@@ -114,6 +144,7 @@ export class CoursComponent implements OnInit, OnDestroy {
   add() {
     const o = new Cours();
     o.idNiveauScolaire = this.idNiveauScolaire;
+    o.idBranche = this.idBranche.value;
     this.openDialog(o, `Ajouter Cours`, false).subscribe(result => {
       if (result) {
         this.update.next(true);
@@ -123,6 +154,7 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   edit(o: Cours) {
     o.idNiveauScolaire = this.idNiveauScolaire;
+    o.idBranche = this.idBranche.value === 0 ? o.idBranche : this.idBranche.value;
     this.openDialog(o, `Modifier Cours`, false).subscribe((result: Cours) => {
       if (result) {
         this.update.next(true);
@@ -146,7 +178,7 @@ export class CoursComponent implements OnInit, OnDestroy {
       if (o.filesUrl && o.filesUrl !== '') {
         const deletes = o.filesUrl.slice(0, -1).split(';').map(e => `cours_${o.id}/${e}`);
 
-        const d = await this.uow.files.deleteFiles(deletes, 'galeries').toPromise();
+        const d = await this.uow.files.deleteFiles(deletes, 'cours').toPromise();
 
       }
 

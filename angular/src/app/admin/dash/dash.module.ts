@@ -17,6 +17,7 @@ import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
 import { ProfsComponent } from './profs/profs.component';
 import { OffreComponent } from './offre/offre.component';
 import { DialogComponent } from './offre/dialog/dialog.component';
+import { CoursComponent } from './cours/cours.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { DialogComponent } from './offre/dialog/dialog.component';
     ProfsComponent,
     OffreComponent,
     DialogComponent,
+    CoursComponent,
   ],
   imports: [
     CommonModule,

@@ -22,6 +22,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
   cycles = this.uow.cycles;
   id = 0;
+  parentObs = new Subject<number>();
   constructor(private fb: FormBuilder, private uow: UowService
     , private route: ActivatedRoute, private router: Router) { }
 
@@ -47,6 +48,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
         console.log(this.o);
         this.title = 'Modifier Niveau Scolaire';
         this.createForm()
+
+        this.parentObs.next(this.id);
       });
     }
   }
@@ -55,13 +58,14 @@ export class UpdateComponent implements OnInit, OnDestroy {
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.niveauScolaires.post(o).subscribe(r => {
-
-        this.router.navigate(['/admin/settings/user']);
+        this.id = r.id;
+        this.parentObs.next(this.id);
+        // this.router.navigate(['/admin/settings/user']);
       });
     } else {
       sub = this.uow.niveauScolaires.put(o.id, o).subscribe(r => {
 
-        this.router.navigate(['/admin/settings/user']);
+        // this.router.navigate(['/admin/settings/user']);
       });
     }
 

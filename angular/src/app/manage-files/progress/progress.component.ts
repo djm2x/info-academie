@@ -32,6 +32,11 @@ export class ProgressComponent implements OnInit {
 
   handleUpload() {
     this.files = this.data.files;
+
+    if (this.files.length === 0) {
+      this.bottomSheetRef.dismiss('.');
+    }
+
     this.folder = this.data.folder;
 
     const formData = new FormData();
@@ -94,7 +99,7 @@ export class ProgressComponent implements OnInit {
 
       case HttpEventType.Response:
         // this.updateListOfProgress(file.size + file.lastModified, 100)
-        this.uploadCompleted ++;
+        this.uploadCompleted++;
 
         return `File "${file.name.substring(0, 10)}" was completely uploaded!`;
 
