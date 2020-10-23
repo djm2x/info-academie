@@ -15,7 +15,7 @@
         "m": "php artisan migrate && npm run b",
         "m2": "php artisan migrate:refresh --seed && npm run b",
         "b": "node ./envChange.js dev && php artisan serve --host=localhost --port=8000",
-        "b2": " php artisan serve --host=192.168.1.103 --port=8000",
+        "b2": "node ./envChange.js dev && php artisan serve --host=192.168.1.15 --port=8000",
         "f-p": "cd angular && ng build --prod",
         "copy": "node ./moveFile.js",
         "p": "npm run f-p && npm run copy && node ./envChange.js",

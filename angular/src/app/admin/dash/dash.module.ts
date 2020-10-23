@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from 'src/app/mat.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { MessageComponent } from './message/message.component';
-import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule } from 'angular-calendar';
 import { ContactusComponent } from './contactus/contactus.component';
 import { InfoComponent } from './info/info.component';
@@ -18,6 +17,8 @@ import { ProfsComponent } from './profs/profs.component';
 import { OffreComponent } from './offre/offre.component';
 import { DialogComponent } from './offre/dialog/dialog.component';
 import { CoursComponent } from './cours/cours.component';
+import { MyCalendarComponent } from './my-calendar/my-calendar.component';
+import { CalendarComponent } from './my-calendar/calendar/calendar.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { CoursComponent } from './cours/cours.component';
     OffreComponent,
     DialogComponent,
     CoursComponent,
+    MyCalendarComponent,
   ],
   imports: [
     CommonModule,

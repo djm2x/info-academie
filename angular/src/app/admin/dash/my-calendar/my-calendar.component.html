@@ -1,0 +1,46 @@
+<div class="mb-5">
+
+  <form [formGroup]="myForm">
+    <mat-form-field appearance="fill" class="col-md-6">
+      <mat-label>title</mat-label>
+      <input matInput formControlName="title" required>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill" class="col-md-6">
+      <mat-label>colors</mat-label>
+      <mat-select formControlName="idTypeActivite">
+        <mat-option *ngFor="let e of colors" [value]="e.value">{{ e.name }}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill" class="col-md-6">
+      <mat-label>start</mat-label>
+      <input matInput [matDatepicker]="picker0" formControlName="start">
+      <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+      <mat-datepicker #picker0></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="col-md-6">
+      <mat-label>end</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="end">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="time" placeholder="start date">
+    </mat-form-field>
+
+  </form>
+
+  <button mat-raised-button (click)="submit(myForm.value)" [disabled]="myForm.invalid">Valider</button>
+</div>
+
+
+
+
+
+
+
+
+<app-calendar [myEvent]="myEvent" [myEvents]="myEvents" ></app-calendar>

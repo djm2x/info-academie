@@ -73,7 +73,8 @@ export class CoursComponent implements OnInit, OnDestroy {
   reset() {
     this.nom.setValue('');
     this.nomAr.setValue('');
-    // this.idNiveauScolaire.setValue(0);
+    this.idNiveauScolaire.setValue(0);
+    this.idBranche.setValue(0);
 
     this.update.next(true);
   }

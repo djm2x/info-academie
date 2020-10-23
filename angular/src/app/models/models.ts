@@ -19,6 +19,13 @@ export class User {
   contactUs: ContactUs[] = [];
 }
 
+export class MyEvent {
+  id = 0;
+  start = new Date();
+  end = new Date();
+  title = 'write an event';
+}
+
 export class Ville {
   id = 0;
   nom = '';
