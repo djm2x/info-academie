@@ -26,6 +26,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
       // maxOpened: 1,
     }),
 
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }), 
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr' },

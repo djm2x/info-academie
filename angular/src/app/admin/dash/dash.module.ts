@@ -19,6 +19,7 @@ import { DialogComponent } from './offre/dialog/dialog.component';
 import { CoursComponent } from './cours/cours.component';
 import { MyCalendarComponent } from './my-calendar/my-calendar.component';
 import { CalendarComponent } from './my-calendar/calendar/calendar.component';
+import { DatetimeModule } from 'src/app/components/datetime/datetime.module';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { CalendarComponent } from './my-calendar/calendar/calendar.component';
     TranslateModule,
     CalendarModule,
     ManageFilesModule,
+    DatetimeModule,
   ]
 })
 export class DashModule { }

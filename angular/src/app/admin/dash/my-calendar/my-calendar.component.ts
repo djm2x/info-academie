@@ -48,7 +48,7 @@ export class MyCalendarComponent implements OnInit {
   }
 
   submit(o: MyEvent) {
-    console.log(o);
+    // console.log(o);
 
     //post
 

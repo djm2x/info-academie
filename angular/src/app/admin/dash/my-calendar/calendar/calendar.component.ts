@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarDateFormatter } from 'angular-calendar';
 import { subDays, startOfDay, addDays, endOfMonth, addHours, isSameMonth, isSameDay, endOfDay } from 'date-fns';
 import { Subject } from 'rxjs';
 import { MyEvent } from 'src/app/models/models';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
 
 
 const colors: any = {
@@ -24,7 +25,13 @@ const colors: any = {
   selector: 'app-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter,
+    },
+  ],
 })
 export class CalendarComponent implements OnInit {
 
@@ -92,15 +99,16 @@ export class CalendarComponent implements OnInit {
     });
 
     this.myEvent.subscribe((e: MyEvent) => {
+      console.log(e)
       this.events.push({
-          ...e,
-          start: startOfDay(e.start),
-          end: endOfDay(e.end),
-          color: colors.red,
-          actions: this.actions,
-          allDay: true,
-          resizable: { beforeStart: true, afterEnd: true },
-          draggable: true,
+        ...e,
+        start: e.start,
+        end: e.end,
+        color: colors.red,
+        actions: this.actions,
+        allDay: true,
+        resizable: { beforeStart: true, afterEnd: true },
+        draggable: true,
       });
 
       this.refresh.next();
@@ -110,7 +118,7 @@ export class CalendarComponent implements OnInit {
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    console.log(date);
+    // console.log(date);
     if (isSameMonth(date, this.viewDate)) {
       if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
         this.activeDayIsOpen = false;
@@ -147,7 +155,7 @@ export class CalendarComponent implements OnInit {
       this.deleteEvent(event);
     }
 
-    console.log(this.modalContent, { size: 'lg' })
+    // console.log(this.modalContent, { size: 'lg' })
   }
 
   addEvent(): void {
