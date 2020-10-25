@@ -150,6 +150,7 @@ export class Cours {
   nomAr = '';
   filesUrl = '';
   videosUrl = '';
+  semester = 1;
   idBranche = 0;
   branche = new Branche();
   idNiveauScolaire = 0;

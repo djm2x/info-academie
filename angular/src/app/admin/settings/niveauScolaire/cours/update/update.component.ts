@@ -84,6 +84,7 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
       nomAr: [this.o.nomAr, [Validators.required,]],
       filesUrl: [this.o.filesUrl],
       videosUrl: [this.o.videosUrl],
+      semester: [this.o.semester],
       // vidoesUrl: this.fb.array([{value: ''}].map(i => this.fb.group(i)) as FormGroup[]),
       idBranche: [+this.o.idBranche, [Validators.required,]],
       idNiveauScolaire: [this.o.idNiveauScolaire, [Validators.required,]],

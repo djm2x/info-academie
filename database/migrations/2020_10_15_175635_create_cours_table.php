@@ -19,6 +19,7 @@ class CreateCoursTable extends Migration
             $table->string('nomAr')->nullable(true);
             $table->string('filesUrl')->nullable(true);
             $table->string('videosUrl')->nullable(true);
+            $table->integer('semester')->nullable(true);
 
             $table->integer('idBranche')->nullable(true);
             $table->foreign('idBranche')->references('id')->on('branches');

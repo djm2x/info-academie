@@ -46,12 +46,13 @@ export class OffreComponent implements OnInit {
 
   }
 
-  openDialog() {
+  openDialog(id: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '1100px',
       disableClose: false,
       data: {
         list: this.offresStudents,
+        id,
         title: `Pack d’une séance`,
         subTitle: `« 1h30 dans la séance » / Prix en « DHS »`,
       }

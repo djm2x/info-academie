@@ -84,26 +84,48 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
         <td mat-cell *matCellDef="let row">{{row.nom}}</td>
       </ng-container>
-      <ng-container matColumnDef="nomAr">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom Ar</th>
-        <td mat-cell *matCellDef="let row">{{row.nomAr}}</td>
+      <ng-container matColumnDef="semester">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>semester</th>
+        <td mat-cell *matCellDef="let row">semester {{row.semester}}</td>
       </ng-container>
-      <ng-container matColumnDef="filesUrl">
+      <!-- <ng-container matColumnDef="filesUrl">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Files Url</th>
         <td mat-cell *matCellDef="let row">
           <span class="mx-1" *ngFor="let e of toList(row.filesUrl); let i=index">
             {{i + 1}}-<mat-icon style="cursor: pointer;" (click)="openLink(e, row.id)">description</mat-icon>
           </span>
         </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="filesUrl">
+        <th mat-header-cell *matHeaderCellDef>Files Url</th>
+        <td mat-cell *matCellDef="let row">
+          <button class="center" mat-icon-button [disabled]="!row.filesUrl || row.filesUrl === ''"
+            [matTooltip]="row.filesUrl" color="accent" (click)="showPieceJoin(row.filesUrl, row.id)">
+            <mat-icon>cloud_download</mat-icon>
+          </button>
+        </td>
       </ng-container>
+
       <ng-container matColumnDef="videosUrl">
+        <th mat-header-cell *matHeaderCellDef>Files Url</th>
+        <td mat-cell *matCellDef="let row">
+          <button class="center" mat-icon-button [disabled]="!row.videosUrl || row.videosUrl === ''"
+            [matTooltip]="row.videosUrl" color="accent" (click)="showPieceJoin(row.videosUrl, row.id)">
+            <mat-icon>cloud_download</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="videosUrl">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>videosUrl</th>
         <td mat-cell *matCellDef="let row">
           <span class="mx-1" *ngFor="let e of toList(row.videosUrl); let i=index">
             {{i + 1}}-<mat-icon style="cursor: pointer;" (click)="openLink(e, row.id)">movie</mat-icon>
           </span>
         </td>
-      </ng-container>
+      </ng-container> -->
+
       <ng-container matColumnDef="niveauScolaire">
         <th mat-header-cell *matHeaderCellDef>Niveau Scolaire</th>
         <td mat-cell *matCellDef="let row">{{row.niveau_scolaire.nom}}</td>

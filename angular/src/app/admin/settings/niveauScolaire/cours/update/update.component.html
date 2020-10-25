@@ -30,6 +30,13 @@
             <mat-option *ngFor="let e of branches | async" [value]="e.id">{{ e.nom }}</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-md-6">
+          <mat-label>Semester</mat-label>
+          <mat-select formControlName="idBranche">
+            <mat-option *ngFor="let e of [1, 2]" [value]="e">{{ e }}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <!-- {{myForm.value | json}} -->
       </form>
       <mat-divider>

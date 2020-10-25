@@ -41,7 +41,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     FileUploadService,
-    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    // {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false, disableClose: true}}
   ],
   entryComponents: [
     ProgressComponent,

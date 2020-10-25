@@ -10,6 +10,8 @@ import { Cours } from 'src/app/models/models';
 
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
+import { DownloadSheetComponent } from 'src/app/manage-files/download-sheet/download-sheet.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-cours',
@@ -29,19 +31,20 @@ export class CoursComponent implements OnInit, OnDestroy {
   dataSource: Cours[] = [];
   selectedList: Cours[] = [];
 
-  displayedColumns = [/*'select',*/  'nom', 'nomAr', 'filesUrl', 'videosUrl', 'niveauScolaire', 'branche', 'option'];
+  displayedColumns = [/*'select',*/  'nom', 'semester', 'filesUrl', 'videosUrl', 'niveauScolaire', 'branche', 'option'];
 
   panelOpenState = false;
 
   nom = new FormControl('');
   nomAr = new FormControl('');
   idNiveauScolaire = 0;
-  @Input()  parentObs = new Subject<number>();
+  @Input() parentObs = new Subject<number>();
   idBranche = new FormControl(0);
-  branches ;
+  branches;
 
   constructor(public uow: UowService, public dialog: MatDialog
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) {
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string
+    , private bottomSheet: MatBottomSheet) {
   }
 
   async ngOnInit() {
@@ -72,7 +75,7 @@ export class CoursComponent implements OnInit, OnDestroy {
 
         );
       }
-    );
+      );
 
 
 
@@ -93,26 +96,35 @@ export class CoursComponent implements OnInit, OnDestroy {
     this.update.next(true);
   }
 
-  toList(urls: string): string[] {
-    if (urls) {
-      const l = urls.split(';');
-      l.pop();
-
-      return l;
-    } else {
-      return [];
-    }
-
+  showPieceJoin(elementUrl, id: number) {
+    // const url = `${this.url}/examen/${fileName}`;
+    // window.open(url);
+    this.bottomSheet.open(DownloadSheetComponent, {
+      disableClose: false,
+      data: { elementUrl, folder: 'cours', id }
+    });
   }
 
-  openLink(elementUrl: string, id: number) {
-    if (elementUrl.includes('http')) {
-      window.open(elementUrl, '_blanc');
-    } else {
-      const url = `${this.url}/cours/${id}/${elementUrl}`;
-      window.open(url, '_blanc');
-    }
-  }
+  // toList(urls: string): string[] {
+  //   if (urls) {
+  //     const l = urls.split(';');
+  //     l.pop();
+
+  //     return l;
+  //   } else {
+  //     return [];
+  //   }
+
+  // }
+
+  // openLink(elementUrl: string, id: number) {
+  //   if (elementUrl.includes('http')) {
+  //     window.open(elementUrl, '_blanc');
+  //   } else {
+  //     const url = `${this.url}/cours/${id}/${elementUrl}`;
+  //     window.open(url, '_blanc');
+  //   }
+  // }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche) {
     const sub = this.uow.cours.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche).subscribe(

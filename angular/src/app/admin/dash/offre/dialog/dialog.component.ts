@@ -23,6 +23,7 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.offresStudents = this.data.list;
     this.title = this.data.title;
     this.subTitle = this.data.subTitle;
+    this.fc.setValue(this.data.id);
   }
 
   selectChange(id: number) {

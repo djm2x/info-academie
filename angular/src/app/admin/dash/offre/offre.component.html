@@ -51,7 +51,7 @@
         </mat-card-content>
         <mat-card-actions>
           <!-- <button mat-button>Ok</button> -->
-          <button *ngIf="e.btn !== ''" [disabled]="offresStudents.length === 0" color="primary" mat-raised-button (click)="openDialog()">
+          <button *ngIf="e.btn !== ''" [disabled]="offresStudents.length === 0" color="primary" mat-raised-button (click)="openDialog(e.id - 1)">
             {{ e.btn }} <mat-icon>arrow_right_alt</mat-icon>
           </button>
         </mat-card-actions>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-download-sheet',
@@ -10,30 +10,29 @@ export class DownloadSheetComponent implements OnInit {
 
   list: string[] = [];
   folder = '';
+  id = 0;
   constructor(private bottomSheetRef: MatBottomSheetRef<DownloadSheetComponent>
     , @Inject(MAT_BOTTOM_SHEET_DATA) public data: any, @Inject('BASE_URL') public url: string) { }
 
   ngOnInit() {
-    const l = this.data.fileName.split(';');
+    if (this.data.elementUrl) {
+      const l = this.data.elementUrl.split(';');
+      this.id = this.data.id;
+      l.pop();
 
-    l.pop();
-
-    this.folder = this.data.folder;
-    this.list = l;
+      this.folder = this.data.folder;
+      this.list = l;
+    }
   }
 
-  async openLink(fileName/*event: MouseEvent*/) {
-    // this.bottomSheetRef.dismiss();
-    // console.log(p);
-    const url = `${this.url}/${this.folder}/${fileName}`;
-    window.open(url);
-    // try {
-    //   await this.uow.rapports.download(p).toPromise();
-    // } catch (e) {
-    //   console.warn(e);
-    // }
+  async openLink(elementUrl: string) {
 
-    // event.preventDefault();
+    if (elementUrl.includes('http')) {
+      window.open(elementUrl, '_blanc');
+    } else {
+      const url = `${this.url}/${this.folder}/${this.id}/${elementUrl}`;
+      window.open(url, '_blanc');
+    }
   }
 
 }
