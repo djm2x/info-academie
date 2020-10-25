@@ -7,7 +7,7 @@ import { DashComponent } from './dash.component';
 import { InfoComponent } from './info/info.component';
 import { MeComponent } from './me/me.component';
 import { MessageComponent } from './message/message.component';
-import { MyCalendarComponent } from './my-calendar/my-calendar.component';
+// import { MyCalendarComponent } from './my-calendar/my-calendar.component';
 import { OffreComponent } from './offre/offre.component';
 import { ProfsComponent } from './profs/profs.component';
 
@@ -19,7 +19,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'me', pathMatch: 'full' },
       { path: 'me', component: MeComponent, },
       { path: 'message', component: MessageComponent, },
-      { path: 'calendar', component: MyCalendarComponent, },
+      // { path: 'calendar', component: MyCalendarComponent, },
+      { path: 'calendar', loadChildren: () => import('./my-calendar/my-calendar.module').then(m => m.MyCalendarModule) },
       { path: 'contactus', component: ContactusComponent, },
       { path: 'info', component: InfoComponent, },
       { path: 'profs', component: ProfsComponent, },

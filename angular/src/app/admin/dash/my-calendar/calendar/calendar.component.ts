@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewChi
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarDateFormatter } from 'angular-calendar';
 import { subDays, startOfDay, addDays, endOfMonth, addHours, isSameMonth, isSameDay, endOfDay } from 'date-fns';
 import { Subject } from 'rxjs';
-import { EventProf } from 'src/app/models/models';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 
 
@@ -35,7 +34,7 @@ const colors = {
 })
 export class CalendarComponent implements OnInit {
 
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+  // @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
 
@@ -43,33 +42,33 @@ export class CalendarComponent implements OnInit {
 
   viewDate: Date = new Date();
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
+  // modalData: {
+  //   action: string;
+  //   event: CalendarEvent;
+  // };
 
   @Input() myEvent = new Subject();
   @Input() myEvents = new Subject();
   @Input() dateChange = new Subject();
-  @Input() handleEvents = new Subject();
+  @Input() handleEvents = new Subject<{ o: CalendarEvent, action: string }>();
 
   actions: CalendarEventAction[] = [
     {
       // label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      label: 'edit',
+      label: '  edit  ',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         // this.handleEvent('Edited', event);
-        this.handleEvents.next({o: event, action: 'edit'});
+        this.handleEvents.next({ o: event, action: 'edit' });
       },
     }, {
       // label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      label: 'delete',
+      label: '  delete  ',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
+        // this.events = this.events.filter((iEvent) => iEvent !== event);
         // this.handleEvent('Deleted', event);
-        this.handleEvents.next({o: event, action: 'delete'});
+        this.handleEvents.next({ o: event, action: 'delete' });
       },
     },
   ];
@@ -77,12 +76,12 @@ export class CalendarComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [];
-  activeDayIsOpen = true;
+  activeDayIsOpen = false;
 
   constructor(/*private modal: NgbModal*/) { }
 
   ngOnInit(): void {
-    this.myEvents.subscribe((r: EventProf[]) => {
+    this.myEvents.subscribe((r: CalendarEvent[]) => {
       this.events = r.map(e => {
         return {
           ...e,
@@ -100,24 +99,6 @@ export class CalendarComponent implements OnInit {
 
 
     });
-
-    // this.myEvent.subscribe((e: EventProf) => {
-    //   console.log(e)
-    //   this.events.push({
-    //     ...e,
-    //     start: new Date(e.start),
-    //     end: new Date(e.end),
-    //     color: colors.red,
-    //     actions: this.actions,
-    //     // allDay: true,
-    //     resizable: { beforeStart: true, afterEnd: true },
-    //     draggable: true,
-    //   });
-
-    //   this.refresh.next();
-
-    //   console.log(this.events[0])
-    // });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -132,18 +113,13 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd, }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
+        const o: CalendarEvent = { ...event, start: newStart, end: newEnd };
+        this.handleEvents.next({ o, action: 'edit' });
+
+        return o;
       }
       return iEvent;
     });
@@ -151,12 +127,14 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
+    // this.modalData = { event, action };
     // this.modal.open(this.modalContent, { size: 'lg' });
 
-    if (action === 'delete') {
-      this.deleteEvent(event);
-    }
+    this.handleEvents.next({o: event, action});
+
+    // if (action === 'delete') {
+    //   this.deleteEvent(event);
+    // }
 
     // console.log(this.modalContent, { size: 'lg' })
   }
@@ -179,9 +157,9 @@ export class CalendarComponent implements OnInit {
     ];
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
+  // deleteEvent(eventToDelete: CalendarEvent) {
+  //   this.events = this.events.filter((event) => event !== eventToDelete);
+  // }
 
   setView(view: CalendarView) {
     this.view = view;

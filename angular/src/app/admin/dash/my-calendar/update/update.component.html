@@ -1,0 +1,40 @@
+<div class="dialog">
+  <h1 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="task-header">
+      <span>{{title}}</span>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+  </h1>
+  <div class="content">
+    <mat-dialog-content>
+
+      <form [formGroup]="myForm">
+
+        <mat-form-field appearance="fill" class="col-md-12">
+          <mat-label>title</mat-label>
+          <textarea matInput formControlName="title" required rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-md-6">
+          <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="start">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-md-6">
+          <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date" formControlName="end">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker1></ngx-mat-datetime-picker>
+        </mat-form-field>
+
+      </form>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onNoClick()" type="button">Annuler</button>
+      <button mat-raised-button color="primary" (click)="onOkClick(myForm.value)" [disabled]="myForm.invalid"
+        cdkFocusInitial>Enregistre</button>
+    </mat-dialog-actions>
+  </div>
+</div>

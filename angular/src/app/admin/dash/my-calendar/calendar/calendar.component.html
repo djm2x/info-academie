@@ -13,16 +13,18 @@
         Next
       </div> -->
 
-      <button style="margin: 0 5px;" mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Previous</button>
+      <button style="margin: 0 5px;" mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">Previous</button>
       <button style="margin: 0 5px;" mat-raised-button mwlCalendarToday [(viewDate)]="viewDate">Today</button>
-      <button style="margin: 0 5px;" mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Next</button>
+      <button style="margin: 0 5px;" mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()">Next</button>
     </div>
   </div>
   <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}</h3>
   </div>
   <div class="col-md-4">
-    <div class="btn-group">
+    <div class="d-flex">
       <!-- <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
         Month
       </div>
@@ -33,11 +35,16 @@
         Day
       </div> -->
 
-      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">Month</button>
-      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">Week</button>
-      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">Day</button>
-
-
+      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month">Month</button>
+      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Week)"
+        [class.active]="view === CalendarView.Week">Week</button>
+      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day">Day</button>
+      <span style="flex: 1 1 auto;"></span>
+      <button style="margin: 0 5px;" color="primary" mat-raised-button (click)="handleEvents.next({action: 'add', o: null})">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
   </div>
 </div>
@@ -46,20 +53,20 @@
 
   <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
     [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    (eventClicked)="handleEvent('Clicked', $event.event)" locale="fr" (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-month-view>
 
   <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    (eventClicked)="handleEvent('Clicked', $event.event)" locale="fr" (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-week-view>
 
   <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    (eventClicked)="handleEvent('Clicked', $event.event)" locale="fr" (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-day-view>
 </div>
 
 <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
-
+<!--
 <br /><br /><br />
 
 <h3>
@@ -134,4 +141,4 @@
       OK
     </button>
   </div>
-</ng-template>
+</ng-template> -->

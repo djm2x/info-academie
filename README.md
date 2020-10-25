@@ -1,53 +1,86 @@
+# App web System de suivi ..
+
+## Le projet à éte developpé par les technologies suivantes : 
+[Download Composer](https://dotnet.microsoft.com/download)
+[Install Laravel](https://dotnet.microsoft.com/download)
+
+```
 composer global require laravel/installer
-laravel new blog
+```
+[Node js et NPM](https://nodejs.org/en/download/) & [Angular](https://cli.angular.io/)
 
-php artisan make:middleware Localization
+[Git for Windows](https://git-scm.com/downloads)
 
-php artisan key:generate
-php artisan serve --port=8080
+## Etape d'instalation : 
 
-php artisan make:migration creer_table_membres --create="membres"
+### clone le repo
+```
+git clone https://github.com/djm2x/this repo
+```
 
-php artisan make:migration modifier_champs_table_membres --table="membres" 
-php artisan make:migration add_foreignkey_userID_to_table_members --table="membres" 
-php artisan migrate:rollback --step=1
+### Pour installer les dependences du back-end et front-end éxécuter la commande suivante : 
+```
+npm run install
+```
 
-php artisan make:model EventProf -mcrf
+### pour le lancer le back-end laravel restful api :
+```
+npm run b
+```
 
-php artisan make:migration creer_table_membres --create="membres"
+### pour lancer le projet front-end angular : 
+```
+npm run f 
+```
 
-php artisan migrate:refresh --seed 
+### configurer heroku pour deploye l'application
 
-php artisan migrate 
+- Crée un compte [Heroku](https://www.heroku.com/)
+- Dans le Dashboard clique sur new => `create a new app`
+- Donner un nom à l'application et choisie un la région proche a vous => `create app`
+- Dans l'ongle Settings -> 
+`add Buildpacks` : https://github.com/heroku/heroku-buildpack-php (pour qui Heroku support Php)
+`add Buildpacks` : https://github.com/anuraj/dotnetcore-buildpack (pour qui Heroku support ASP.NET Core)
+- Dans l'ongle `Deploy`, choisie comme `Deployment method` GitHub, connectez-vous après choisie votre repo est cliqué sur `connect` -> `Enable Automatic Deploy`
 
-php artisan tinker
 
-protected static $categories = array(
-        'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nightlife',
-        'fashion', 'people', 'nature', 'sports', 'technics', 'transport'
-    );
+### pour deployer le projet sur Heroku : 
+Cette commande au dessous (plus de detail dans package.json -> scripts) va pushe les changement dans votre repo, puis Heroku ecoute les action faite sur votre repo alors ila copy et builder votre app , et le site sera actualiser
+```
+npm run ci 
+```
+### pour deployer le projet sur IIS (cas du asp.net core): 
+- 1. Dans le fichier Startup.cs , change la ligne 133 , utiliser SqlServer au lieu de Sqlite
+- 2. Dans le fichie appsettings.json, modifier la chaine de connexion de base de donnee dans la ligne 10
+- 3. Pour genere la base de donne install ce package de entity framwork core
+```
+dotnet tool install --global dotnet-ef
+```
+- apres lance la commande de generation:
+```
+npm run m
+```
+- 4. Apres genere la distribusion d'Angular avec
+```
+npm run f-p
+```
+- 5. Finalement genere le deploy d'ASP .net core avec
+```
+dotnet publish -o D:/chemin souhaite
+```
 
-sqlite3 database/database.sqlite 
-.tables 
-.schema membre
-sqlite3 database/database.sqlite -cmd '.schema membres'
+### pour deployer le projet sur Xampp: 
+- 1. Dans le fichier .env , Vous pauvez change les information du base donne qui sera utiliser (sqlite, mysql ou sqlserver)
 
-# semaine 3
+- apres lance la commande de generation de la base de donne:
+```
+npm run m
+```
+- 4. Apres genere la distribusion d'Angular avec
+```
+npm run f-p
+```
 
-composer require laravel/ui
-php artisan ui vue --auth 
- npm install && npm run dev 
+### Useful Angular cli command:
+ng g m offre --route offre --module dash
 
-# semaine 4
-php artisan make:migration add_role_to_users_table --table=users
-
-php artisan make:middleware CheckIsActive
-
-https://github.com/heroku/heroku-buildpack-php
-
-# internalisation
-https://dev.to/fadilxcoder/adding-multi-language-functionality-in-a-website-developed-in-laravel-4ech
-
-https://github.com/froala/angular-froala-wysiwyg
-
-https://info-academie.herokuapp.com/
