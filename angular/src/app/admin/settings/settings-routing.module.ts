@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'video', loadChildren: () => import('./video/video.module').then(m => m.VideoModule), data: { animation: 'video' } },
       { path: 'offreProf', loadChildren: () => import('./offreProf/offreProf.module').then(m => m.OffreProfModule), data: { animation: 'offreProf' } },
       { path: 'branche', loadChildren: () => import('./branche/branche.module').then(m => m.BrancheModule), data: { animation: 'branche' } },
+      { path: 'eventProf', loadChildren: () => import('./eventProf/eventProf.module').then(m => m.EventProfModule), data: { animation: 'eventProf' } },
 
     ]
   }

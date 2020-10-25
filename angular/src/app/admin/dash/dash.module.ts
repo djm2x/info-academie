@@ -20,7 +20,8 @@ import { CoursComponent } from './cours/cours.component';
 import { MyCalendarComponent } from './my-calendar/my-calendar.component';
 import { CalendarComponent } from './my-calendar/calendar/calendar.component';
 import { DatetimeModule } from 'src/app/components/datetime/datetime.module';
-
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,14 @@ import { DatetimeModule } from 'src/app/components/datetime/datetime.module';
     CalendarModule,
     ManageFilesModule,
     DatetimeModule,
-  ]
+
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatMomentModule,
+  ],
+  providers: [
+  ],
 })
 export class DashModule { }
+
+

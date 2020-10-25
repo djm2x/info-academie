@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { User } from 'src/app/models/models';
-import { ExcelService } from 'src/app/shared/excel.service';
+
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
@@ -51,7 +51,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
+  constructor(public uow: UowService, public dialog: MatDialog
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
     this.breadcrumb.name = 'Users';
   }
@@ -75,7 +75,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.adresse.value === '' ? '*' : this.adresse.value,
           this.cin.value === '' ? '*' : this.cin.value,
           this.role.value === '' ? '*' : this.role.value,
-          this.idVille.value === 0 ? 0 : this.idVille.value, 
+          this.idVille.value === 0 ? 0 : this.idVille.value,
 
         );
       }

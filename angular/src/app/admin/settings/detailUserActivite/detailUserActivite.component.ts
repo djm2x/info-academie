@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { DetailUserActivite } from 'src/app/models/models';
-import { ExcelService } from 'src/app/shared/excel.service';
+
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
@@ -42,10 +42,10 @@ idActivite = new FormControl(0);
 activites = this.uow.activites.get();
 
 
-  
 
-  constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
+
+  constructor(public uow: UowService, public dialog: MatDialog
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) {
       this.breadcrumb.name = 'DetailUserActivites';
     }
 
@@ -68,10 +68,10 @@ this.idActivite.value === 0 ? 0 : this.idActivite.value,
       }
     );
 
-    
+
 
     this.subs.push(sub);
-    
+
   }
 
   reset() {
@@ -81,7 +81,7 @@ this.idActivite.setValue(0);
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
@@ -100,9 +100,9 @@ this.idActivite.setValue(0);
     this.subs.push(sub);
   }
 
-  
 
-  
+
+
 
   openDialog(o: DetailUserActivite, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {

@@ -57,6 +57,11 @@ Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
     Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}/{idBranche}', 'CoursController@getAll');
     Route::apiResource('cours', 'CoursController');
 
+    // eventProf
+    Route::get('/eventProfs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{year}/{month}/{idUser}/{title}', 'EventProfController@getAll');
+    Route::get('/eventProfs/getByYearMonth/{year}/{month}/{idUser}', 'EventProfController@getByYearMonth');
+    Route::apiResource('eventProfs', 'EventProfController');
+
     // branches
     Route::get('/branches/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}', 'BrancheController@getAll');
     Route::get('/branches/getByForeignkey/{propertyName}/{value}', 'BrancheController@getByForeignkey');

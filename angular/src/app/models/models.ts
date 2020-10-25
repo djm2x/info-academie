@@ -19,11 +19,19 @@ export class User {
   contactUs: ContactUs[] = [];
 }
 
-export class MyEvent {
+export class EventProf {
   id = 0;
+  title = '';
   start = new Date();
   end = new Date();
-  title = 'write an event';
+  color = '';
+  draggable = true;
+  resizable = '';
+  month = new Date().getMonth() + 1;
+  year = new Date().getFullYear();
+
+  idUser = 0;
+  user = new User();
 }
 
 export class Ville {
@@ -87,7 +95,7 @@ export class Prof {
   idsLieuCours = '';
   idsNiveauScolaires = '';
 
-  idUser = '';
+  idUser = 0;
   user = new User();
 }
 

@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TitleModule } from 'src/app/components/title/title.module';
 import { UpdateComponent } from './update/update.component';
 import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
-import { DynamicChartModule } from 'src/app/components/dynamic-chart/dynamic-chart.module';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     TitleModule,
     ManageFilesModule,
-    DynamicChartModule,
+
     TranslateModule,
   ]
 })

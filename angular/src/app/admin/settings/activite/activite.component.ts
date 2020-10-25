@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Activite } from 'src/app/models/models';
-import { ExcelService } from 'src/app/shared/excel.service';
+
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
@@ -40,7 +40,7 @@ export class ActiviteComponent implements OnInit, OnDestroy {
 
   typeActivites = this.uow.typeActivites.get();
 
-  constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
+  constructor(public uow: UowService, public dialog: MatDialog
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
     this.breadcrumb.name = 'Activites';
   }
@@ -75,10 +75,10 @@ export class ActiviteComponent implements OnInit, OnDestroy {
     this.nomAr.setValue('');
     this.idTypeActivite.setValue(0);
 
-    this.update.next(true); 
+    this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
@@ -96,7 +96,7 @@ export class ActiviteComponent implements OnInit, OnDestroy {
 
     this.subs.push(sub);
   }
-  
+
   openDialog(o: Activite, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {
       width: '1100px',

@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef, ViewChi
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarDateFormatter } from 'angular-calendar';
 import { subDays, startOfDay, addDays, endOfMonth, addHours, isSameMonth, isSameDay, endOfDay } from 'date-fns';
 import { Subject } from 'rxjs';
-import { MyEvent } from 'src/app/models/models';
+import { EventProf } from 'src/app/models/models';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 
 
-const colors: any = {
+const colors = {
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3',
@@ -50,6 +50,8 @@ export class CalendarComponent implements OnInit {
 
   @Input() myEvent = new Subject();
   @Input() myEvents = new Subject();
+  @Input() dateChange = new Subject();
+  @Input() handleEvents = new Subject();
 
   actions: CalendarEventAction[] = [
     {
@@ -57,16 +59,17 @@ export class CalendarComponent implements OnInit {
       label: 'edit',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+        // this.handleEvent('Edited', event);
+        this.handleEvents.next({o: event, action: 'edit'});
       },
-    },
-    {
+    }, {
       // label: '<i class="fas fa-fw fa-trash-alt"></i>',
       label: 'delete',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        // this.handleEvent('Deleted', event);
+        this.handleEvents.next({o: event, action: 'delete'});
       },
     },
   ];
@@ -79,17 +82,17 @@ export class CalendarComponent implements OnInit {
   constructor(/*private modal: NgbModal*/) { }
 
   ngOnInit(): void {
-    this.myEvents.subscribe((r: MyEvent[]) => {
+    this.myEvents.subscribe((r: EventProf[]) => {
       this.events = r.map(e => {
         return {
           ...e,
-          start: startOfDay(e.start),
-          end: endOfDay(e.end),
+          start: new Date(e.start),
+          end: new Date(e.end),
           color: colors.red,
           actions: this.actions,
-          allDay: true,
-          resizable: { beforeStart: true, afterEnd: true },
+          // allDay: true,
           draggable: true,
+          resizable: { beforeStart: true, afterEnd: true },
         };
       });
 
@@ -98,23 +101,23 @@ export class CalendarComponent implements OnInit {
 
     });
 
-    this.myEvent.subscribe((e: MyEvent) => {
-      console.log(e)
-      this.events.push({
-        ...e,
-        start: e.start,
-        end: e.end,
-        color: colors.red,
-        actions: this.actions,
-        allDay: true,
-        resizable: { beforeStart: true, afterEnd: true },
-        draggable: true,
-      });
+    // this.myEvent.subscribe((e: EventProf) => {
+    //   console.log(e)
+    //   this.events.push({
+    //     ...e,
+    //     start: new Date(e.start),
+    //     end: new Date(e.end),
+    //     color: colors.red,
+    //     actions: this.actions,
+    //     // allDay: true,
+    //     resizable: { beforeStart: true, afterEnd: true },
+    //     draggable: true,
+    //   });
 
-      this.refresh.next();
+    //   this.refresh.next();
 
-      console.log(this.events[0])
-    });
+    //   console.log(this.events[0])
+    // });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -186,8 +189,7 @@ export class CalendarComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+
+    this.dateChange.next(this.viewDate);
   }
-
-
-
 }

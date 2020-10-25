@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Message } from 'src/app/models/models';
-import { ExcelService } from 'src/app/shared/excel.service';
+
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
@@ -49,7 +49,7 @@ export class MessageComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
+  constructor(public uow: UowService, public dialog: MatDialog
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService) {
     this.breadcrumb.name = 'Messages';
   }

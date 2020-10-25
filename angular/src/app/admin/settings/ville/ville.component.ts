@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Ville } from 'src/app/models/models';
-import { ExcelService } from 'src/app/shared/excel.service';
+
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { MyrouteService } from '../../myroute.service';
@@ -38,12 +38,12 @@ export class VilleComponent implements OnInit, OnDestroy {
 nomAr = new FormControl('');
 
 
-  
 
-  
 
-  constructor(public uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) { 
+
+
+  constructor(public uow: UowService, public dialog: MatDialog
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public breadcrumb: MyrouteService ) {
       this.breadcrumb.name = 'Villes';
     }
 
@@ -66,10 +66,10 @@ this.nomAr.value === '' ? '*' : this.nomAr.value,
       }
     );
 
-    
+
 
     this.subs.push(sub);
-    
+
   }
 
   reset() {
@@ -79,7 +79,7 @@ this.nomAr.setValue('');
     this.update.next(true);
   }
 
-  
+
 
   search() {
     this.update.next(true);
@@ -98,9 +98,9 @@ this.nomAr.setValue('');
     this.subs.push(sub);
   }
 
-  
 
-  
+
+
 
   openDialog(o: Ville, text, bool) {
     const dialogRef = this.dialog.open(UpdateComponent, {

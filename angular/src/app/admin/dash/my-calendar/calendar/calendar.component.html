@@ -1,7 +1,7 @@
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
-      <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+      <!-- <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()">
         Previous
       </div>
@@ -11,7 +11,11 @@
       <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()">
         Next
-      </div>
+      </div> -->
+
+      <button style="margin: 0 5px;" mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Previous</button>
+      <button style="margin: 0 5px;" mat-raised-button mwlCalendarToday [(viewDate)]="viewDate">Today</button>
+      <button style="margin: 0 5px;" mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Next</button>
     </div>
   </div>
   <div class="col-md-4">
@@ -19,7 +23,7 @@
   </div>
   <div class="col-md-4">
     <div class="btn-group">
-      <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+      <!-- <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
         Month
       </div>
       <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
@@ -27,7 +31,13 @@
       </div>
       <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
         Day
-      </div>
+      </div> -->
+
+      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">Month</button>
+      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">Week</button>
+      <button style="margin: 0 5px;" mat-raised-button (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">Day</button>
+
+
     </div>
   </div>
 </div>

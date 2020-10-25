@@ -3,6 +3,7 @@
 use App\Activite;
 use App\Branche;
 use App\Cours;
+use App\EventProf;
 use App\LieuCours;
 use App\NiveauScolaire;
 use App\OffreProf;
@@ -41,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OffreProfSeeder::class);
         $this->call(BrancheSeeder::class);
         $this->call(CoursSeeder::class);
+        $this->call(EventProfSeeder::class);
 
         Model::reguard(); // Enable mass assignment
     }
@@ -147,5 +149,13 @@ class BrancheSeeder extends Seeder
     public function run()
     {
         factory(Branche::class, 21)->create();
+    }
+}
+
+class EventProfSeeder extends Seeder
+{
+    public function run()
+    {
+        factory(EventProf::class, 30)->create();
     }
 }
