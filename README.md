@@ -84,3 +84,6 @@ npm run f-p
 ### Useful Angular cli command:
 ng g m offre --route offre --module dash
 
+
+### Useful php cli command:
+php -r "echo ini_get('memory_limit').PHP_EOL;"
