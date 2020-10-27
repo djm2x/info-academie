@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageEvent;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -11,6 +12,15 @@ Route::get('/profs/{startIndex}/{pageSize}/{typeActivite}/{activite}/{typeCours}
 Route::get('/videos/{startIndex}/{pageSize}', 'HomeController@videos')->name('videos');
 Route::get('/profs/{id}', 'HomeController@prof')->name('prof');
 
+Route::get('event', function() {
+
+    // this fires the event
+    $message = ['data'=>'hi is me'];
+
+    event(new MessageEvent($message));
+
+    return "event fired";
+});
 
 
 Route::get('/phpinfo', function() {

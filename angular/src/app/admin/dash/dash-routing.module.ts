@@ -18,7 +18,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'me', pathMatch: 'full' },
       { path: 'me', component: MeComponent, },
-      { path: 'message', component: MessageComponent, },
+      // { path: 'message', component: MessageComponent, },
+      { path: 'chat', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule) },
       // { path: 'calendar', component: MyCalendarComponent, },
       { path: 'calendar', loadChildren: () => import('./my-calendar/my-calendar.module').then(m => m.MyCalendarModule) },
       { path: 'contactus', component: ContactusComponent, },

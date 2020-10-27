@@ -6,6 +6,7 @@ use App\Prof;
 use App\Student;
 use Illuminate\Http\Request;
 use App\User;
+use Carbon\Carbon;
 use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
 class AccountController extends SuperController
@@ -43,14 +44,14 @@ class AccountController extends SuperController
         if ($user->role == 'student') {
             $child = Student::where('idUser', $user->id)->first();
         } else if ($user->role == 'prof') {
-            $child = Prof::where('idUser', $user->id)->first(); 
+            $child = Prof::where('idUser', $user->id)->first();
         }
 
         return [
-            'code' => 1, 
-            'user' => $user, 
-            // 'id' => $user->id, 
-            'child' => $child, 
+            'code' => 1,
+            'user' => $user,
+            // 'id' => $user->id,
+            'child' => $child,
             'token' => $this->createToken($user),
             'message' => 'Connexion reussite'
         ];
@@ -85,7 +86,10 @@ class AccountController extends SuperController
         // $customClaims = ['role' => $user->role];
 
         // JWTAuth::attempt($credentials, $customClaims);
-        $customClaims = ['myrole' => $user->role];
+        $customClaims = [
+            'role' => $user->role,
+            'exp' => Carbon::now()->addDays(365)->timestamp
+        ];
 
         // $payload = JWTFactory::make($customClaims);
 

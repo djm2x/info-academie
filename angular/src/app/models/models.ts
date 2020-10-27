@@ -19,6 +19,29 @@ export class User {
   contactUs: ContactUs[] = [];
 }
 
+export class Discussion {
+  id = 0;
+  dateCreation = new Date();
+  priorite = '';
+  messages: Message[] = [];
+}
+
+export class Message {
+  id = 0;
+  object = '';
+  message = '';
+  vu = false;
+  date = new Date();
+  idCours = 0;
+  otherUserName = '';
+
+  idMe = 0;
+  idOtherUser = 0;
+
+  me = new User();
+  otheruser = new User();
+}
+
 export class EventProf {
   id = 0;
   title = '';
@@ -157,20 +180,7 @@ export class Cours {
   niveau_scolaire = new NiveauScolaire();
 }
 
-export class Message {
-  id = 0;
-  object = '';
-  message = '';
-  vu = false;
-  date = new Date();
-  idUser = 0;
-  senderName = '';
-  idReceiver = 0;
-  idCours = 0;
 
-  user = new User();
-  receiver = new User();
-}
 
 export class ContactUs {
   id = 0;

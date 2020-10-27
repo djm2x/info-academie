@@ -19,14 +19,14 @@ class CreateMessagesTable extends Migration
             $table->string('message');
             $table->boolean('vu');
             $table->dateTime('date');
-            $table->string('senderName');
             $table->integer('idCours');
+            $table->string('otherUserName');
 
-            $table->unsignedBigInteger('idUser')->nullable(true);
-            $table->foreign('idUser')->references('id')->on('users');
+            $table->unsignedBigInteger('idMe')->nullable(true);
+            $table->foreign('idMe')->references('id')->on('users');
 
-            $table->unsignedBigInteger('idReceiver')->nullable(true);
-            $table->foreign('idReceiver')->references('id')->on('users');
+            $table->unsignedBigInteger('idOtherUser')->nullable(true);
+            $table->foreign('idOtherUser')->references('id')->on('users');
 
             $table->timestamps();
         });

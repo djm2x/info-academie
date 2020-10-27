@@ -31,7 +31,7 @@ class MessageController extends SuperController
         $q = $this->_context
             ->where($matchThese)
             ->orderBy($sortBy, $sortDir);
-            
+
         $count = $q->count();
 
         $list = $q->skip($startIndex)
@@ -43,4 +43,21 @@ class MessageController extends SuperController
 
         return ['list' => $list, 'count' => $count];
     }
+
+    public function getMessages(int $idUser) // : Collection
+    {
+        $matchThese = [ ];
+
+        $idUser == 0 ?: array_push($matchThese, ['idMe', $idUser]);
+
+        $list = $this->_context
+            ->where($matchThese)
+            ->with(['otheruser:id,nom'])
+            ->get()
+            ;
+
+        return $list;
+    }
+
+
 }

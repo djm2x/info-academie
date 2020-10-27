@@ -17,8 +17,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
   title = '';
   visualisation = false;
   users = this.uow.users.get();
-receivers = this.uow.users.get();
-// courss = this.uow.courss.get();
+  receivers = this.uow.users.get();
+  // courss = this.uow.courss.get();
 
 
   folderToSaveInServer = 'messages';
@@ -68,15 +68,15 @@ receivers = this.uow.users.get();
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-object: [this.o.object, [Validators.required, ]],
-message: [this.o.message, [Validators.required, ]],
-vu: [this.o.vu, [Validators.required, ]],
-date: [this.o.date, [Validators.required, ]],
-idUser: [this.o.idUser, [Validators.required, ]],
-senderName: [this.o.senderName, [Validators.required, ]],
-idReceiver: [this.o.idReceiver, [Validators.required, ]],
-idCours: [this.o.idCours, [Validators.required, ]],
+      id: [this.o.id, [Validators.required,]],
+      object: [this.o.object, [Validators.required,]],
+      message: [this.o.message, [Validators.required,]],
+      vu: [this.o.vu, [Validators.required,]],
+      date: [this.o.date, [Validators.required,]],
+      idCours: [this.o.idCours, [Validators.required,]],
+      otherUserName: [this.o.otherUserName, [Validators.required,]],
+      idMe: [this.o.idMe, [Validators.required,]],
+      idOtherUser: [this.o.idOtherUser, [Validators.required,]],
 
     });
   }

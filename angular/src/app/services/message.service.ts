@@ -16,4 +16,8 @@ export class MessageService extends SuperService<Message> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${object}/${message}/${idUser}`);
   }
 
+  getMessages(idUser) {
+    return this.http.get<Message[]>(`${this.urlApi}/${this.controller}/getMessages/${idUser}`);
+  }
+
 }
