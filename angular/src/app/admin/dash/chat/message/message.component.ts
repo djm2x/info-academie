@@ -1,8 +1,8 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { merge, Subject, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { Discussion, Message } from 'src/app/models/models';
+import { Discussion, Message, User } from 'src/app/models/models';
 import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
 import { ChatHubService } from '../chat.hub.service';
@@ -12,12 +12,12 @@ import { ChatHubService } from '../chat.hub.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit, OnDestroy {
+export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('scrollMe', { static: false }) private myScrollContainer: ElementRef;
-  @Input() discussion = new Subject<Discussion>();
+  @Input() info = new Subject<{ idDiscussion: number, me: User, otheruser: User }>();
 
   list: Message[] = [];
-  discussionObj = new Discussion();
+  discussion = new Discussion();
   o = new Message();
   update = new Subject();
   subs: Subscription[] = [];
@@ -32,17 +32,41 @@ export class MessageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.createForm();
     this.createFormMessage();
-    const sub = merge(...[this.discussion]).subscribe(r => {
-      this.discussionObj = r;
-      this.getContacts(r.id);
-      this.createForm();
-      this.createFormMessage();
+    const sub = merge(...[this.info]).pipe(startWith(null as any)).subscribe(r => {
+      console.log(r);
+
+      try {
+        r = r ? r : JSON.parse(atob(localStorage.getItem('selectedUser'))) ;
+      } catch (e) { }
+
+      if (r) {
+        localStorage.setItem('selectedUser', btoa(JSON.stringify(r)));
+        this.discussion.id = r.idDiscussion;
+        this.discussion.idMe = r.me.id;
+        this.discussion.idOtherUser = r.otheruser.id;
+        this.discussion.me = r.me;
+        this.discussion.otheruser = r.otheruser;
+
+        this.getContacts(r.idDiscussion);
+        this.createForm();
+        this.createFormMessage();
+      }
+
     });
 
     this.subs.push(sub);
 
 
+    this.scrollToBottom();
 
+    this.chat.newMessage.subscribe(r => {
+      console.log(r);
+      this.list.push(r);
+    });
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
 
   getContacts(idDiscussion) {
@@ -53,7 +77,19 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   isYou(id) {
+    // return true;
     return +id === +this.session.user.id;
+  }
+
+  nameUser(e: Message) {
+    // console.log(e)
+    if (+e.idMe === +this.session.user.id) {
+      return `${this.session.user.nom} ${this.session.user.prenom} ${e.idMe} == ${+this.session.user.id}`;
+    } else {
+      return e.otherUserName;
+      return e.otheruser.nom + ' ' + e.otheruser.prenom;
+    }
+    // return e.otheruser.nom + ' ' + e.otheruser.prenom;
   }
 
   scrollToBottom(): void {
@@ -75,11 +111,11 @@ export class MessageComponent implements OnInit, OnDestroy {
   // formulaire
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.discussionObj.id, [Validators.required,]],
-      unReaded: [this.discussionObj.unReaded, [Validators.required,]],
-      date: [this.discussionObj.date, [Validators.required,]],
-      idMe: [this.discussionObj.idMe, [Validators.required,]],
-      idOtherUser: [this.discussionObj.idOtherUser, [Validators.required,]],
+      id: [this.discussion.id, [Validators.required,]],
+      unReaded: [this.discussion.unReaded, [Validators.required,]],
+      date: [this.discussion.date, [Validators.required,]],
+      idMe: [this.discussion.idMe, [Validators.required,]],
+      idOtherUser: [this.discussion.idOtherUser, [Validators.required,]],
     });
   }
 
@@ -91,11 +127,11 @@ export class MessageComponent implements OnInit, OnDestroy {
       vu: [this.o.vu, [Validators.required,]],
       date: [this.o.date, [Validators.required,]],
       idCours: [this.o.idCours, [Validators.required,]],
-      otherUserName: [this.discussionObj.otheruser.nom + ' ' + this.discussionObj.otheruser.prenom, [Validators.required,]],
-      otherUserImage: [this.discussionObj.otheruser.imageUrl, [Validators.required,]],
-      idMe: [this.discussionObj.idMe, [Validators.required,]],
-      idOtherUser: [this.discussionObj.idOtherUser, [Validators.required,]],
-      idDiscussion: [this.discussionObj.id, [Validators.required,]],
+      otherUserName: [this.discussion.me.nom + ' ' + this.discussion.me.prenom, [Validators.required,]],
+      otherUserImage: [this.discussion.me.imageUrl, [Validators.required,]],
+      idMe: [this.discussion.idMe, [Validators.required,]],
+      idOtherUser: [this.discussion.idOtherUser, [Validators.required,]],
+      idDiscussion: [this.discussion.id, [Validators.required,]],
     });
   }
 

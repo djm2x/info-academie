@@ -16,9 +16,11 @@ class MessageEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $model;
+    // public $user;
     public function __construct(Message $model)
     {
         $this->model = $model;
+        // $this->user = $model->me;
     }
 
     /**
@@ -29,12 +31,13 @@ class MessageEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         return [
-            new PrivateChannel('users.'.$this->model->otheruser->id),
-            new Channel('myhub2'),
+            new PrivateChannel('private.'.$this->model->idOtherUser),
+            new Channel('users.'.$this->model->idOtherUser),
+            // new Channel('myhub2'),
         ];
     }
 
-    // public function broadcastWith(){
-    //     return ['message' => $this->message];
-    // }
+    public function broadcastWith(){
+        return ['message' => $this->model];
+    }
 }

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  discussion = new Subject();
+  info = new Subject();
   constructor() { }
 
   ngOnInit(): void {

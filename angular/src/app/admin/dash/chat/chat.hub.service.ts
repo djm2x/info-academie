@@ -10,21 +10,22 @@ import Pusher from 'pusher-js';
   providedIn: 'root'
 })
 export class ChatHubService {
-  messageReceived = new Subject<Message>();
+  newMessage = new Subject<Message>();
   updateNotifFromChatComponent = new Subject <number>();
   notificationReceived = new Subject<any>();
 
-  private hubConnection: Echo;
+  private echo: Echo;
 
   constructor(@Inject('HUB_URL') protected url: string, private session: SessionService) { }
 
 
   public createConnection() {
 
-    this.hubConnection = new Echo({
+    this.echo = new Echo({
       broadcaster: 'pusher',
-      authEndpoint : `http://${this.url}:8000/api/accounts/broadcasting`,
+      authEndpoint : `http://${this.url}:8000/api/broadcasting/auth`,
       auth: {
+        Accept: 'application/json',
         headers: { Authorization: `Bearer ${this.session.token}` }
       },
       key: '454c',
@@ -40,10 +41,20 @@ export class ChatHubService {
   }
 
   public startConnection(): void {
-    this.hubConnection.private(`App.User.${this.session.user.id}`).notification( r => {
+    this.echo.private(`App.User.${this.session.user.id}`).listen('MessageEvent', r => {
       console.log(r);
     });
-    this.hubConnection.channel('myhub2').listen('MessageEvent', r => {
+
+    this.echo.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
+      this.newMessage.next(r.message);
+    });
+
+    this.echo.channel(`private.${this.session.user.id}`).listen('MessageEvent', r => {
+      console.log('>>>>>>>>>>>>>', r);
+    });
+
+
+    this.echo.channel('myhub23').listen('MessageEvent', r => {
       console.log(r);
       console.log('Hub connection started');
 
@@ -76,7 +87,7 @@ export class ChatHubService {
   }
 
   public stopConnection() {
-    this.hubConnection.disconnect();
+    this.echo.disconnect();
   }
 
 }

@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // discussions
     Route::get('/discussions/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'DiscussionController@getAll');
-    Route::get('/discussions/getContacts/{idUser}', 'DiscussionController@getMessages');
+    Route::get('/discussions/getContacts/{idUser}', 'DiscussionController@getContacts');
     Route::apiResource('discussions', 'DiscussionController');
 
     // activites
@@ -120,9 +120,12 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 Route::post('/accounts/login', 'AccountController@login');
 // Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');
 Route::post('/accounts/create', 'AccountController@register');
-Route::get('/accounts/me', 'AccountController@me');
+// Route::get('/accounts/me', 'AccountController@me');
 Route::get('/accounts/getClaims/{token}', 'AccountController@getClaims');
 Route::post('/accounts/broadcasting', 'AccountController@broadcasting');
+
+Route::post('/broadcasting/auth', 'AccountController@broadcasting')->middleware('auth:api');
+
 
 // Route::group(['middleware' => 'camel.case'], function () {
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {

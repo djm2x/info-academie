@@ -20,6 +20,11 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 
 // Broadcast::channel('order.{order}', OrderChannel::class);
 
-// Broadcast::channel('myhub', function () {
-//     return true;
-// });
+Broadcast::channel('discussion.{id}', function () {
+    return true;
+});
+
+Broadcast::channel('private.{id}', function ($user, $id) {
+    return true;
+});
+

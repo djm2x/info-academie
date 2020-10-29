@@ -11,6 +11,11 @@ Route::get('', 'HomeController@index')->name('home');
 Route::get('/profs/{startIndex}/{pageSize}/{typeActivite}/{activite}/{typeCours}/{lieuCours}/{niveauScolaire}/{prof}', 'HomeController@profs')->name('profs');
 Route::get('/videos/{startIndex}/{pageSize}', 'HomeController@videos')->name('videos');
 Route::get('/profs/{id}', 'HomeController@prof')->name('prof');
+// Route::get('/broadcasting/auth', 'AccountController@broadcasting')->middleware('auth:api')->name('broadcasting');
+
+
+
+
 
 // Route::get('event', function() {
 

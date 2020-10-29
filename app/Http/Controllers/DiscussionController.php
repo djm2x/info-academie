@@ -12,48 +12,18 @@ class DiscussionController extends SuperController
         parent::__construct($model);
     }
 
-    // public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $object, string $message, int $idUser) // : Collection
-    // {
-    //     $matchThese = [ ];
-
-    //     if ($object != '*') {
-    //         array_push($matchThese, ['object', 'LIKE', "%{$object}%"]);
-    //     }
-
-    //     if ($message != '*') {
-    //         array_push($matchThese, ['message', 'LIKE', "%{$message}%"]);
-    //     }
-
-    //     if ($idUser != 0) {
-    //         array_push($matchThese, ['idUser', $idUser]);
-    //     }
-
-    //     $q = $this->_context
-    //         ->where($matchThese)
-    //         ->orderBy($sortBy, $sortDir);
-
-    //     $count = $q->count();
-
-    //     $list = $q->skip($startIndex)
-    //         ->skip($startIndex)
-    //         ->take($pageSize)
-    //         // ->with(['typeActivite:id,nom'])
-    //         ->get()
-    //         ;
-
-    //     return ['list' => $list, 'count' => $count];
-    // }
-
-    public function getMessages(int $idUser) // : Collection
+    public function getContacts(int $idUser) // : Collection
     {
-        $matchThese = [ ];
+        // $matchThese = [ ];
 
-        $idUser == 0 ?: array_push($matchThese, ['idMe', $idUser]);
+        // $idUser == 0 ?: array_push($matchThese, ['idMe', $idUser]);
+        // $idUser == 0 ?: array_push($matchThese, ['idOtherUser', $idUser]);
 
         $list = $this->_context
-            ->where($matchThese)
+            ->where('idMe', $idUser)
+            ->orWhere('idOtherUser', $idUser)
             // ->with(['otheruser:id,nom'])
-            ->with(['otheruser'])
+            ->with(['otheruser', 'me'])
             ->get()
             ;
 

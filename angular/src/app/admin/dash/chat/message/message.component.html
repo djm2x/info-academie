@@ -1,7 +1,7 @@
 <div class="m-1">
   <mat-card class="col-md-12">
     <div class="d-flex justify-content-between">
-      <span>{{ discussionObj.otheruser.nom}}</span>
+      <span>{{ discussion.otheruser.nom}}</span>
       <!-- <span>{{e.date | date : "dd-MM-yyyy"}}</span> -->
     </div>
   </mat-card>
@@ -16,16 +16,15 @@
   </mat-card>
 </div> -->
 
-<section class="col-md-12" *ngIf="discussionObj.id !== 0">
+<section class="col-md-12" *ngIf="discussion.id !== 0">
   <div class="chat mt-2" #scrollMe>
-    <mat-card *ngFor="let e of list; let i=index" class="mb-2"
-      [ngClass]="{'ml': isYou(e.idOtherUser), 'mr': !isYou(e.idOtherUser)}">
+    <mat-card *ngFor="let e of list; let i=index" class="mb-2" [ngClass]="{'ml': isYou(e.idMe), 'mr': !isYou(e.idMe)}">
 
       <p>{{e.message}}</p>
 
       <div class="d-flex flex-row-reverse align-items-center w-100" style="font-size: .8em; font-style: italic;">
         <span class="text-muted">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
-        <span class="text-muted">{{isYou(e.idOtherUser) ? session.user.prenom + ' ' + session.user.nom : e.otherUserName}} -
+        <span class="text-muted">{{nameUser(e)}} -
         </span>
       </div>
 

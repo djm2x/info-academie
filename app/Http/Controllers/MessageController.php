@@ -17,6 +17,10 @@ class MessageController extends SuperController
 
     public function postMessage(Request $request)
     {
+        // $model2 = new Message();
+
+        // $model2->fill($request->all());
+
         $model = $request->all();
 
         if (env('DB_CONNECTION') == 'sqlite') {
@@ -27,7 +31,7 @@ class MessageController extends SuperController
 
         event(new MessageEvent($m));
 
-        return response()->json('fause  > '.$model['message']);
+        return response()->json('fause  > '.$m->idMe);
     }
 
     public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $object, string $message, int $idUser) // : Collection
@@ -71,7 +75,7 @@ class MessageController extends SuperController
         $list = $this->_context
             ->where($matchThese)
             // ->with(['otheruser:id,nom'])
-            ->with(['otheruser'])
+            ->with(['otheruser', 'me'])
             ->get()
             ;
 
