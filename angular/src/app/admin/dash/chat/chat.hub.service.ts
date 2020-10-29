@@ -29,7 +29,7 @@ export class ChatHubService {
         headers: { Authorization: `Bearer ${this.session.token}` }
       },
       key: '454c',
-      wsHost: this.hubUrl,
+      wsHost: this.hubUrl.replace('http://', '').replace(':8000', ''),
       wsPort: 6001,
       forceTLS: false,
       encrypted: true,
