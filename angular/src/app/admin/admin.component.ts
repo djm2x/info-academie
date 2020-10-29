@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { SessionService } from '../shared';
 import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../shared/animations';
@@ -6,6 +6,7 @@ import { MediaService } from '../shared/media.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
+import { ChatHubService } from './dash/chat/chat.hub.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,18 +14,20 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./admin.component.scss'],
   animations: [slideInAnimation],
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   isMobileWidth = false;
   actuelRoute = this.router.url;
   constructor(public session: SessionService, private router: Router
     , public myMedia: MediaService, @Inject('BASE_URL') public url: string
-    , private toastr: ToastrService, public dialog: MatDialog) { }
+    , private toastr: ToastrService, public dialog: MatDialog
+    , private chat: ChatHubService) { }
+
 
   ngOnInit(): void {
     this.myMedia.windowSizeChanged.subscribe(r => this.isMobileWidth = r.width <= 700);
 
-
+    this.chat.createConnection().startConnection();
     this.messageInComing();
 
     this.getRoute();
@@ -92,6 +95,10 @@ export class AdminComponent implements OnInit {
     // });
 
     // return dialogRef.afterClosed();
+  }
+
+  ngOnDestroy(): void {
+    this.chat.stopConnection();
   }
 
 }

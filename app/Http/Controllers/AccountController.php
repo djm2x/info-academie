@@ -7,13 +7,53 @@ use App\Student;
 use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
-use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
+use Tymon\JWTAuth\Claims\Issuer;
+use Tymon\JWTAuth\Claims\IssuedAt;
+use Tymon\JWTAuth\Claims\Expiration;
+use Tymon\JWTAuth\Claims\NotBefore;
+use Tymon\JWTAuth\Claims\Subject;
+use Tymon\JWTAuth\Claims\JwtId;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
+
+// use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
 class AccountController extends SuperController
 {
     public function __construct(User $model)
     {
         parent::__construct($model);
+
+        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function broadcasting(Request $request)
+    {
+        if(true) {
+            return response()->json(null, 201);
+        } else {
+            return response()->json('UNAUTENTICATED', 401);
+        }
+    }
+
+    public function me()
+    {
+        return response()->json(auth());
+    }
+
+    public function getClaims(string $token)
+    {
+        // $token = JWTAuth::getToken();
+
+        $payload = JWTAuth::decode($token);
+
+        $r = $payload->get('role'); // return true or false
+        return response()->json($r);
     }
 
     public function login(Request $request)
@@ -81,15 +121,33 @@ class AccountController extends SuperController
         return $this->_context->create($request->all());
     }
 
-    public function createToken($user) {
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return string
+     */
+    protected function createToken($user) {
 
         // $customClaims = ['role' => $user->role];
 
         // JWTAuth::attempt($credentials, $customClaims);
         $customClaims = [
             'role' => $user->role,
-            'exp' => Carbon::now()->addDays(365)->timestamp
+            // 'id' => $user->id,
+            // 'iss' => new Issuer('faker'),
+            // 'iat' => new IssuedAt(Carbon::now('UTC')) ,
+            // 'exp' => new Expiration(Carbon::now('UTC')->addDays(365)),
+            // 'nbf' => new NotBefore(Carbon::now('UTC')),
+            // 'sub' => new Subject('faker'),
+            // 'jti' => new JwtId('faker'),
         ];
+
+
+        // $data = JWTFactory::customClaims($customClaims);
+        // $payload = JWTFactory::make($data);
+        // $token = JWTAuth::encode($payload);
 
         // $payload = JWTFactory::make($customClaims);
 
@@ -99,11 +157,11 @@ class AccountController extends SuperController
         //     'sub'   => env('API_ID'),
         // ]);
 
-        // $payload = JWTFactory::customClaims(['id' => 'ff'])->make();
+        // $payload = JWTFactory::customClaims($customClaims)->make();
         // $token = JWTAuth::encode($payload);
         // or
-        $user->customField = 'mourabit';
-        $token = FacadesJWTAuth::fromUser($user, $customClaims);
+        // $user->customField = 'mourabit';
+        $token = JWTAuth::fromUser($user, $customClaims);
 
 
         return $token;

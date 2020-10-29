@@ -31,6 +31,7 @@ Route::post('/files/uploadFiles/{folder}', 'FilesController@uploadFiles');
 Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
+
     // typeActivites
     Route::get('/typeActivites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeActiviteController@getAll');
     Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
@@ -38,9 +39,15 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
 
     // messages
+    Route::post('/messages/postMessage', 'MessageController@postMessage');
     Route::get('/messages/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'MessageController@getAll');
-    Route::get('/messages/getMessages/{idUser}', 'MessageController@getMessages');
+    Route::get('/messages/getMessages/{idDiscussion}', 'MessageController@getMessages');
     Route::apiResource('messages', 'MessageController');
+
+    // discussions
+    Route::get('/discussions/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'DiscussionController@getAll');
+    Route::get('/discussions/getContacts/{idUser}', 'DiscussionController@getMessages');
+    Route::apiResource('discussions', 'DiscussionController');
 
     // activites
     Route::get('/activites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idTypeActivite}', 'ActiviteController@getAll');
@@ -108,12 +115,17 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     // users
     Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{email}/{tel}/{adresse}/{cin}/{role}/{idVille}', 'UserController@getAll');
     Route::apiResource('users', 'UserController');
-
 });
 //accounts
 Route::post('/accounts/login', 'AccountController@login');
 // Route::middleware('auth:sanctum')->post('/accounts/login', 'AccountController@login');
 Route::post('/accounts/create', 'AccountController@register');
-// Route::group(['middleware' => 'camel.case'], function () {
+Route::get('/accounts/me', 'AccountController@me');
+Route::get('/accounts/getClaims/{token}', 'AccountController@getClaims');
+Route::post('/accounts/broadcasting', 'AccountController@broadcasting');
 
-// });
+// Route::group(['middleware' => 'camel.case'], function () {
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
+
+    return ['middleware' => 'api', 'prefix' => 'auth'];
+});

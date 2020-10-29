@@ -9,6 +9,7 @@ const host = 'http://localhost';
 
 const apiUrl = `${host}:${port}/api`;
 const url = `${host}:${port}`;
+const hub = `localhost`;
 
 const providers: StaticProvider[] = [
   // { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
@@ -19,6 +20,10 @@ const providers: StaticProvider[] = [
   {
     provide: 'API_URL',
     useValue: environment.production ? `${window.location.origin}/api` : apiUrl
+  },
+  {
+    provide: 'HUB_URL',
+    useValue: environment.production ? `${window.location.origin}` : hub
   }
 ];
 

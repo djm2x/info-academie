@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,10 +15,10 @@ class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-    public function __construct($message)
+    public $model;
+    public function __construct(Message $model)
     {
-        $this->message = $message;
+        $this->model = $model;
     }
 
     /**
@@ -27,7 +28,13 @@ class MessageEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('myhub');
-        // return new Channel('myhub');
+        return [
+            new PrivateChannel('users.'.$this->model->otheruser->id),
+            new Channel('myhub2'),
+        ];
     }
+
+    // public function broadcastWith(){
+    //     return ['message' => $this->message];
+    // }
 }

@@ -20,6 +20,7 @@ import { CoursService } from './cours.service';
 import { BrancheService } from './branche.service';
 import { FileUploadService } from './file.upload.service';
 import { EventProfService } from './eventProf.service';
+import { DiscussionService } from './discussion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,8 @@ export class UowService {
   students = new StudentService();
 
   messages = new MessageService();
+  discussions = new DiscussionService();
+
   contactUss = new ContactUsService();
   videos = new VideoService();
   offreProfs = new OffreProfService();
@@ -45,6 +48,8 @@ export class UowService {
   branches = new BrancheService();
   files = new FileUploadService();
   eventProfs = new EventProfService();
+
+
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
   cycles = this.http.get<{ id: number, name: string, nameAr: string }[]>('assets/json/cycles.json');
   offres = this.http.get<{ id: number, pack: string, description: string, btn: string, options: string[] }[]>('assets/json/offres.json');

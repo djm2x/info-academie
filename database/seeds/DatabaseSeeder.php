@@ -3,6 +3,7 @@
 use App\Activite;
 use App\Branche;
 use App\Cours;
+use App\Discussion;
 use App\EventProf;
 use App\LieuCours;
 use App\Message;
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BrancheSeeder::class);
         $this->call(CoursSeeder::class);
         $this->call(EventProfSeeder::class);
+        $this->call(DiscussionSeeder::class);
         $this->call(MessageSeeder::class);
 
         Model::reguard(); // Enable mass assignment
@@ -55,6 +57,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         factory(User::class, 100)->create();
+    }
+}
+
+class DiscussionSeeder extends Seeder
+{
+    public function run()
+    {
+        factory(Discussion::class, 10)->create();
     }
 }
 

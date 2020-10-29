@@ -21,25 +21,33 @@ export class User {
 
 export class Discussion {
   id = 0;
-  dateCreation = new Date();
-  priorite = '';
+  unReaded = 0;
+  date = new Date();
+
+  idMe = 0;
+  idOtherUser = 0;
+  me = new User();
+  otheruser = new User();
   messages: Message[] = [];
 }
 
 export class Message {
   id = 0;
-  object = '';
-  message = '';
+  object = 'Lorem ipsum dolor sit amet.';
+  message = 'Lorem ipsum dolor sit amet.';
   vu = false;
   date = new Date();
   idCours = 0;
   otherUserName = '';
+  otherUserImage = '';
 
   idMe = 0;
   idOtherUser = 0;
+  idDiscussion = 0;
 
   me = new User();
   otheruser = new User();
+  discussion = new Discussion();
 }
 
 export class EventProf {

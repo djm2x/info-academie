@@ -12,15 +12,15 @@ Route::get('/profs/{startIndex}/{pageSize}/{typeActivite}/{activite}/{typeCours}
 Route::get('/videos/{startIndex}/{pageSize}', 'HomeController@videos')->name('videos');
 Route::get('/profs/{id}', 'HomeController@prof')->name('prof');
 
-Route::get('event', function() {
+// Route::get('event', function() {
 
-    // this fires the event
-    $message = ['data'=>'hi is me'];
+//     // this fires the event
+//     $message = ['data'=>'hi is me'];
 
-    event(new MessageEvent($message));
+//     event(new MessageEvent($message));
 
-    return "event fired";
-});
+//     return "event fired";
+// });
 
 
 Route::get('/phpinfo', function() {

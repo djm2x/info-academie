@@ -18,8 +18,8 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('order.{order}', OrderChannel::class);
+// Broadcast::channel('order.{order}', OrderChannel::class);
 
-Broadcast::channel('myhub', function () {
-    return true;
-});
+// Broadcast::channel('myhub', function () {
+//     return true;
+// });

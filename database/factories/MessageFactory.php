@@ -4,6 +4,7 @@
 
 use App\Message;
 use Faker\Generator as Faker;
+use Illuminate\Support\Carbon;
 
 $factory->define(Message::class, function (Faker $faker) {
     static $i = 1;
@@ -11,10 +12,20 @@ $factory->define(Message::class, function (Faker $faker) {
         'object' => $faker->sentence(),
         'message' => $faker->paragraph(),
         'vu' => $faker->boolean(),
-        'date' => $faker->dateTime,
+        'date' => Carbon::now(),
         'idCours' => 1,
         'otherUserName' => 'otherUserName',
-        'idMe' => +($i++ % 2 == 0 ? 1 : 51),
-        'idOtherUser' => +$faker->numberBetween(51, 100),
+        'otherUserImage' => 'otherUserImage',
+        'idMe' => 1,
+        'idOtherUser' => function() use (&$i){
+            $i++;
+            if ($i + 51 <= 61) {
+                return $i + 51;
+            } else {
+                $i = 1;
+                return $i + 51;
+            }
+        } ,
+        'idDiscussion' => $i,
     ];
 });

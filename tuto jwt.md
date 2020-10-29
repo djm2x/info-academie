@@ -1,7 +1,7 @@
 jwt 
+doc https://jwt-auth.readthedocs.io
 composer require tymon/jwt-auth:dev-develop --prefer-source
-php artisan vendor:publish
-Provider: Tymon\JWTAuth\Providers\LaravelServiceProvider
+php artisan vendor:publish Provider: Tymon\JWTAuth\Providers\LaravelServiceProvider
 php artisan jwt:secret
 
 karnel

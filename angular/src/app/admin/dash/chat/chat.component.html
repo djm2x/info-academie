@@ -1,11 +1,11 @@
-<mat-sidenav-container #sidenav style=" z-index: 9; height: 90vh;">
+<mat-sidenav-container #sidenav style=" z-index: 9; height: calc(100vh - 200px);">
   <mat-sidenav #snav mode="side" [opened]="true">
     <div style="width: 220px;">
-      <app-contacts [selectedUser]="selectedUser"></app-contacts>
+      <app-contacts [discussion]="discussion"></app-contacts>
     </div>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-message [selectedUser]="selectedUser"></app-message>
+    <app-message [discussion]="discussion"></app-message>
   </mat-sidenav-content>
 </mat-sidenav-container>

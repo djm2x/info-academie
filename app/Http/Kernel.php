@@ -53,8 +53,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
         'auth.jwt'  =>  \Tymon\JWTAuth\Http\Middleware\Authenticate::class, // JWT middleware
-        'camel.case'  =>  \App\Http\Middleware\ConvertResponseFieldsToCamelCase::class, // JWT middleware
+
+        'camel.case'  =>  \App\Http\Middleware\ConvertResponseFieldsToCamelCase::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
