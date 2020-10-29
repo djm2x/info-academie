@@ -32,6 +32,7 @@ class MessageEvent implements ShouldBroadcast
     {
         return [
             new PrivateChannel('private.'.$this->model->idOtherUser),
+            new PresenceChannel('private.'.$this->model->idOtherUser),
             new Channel('users.'.$this->model->idOtherUser),
             // new Channel('myhub2'),
         ];

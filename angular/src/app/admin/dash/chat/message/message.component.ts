@@ -84,7 +84,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   nameUser(e: Message) {
     // console.log(e)
     if (+e.idMe === +this.session.user.id) {
-      return `${this.session.user.nom} ${this.session.user.prenom} ${e.idMe} == ${+this.session.user.id}`;
+      return `${this.session.user.nom} ${this.session.user.prenom}`;
     } else {
       return e.otherUserName;
       return e.otheruser.nom + ' ' + e.otheruser.prenom;

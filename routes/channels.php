@@ -25,6 +25,11 @@ Broadcast::channel('discussion.{id}', function () {
 });
 
 Broadcast::channel('private.{id}', function ($user, $id) {
+    // return (int) $user->id === (int) $id;
     return true;
+});
+
+Broadcast::channel('users.{id}', function ($user, $id) {
+    return false;
 });
 

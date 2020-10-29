@@ -1,6 +1,6 @@
 // declare namespace Echo {
 //   import * as pusher from 'pusher-js';
-//   import {Pusher} from 'pusher-js';
+//   import { Pusher } from 'pusher-js';
 //   import * as io from 'socket.io-client';
 
 //   interface EchoStatic {
