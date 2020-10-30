@@ -1,17 +1,35 @@
 {
-  "broadcaster": "pusher",
-      "authEndpoint": "${this.baseUrl}/api/broadcasting/auth",
-      "auth": {
-        "Accept": "application/json",
-        "headers": { "Authorization": "Bearer ${this.session.token}" }
-      },
-      "key": "454c",
-      "wsHost": "",
-      "wsPort": 6001,
-      "wssPort": 6001,
-      "forceTLS": false,
-      "cluster": "mt1",
-      "enabledTransports": ["ws", "wss"],
-      "disableStats": false,
-      "encrypted": false
+  "dev": {
+    "broadcaster": "pusher",
+    "authEndpoint": "http://localhost:8000/api/broadcasting/auth",
+    "auth": {
+      "Accept": "application/json",
+      "headers": { "Authorization": "Bearer " }
+    },
+    "key": "454c",
+    "wsHost": "localhost",
+    "wsPort": 6001,
+    "wssPort": 6001,
+    "forceTLS": false,
+    "cluster": "mt1",
+    "disableStats": false,
+    "encrypted": false
+  },
+  "prod": {
+    "broadcaster": "pusher",
+    "authEndpoint": "http://info-academie.herokuapp.com/api/broadcasting/auth",
+    "auth": {
+      "Accept": "application/json",
+      "headers": { "Authorization": "Bearer " }
+    },
+    "key": "454c",
+    "wsHost": "info-academie.herokuapp.com",
+    "wsPort": 6001,
+    "wssPort": 6001,
+    "forceTLS": false,
+    "cluster": "mt1",
+    "disableStats": false,
+    "encrypted": false
+  },
+  "dynamic": false
 }

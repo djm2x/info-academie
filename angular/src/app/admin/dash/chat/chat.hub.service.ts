@@ -3,10 +3,11 @@ import { Subject } from 'rxjs';
 import { Message } from 'src/app/models/models';
 import { SessionService } from 'src/app/shared';
 import Echo from 'laravel-echo';
-import {PusherConnector} from 'laravel-echo/dist/connector';
-
+import { PusherConnector } from 'laravel-echo/dist/connector';
+import echoOptions from '../../../../assets/json/echoOptions.json';
 
 import Pusher from 'pusher-js';
+import { environment } from 'src/environments/environment';
 (window as any).Pusher = Pusher;
 
 @Injectable({
@@ -23,7 +24,10 @@ export class ChatHubService {
 
 
   public createConnection() {
-    this.echo = new Echo({
+    const o2: IEchoOption = environment.production ? echoOptions.prod : echoOptions.dev;
+    o2.auth.headers.Authorization += this.session.token;
+
+    const options = {
       broadcaster: 'pusher',
       authEndpoint: `${this.baseUrl}/api/broadcasting/auth`,
       auth: {
@@ -39,7 +43,9 @@ export class ChatHubService {
       enabledTransports: ['ws', 'wss'],
       disableStats: true,
       encrypted: false,
-    });
+    };
+
+    this.echo = new Echo(echoOptions.dynamic ? options : o2);
 
     // this.echo.connect();
 
@@ -91,4 +97,23 @@ export class ChatHubService {
     this.echo.disconnect();
   }
 
+}
+
+interface IEchoOption {
+  broadcaster: string;
+  authEndpoint: string;
+  auth: {
+    Accept: string;
+    headers: {
+      Authorization: string;
+    };
+  };
+  key: string;
+  wsHost: string;
+  wsPort: number;
+  wssPort: number;
+  forceTLS: boolean;
+  enabledTransports?: string[];
+  disableStats: boolean;
+  encrypted: boolean;
 }

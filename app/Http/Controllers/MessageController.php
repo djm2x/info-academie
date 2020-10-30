@@ -32,13 +32,21 @@ class MessageController extends SuperController
 
         try {
             event(new MessageEvent($m));
-        } catch (Throwable $e) {
-            return [ 'message' => $m, 'exception' => $e, ];
+        } catch (BroadcastException $e) {
+            return [
+                'model' => $m,
+                'exception' => $e->exception,
+                'file' => $e->file,
+                'line' => $e->line,
+                'message' => $e->message,
+                'trace' => $e->trace,
+             ];
         }
 
+        return [ 'model' => $m ];
 
 
-        return [ 'message' => $m ];
+
         // return response()->json('fause  > '.$m->idMe);
     }
 
