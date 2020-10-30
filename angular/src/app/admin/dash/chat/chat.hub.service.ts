@@ -34,7 +34,7 @@ export class ChatHubService {
       key: '454c',
       wsHost: this.hubUrl.replace('https://', '').replace('http://', '').replace(':8000', ''),
       wsPort: 6001,
-      wssPort: 6001,
+      // wssPort: 6001,
       forceTLS: false,
       cluster: 'mt1',
       enabledTransports: ['ws', 'wss'],
@@ -51,19 +51,19 @@ export class ChatHubService {
 
   public startConnection(): void {
 
-    const connector: PusherConnector = this.echo.connector;
-    // this.echo.private(`App.User.${this.session.user.id}`).listen('MessageEvent', r => {
-    //   console.log(r);
-    // });
-    connector.connect();
+    // const connector: PusherConnector = this.echo.connector;
+    // // this.echo.private(`App.User.${this.session.user.id}`).listen('MessageEvent', r => {
+    // //   console.log(r);
+    // // });
+    // connector.connect();
 
     // connector.privateChannel(`private.${this.session.user.id}`).listen('MessageEvent', r => {
     //   console.warn('fanaly its works  echo.channel');
     // });
 
-    connector.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
-      console.warn('fanaly its works  channel(`users');
-    });
+    // connector.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
+    //   console.warn('fanaly its works  channel(`users');
+    // });
 
     // connector.presenceChannel(`private.${this.session.user.id}`).here( r => {
     //   console.warn('fanaly its works  echo.channel');

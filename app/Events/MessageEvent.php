@@ -31,8 +31,8 @@ class MessageEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         return [
-            new PrivateChannel('private.'.$this->model->idOtherUser),
-            new PresenceChannel('private.'.$this->model->idOtherUser),
+            // new PrivateChannel('private.'.$this->model->idOtherUser),
+            // new PresenceChannel('private.'.$this->model->idOtherUser),
             new Channel('users.'.$this->model->idOtherUser),
             // new Channel('myhub2'),
         ];

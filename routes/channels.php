@@ -30,6 +30,6 @@ Broadcast::channel('private.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('users.{id}', function ($user, $id) {
-    return false;
+    return true;
 });
 
