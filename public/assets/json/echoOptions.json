@@ -13,5 +13,5 @@
       "cluster": "mt1",
       "enabledTransports": ["ws", "wss"],
       "disableStats": false,
-      "encrypted": false,
+      "encrypted": false
 }

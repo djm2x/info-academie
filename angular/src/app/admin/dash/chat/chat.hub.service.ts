@@ -37,7 +37,7 @@ export class ChatHubService {
       forceTLS: false,
       cluster: 'mt1',
       enabledTransports: ['ws', 'wss'],
-      disableStats: false,
+      disableStats: true,
       encrypted: false,
     });
 
