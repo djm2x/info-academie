@@ -19,8 +19,7 @@ export class ChatHubService {
 
   private echo: Echo;
 
-  constructor(@Inject('HUB_URL') protected hubUrl: string, private session: SessionService
-    , @Inject('BASE_URL') protected baseUrl: string) { }
+  constructor(private session: SessionService, @Inject('BASE_URL') protected baseUrl: string) { }
 
 
   public createConnection() {
@@ -32,11 +31,11 @@ export class ChatHubService {
         headers: { Authorization: `Bearer ${this.session.token}` }
       },
       key: '454c',
-      wsHost: this.hubUrl.replace('https://', '').replace('http://', '').replace(':8000', ''),
+      wsHost: window.location.hostname, // .replace('https://', '').replace('http://', '').replace(':8000', ''),
       wsPort: 6001,
       wssPort: 6001,
       forceTLS: false,
-      // cluster: 'mt1',
+      cluster: 'mt1',
       enabledTransports: ['ws', 'wss'],
       disableStats: false,
       encrypted: false,
@@ -44,7 +43,7 @@ export class ChatHubService {
 
     // this.echo.connect();
 
-    // console.warn(this.echo)
+    console.warn(this.echo.options)
 
     return this;
   }

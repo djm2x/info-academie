@@ -1,0 +1,61 @@
+[
+  {
+    "id": "1",
+    "pack": "Pack gratuit",
+    "description": "Rien",
+    "btn": "",
+    "options": [
+      "Création de compte",
+      "Cours PDF",
+      "Vidéos éducatifs"
+    ]
+  },
+  {
+    "id": "2",
+    "pack": "Pack d’une séance",
+    "description": "Temps de la séance à partir de 1h30",
+    "btn": "Prix",
+    "options": [
+      "Création de compte",
+      "Cours PDF",
+      "Vidéos éducatifs",
+      "Enregistrement de la séance "
+    ]
+  },
+  {
+    "id": "3",
+    "pack": "Pack de mois",
+    "description": "Le tarif que vous trouverez ci-dessous est basé sur 4 séance/mois avec 1h30 dans chaque séance",
+    "btn": "Prix",
+    "options": [
+      "Création de compte",
+      "Cours PDF",
+      "Vidéos éducatifs",
+      "Séances enregistrer ",
+      "Communication avec les profs",
+      "Application pour recevoir mes notifications",
+      "Remise de 10%",
+      "..."
+    ]
+  },
+  {
+    "id": "4",
+    "pack": "Pack de semestre",
+    "description": "Le tarif que vous trouverez ci-dessous est basé sur 4 séance/mois avec 1h30 dans chaque séance pendant 3mois",
+    "btn": "Prix",
+    "options": [
+      "Création de compte",
+      "Cours PDF",
+      "Vidéos éducatifs",
+      "Séances enregistrer ",
+      "Communication avec les profs",
+      "Coaching",
+      "Orientation scolaire",
+      "Préparation aux examens",
+      "Application pour recevoir mes notifications",
+      "Remise de 15%",
+      "Participation au tombola de semestre",
+      "..."
+    ]
+  }
+]

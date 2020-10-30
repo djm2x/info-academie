@@ -23,7 +23,7 @@ const providers: StaticProvider[] = [
   },
   {
     provide: 'HUB_URL',
-    useValue: environment.production ? `${window.location.origin}` : hub
+    useValue: environment.production ? `${window.location.hostname}` : hub
   }
 ];
 

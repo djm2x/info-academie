@@ -87,3 +87,9 @@ ng g m offre --route offre --module dash
 
 ### Useful php cli command:
 php -r "echo ini_get('memory_limit').PHP_EOL;"
+
+### Lecture des fichiers JSON local dans Angular 
+import SampleJson from '../../assets/SampleJson.json';
+
+dans  tsconfig.json => 
+{  "compilerOptions": {  "resolveJsonModule": true, "esModuleInterop": true } }

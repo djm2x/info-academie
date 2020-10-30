@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageEvent;
 use App\Message;
+use Illuminate\Broadcasting\BroadcastException;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -29,9 +30,16 @@ class MessageController extends SuperController
 
         $m = $this->_context->create($model);
 
-        event(new MessageEvent($m));
+        try {
+            event(new MessageEvent($m));
+        } catch (Throwable $e) {
+            return [ 'message' => $m, 'exception' => $e, ];
+        }
 
-        return response()->json('fause  > '.$m->idMe);
+
+
+        return [ 'message' => $m ];
+        // return response()->json('fause  > '.$m->idMe);
     }
 
     public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $object, string $message, int $idUser) // : Collection
