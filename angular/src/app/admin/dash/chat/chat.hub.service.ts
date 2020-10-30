@@ -33,7 +33,7 @@ export class ChatHubService {
       key: '454c',
       wsHost: window.location.hostname, // .replace('https://', '').replace('http://', '').replace(':8000', ''),
       wsPort: 6001,
-      wssPort: 6001,
+      // wssPort: 6001,
       forceTLS: false,
       cluster: 'mt1',
       enabledTransports: ['ws', 'wss'],

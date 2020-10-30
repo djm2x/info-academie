@@ -1,61 +1,17 @@
-[
-  {
-    "id": "1",
-    "pack": "Pack gratuit",
-    "description": "Rien",
-    "btn": "",
-    "options": [
-      "Création de compte",
-      "Cours PDF",
-      "Vidéos éducatifs"
-    ]
-  },
-  {
-    "id": "2",
-    "pack": "Pack d’une séance",
-    "description": "Temps de la séance à partir de 1h30",
-    "btn": "Prix",
-    "options": [
-      "Création de compte",
-      "Cours PDF",
-      "Vidéos éducatifs",
-      "Enregistrement de la séance "
-    ]
-  },
-  {
-    "id": "3",
-    "pack": "Pack de mois",
-    "description": "Le tarif que vous trouverez ci-dessous est basé sur 4 séance/mois avec 1h30 dans chaque séance",
-    "btn": "Prix",
-    "options": [
-      "Création de compte",
-      "Cours PDF",
-      "Vidéos éducatifs",
-      "Séances enregistrer ",
-      "Communication avec les profs",
-      "Application pour recevoir mes notifications",
-      "Remise de 10%",
-      "..."
-    ]
-  },
-  {
-    "id": "4",
-    "pack": "Pack de semestre",
-    "description": "Le tarif que vous trouverez ci-dessous est basé sur 4 séance/mois avec 1h30 dans chaque séance pendant 3mois",
-    "btn": "Prix",
-    "options": [
-      "Création de compte",
-      "Cours PDF",
-      "Vidéos éducatifs",
-      "Séances enregistrer ",
-      "Communication avec les profs",
-      "Coaching",
-      "Orientation scolaire",
-      "Préparation aux examens",
-      "Application pour recevoir mes notifications",
-      "Remise de 15%",
-      "Participation au tombola de semestre",
-      "..."
-    ]
-  }
-]
+{
+  "broadcaster": "pusher",
+      "authEndpoint": "${this.baseUrl}/api/broadcasting/auth",
+      "auth": {
+        "Accept": "application/json",
+        "headers": { "Authorization": "Bearer ${this.session.token}" }
+      },
+      "key": "454c",
+      "wsHost": "",
+      "wsPort": 6001,
+      "wssPort": 6001,
+      "forceTLS": false,
+      "cluster": "mt1",
+      "enabledTransports": ["ws", "wss"],
+      "disableStats": false,
+      "encrypted": false,
+}
