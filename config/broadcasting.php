@@ -40,8 +40,8 @@ return [
                 // 'encrypted' => true,
                 'useTLS' => false,
                 'host' => '127.0.0.1',
-                // 'port' => env('APP_DEBUG') == true ? 6001 : 443,
-                // 'scheme' => env('APP_DEBUG') == true ? 'http' : 'https',
+                // 'port' => env('IS_DEV') == true ? 6001 : 443,
+                // 'scheme' => env('IS_DEV') == true ? 'http' : 'https',
                 'port' => 6001,
                 'scheme' => 'http',
                 'curl_options' => [

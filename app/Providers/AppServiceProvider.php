@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        if (env('APP_DEBUG') == false) {
+        if (env('IS_DEV') == false) {
             URL::forceScheme('https');
         }
     }

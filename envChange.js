@@ -11,9 +11,9 @@ async function main(argv) {
 
     const r = await fs.promises.readFile(file, 'utf8')
 
-    await fs.promises.writeFile(file, r.replace(`APP_DEBUG=${!isDev}`, `APP_DEBUG=${isDev}`))
+    await fs.promises.writeFile(file, r.replace(`IS_DEV=${!isDev}`, `IS_DEV=${isDev}`))
 
-    console.log(`.env file changed APP_DEBUG=${!isDev} to APP_DEBUG=${isDev}`)
+    console.log(`.env file changed IS_DEV=${!isDev} to IS_DEV=${isDev}`)
 }
 
 //
