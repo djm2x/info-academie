@@ -42,9 +42,9 @@ return [
                 'useTLS' => true,
                 'host' => '127.0.0.1', // env('APP_URL'),
                 // 'port' => env('IS_DEV') == true ? 6001 : 443,
-                'scheme' => env('IS_DEV') == true ? 'http' : 'https',
+                // 'scheme' => env('IS_DEV') == true ? 'http' : 'https',
                 'port' => 6001,
-                // 'scheme' => 'https',
+                'scheme' => 'https',
                 'curl_options' => [
                     CURLOPT_SSL_VERIFYHOST => 0,
                     CURLOPT_SSL_VERIFYPEER => 0,
