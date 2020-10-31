@@ -114,6 +114,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // users
     Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{email}/{tel}/{adresse}/{cin}/{role}/{idVille}', 'UserController@getAll');
+    Route::get('/users/autocomplete/{column}/{value}', 'UserController@autocomplete');
     Route::apiResource('users', 'UserController');
 });
 //accounts

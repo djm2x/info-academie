@@ -13,10 +13,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
-  declarations: [ChatComponent, ContactsComponent, MessageComponent],
+  declarations: [ChatComponent, ContactsComponent, MessageComponent, AutoCompleteComponent],
   imports: [
     CommonModule,
     ChatRoutingModule,
@@ -29,6 +32,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatAutocompleteModule,
+    MatMenuModule,
   ]
 })
 export class ChatModule { }

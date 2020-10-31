@@ -9,11 +9,24 @@
   margin-left: 8px;
 }
 
+.parent {
+  position: relative;
+  height: 100%;
+  overflow-y: hidden;
+
+  form {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+  }
+}
+
 .chat {
   scrollbar-color: rgba(0, 0, 0, 0.2) hsla(0, 0%, 100%, 0.1) !important;
   scrollbar-width: thin !important;
   overflow-y: scroll;
-  height: 60vh;
+  // height: 60vh;
+  height: 100%;
   //   overflow: hidden;
   //   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -63,6 +76,6 @@
 }
 
 mat-card {
-  box-shadow: none !important;
+  // box-shadow: none !important;
   padding: 5px;
 }

@@ -15,6 +15,7 @@ import { ChatHubService } from '../chat.hub.service';
 export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('scrollMe', { static: false }) private myScrollContainer: ElementRef;
   @Input() info = new Subject<{ idDiscussion: number, me: User, otheruser: User }>();
+  info2: { idDiscussion: number, me: User, otheruser: User } = null;
 
   list: Message[] = [];
   discussion = new Discussion();
@@ -32,22 +33,22 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
   ngOnInit(): void {
     this.createForm();
     this.createFormMessage();
-    const sub = merge(...[this.info]).pipe(startWith(null as any)).subscribe(r => {
+    const sub = merge(...[this.info, this.update]).pipe(startWith(null as any)).subscribe(r => {
       console.log(r);
-
-      try {
-        r = r ? r : JSON.parse(atob(localStorage.getItem('selectedUser'))) ;
-      } catch (e) { }
+      this.info2 = r;
+      // try {
+      //   r = r ? r : JSON.parse(atob(localStorage.getItem('selectedUser'))) ;
+      // } catch (e) { }
 
       if (r) {
-        localStorage.setItem('selectedUser', btoa(JSON.stringify(r)));
+        // localStorage.setItem('selectedUser', btoa(JSON.stringify(r)));
         this.discussion.id = r.idDiscussion;
         this.discussion.idMe = r.me.id;
         this.discussion.idOtherUser = r.otheruser.id;
         this.discussion.me = r.me;
         this.discussion.otheruser = r.otheruser;
 
-        this.getContacts(r.idDiscussion);
+        this.getContacts(this.discussion.id);
         this.createForm();
         this.createFormMessage();
       }
@@ -135,12 +136,24 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
-  send(o: Message) {
-    console.log(o);
+  async send(o: Message) {
+    console.log(this.discussion, o);
+
+
+    if (this.discussion.id === 0) {
+      const dd = Object.assign(new Discussion(), this.discussion);
+
+      delete dd.messages;
+      delete dd.me;
+      delete dd.otheruser;
+
+      const d = await this.uow.discussions.post(dd).toPromise();
+      o.idDiscussion = d.id;
+    }
     // o.idCollaboratteur = this.o.idCollaborateur;
     this.uow.messages.postMessage(o).subscribe(r => {
       console.log(r);
-      this.list.push(o);
+      this.list.push(r);
       // this.myFormMessage.get('message').patchValue('');
     });
   }

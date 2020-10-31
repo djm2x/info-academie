@@ -1,50 +1,41 @@
-<div class="m-1">
-  <mat-card class="col-md-12">
+<div class="parent mx-2">
+  <mat-card class="mx-1">
     <div class="d-flex justify-content-between">
       <span>{{ discussion.otheruser.nom}}</span>
       <!-- <span>{{e.date | date : "dd-MM-yyyy"}}</span> -->
+
+      <mat-icon style="cursor: pointer;" (click)="update.next(info2)">refresh</mat-icon>
     </div>
   </mat-card>
-</div>
 
-<!-- <div class="col-md-12">
-  <mat-card *ngFor="let e of list; let i=index" class=" m-1">
-    <div class="d-flex justify-content-between">
-      <span>{{e.message}}</span>
-      <span>{{e.date | date : "dd-MM-yyyy"}}</span>
+  <section *ngIf="discussion.id !== 0" class="d-flex justify-ceontent-between flex-column" style="height: 100%;">
+    <div class="chat mt-2" style="margin-bottom: 140px;" #scrollMe>
+      <mat-card *ngFor="let e of list; let i=index" class="mb-2"
+        [ngClass]="{'ml': isYou(e.idMe), 'mr': !isYou(e.idMe)}">
+
+        <p>{{e.message}}</p>
+
+        <div class="d-flex flex-row-reverse align-items-center w-100" style="font-size: .8em; font-style: italic;">
+          <span class="text-muted">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
+          <span class="text-muted">{{nameUser(e)}} - </span>
+        </div>
+      </mat-card>
     </div>
-  </mat-card>
-</div> -->
+  </section>
 
-<section class="col-md-12" *ngIf="discussion.id !== 0">
-  <div class="chat mt-2" #scrollMe>
-    <mat-card *ngFor="let e of list; let i=index" class="mb-2" [ngClass]="{'ml': isYou(e.idMe), 'mr': !isYou(e.idMe)}">
-
-      <p>{{e.message}}</p>
-
-      <div class="d-flex flex-row-reverse align-items-center w-100" style="font-size: .8em; font-style: italic;">
-        <span class="text-muted">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
-        <span class="text-muted">{{nameUser(e)}} -
-        </span>
-      </div>
-
-      <!-- {{displayName(userToSend)}} -->
-      <!-- {{e | json}} -->
-    </mat-card>
-  </div>
 
   <form [formGroup]="myFormMessage">
-    <mat-form-field appearance="fill" class="col-md-12">
-      <mat-label>Message</mat-label>
-      <input matInput formControlName="message">
-      <button mat-icon-button matSuffix [disabled]="myFormMessage.invalid"
-        (click)="send(myFormMessage.value)">
-        <mat-icon>send</mat-icon>
-      </button>
-    </mat-form-field>
+    <mat-card class="mx-1">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Message</mat-label>
+        <input matInput formControlName="message">
+        <button mat-icon-button matSuffix [disabled]="myFormMessage.invalid" (click)="send(myFormMessage.value)">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
 
-    <!-- {{discussionObj | json}} -->
-    <!-- {{myFormMessage.value | json}} -->
+      <!-- {{discussionObj | json}} -->
+      <!-- {{myFormMessage.value | json}} -->
+    </mat-card>
   </form>
-
-</section>
+</div>

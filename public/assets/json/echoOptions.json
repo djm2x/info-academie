@@ -12,6 +12,7 @@
     "wssPort": 6001,
     "forceTLS": false,
     "cluster": "mt1",
+    "enabledTransports": ["ws", "wss"],
     "disableStats": false,
     "encrypted": false
   },
@@ -28,6 +29,7 @@
     "wssPort": 6001,
     "forceTLS": false,
     "cluster": "mt1",
+    "enabledTransports": ["ws", "wss"],
     "disableStats": false,
     "encrypted": false
   },

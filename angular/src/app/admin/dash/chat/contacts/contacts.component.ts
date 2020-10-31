@@ -10,13 +10,13 @@ import { SessionService } from 'src/app/shared';
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss']
 })
-export class ContactsComponent implements OnInit, OnDestroy  {
+export class ContactsComponent implements OnInit, OnDestroy {
   list: Discussion[] = [];
   update = new Subject();
   @Input() info = new Subject();
   subs: Subscription[] = [];
-  idSelected = 0;
-  constructor(private uow: UowService, protected session: SessionService) { }
+  idSelected = -1;
+  constructor(public uow: UowService, protected session: SessionService) { }
 
   ngOnInit(): void {
     const sub = merge(...[this.update]).pipe(startWith(null as any)).subscribe(r => {
@@ -26,6 +26,20 @@ export class ContactsComponent implements OnInit, OnDestroy  {
 
     this.subs.push(sub);
 
+  }
+
+  selectedUser(e: User) {
+    console.log(e);
+
+    const d = new Discussion();
+    d.idMe = this.session.user.id;
+    d.me = this.session.user;
+    d.idOtherUser = e.id;
+    d.otheruser = e;
+
+    this.list.unshift(d);
+
+    this.selectUser(d);
   }
 
   selectUser(e: Discussion) {
@@ -65,6 +79,22 @@ export class ContactsComponent implements OnInit, OnDestroy  {
     } else {
       return e.me;
     }
+  }
+
+  async delete(e: Discussion) {
+    // const r = await this.mydialog.openDialog(this.breadcrumb.name).toPromise();
+    // if (r === 'ok') {
+    const sub = this.uow.discussions.delete(e.id).subscribe(() => {
+
+      const i = this.list.findIndex(o => o.id === e.id);
+      if (i > -1) {
+        this.list.splice(i, 1);
+      }
+      // this.update.next(true);
+    } );
+
+    this.subs.push(sub);
+    // }
   }
 
   ngOnDestroy(): void {

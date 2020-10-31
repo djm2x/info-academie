@@ -24,6 +24,7 @@ class DiscussionController extends SuperController
             ->orWhere('idOtherUser', $idUser)
             // ->with(['otheruser:id,nom'])
             ->with(['otheruser', 'me'])
+            ->orderBy('id', 'desc')
             ->get()
             ;
 

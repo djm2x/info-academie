@@ -24,13 +24,13 @@ class CreateMessagesTable extends Migration
             $table->string('otherUserImage');
 
             $table->unsignedBigInteger('idMe')->nullable(true);
-            $table->foreign('idMe')->references('id')->on('users');
+            $table->foreign('idMe')->references('id')->on('users')->onDelete('set null');
 
             $table->unsignedBigInteger('idOtherUser')->nullable(true);
-            $table->foreign('idOtherUser')->references('id')->on('users');
+            $table->foreign('idOtherUser')->references('id')->on('users')->onDelete('set null');
 
             $table->unsignedBigInteger('idDiscussion')->nullable(true);
-            $table->foreign('idDiscussion')->references('id')->on('discussions');
+            $table->foreign('idDiscussion')->references('id')->on('discussions')->onDelete('cascade');
 
             $table->timestamps();
         });

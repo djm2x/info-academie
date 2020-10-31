@@ -45,14 +45,15 @@ class SuperController extends Controller
         return $list;
     }
 
-    public function autocomplete(string $column, $value): Collection
+    public function autocomplete(string $column, string $value)//: Collection
     {
         $res = $this->_context
-            ->where($column, 'LIKE', "%{$value}%")
+            ->where('nom', 'LIKE', "%{$value}%")
             ->get()
             ;
 
         return $res;
+        return ['dd' => $column, 'ss' => $value];
     }
 
     public function query(Request $request, int $startIndex, int $pageSize, int $sortBy, int $sortDr)
@@ -121,7 +122,6 @@ class SuperController extends Controller
         }
         return $res->get();
     }
-
 
 
 
