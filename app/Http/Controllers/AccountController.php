@@ -118,7 +118,13 @@ class AccountController extends SuperController
         // $data->name = 'Test';
         // $data->save();
 
-        return $this->_context->create($request->all());
+        $model = $request->all();
+
+        if (env('DB_CONNECTION') == 'sqlite') {
+            $model['id'] = null;
+        }
+
+        return $this->_context->create($model);
     }
 
     /**

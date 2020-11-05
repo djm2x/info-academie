@@ -30,11 +30,18 @@ Route::post('/files/angEditorUploadImage/{folder}', 'FilesController@angEditorUp
 Route::post('/files/uploadFiles/{folder}', 'FilesController@uploadFiles');
 Route::post('/files/deleteFiles', 'FilesController@deleteFiles');
 
+    Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
+Route::apiResource('villes', 'VilleController');
+Route::apiResource('niveauScolaires', 'NiveauScolaireController');
+Route::apiResource('typeCours', 'TypeCoursController');
+Route::apiResource('profs', 'ProfController');
+Route::apiResource('students', 'StudentController');
+
+
 Route::group(['middleware' => 'auth.jwt'], function () {
 
     // typeActivites
     Route::get('/typeActivites/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeActiviteController@getAll');
-    Route::get('/typeActivites/getAllWithActivites', 'TypeActiviteController@getAllWithActivites');
     Route::apiResource('typeActivites', 'TypeActiviteController');
 
 
@@ -64,7 +71,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     // niveauScolaires
     Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'NiveauScolaireController@getAll');
     Route::get('/niveauScolaires/getAll2', 'NiveauScolaireController@getAll2');
-    Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
     // cours
     Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}/{idBranche}', 'CoursController@getAll');
@@ -82,7 +88,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // villes
     Route::get('/villes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'VilleController@getAll');
-    Route::apiResource('villes', 'VilleController');
 
     // videos
     Route::get('/videos/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}', 'VideoController@getAll');
@@ -95,7 +100,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // typeCours
     Route::get('/typeCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'TypeCoursController@getAll');
-    Route::apiResource('typeCours', 'TypeCoursController');
 
     // lieuCours
     Route::get('/lieuCours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'LieuCoursController@getAll');
@@ -105,12 +109,10 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/profs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'ProfController@getAll');
     Route::get('/profs/getByIdUser/{id}', 'ProfController@getByIdUser');
     Route::get('/profs/updateLink/{id}/{lien}', 'ProfController@updateLink');
-    Route::apiResource('profs', 'ProfController');
 
     // students
     Route::get('/students/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}', 'StudentController@getAll');
     Route::get('/students/getByIdUser/{id}', 'StudentController@getByIdUser');
-    Route::apiResource('students', 'StudentController');
 
     // users
     Route::get('/users/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{email}/{tel}/{adresse}/{cin}/{role}/{idVille}', 'UserController@getAll');

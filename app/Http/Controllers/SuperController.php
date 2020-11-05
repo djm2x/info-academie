@@ -53,7 +53,6 @@ class SuperController extends Controller
             ;
 
         return $res;
-        return ['dd' => $column, 'ss' => $value];
     }
 
     public function query(Request $request, int $startIndex, int $pageSize, int $sortBy, int $sortDr)
