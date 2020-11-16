@@ -45,11 +45,11 @@ export class ChatHubService {
       encrypted: false,
     };
 
-    this.echo = new Echo(echoOptions.dynamic ? options : o2);
+    // this.echo = new Echo(echoOptions.dynamic ? options : o2);
 
     // this.echo.connect();
 
-    console.warn(this.echo.options)
+    // console.warn(this.echo.options)
 
     return this;
   }
@@ -88,9 +88,9 @@ export class ChatHubService {
     //   console.warn('fanaly its works  echo.channel');
     // });
 
-    this.echo.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
-      this.newMessage.next(r.message);
-    });
+    // this.echo.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
+    //   this.newMessage.next(r.message);
+    // });
   }
 
   public stopConnection() {

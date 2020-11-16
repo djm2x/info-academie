@@ -5,27 +5,20 @@
 @stop
 
 @section('content')
-<section class="galerie">
-    {{-- <div class="wallpaper" >
-        <div class="para d-flex flex-column align-items-center mt-3">
-            <p class="text-danger text-uppercase h2 font-weight-bold anime">Nous contacter</p>
+<section class="contact">
+    <div class="{{ app()->getLocale() == 'fr' ? 'text-left container px-0' : 'text-right container px-0' }}">
+        <div class="d-flex flex-wrap justify-content-center align-items-center mat-elevation-z20 p-2" style="margin: 100px 0">
+            <div class="col-md-5">
+                <h1 class="font-weight-bolder mb-5 text-purple" style="font-size: 3em">Contactez-nous</h1>
 
-            <div class="progress">
-                <div class="progress-bar bg-danger" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-        </div>
-    </div> --}}
-    <div class="{{ app()->getLocale() == 'fr' ? 'text-left' : 'text-right' }}">
-        <div class="d-flex flex-wrap justify-content-center align-items-center mt-3 mb-3">
-            <div class="col-md-6">
                 <form id="myForm">
-                    <div class="row d-flex flex-column align-items-center fade show p-2 mb-5">
+                    <div class="row d-flex flex-column align-items-center fade show">
 
                         <div id="toaster">
 
                         </div>
 
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>@lang('page.Nom')</label>
                                 <input id="name" type="text" class="form-control">
@@ -45,22 +38,32 @@
                                 <label>@lang('page.Message')</label>
                                 <textarea id="message" class="form-control" rows="3" required></textarea>
                             </div>
-                            <div class="d-flex flex-row-reverse">
-                                <button type="submit" class="btn btn-danger mybtn">@lang('page.Envoyer')</button>
+                            <div class="d-flex flex-row-reverse mt-2">
+                                <button type="submit" class="btn btn-purple" style="width: 100px; border-radius: 0%;">@lang('page.Envoyer')</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                        <iframe style="height: 50vh"
-                            src="https://maps.google.com/maps?q=Centre%20national%20de%20transfusion%20Sanguine&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                        </iframe>
-                </div>
+            <div class="col-md-7 p-0">
+                <img src="/assets2/contact.png" style="width: 100%">
             </div>
         </div>
+
+        {{-- <div class="d-flex flex-wrap justify-content-center align-items-center mt-3 mb-3">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <iframe style="height: 50vh"
+                    src="https://maps.google.com/maps?q=temara&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                </iframe>
+            </div>
+        </div> --}}
+    </div>
+    {{-- https://google-map-generator.com/ --}}
 
   </div>
 </section>

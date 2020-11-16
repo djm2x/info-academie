@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/fav.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/fav2.png') }}" />
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -26,31 +26,30 @@
 </head>
 
 <body style="{{ app()->getLocale() == 'fr' ? 'direction: ltr' : 'direction: rtl' }}">
-    <div id="haut">Bonjour</div>
-    <header id="entete" style="position: fixed; top: 0;z-index: 20 !important;">
-        @include('navone')
-    </header>
+    <div id="haut"></div>
+    {{-- <header id="entete" style="position: fixed; top: 0;z-index: 20 !important;">
+    </header> --}}
+    @include('navone')
 
 
     <main class="main">
-        <div class="{{ request()->is('/') ? '' : 'container' }}">
+        <div class="px-0">
             <div class="row">
-                <div class="{{ request()->is('/') || strpos(Request::path(), 'actualite') === 0 ? (strpos(Request::path(), 'actualite') === 0 ? 'col-md-8 p-1 mt-1' : 'col-md-12') : 'col-sm-12 col-md-8 p-1 mt-1' }}">
-                    {{-- @include('title') --}}
-                    {{-- {{strpos(Request::path(), 'actualite')}}   class="{{ request()->is('/') ? 'm-0' : 'ml-2 mr-2' }}"--}}
-                    <div  class="{{ request()->is('/') ? '' : 'card' }}" style="border-radius: 0">
-                        <article  class="{{ request()->is('/') ? 'm-0' : 'ml-2 mr-2' }}">
-                            @yield('content')
-                        </article>
-                    </div>
-                </div>
+                {{-- <div class="{{ request()->is('/') || strpos(Request::path(), 'actualite') === 0 ?
+                    (strpos(Request::path(), 'about-us') === 0 ? 'col-md-12' : 'col-md-8 p-1 mt-1' ) :
+                    'col-sm-12 col-md-8 p-1 mt-1' }}">
+                </div> --}}
 
-                <div class="col-sm-12 col-md-4 mt-1 p-1">
-                    {{-- && strpos(Request::path(), 'actualite') === false --}}
+                    {{-- <div  class="{{ request()->is('/') ? '' : 'card' }}" style="border-radius: 0"> --}}
+                    <div  class="col-md-12 px-0" style="border-radius: 0">
+                        @yield('content')
+                    </div>
+
+                {{-- <div class="col-sm-12 col-md-4 mt-1 p-1">
                     @if (!request()->is('/'))
                         @include('sidenav')
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </main>
@@ -71,7 +70,7 @@
 
     </div> --}}
 
-    <a id="btn" class="d-flex justify-content-center align-items-center" style="background-color:#4c4c4c;"><i class="fas fa-arrow-up text-white"></i></a>
+    <a id="btn" class="d-flex justify-content-center align-items-center"><i class="fas fa-arrow-up text-white"></i></a>
 
     <!-- Scripts -->
     <script>

@@ -94,7 +94,7 @@ class HomeController extends Controller
         // $actualites = $this->actualite->orderBy('date', 'desc')->skip(0)->take(3)->get();
 
         // dd($groupes);
-        return view('page/home', compact('users', 'typeActivites', 'profs', 'videos'));
+        return view('page/home/home', compact('users', 'typeActivites', 'profs', 'videos'));
     }
 
     public function profs(Request $request

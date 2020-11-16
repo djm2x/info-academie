@@ -1,8 +1,8 @@
 // Body
-$body-bg: #f8fafc;
+// $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: cursive, "Montserrat", "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -17,3 +17,35 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+.btn-purple {
+    background-color: $purple;
+    color: white;
+}
+
+.btn-primary2 {
+    color: white;
+    background: #7f00ff; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #e100ff, #7f00ff); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #e100ff,
+        #7f00ff
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.text-primary2 {
+    color: #4d1290;
+}
+
+.btn-purple-gradian {
+    background: #00d2ff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #928DAB, #00d2ff);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #928DAB, #00d2ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
+}
+
+.text-purple {
+    color: #4d1290;
+}

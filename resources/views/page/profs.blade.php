@@ -6,88 +6,68 @@
 
 @section('content')
 
-    <section class="{{ app()->getLocale() == 'fr' ? 'profs text-left' : 'profs text-right' }}">
-        <div class=" flex-column d-flex justify-content-center align-items-center">
+    <section class="{{ app()->getLocale() == 'fr' ? 'profs text-left container px-0' : 'profs text-right container px-0' }}">
+        <div class=" flex-column d-flex justify-content-center align-items-center mt-5">
 
-            <div class="para d-flex flex-column align-items-center mt-5 w-100">
-            <p>{{$count}}</p>
-                {{-- <p class="text-danger h2 font-weight-bold">Nos Activites</p>
+            <div class="d-flex flex-wrap justify-content-center align-items-center pt-5 mb-3">
 
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div> --}}
+                <div class="col-md-6">
+                    <h1 class="font-weight-bolder text-primary2 mb-5" style="font-size: 3em">Nous Professeurs</h1>
 
-                   {{-- <p class="h4 col-md-8 text-center mt-4">
-                   A la une
-                </p> --}}
+                    <div class="para d-flex flex-column align-items-center mt-5 w-100">
+                    {{-- <p>{{$count}}</p> --}}
+                        {{-- <form method="GET" action="{{ route('profs') }}"> --}}
+                        <form id="myForm" method="GET">
+                            {{-- @csrf --}}
 
-                {{-- dd{{request()->routeIs('activite') == 1}}dd --}}
-                {{-- <div class="d-flex justify-content-center align-items-center flex-wrap">
-                    <select class="form-control m-2" style="width: 18rem;" id="dateSelect">
-                        <option value="desc">@lang('page.Recents')</option>
-                        <option value="asc">@lang('page.Anciens')</option>
-                    </select>
+                            <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputCity">Professeur</label>
+                                <input type="text" class="form-control" name="prof">
+                            </div>
 
-                    <select class="form-control m-2" style="width: 18rem;" id="regionSelect">
-                        <option value="0">--@lang('page.Regions')--</option>
-                        @foreach($regions as $e)
-                            <option value="{{$e->id}}">{{$e->name}}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
+                            <div class="form-group col-md-12">
+                                <label for="inputState">Type Cours</label>
+                                <select id="inputState" class="form-control" name="typeCours">
+                                    <option selected value="0">...</option>
+                                    @foreach($typeCourss as $e) <option value="{{$e->id}}">{{$e->nom}}</option> @endforeach
+                                </select>
+                            </div>
 
-                {{-- <form method="GET" action="{{ route('profs') }}"> --}}
-                <form id="myForm" method="GET">
-                    {{-- @csrf --}}
+                            <div class="form-group col-md-12">
+                                <label for="inputState">Niveau Scolaires</label>
+                                <select id="inputState" class="form-control" name="niveauScolaire">
+                                    <option selected value="0">...</option>
+                                    @foreach($niveauScolaires as $e) <option value="{{$e->id}}">{{$e->nom}}</option> @endforeach
+                                </select>
+                            </div>
+                            </div>
 
-                    <div class="form-row">
-                      <div class="form-group col-md-4">
-                        <label for="inputCity">Prof</label>
-                        <input type="text" class="form-control" name="prof">
-                      </div>
-                      {{-- <div class="form-group col-md-4">
-                        <label for="inputState">activites</label>
-                        <select id="inputState" class="form-control" name="activite">
-                            <option selected value="0">...</option>
-                            @foreach($activites as $e) <option value="{{$e->id}}">{{$e->nom}}</option> @endforeach
-                        </select>
-                      </div> --}}
+                            <button type="submit" class="btn btn-purple"><i class="fas fa-search"></i> Rechercher</button>
+                        </form>
 
-                      <div class="form-group col-md-4">
-                        <label for="inputState">typeCours</label>
-                        <select id="inputState" class="form-control" name="typeCours">
-                            <option selected value="0">...</option>
-                            @foreach($typeCourss as $e) <option value="{{$e->id}}">{{$e->nom}}</option> @endforeach
-                        </select>
-                      </div>
+                        <script>
+                            const form = document.querySelector('#myForm');
+                            form.addEventListener('submit', (e) => {
+                                e.preventDefault();
+                                var formData = new FormData(e.target);
+                                // console.log(formData.get('typeCours'))
 
-                      <div class="form-group col-md-4">
-                        <label for="inputState">niveauScolaires</label>
-                        <select id="inputState" class="form-control" name="niveauScolaire">
-                            <option selected value="0">...</option>
-                            @foreach($niveauScolaires as $e) <option value="{{$e->id}}">{{$e->nom}}</option> @endforeach
-                        </select>
-                      </div>
+                                // const prof = formData.get('prof') === '' ? '*' : formData.get('prof');
+                                // const url = `/profs/0/20/0/0/${formData.get('typeCours')}/0/${formData.get('niveauScolaire')}/${prof}`
+
+                                form.setAttribute('action', url);
+                                form.submit();
+                            })
+                        </script>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Rechercher</button>
-                </form>
-
-                <script>
-                    const form = document.querySelector('#myForm');
-                    form.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        var formData = new FormData(e.target);
-                        // console.log(formData.get('typeCours'))
-
-                        // const prof = formData.get('prof') === '' ? '*' : formData.get('prof');
-                        // const url = `/profs/0/20/0/0/${formData.get('typeCours')}/0/${formData.get('niveauScolaire')}/${prof}`
-
-                        form.setAttribute('action', url);
-                        form.submit();
-                    })
-                </script>
+                </div>
+                <div class="col-md-6 p-0">
+                    <img src="/assets2/tuto.png" style="width: 120%">
+                </div>
             </div>
+
+
 
 
 
@@ -95,40 +75,37 @@
                 <div class="row">
                     @foreach ($profs as $e)
 
-                    <div class="p-1 ">
-                        <div class="card">
+                    <div class="col-md-12 p-1 ">
+                        <div class="card mat-elevation-z8">
                             <div class="row my-2">
                                 <div class="col-md-4">
                                     <div class="d-flex flex-column justify-content-center align-items-center ml-2">
                                         <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('profs/'.$e->id.'/'.$e->imageUrl)}}"
-                                        onerror="this.onerror=null;this.src='/assets/prof.jpg';" class="p-2 rounded-circle" alt="..." style="width: 200px; height: 200px;">
-                                        <p class="h5 text-dark font-weight-bold">{{$e->user->nom}} {{$e->user->prenom}}</p>
+                                        onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." style="height: 200px;">
+                                        <p class="h5 text-purple font-weight-bold mt-2">{{$e->user->nom}} {{$e->user->prenom}}</p>
                                     </div>
                                 </div>
 
-
-
                                 <div class="col-md-8 p-0">
-                                    <div class=" card-body d-flex flex-column justify-content-between my-2 h-100">
+                                    <div class=" card-body d-flex flex-column justify-content-between  h-100">
                                         <div class="d-flex flex-row-reverse justify-content-between align-items-center mb-3">
-                                            <a class="btn btn-primary text-uppercase" href="/profs/{{$e->id}}">
-                                                {{-- {{ app()->getLocale() == 'fr' ? $e->activites[$i]->nom : $e->activites[$i]->nomAr }} --}}
-                                                Voir plus ...
+                                            <a class="btn btn-purple" href="/profs/{{$e->id}}" style="width: 100px; border-radius: 0%;">
+                                                <i class="fas fa-angle-double-right"></i>
                                             </a>
-                                            <span><i class="fas fa-star"></i> {{$e->note}}</span>
+                                            <span class="text-purple"><i class="fas fa-star"></i> {{$e->note}}</span>
 
                                         </div>
                                         <div>
-                                            <p class="card-text m-0 text-dark font-weight-bold">{{substr($e->intro, 0, 100)}}</p>
-                                            <p class="card-text m-0 text-dark text-muted">
+                                            <p class="card-text mb-2 text-purple font-weight-bold">{{substr($e->intro, 0, 100)}}</p>
+                                            <p class="card-text mb-2 text-dark text-muted">
                                                 {{substr($e->description, 0, 100)}} ...
                                             </p>
                                         </div>
 
-                                        <div class="d-flex mb-3">
+                                        <div class="d-flex">
                                             @foreach ($activites as $a)
                                                 @if(strpos($e->idsActivites, ';' . $a->id . ';') !== false)
-                                                    <a class="mx-1 px-1 text-white" style="background: gray;" href={{"/profs/0/20/0/" . $a->id . "/0/0/0/*"}}>
+                                                    <a class="mx-1 px-1 font-weight-bold mat-elevation-z3" style="color: var(--purple);" href={{"/profs/0/20/0/" . $a->id . "/0/0/0/*"}}>
                                                         {{ app()->getLocale() == 'fr' ? $a->nom : $a->nomAr }}
                                                     </a>
                                                 @endif

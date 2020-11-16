@@ -11,12 +11,28 @@
 <section class="videos">
     <div class="py-5" style="background-color: white">
         <div class="container">
-            <div class="col-md-12 justify-content-center">
-                <div class="d-flex justify-content-center align-items-center mb-3">
+            <div class="col-md-12 px-0 justify-content-center">
 
-                    <p class="h1">Aide</p>
+                <div class="d-flex flex-wrap justify-content-center align-items-center mt-3 mb-3" >
+                    <div class="col-md-6">
+                        <p class="h1 text-primary2 font-weight-bolder mb-4">Nous videos pour vous aider à decouvrir votre plateforme</p>
 
+                        <p class="mb-5">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis deleniti sunt,
+                            fugit illo aliquam ea! Atque omnis consequatur explicabo dolores. Odit quod maxime,
+                            dolorum beatae vitae exercitationem ipsam. Natus error dolor similique quae, vero minima,
+                            quo laudantium dolorem suscipit, recusandae cum tempora. Ad aliquam ipsum minima illum expedita facilis debitis?
+                        </p>
+
+
+                        {{-- <button class="btn btn-purple">Contactez-nous</button> --}}
+                    </div>
+                    <div class="col-md-6 p-0">
+                        <img src="/assets2/video.png" style="width: 120%">
+                    </div>
                 </div>
+
+                @include('divider')
 
                 <div class="row">
                     @foreach ($videos as $e)

@@ -33,11 +33,11 @@ export class MeComponent implements OnInit {
 
   imgError(img: any) {
 
-    img.src = 'assets/404.jpg';
+    img.src = 'assets/404.png';
   }
 
-  updateLink(lien: string) { 
-    
+  updateLink(lien: string) {
+
     if (this.session.isProf) {
       this.uow.profs.updateLink(this.user.id, lien.replace(/\//g, '@').trim()).subscribe(r => {
         if (r !== '') {

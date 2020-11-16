@@ -146,7 +146,7 @@ export class TypeActiviteComponent implements OnInit, OnDestroy {
 
   displayImage(urlImage: string, id: number) {
     if (!urlImage) {
-      return 'assets/404.jpg';
+      return 'assets/404.png';
     }
     if (urlImage && urlImage.startsWith('http')) {
       return urlImage;
@@ -156,7 +156,7 @@ export class TypeActiviteComponent implements OnInit, OnDestroy {
   }
 
   imgError(img: any) {
-    img.src = 'assets/404.jpg';
+    img.src = 'assets/404.png';
   }
 
   //check box

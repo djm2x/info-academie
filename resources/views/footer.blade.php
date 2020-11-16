@@ -1,5 +1,5 @@
 <section class="footer">
-    <div class="container">
+    <div class="container py-5">
 
 
     <div class="{{ app()->getLocale() == 'fr' ? 'row text-left' : 'row text-right' }}">
@@ -14,18 +14,22 @@
             <a class="font-weight-bold text-white" href="/">Contactez-nous</a>
         </div> --}}
 
-       
+
 
         <div class="col-md-4 mt-5 ">
-            <a href="/" class="pl-0">
-                <h5 class="font-weight-bold text-white text-uppercase">Cours particuliers info-academie</h5>
+            <a href="/about-us" class="pl-0">
+                <h5 class="font-weight-bold text-white text-uppercase">Qui somme nous</h5>
             </a>
-                <p>
-                    Cours particuliers à domicile par nos professeurs particuliers. Du soutien scolaire ou 
-                    cours de math à l'aide aux devoirs aux cours de langue comme le français, anglais ou espagnol
-                     ou cours de musique comme le piano, la guitare, ou le violon. 
-                     Contactez nos profs gratuitement avant de fixer votre rendez-vous ! 
-                </p>
+            <div>
+                <i class="fas fa-envelope"></i>
+                <span>email@email.com</span>
+            </div>
+
+            <div>
+                <i class="fas fa-phone-alt"></i>
+                <span>+212 6 00 00 00 00</span>
+            </div>
+
         </div>
 
         <div class="col-md-4 mt-5 ">
@@ -38,27 +42,20 @@
                     <img class="mb-2 mr-2" height="80" src="/assets/icon.jpg" width="80" />
                 </a>
                 <p>
-                    Et recevez chacun jusqu’à 50€ de réduction 
+                    Et recevez chacun jusqu’à 50€ de réduction
                 </p>
             </div>
         </div>
 
         <div class="col-md-4 mt-5">
-            <h5 class="font-weight-bold text-white text-uppercase">@lang('footer.newsletter')</h5>
-
-            <p>Restez informés des événements à venir, des discussions locales, des mises à jour du site et des offres promotionnelles</p>
-
-            <form id="newletterForm" class="form-inline">
-                <div class="input-group mb-2"  style="direction: ltr">
-                    <input type="email" class="form-control" id="newletterEmail" placeholder="@lang('footer.email')">
-                    <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-success mb-2 text-uppercase" style="border-radius: 0 5px 5px 0;">
-                            @lang('footer.subscribe')
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <span id="msg"></span>
+            <a href="/contact" class="pl-0">
+                <h5 class="font-weight-bold text-white text-uppercase">Contactez-nous</h5>
+            </a>
+            <div class="d-flex my-3">
+                <a><i class="fab fa-facebook-square" style="font-size: 50px; margin: 0 2px;color:white;"></i></a>
+                <a><i class="fab fa-instagram-square" style="font-size: 50px; margin: 0 2px;color:white;"></i></a>
+                <a><i class="fab fa-youtube-square" style="font-size: 50px; margin: 0 2px;color:white;"></i></a>
+            </div>
         </div>
     </div>
 </div>
@@ -69,11 +66,9 @@
         <span>&copy; <span id="date"></span> Info-academie</span>
 
         <div class="d-flex flex-wrap align-items-center actions">
-            <a class="m-1" href="#">@lang('footer.Montionslegales')</a>
-            {{-- <a class="m-1" href="#">@lang('footer.Publications')</a>
-            <a class="m-1" href="#">@lang('footer.Alaune')</a> --}}
+            {{-- <a class="m-1" href="#">@lang('footer.Montionslegales')</a>
             <a class="m-1" href="#">@lang('footer.Plandusite')</a>
-            <a class="m-1" href="#">@lang('footer.Contact')</a>
+            <a class="m-1" href="#">@lang('footer.Contact')</a> --}}
         </div>
     </div>
 
@@ -82,7 +77,7 @@
 @section('scripts-footer')
 
     <script>
-         
+
         const newletterForm = document.getElementById('newletterForm');
         const msg = document.getElementById('msg');
         document.querySelector('#date').innerHTML = new Date().getFullYear()
@@ -111,7 +106,7 @@
             }
         });
 
-        
+
     </script>
 
 @stop

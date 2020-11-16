@@ -198,7 +198,7 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   displayImage(urlImage: string) {
     if (!urlImage) {
-      return 'assets/404.jpg';
+      return 'assets/404.png';
     }
     if (urlImage && urlImage.startsWith('http')) {
       return urlImage;
@@ -208,7 +208,7 @@ export class CoursComponent implements OnInit, OnDestroy {
   }
 
   imgError(img: any) {
-    img.src = 'assets/404.jpg';
+    img.src = 'assets/404.png';
   }
 
   //check box

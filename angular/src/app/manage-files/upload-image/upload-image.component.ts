@@ -16,7 +16,7 @@ export class UploadImageComponent implements OnInit {
   @Input() folderToSaveInServer = 'folder';
   //
   @Input() multiple = false;
-  oneImage = 'assets/404.jpg';
+  oneImage = 'assets/404.png';
   Images = [];
 
   @Input() propertyOfParent = new Subject();
@@ -43,10 +43,10 @@ export class UploadImageComponent implements OnInit {
         if (imageUrl !== null && imageUrl.startsWith('http')) {
           this.oneImage = imageUrl;
         } else if (!imageUrl) {
-          this.oneImage = 'assets/404.jpg';
+          this.oneImage = 'assets/404.png';
         } else {
           // console.log(imageUrl);
-          this.oneImage = `${this.url}/${this.folderToSaveInServer}/${imageUrl}`;
+          this.oneImage = `${this.url}/${this.folderToSaveInServer.replace('_', '/')}/${imageUrl}`;
         }
       } else {
         l.forEach((e, i) => {
@@ -54,7 +54,7 @@ export class UploadImageComponent implements OnInit {
           if (imageUrl !== null && imageUrl.startsWith('http')) {
             this.Images[i] = { name: imageUrl, image: imageUrl };
           } else if (!imageUrl) {
-            this.Images[i] = { name: 'assets/404.jpg', image: 'assets/404.jpg' };
+            this.Images[i] = { name: 'assets/404.png', image: 'assets/404.png' };
           } else {
             const im = `${this.url}/${this.folderToSaveInServer.replace('_', '/')}/${imageUrl}`;
             this.Images[i] = { name: im, image: im };
@@ -157,15 +157,15 @@ export class UploadImageComponent implements OnInit {
 
   imgError(img: any) {
 
-    img.src = 'assets/404.jpg';
+    img.src = 'assets/404.png';
   }
 
-  setIcon(filaName) {
-    const i = filaName.lastIndexOf('.');
-    const s = filaName.substring(i + 1);
-    // console.log(s);
-    return (s === 'pdf' || s === 'pdf;') ? 'assets/svg/pdf.svg' : 'assets/svg/word.svg';
-  }
+  // setIcon(filaName) {
+  //   const i = filaName.lastIndexOf('.');
+  //   const s = filaName.substring(i + 1);
+  //   // console.log(s);
+  //   return (s === 'pdf' || s === 'pdf;') ? 'assets/svg/pdf.svg' : 'assets/svg/word.svg';
+  // }
 
   removeFromImages(name: string) {
 
@@ -223,7 +223,7 @@ export class UploadImageComponent implements OnInit {
     }
 
     // if mutli is false
-    this.oneImage = 'assets/404.jpg';
+    this.oneImage = 'assets/404.png';
   }
 
   openInput(o/*: HTMLInputElement*/) {
@@ -244,13 +244,15 @@ export class UploadImageComponent implements OnInit {
 
     const formData = new FormData();
 
-    this.files.forEach(e => {
+    this.files.forEach((e, i) => {
 
       const name = this.setFileName(e);
 
-      formData.append('file', e, name);
+      formData.append(`file_${i}`, e, name);
       console.log(e)
     });
+
+    formData.append('length', `${this.files.length}`);
 
 
     if (formData) {

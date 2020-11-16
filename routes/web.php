@@ -27,6 +27,14 @@ Route::get('/profs/{id}', 'HomeController@prof')->name('prof');
 //     return "event fired";
 // });
 
+Route::get('/about-us', function() {
+    return view('page/about-us');
+})->name('about-us');
+
+Route::get('/contact', function() {
+    return view('page/contact');
+})->name('contact');
+
 
 Route::get('/phpinfo', function() {
     return phpinfo();

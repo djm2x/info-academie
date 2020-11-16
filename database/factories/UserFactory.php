@@ -17,7 +17,7 @@ $factory->define(User::class, function (Faker $faker) {
         'isActive' => $faker->boolean,
         'date' => $faker->dateTime,
         'adresse' => $faker->address,
-        'imageUrl' => $faker->imageUrl(640, 480, 'people'), // 'assets/404.jpg',
+        'imageUrl' => $faker->imageUrl(640, 480, 'people'), // 'assets/404.png',
         'imageUrl' => 'assets/prof.jpg',
         'cin' => $faker->creditCardNumber,
         'role' => $i++ <= 50 ? 'prof' : 'student',
