@@ -15,8 +15,8 @@
                             <div class="card mat-elevation-z8">
 
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('profs/'.$e->id.'/'.$e->imageUrl)}}"
-                                    onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." style="height: 100%">
+                                    <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('users/'.$e->user->id.'/'.str_replace(';', '', $e->user->imageUrl) )}}"
+                                    onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." style="width: 100%">
                                 </div>
                                 <hr class="m-0">
 
