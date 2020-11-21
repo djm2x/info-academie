@@ -23,6 +23,7 @@
         "p": "npm run f-p && npm run copy && node ./envChange.js",
         "ci": "npm run p && npm run push",
         "init": "git init && git remote add origin https://github.com/djm2x/info-academie.git",
+        "cmt": "git add . && git commit -m \"commit\"",
         "push": "git add . && git commit -m \"commit\" && git push -u origin master",
         "pull": "git pull origin",
         "git-login": "git config --global user.email",
