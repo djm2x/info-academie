@@ -1,7 +1,5 @@
 const classes = document.querySelectorAll('.anime');
 
-console.log('dzdzdzdzd')
-
 observer = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {

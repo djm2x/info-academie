@@ -31,7 +31,7 @@ class ContactUsController extends SuperController
         $q = $this->_context
             ->where($matchThese)
             ->orderBy($sortBy, $sortDir);
-            
+
         $count = $q->count();
 
         $list = $q->skip($startIndex)
@@ -43,4 +43,17 @@ class ContactUsController extends SuperController
 
         return ['list' => $list, 'count' => $count];
     }
+
+
+    public function send(Request $request)
+    {
+        $model = $request->all();
+
+        if (env('DB_CONNECTION') == 'sqlite') {
+            $model['id'] = null;
+        }
+
+        return $this->_context->create($model);
+    }
+
 }

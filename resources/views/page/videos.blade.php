@@ -17,12 +17,12 @@
                     <div class="col-md-6">
                         <p class="h1 text-primary2 font-weight-bolder mb-4">Nous videos pour vous aider à decouvrir votre plateforme</p>
 
-                        <p class="mb-5">
+                        {{-- <p class="mb-5">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis deleniti sunt,
                             fugit illo aliquam ea! Atque omnis consequatur explicabo dolores. Odit quod maxime,
                             dolorum beatae vitae exercitationem ipsam. Natus error dolor similique quae, vero minima,
                             quo laudantium dolorem suscipit, recusandae cum tempora. Ad aliquam ipsum minima illum expedita facilis debitis?
-                        </p>
+                        </p> --}}
 
 
                         {{-- <button class="btn btn-purple">Contactez-nous</button> --}}

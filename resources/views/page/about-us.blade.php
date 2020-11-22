@@ -5,20 +5,22 @@
 @stop
 
 @section('content')
-<section class="about-us">
-    <div class="{{ app()->getLocale() == 'fr' ? 'text-left container px-0' : 'text-right container px-0' }}">
-        <div class="d-flex flex-wrap justify-content-center align-items-center mt-3 mb-3" style="height: 70vh">
+<section class="about-us" >
+    <div class="{{ app()->getLocale() == 'fr' ? 'text-left container px-0' : 'text-right container px-0' }}" style=" margin-top: 100px;">
+        <div class="d-flex flex-wrap justify-content-center  mat-elevation-z20 align-items-center mt-3 mb-3 p-2">
             <div class="col-md-6">
-                <h1 class="font-weight-bolder mb-5 text-purple" style="font-size: 3em">Nous somme les meilleur</h1>
+                <h1 class="font-weight-bolder mb-5 text-purple" style="font-size: 3em">Qui sommes nous</h1>
 
                 <p class="mb-5">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis deleniti sunt,
-                    fugit illo aliquam ea! Atque omnis consequatur explicabo dolores. Odit quod maxime,
-                    dolorum beatae vitae exercitationem ipsam. Natus error dolor similique quae, vero minima,
-                    quo laudantium dolorem suscipit, recusandae cum tempora. Ad aliquam ipsum minima illum expedita facilis debitis?
+                    Info Académie propose des cours collectifs et des cours particuliers en présentiel et en live
+                     dans toutes les matières afin d’aider les élèves à optimiser leurs résultats à l’école. Info
+                     dispose également d’une plateforme interactive en ligne permettant l’accès aux cours dispensés
+                      en temps réel pour la préparation aux examens. Du primaire aux études supérieures, les enseignants
+                      sont spécialistes dans leur domaine, proposent des cours de soutien scolaire intensifs et sur mesure,
+                      vous donnant l’assurance de voir votre enfant faire des progrès rapidement.
                 </p>
 
-                <a class="btn btn-purple" href="/contact">
+                <a class="btn btn-purple" style="border-radius: 0%;"  href="/contact">
                     Contactez-nous
                 </a>
             </div>

@@ -129,6 +129,9 @@ Route::post('/accounts/broadcasting', 'AccountController@broadcasting');
 
 Route::post('/broadcasting/auth', 'AccountController@broadcasting')->middleware('auth:api');
 
+Route::post('/contactUs/send', 'ContactUsController@send');
+
+
 
 // Route::group(['middleware' => 'camel.case'], function () {
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {

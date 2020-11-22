@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "---": "---",
-        "install": "composer install && cd angular && npm i",
+        "dd": "composer install && cd angular && npm i",
         "f": "cd angular && ng serve --port 4202",
         "m0": "composer dumpautoload && php artisan migrate:refresh --seed && npm run b",
         "mm": "php artisan migrate:refresh --seed && npm run b",
@@ -31,11 +31,11 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.5.0",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.13",
-        "popper.js": "^1.12",
+        "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
@@ -45,6 +45,7 @@
         "@fortawesome/fontawesome-free": "^5.13.0",
         "jquery": "3.4.1",
         "laravel-echo": "^1.9.0",
+        "owl.carousel": "^2.3.4",
         "pusher-js": "^7.0.0"
     }
 }

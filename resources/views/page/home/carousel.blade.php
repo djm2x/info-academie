@@ -1,126 +1,102 @@
 <style>
-    @media (max-width: 768px) {
-        .carousel-inner .carousel-item > div {
-            display: none;
-        }
-        .carousel-inner .carousel-item > div:first-child {
-            display: block;
-        }
+     .activites {
+        position: relative;
+
+    }
+    .activites::before {
+        content: '';
+        z-index: -1;
+        background-color: #9561e217;
+        position: absolute;
+        height: 300px;
+        left: 0;
+        width: 300px;
+        top: 50px;
+        border-radius: 50%;
     }
 
-    .carousel-inner .carousel-item.active,
-    .carousel-inner .carousel-item-next,
-    .carousel-inner .carousel-item-prev {
-        display: flex;
+    .activites::after {
+        content: '';
+        z-index: -1;
+        background-color: #9561e225;
+        position: absolute;
+        height: 300px;
+        right: 150px;
+        width: 300px;
+        bottom: 50px;
+        border-radius: 50%;
     }
 
-    /* display 3 */
-    @media (min-width: 768px) {
-
-        .carousel-inner .carousel-item-right.active,
-        .carousel-inner .carousel-item-next {
-        transform: translateX(33.333%);
-        }
-
-        .carousel-inner .carousel-item-left.active,
-        .carousel-inner .carousel-item-prev {
-        transform: translateX(-33.333%);
-        }
-    }
-
-    .carousel-inner .carousel-item-right,
-    .carousel-inner .carousel-item-left{
-    transform: translateX(0);
-    }
+    .item {
+    height: 10rem;
+    background: #4DC7A0;
+    padding: 1rem;
+}
 
 </style>
 
-<section class="carousel">
-    <div class="container text-center my-3">
-        <h2 class="font-weight-light">Bootstrap 4 - Multi Item Carousel</h2>
-        <div class="row mx-auto my-auto">
-            <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                <div class="carousel-inner w-100" role="listbox">
-                    <div class="carousel-item active">
-                        <div class="col-md-4">
-                            <div class="card card-body">
-                                <img class="img-fluid" src="http://placehold.it/380?text=1">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-4">
-                            <div class="card card-body">
-                                <img class="img-fluid" src="http://placehold.it/380?text=2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-4">
-                            <div class="card card-body">
-                                <img class="img-fluid" src="http://placehold.it/380?text=3">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-4">
-                            <div class="card card-body">
-                                <img class="img-fluid" src="http://placehold.it/380?text=4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-4">
-                            <div class="card card-body">
-                                <img class="img-fluid" src="http://placehold.it/380?text=5">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-4">
-                            <div class="card card-body">
-                                <img class="img-fluid" src="http://placehold.it/380?text=6">
+<section class="activites">
+    <div class="py-5" style="background-color: #c9a4ff1a">
+    <div class="container">
+
+        <div class="d-flex justify-content-center align-items-center mb-5">
+            <p class="h1 text-primary2 font-weight-bolder">
+                {{ app()->getLocale() == 'fr' && count($activites) > 0 ? $activites[0]->typeActivite->nom : $activites[0]->typeActivite->nomAr }}
+            </p>
+        </div>
+
+
+        <div class="owl-carousel owl-theme">
+
+                @foreach ($activites as $e)
+                <div class="col-md-12 px-2 py-2">
+                    <div class="card mat-elevation-z2">
+                        <img src="{{strpos($e->imageUrl, 'http') !== false ? $e->imageUrl : url('activites/'.$e->id.'/'.str_replace(';', '', $e->imageUrl))}}"
+                        onerror="this.onerror=null;this.src='/assets/404.png';" alt="..." class="img-fluid">
+
+                        <div class="card-body">
+                            {{-- <p class="card-text m-0 text-dark font-weight-bold">${e.title}</p>
+                            <p class="card-text m-0 text-dark text-muted">
+                                ${e.description.substring(0, 50)} ...
+                            </p> --}}
+                            <div class="d-flex flex-row-reverse justify-content-between align-items-center mt-3">
+                                <a class="btn btn-purple text-uppercase" href={{"profs/0/20/".$e->id."/".$e->id."/0/0/0/*/0"}} style="border-radius: 0%;">
+                                    {{ app()->getLocale() == 'fr' ? $e->nom : $e->nomAr }} <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+                @endforeach
         </div>
-        <h5 class="mt-2">Advances one slide at a time</h5>
     </div>
+</div>
 </section>
+
 
 @section('scripts')
     <script>
-        $('#recipeCarousel').carousel({
-            interval: 10000
-        })
-
-        $('.carousel .carousel-item').each(function(){
-            var minPerSlide = 3;
-            var next = $(this).next();
-            if (!next.length) {
-            next = $(this).siblings(':first');
-            }
-            next.children(':first-child').clone().appendTo($(this));
-
-            for (var i=0;i<minPerSlide;i++) {
-                next=next.next();
-                if (!next.length) {
-                    next = $(this).siblings(':first');
+        $('.owl-carousel').owlCarousel({
+            loop:false,
+            margin:10,
+            nav:false,
+            autoplay: true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true
+                },
+                600:{
+                    items:3,
+                    nav:false
+                },
+                1600:{
+                    items:4,
+                    nav:true,
+                    loop:false
                 }
-
-                next.children(':first-child').clone().appendTo($(this));
             }
-        });
-    </script>
+        })
+</script>
 @stop
 

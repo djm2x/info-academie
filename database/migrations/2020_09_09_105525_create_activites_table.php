@@ -17,8 +17,8 @@ class CreateActivitesTable extends Migration
         Schema::create('activites', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nom');
-            $table->string('nomAr');
-            $table->string('imageUrl');
+            $table->string('nomAr')->nullable(true);
+            $table->string('imageUrl')->nullable(true);
 
             $table->unsignedBigInteger('idTypeActivite')->nullable(true);
             $table->foreign('idTypeActivite')->references('id')->on('type_activites');

@@ -53,7 +53,7 @@
                                         ${e.description.substring(0, 50)} ...
                                     </p> --}}
                                     <div class="d-flex flex-row-reverse justify-content-between align-items-center mt-3">
-                                        <a class="btn btn-purple text-uppercase" href={{"profs/0/20/".$e->id."/".$e->activites[$i]->id."/0/0/0/*"}} style="border-radius: 0%;">
+                                        <a class="btn btn-purple text-uppercase" href={{"profs/0/20/".$e->id."/".$e->activites[$i]->id."/0/0/0/*/0"}} style="border-radius: 0%;">
                                             {{ app()->getLocale() == 'fr' ? $e->activites[$i]->nom : $e->activites[$i]->nomAr }} <i class="fas fa-arrow-right"></i>
                                         </a>
                                     </div>
@@ -67,7 +67,7 @@
 
                     <div class="d-flex flex-row-reverse w-100">
 
-                        <a class="btn btn-purple mt-5 ml-2" href={{"profs/0/20/" . $e->id . "/0/0/0/0/*"}} style="width: 100px; border-radius: 0%;">
+                        <a class="btn btn-purple mt-5 ml-2" href={{"profs/0/20/" . $e->id . "/0/0/0/0/*/0"}} style="width: 100px; border-radius: 0%;">
                             <i class="fas fa-angle-double-right"></i>
                         </a>
                     </div>

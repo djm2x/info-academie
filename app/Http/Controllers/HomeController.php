@@ -13,8 +13,10 @@ use App\TypeActivite;
 use App\TypeCours;
 use App\User;
 use App\Video;
+use App\Ville;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class HomeController extends Controller
 {
@@ -29,6 +31,7 @@ class HomeController extends Controller
     protected  $lieuCours;
     protected  $niveauScolaires;
     protected  $videos;
+    protected  $villes;
 
     public function __construct(
         User $users,
@@ -38,7 +41,8 @@ class HomeController extends Controller
         TypeCours $typeCours,
         LieuCours $lieuCours,
         NiveauScolaire $niveauScolaires,
-        Video $videos
+        Video $videos,
+        Ville $villes
         )
     {
         $this->users = $users;
@@ -49,6 +53,7 @@ class HomeController extends Controller
         $this->lieuCours = $lieuCours;
         $this->niveauScolaires = $niveauScolaires;
         $this->videos = $videos;
+        $this->villes = $villes;
     }
 
 
@@ -68,11 +73,21 @@ class HomeController extends Controller
             ->get()
             ;
 
-        $typeActivites = $this->typeActivites
-            ->where('active', true)
-            ->with(['activites'])
-            ->get()
-            ;
+        $activites = $this->activites
+            ->where('idTypeActivite', 1)
+            ->with(['typeActivite'])
+            ->get();
+
+        $villes = $this->villes
+            ->get();
+
+        // $typeActivites = $this->typeActivites
+        //     ->where('active', true)
+        //     ->with(['activites'])
+        //     ->get()
+        //     ;
+
+        $user = $user = JWTAuth::user();
 
         $profs = $this->profs
             ->with(['user'])
@@ -81,24 +96,11 @@ class HomeController extends Controller
             ->get()
             ;
 
-        // dd($typeActivites);
-
-            // $idForein = City::find(request()->pickupcity)->country_id;
-
-            // $Circuits->whereHas('Localisations' , function($query) use ($idForein)
-            // {
-            //     $query->where('country_id','=', $idForein);
-            // })
-
-        // actualite
-        // $actualites = $this->actualite->orderBy('date', 'desc')->skip(0)->take(3)->get();
-
-        // dd($groupes);
-        return view('page/home/home', compact('users', 'typeActivites', 'profs', 'videos'));
+        return view('page/home/home', compact('users', 'profs', 'videos', 'activites', 'villes', 'user'));
     }
 
     public function profs(Request $request
-    , int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire, string $prof)
+    , int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire, string $prof, int $ville)
     {
         // $activite = $request->input('activite');
         // $typeCours = $request->input('typeCours');
@@ -110,9 +112,9 @@ class HomeController extends Controller
 
         $matchThese = [ ];
 
-        if ($prof != '*') {
-            array_push($matchThese, ['user.nom', 'LIKE', "%{$prof}%"]);
-        }
+        // if ($prof != '*') {
+        //     array_push($matchThese, ['user.nom', 'LIKE', "%{$prof}%"]);
+        // }
 
         if ($typeActivite != 0) {
             array_push($matchThese, ['idsTypeActivites', 'LIKE', "%;{$typeActivite};%"]);
@@ -138,6 +140,12 @@ class HomeController extends Controller
 
         $q = $this->profs
             ->where($matchThese)
+            ->whereHas('user', function (Builder $query) use ($prof, $ville) {
+                $query->where([
+                    $prof != '*' ? ['nom', 'LIKE', "%{$prof}%"] : ['1','1'],
+                    $ville != 0 ? ['idVille', $ville] : ['1','1']
+                ]);
+            })
             ->with(['user'])
             ->orderBy('note', 'desc');
 

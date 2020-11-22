@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<section class="contact">
+<section class="contact mx-2">
     <div class="{{ app()->getLocale() == 'fr' ? 'text-left container px-0' : 'text-right container px-0' }}">
         <div class="d-flex flex-wrap justify-content-center align-items-center mat-elevation-z20 p-2" style="margin: 100px 0">
             <div class="col-md-5">
@@ -21,22 +21,22 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>@lang('page.Nom')</label>
-                                <input id="name" type="text" class="form-control">
+                                <input name="name" type="text" class="form-control" value="me@me">
                             </div>
 
                             <div class="form-group">
                                 <label>@lang('page.Email')</label>
-                                <input id="email" type="email" class="form-control" required>
+                                <input name="email" type="email" class="form-control" value="me@me" required>
                             </div>
 
                             <div class="form-group">
                                 <label>@lang('page.Tel')</label>
-                                <input id="phone" type="text" class="form-control">
+                                <input name="phone" type="text" class="form-control" value="me@me">
                             </div>
 
                             <div class="form-group">
                                 <label>@lang('page.Message')</label>
-                                <textarea id="message" class="form-control" rows="3" required></textarea>
+                                <textarea name="message" class="form-control" rows="3" required></textarea>
                             </div>
                             <div class="d-flex flex-row-reverse mt-2">
                                 <button type="submit" class="btn btn-purple" style="width: 100px; border-radius: 0%;">@lang('page.Envoyer')</button>
@@ -71,39 +71,66 @@
 
 @section('scripts')
     <script>
-        const myForm = document.getElementById('myForm');
+        const url = window.location.origin;
         const toaster = document.getElementById('toaster');
 
-        myForm.addEventListener('submit', async e => {
+        const msgFR = 'Votre message a été bien transmise';
+        const msgFrError = "Impossible d'effectuer cette opération";
+
+        document.querySelector('#myForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const formData = new FormData(e.target);
+
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+
             const o = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value,
+                id: null,
+                object: `name: ${name}, email: ${email}, phone: ${phone}`,
+                msg: message,
+                date: new Date(),
+                idUser: null,
             }
 
-            console.log(o);
 
-            try {
                 toaster.innerHTML = '';
-                const r = await axios.post('/api/contacts', o);
+                const r = await fetch('/api/contactUs/send', {
+                    method: 'post',
+                    body: JSON.stringify(o),
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                })
+
+                if (!r.ok) {
+                    console.warn(r.statusText);
+                    toasterHtml(msgFrError, 'danger');
+                } else {
+                    toasterHtml(msgFR, 'success');
+                }
+
                 console.log(r);
-                toasterHtml();
-            } catch (error) {
-                console.warn(error)
-            }
-        })
+
+
+
+        });
+
+
+        const myForm = document.getElementById('myForm');
 
         /**
          * @param {Array} data
          */
-         function toasterHtml() {
+         function toasterHtml(msg, color) {
             let translate = {!! json_encode(app()->getLocale())  !!};
-            translate = translate === 'fr' ? 'Votre message a été bien transmise' : 'تم إرسال رسالتك بنجاح';
+            translate = translate === 'fr' ? msg : 'تم إرسال رسالتك بنجاح';
             toaster.innerHTML =
             `
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-${color} alert-dismissible fade show" role="alert">
                 <strong>${translate}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

@@ -9,7 +9,7 @@
         background-color: #9561e217;
         position: absolute;
         height: 200px;
-        left: -99px;
+        left: 99px;
         width: 200px;
         top: 225px;
         transform: rotate(45deg);
@@ -21,7 +21,7 @@
         background-color: #9561e225;
         position: absolute;
         height: 200px;
-        right: -150px;
+        right: 150px;
         width: 300px;
         bottom: 50px;
         transform: rotate(45deg);
@@ -29,7 +29,7 @@
 </style>
 
 <section class="videos">
-    <div class="py-5" style="background-color: white">
+    <div class="py-2" style="background-color: white">
         <div class="container">
             <div class="col-md-12 justify-content-center">
 
@@ -40,8 +40,8 @@
                 <div class="row">
                     @foreach ($videos as $e)
 
-                        <div class="col-md-6 col-sm-6 col-lg-4 pl-1 pr-1 justify-content-center align-items-center mt-2">
-                            <div class="card mat-elevation-z8">
+                        <div class="col-md-6 col-sm-6 col-lg-4 pl-1 pr-1 justify-content-center align-items-center">
+                            <div class="card mat-elevation-z8 my-2">
 
                                 @if(strpos($e->urlVideo, 'http') !== false)
                                 <iframe src="{{  url(str_replace('/watch?v=', '/embed/',$e->urlVideo)) }}"

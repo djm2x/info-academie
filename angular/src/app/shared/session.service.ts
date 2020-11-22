@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Prof, Student, User } from '../models/models';
 
 const USER = 'USER';
+const NAME = 'NAME';
 const STUDENT = 'STUDENT';
 const PROF = 'PROF';
 const TOKEN = 'TOKEN';
@@ -28,7 +29,7 @@ export class SessionService {
     }
     this.user = user;
     localStorage.setItem(USER, (JSON.stringify(this.user)));
-
+    localStorage.setItem(NAME, this.user.nom + ' ' + this.user.prenom);
 
     if (this.user.role === 'student') {
       this.student = child as Student;
@@ -48,6 +49,7 @@ export class SessionService {
     }
     this.user = user;
     localStorage.setItem(USER, (JSON.stringify(this.user)));
+    localStorage.setItem(NAME, this.user.nom + ' ' + this.user.prenom);
 
     if (this.user.role === 'student') {
       this.student = child as Student;
@@ -72,6 +74,7 @@ export class SessionService {
     localStorage.removeItem(STUDENT);
     localStorage.removeItem(PROF);
     localStorage.removeItem(TOKEN);
+    localStorage.removeItem(NAME);
   }
 
   // this methode is for our auth guard

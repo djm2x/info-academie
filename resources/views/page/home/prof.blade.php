@@ -1,5 +1,5 @@
 <section class="profs">
-    <div class="py-5" style="background-color: white">
+    <div class="py-2" style="background-color: white">
         <div class="container">
             <div class="col-md-12 justify-content-center">
                 <div class="d-flex justify-content-center align-items-center mb-5">
@@ -12,11 +12,11 @@
                     @foreach ($profs as $e)
 
                         <div class="col-md-6 col-sm-6 col-lg-4 px-1 justify-content-center align-items-center">
-                            <div class="card mat-elevation-z8">
+                            <div class="card mat-elevation-z8 my-2">
 
                                 <div class="d-flex justify-content-center align-items-center">
                                     <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('users/'.$e->user->id.'/'.str_replace(';', '', $e->user->imageUrl) )}}"
-                                    onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." style="width: 100%">
+                                    onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." class="img-fluid">
                                 </div>
                                 <hr class="m-0">
 
@@ -38,7 +38,7 @@
                         @endforeach
                         <div class="d-flex flex-row-reverse w-100">
 
-                            <a class="btn btn-purple mt-5 ml-2" href="profs/0/20/0/0/0/0/0/*" style="width: 100px; border-radius: 0%;">
+                            <a class="btn btn-purple mt-5 ml-2" href="profs/0/20/0/0/0/0/0/*/0" style="width: 100px; border-radius: 0%;">
                                 <i class="fas fa-angle-double-right"></i>
                             </a>
                         </div>

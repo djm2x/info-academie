@@ -12,7 +12,7 @@
             <div class="d-flex flex-wrap justify-content-center align-items-center pt-5 mb-3">
 
                 <div class="col-md-6">
-                    <h1 class="font-weight-bolder text-primary2 mb-5" style="font-size: 3em">Nous Professeurs</h1>
+                    <h1 class="font-weight-bolder text-primary2 mb-5" style="font-size: 3em">Nous Professeurs <b>({{$count}})</b></h1>
 
                     <div class="para d-flex flex-column align-items-center mt-5 w-100">
                     {{-- <p>{{$count}}</p> --}}
@@ -47,18 +47,18 @@
                         </form>
 
                         <script>
-                            const form = document.querySelector('#myForm');
-                            form.addEventListener('submit', (e) => {
+                            const url = window.location.origin;
+
+                            document.querySelector('#myForm').addEventListener('submit', (e) => {
                                 e.preventDefault();
-                                var formData = new FormData(e.target);
-                                // console.log(formData.get('typeCours'))
+                                const formData = new FormData(e.target);
 
-                                // const prof = formData.get('prof') === '' ? '*' : formData.get('prof');
-                                // const url = `/profs/0/20/0/0/${formData.get('typeCours')}/0/${formData.get('niveauScolaire')}/${prof}`
+                                const prof = formData.get('prof') === '' ? '*' : formData.get('prof');
+                                const typeCours = formData.get('typeCours');
+                                const niveauScolaire = formData.get('niveauScolaire');
 
-                                form.setAttribute('action', url);
-                                form.submit();
-                            })
+                                window.location = `${url}/profs/0/20/0/0/${typeCours}/0/${niveauScolaire}/${prof}/0`
+                            });
                         </script>
                     </div>
                 </div>
@@ -80,8 +80,11 @@
                             <div class="row my-2">
                                 <div class="col-md-4">
                                     <div class="d-flex flex-column justify-content-center align-items-center ml-2">
-                                        <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('profs/'.$e->id.'/'.$e->imageUrl)}}"
+                                        <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('users/'.$e->user->id.'/'.str_replace(';', '', $e->user->imageUrl))}}"
                                         onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." style="height: 200px;">
+
+
+
                                         <p class="h5 text-purple font-weight-bold mt-2">{{$e->user->nom}} {{$e->user->prenom}}</p>
                                     </div>
                                 </div>
@@ -105,7 +108,7 @@
                                         <div class="d-flex">
                                             @foreach ($activites as $a)
                                                 @if(strpos($e->idsActivites, ';' . $a->id . ';') !== false)
-                                                    <a class="mx-1 px-1 font-weight-bold mat-elevation-z3" style="color: var(--purple);" href={{"/profs/0/20/0/" . $a->id . "/0/0/0/*"}}>
+                                                    <a class="mx-1 px-1 font-weight-bold mat-elevation-z3" style="color: var(--purple);" href={{"/profs/0/20/0/" . $a->id . "/0/0/0/*/0"}}>
                                                         {{ app()->getLocale() == 'fr' ? $a->nom : $a->nomAr }}
                                                     </a>
                                                 @endif
