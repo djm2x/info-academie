@@ -21,17 +21,17 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>@lang('page.Nom')</label>
-                                <input name="name" type="text" class="form-control" value="me@me">
+                                <input name="name" type="text" class="form-control">
                             </div>
 
                             <div class="form-group">
                                 <label>@lang('page.Email')</label>
-                                <input name="email" type="email" class="form-control" value="me@me" required>
+                                <input name="email" type="email" class="form-control" required>
                             </div>
 
                             <div class="form-group">
                                 <label>@lang('page.Tel')</label>
-                                <input name="phone" type="text" class="form-control" value="me@me">
+                                <input name="phone" type="text" class="form-control">
                             </div>
 
                             <div class="form-group">

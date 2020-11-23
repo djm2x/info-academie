@@ -90,9 +90,9 @@
                     items:3,
                     nav:false
                 },
-                1600:{
+                2000:{
                     items:4,
-                    nav:true,
+                    nav:false,
                     loop:false
                 }
             }
