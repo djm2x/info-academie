@@ -23,7 +23,7 @@ class CreateStudentsTable extends Migration
             $table->string('tel2Parent')->nullable(true);
 
             $table->unsignedBigInteger('idUser')->nullable(true);
-            $table->foreign('idUser')->references('id')->on('users');
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

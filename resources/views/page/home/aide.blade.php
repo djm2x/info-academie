@@ -45,10 +45,10 @@
 
                                 @if(strpos($e->urlVideo, 'http') !== false)
                                 <iframe src="{{  url(str_replace('/watch?v=', '/embed/',$e->urlVideo)) }}"
-                                    width="100%" height="250px" frameborder="0" allowfullscreen>
+                                    width="100%" height="300px" frameborder="0" allowfullscreen>
                                 </iframe>
                                 @else
-                                    <video  width="100%" height="250px"  controls >
+                                    <video  width="100%" height="300px"  controls >
                                         <source src="{{ asset('videos/'.str_replace(';', '',$e->urlVideo)) }}"  type="video/mp4">
                                         Your browser does not support HTML5 video.
                                     </video>

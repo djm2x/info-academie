@@ -8,7 +8,7 @@
 
 @section('content')
 
-<section class="videos">
+<section class="videos  bg-white">
     <div class="py-5" style="background-color: white">
         <div class="container">
             <div class="col-md-12 px-0 justify-content-center">

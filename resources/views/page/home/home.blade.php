@@ -19,7 +19,7 @@
     @include('divider')
     {{-- @include('page.home.school', ['typeActivites' => $typeActivites])
     @include('divider') --}}
-    {{-- @include('page.home.aide', ['videos' => $videos]) --}}
+    @include('page.home.aide', ['videos' => $videos])
 </div>
 
 @stop

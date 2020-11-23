@@ -16,7 +16,7 @@
 
                                 <div class="d-flex justify-content-center align-items-center">
                                     <img src="{{strpos($e->user->imageUrl, 'http') !== false ? $e->user->imageUrl : url('users/'.$e->user->id.'/'.str_replace(';', '', $e->user->imageUrl) )}}"
-                                    onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." class="img-fluid">
+                                    onerror="this.onerror=null;this.src='/assets2/profe.jpg';" alt="..." style="width: 100%; height: 300px;">
                                 </div>
                                 <hr class="m-0">
 

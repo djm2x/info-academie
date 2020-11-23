@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-<section class="contact mx-2">
+<section class="contact mx-2  bg-white">
     <div class="{{ app()->getLocale() == 'fr' ? 'text-left container px-0' : 'text-right container px-0' }}">
         <div class="d-flex flex-wrap justify-content-center align-items-center mat-elevation-z20 bg-white p-2" style="margin: 100px 0">
             <div class="col-md-5">

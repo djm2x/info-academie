@@ -52,7 +52,7 @@
                 <div class="col-md-12 px-2 py-2">
                     <div class="card mat-elevation-z2">
                         <img src="{{strpos($e->imageUrl, 'http') !== false ? $e->imageUrl : url('activites/'.$e->id.'/'.str_replace(';', '', $e->imageUrl))}}"
-                        onerror="this.onerror=null;this.src='/assets/404.png';" alt="..." class="img-fluid">
+                        onerror="this.onerror=null;this.src='/assets/404.png';" alt="..." style="width: 100%; height: 300px;">
 
                         <div class="card-body">
                             {{-- <p class="card-text m-0 text-dark font-weight-bold">${e.title}</p>
@@ -84,7 +84,7 @@
             responsive:{
                 0:{
                     items:1,
-                    nav:true
+                    nav:false
                 },
                 600:{
                     items:3,

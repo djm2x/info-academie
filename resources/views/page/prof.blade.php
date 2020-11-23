@@ -7,7 +7,7 @@
 
 
 @section('content')
-<section class="prof">
+<section class="prof bg-white">
     <div class="p-4 mb-5 container" style="margin-top: 50px">
             <div class="row mat-elevation-z20 bg-white">
                 <div class="col-md-4">

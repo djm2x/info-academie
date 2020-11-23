@@ -6,7 +6,8 @@
 
 @section('content')
 
-    <section class="{{ app()->getLocale() == 'fr' ? 'profs text-left container px-0' : 'profs text-right container px-0' }}">
+    <section class="{{ app()->getLocale() == 'fr' ? 'profs text-left px-0 bg-white' : 'profs text-right px-0 bg-white' }}">
+        <div class="container">
         <div class=" flex-column d-flex justify-content-center align-items-center mt-5">
 
             <div class="d-flex flex-wrap justify-content-center align-items-center pt-5 mb-3">
@@ -163,6 +164,7 @@
                 </nav>
             </div> --}}
         </div>
+    </div>
     </section>
 @stop
 

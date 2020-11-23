@@ -3,7 +3,7 @@
   border: 0;
   clear: both;
   display: block;
-  /* margin: 2.4rem auto; */
+  margin: 2.4rem auto;
   text-align: center;
   width: 100%;
   color: white;
@@ -43,9 +43,8 @@
 }
 </style>
 
-<div>
-
+<div class="d-flex justify-content-center align-items-center" style="height: 100px; background-color: white">
+    <hr class="progress2" >
 </div>
-<hr class="progress2" >
 
 

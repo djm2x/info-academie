@@ -1,10 +1,10 @@
 
 
-<div class="fixed-top mat-elevation-z6" style="background-color: var(--primary)">
+<div class="fixed-top mat-elevation-z6">
 
-    <nav class="container  navbar navbar-expand-lg navbar-light px-0 py-2">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    <nav class="container  navbar navbar-expand-lg navbar-dark bg-dark"  style="background-color: var(--primary) !important">
+        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white"></span>
         </button>
         <a class="navbar-brand" href="/">
             {{-- <img src="assets/icon.png" style="width: 30px; height: 30px;" onerror="this.onerror=null;this.src='/assets/icon.png';"> --}}

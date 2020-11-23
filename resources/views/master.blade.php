@@ -20,10 +20,10 @@
     @include('navone')
 
 
-    <main class=" w-100">
+    <main class=" w-100 bg-white">
         {{-- @include('reading-progress-bar')
         @include('reading-progress') --}}
-        <div class="img1">
+        <div class="img10">
 
             @yield('content')
         </div>
