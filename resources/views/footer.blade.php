@@ -12,7 +12,7 @@
         position: absolute;
         content: '';
         z-index: -1;
-        background-color:  #5711a5;
+        background-color:  var(--primary);
         height: 100%;
         width: 100%;
     }

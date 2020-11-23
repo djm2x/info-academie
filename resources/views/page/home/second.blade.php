@@ -8,7 +8,7 @@
 </style>
 
 
-<section class="first">
+<section class="first bg-white">
     <div class="container d-flex flex-column justify-content-center align-items-center">
 
 

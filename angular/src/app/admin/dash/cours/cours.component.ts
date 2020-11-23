@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { DownloadSheetComponent } from 'src/app/manage-files/download-sheet/download-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { SessionService } from 'src/app/shared';
 
 @Component({
   selector: 'app-cours',
@@ -41,12 +42,13 @@ export class CoursComponent implements OnInit, OnDestroy {
   niveauScolaires = this.uow.niveauScolaires.get();
   branches = null;
 
-  constructor(public uow: UowService, public dialog: MatDialog
+  constructor(public uow: UowService, public dialog: MatDialog, public session: SessionService
     , private bottomSheet: MatBottomSheet, @Inject('BASE_URL') private url: string) {
   }
 
   ngOnInit() {
-    const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(r => {
+    if (this.session.isStudent) {
+      const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(r => {
         r === true ? this.paginator.pageIndex = 0 : r = r;
         !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
@@ -63,9 +65,10 @@ export class CoursComponent implements OnInit, OnDestroy {
 
         );
       }
-    );
+      );
+      this.subs.push(sub);
+    }
 
-    this.subs.push(sub);
   }
 
   selectChange(id: number) {
@@ -95,16 +98,19 @@ export class CoursComponent implements OnInit, OnDestroy {
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche) {
-    const sub = this.uow.cours.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche).subscribe(
-      (r: any) => {
-        console.log(r.list);
-        this.dataSource = r.list;
-        this.resultsLength = r.count;
-        this.isLoadingResults = false;
-      }
-    );
+    if (this.session.isStudent) {
+      const sub = this.uow.cours.getAll(startIndex, pageSize, sortBy, sortDir, nom, nomAr, idNiveauScolaire, idBranche).subscribe(
+        (r: any) => {
+          console.log(r.list);
+          this.dataSource = r.list;
+          this.resultsLength = r.count;
+          this.isLoadingResults = false;
+        }
+      );
 
-    this.subs.push(sub);
+      this.subs.push(sub);
+    }
+
   }
 
   ngOnDestroy(): void {

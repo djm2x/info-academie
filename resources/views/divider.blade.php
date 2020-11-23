@@ -3,9 +3,11 @@
   border: 0;
   clear: both;
   display: block;
-  margin: 2.4rem auto;
+  /* margin: 2.4rem auto; */
   text-align: center;
   width: 100%;
+  color: white;
+  z-index: 5;
 }
 
 /* -- Animated hr -- */
@@ -41,7 +43,9 @@
 }
 </style>
 
+<div>
+
+</div>
+<hr class="progress2" >
 
 
-
-<hr class="progress2">

@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submitCodeCommingFromEmail() {
     this.uow.accounts.activeAccount(this.code).subscribe((r: { message: string, code: number } | any) => {
-      if (r.code < 0) {
+      if (r.code <= 0) {
         this.snackBar.notifyAlert(400, r.message);
       } else {
         this.snackBar.notifyOk(200, r.message);

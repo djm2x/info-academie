@@ -20,7 +20,7 @@ export class StudentComponent implements OnInit {
   student = new Student();
   hide = true;
   hide2 = true;
-  niveaux = this.uow.niveaux;
+  niveaux = this.uow.niveauScolaires.get();
   villes = this.uow.villes.get();
 
   checkPassword = new FormControl('', [Validators.required]);

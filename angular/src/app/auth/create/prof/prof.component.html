@@ -76,7 +76,7 @@
 
                             <button matStepperNext class="ml-3" mat-raised-button color="primary"
                                 [disabled]="myForm.invalid || checkPasswordError !== ''"
-                                type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+                                type="button">{{ 'auth.create.Suivant' | translate  }}</button>
 
                             <button mat-raised-button [routerLink]="['/auth/create/choose']" >Retour</button>
                         </div>
@@ -145,7 +145,7 @@
 
                             <button matStepperNext mat-raised-button color="primary"
                                 [disabled]="myForm.invalid || checkPasswordError !== ''"
-                                type="button">{{ 'auth.create.prof.Next' | translate  }}</button>
+                                type="button">{{ 'auth.create.Suivant' | translate  }}</button>
 
                             <button mat-raised-button matStepperPrevious>Retour</button>
                         </div>
@@ -218,7 +218,7 @@
 
                     <button mat-raised-button color="primary" [disabled]="myForm.invalid || checkPasswordError !== ''"
                         type="submit"
-                        (click)="submit(myForm.value, myFormProf.value)">{{ 'auth.create.prof.Valider' | translate  }}</button>
+                        (click)="submit(myForm.value, myFormProf.value)">{{ 'auth.create.Valider' | translate  }}</button>
 
 
                     <button mat-raised-button matStepperPrevious>Retour</button>

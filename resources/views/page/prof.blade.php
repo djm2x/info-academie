@@ -9,7 +9,7 @@
 @section('content')
 <section class="prof">
     <div class="p-4 mb-5 container" style="margin-top: 50px">
-            <div class="row mat-elevation-z20 ">
+            <div class="row mat-elevation-z20 bg-white">
                 <div class="col-md-4">
                     <img src="{{strpos($model->user->imageUrl, 'http') !== false ? $model->user->imageUrl : url('users/'.$model->user->id.'/'.str_replace(';', '', $model->user->imageUrl))}}"
                     onerror="this.onerror=null;this.src='/assets2/profe.jpg';" class="p-2 rounded-circle" alt="..." style="width: 200px; height: 200px;">

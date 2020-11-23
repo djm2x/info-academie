@@ -76,7 +76,7 @@
                     @foreach ($profs as $e)
 
                     <div class="col-md-12 p-1 ">
-                        <div class="card mat-elevation-z8">
+                        <div class="card mat-elevation-z8 bg-white">
                             <div class="row my-2">
                                 <div class="col-md-4">
                                     <div class="d-flex flex-column justify-content-center align-items-center ml-2">

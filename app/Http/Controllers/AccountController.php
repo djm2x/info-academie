@@ -76,6 +76,8 @@ class AccountController extends SuperController
             return ['code' => -1, 'message' => 'Email érroné'];
         } else if ($user->password != $password) {
             return ['code' => 0, 'message' => 'Mot de passe érroné'];
+        } else if ($user->isActive == false) {
+            return ['code' => -2, 'message' => "Veuillez patienter que votre compte soit active par l'administration"];
         }
 
         // $user->password = "";
@@ -123,6 +125,8 @@ class AccountController extends SuperController
         if (env('DB_CONNECTION') == 'sqlite') {
             $model['id'] = null;
         }
+
+        $model['isActive'] = false;
 
         return $this->_context->create($model);
     }

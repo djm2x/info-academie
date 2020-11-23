@@ -22,6 +22,8 @@ import { FileUploadService } from './file.upload.service';
 import { EventProfService } from './eventProf.service';
 import { DiscussionService } from './discussion.service';
 
+import config from '../../assets/json/config.json';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,7 +51,7 @@ export class UowService {
   files = new FileUploadService();
   eventProfs = new EventProfService();
 
-
+  config = config;
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');
   cycles = this.http.get<{ id: number, name: string, nameAr: string }[]>('assets/json/cycles.json');
   offres = this.http.get<{ id: number, pack: string, description: string, btn: string, options: string[] }[]>('assets/json/offres.json');

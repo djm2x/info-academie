@@ -1,4 +1,4 @@
-<section class="first d-flex justify-content-center align-items-center">
+<section class="first bg-white d-flex justify-content-center align-items-center">
     <div class="container pt-5">
 
 
@@ -15,7 +15,7 @@
                 <a href="/auth/create" class="btn btn-purple font-weight-bolder" style="width: 277px; font-size: 1.5em;">Crée votre compte</a>
             </div>
             <div class="col-md-6 px-0 d-none d-sm-block" >
-                <img src="assets2/home.jpg" alt="" srcset="" style="width: 100%">
+                <img src="assets2/home.png" alt="" srcset="" style="width: 100%">
             </div>
         </div>
     </div>

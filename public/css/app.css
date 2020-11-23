@@ -68,6 +68,30 @@ body #btn {
   cursor: pointer;
 }
 
+body main {
+  position: relative;
+}
+
+body main::before {
+  position: absolute;
+  content: "";
+  z-index: -1;
+  height: 55vh;
+  width: 100vw;
+  background-color: ghostwhite;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 84%, 0% 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 84%, 0% 100%);
+  color: white;
+}
+
+body main .img1 {
+  background-image: url(/images/slide1.jpg?dc4343e1ea6cfc4d04b064abef2777c3);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .mat-elevation-z0 {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
 }
@@ -11071,18 +11095,6 @@ a.text-dark:focus {
   }
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  width: 35px;
-  height: 35px;
-}
-
-.card {
-  border: none;
-  border-radius: 0;
-  z-index: 1;
-}
-
 .btn-purple {
   background-color: #9561e2;
   color: white;
@@ -11116,28 +11128,40 @@ a.text-dark:focus {
 
 body {
   font-family: "Montserrat";
+  --primary: #5711a5;
 }
 
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #5711a5;
-  border-color: #5711a5;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .page-link {
-  color: #5711a5;
+  color: var(--primary);
 }
 
 .btn-outline-secondary {
-  color: #5711a5;
-  border-color: #5711a5;
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 .btn-outline-secondary:hover {
   color: #fff;
-  background-color: #5711a5;
-  border-color: #5711a5;
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline-white {
+  color: white;
+  border-color: white;
+}
+
+.btn-outline-white:hover {
+  color: var(--primary);
+  background-color: white;
+  border-color: white;
 }
 
 .form-control:focus {
@@ -11146,5 +11170,17 @@ body {
   border-color: #5611a59a;
   outline: 0;
   box-shadow: 0 0 0 0.2rem #5611a569;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.card {
+  border: none;
+  border-radius: 0;
+  z-index: 1;
 }
 

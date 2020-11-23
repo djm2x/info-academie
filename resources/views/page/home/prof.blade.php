@@ -1,4 +1,4 @@
-<section class="profs">
+<section class="profs bg-white">
     <div class="py-2" style="background-color: white">
         <div class="container">
             <div class="col-md-12 justify-content-center">

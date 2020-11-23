@@ -35,7 +35,7 @@
 
 </style>
 
-<section class="activites">
+<section class="activites bg-white">
     <div class="py-5" style="background-color: #c9a4ff1a">
     <div class="container">
 

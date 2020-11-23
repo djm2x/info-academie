@@ -94,7 +94,7 @@ export class ChatHubService {
   }
 
   public stopConnection() {
-    this.echo.disconnect();
+    // this.echo.disconnect();
   }
 
 }

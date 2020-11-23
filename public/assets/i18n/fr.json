@@ -9,7 +9,31 @@
       "Répéterlemotdepass": "Répéter le mot de pass",
       "Role": "Role",
       "Inscription": "Inscription",
-      "Connexion": "Connexion"
+      "Connexion": "Connexion",
+      "Ville": "Ville",
+      "tel1": "Tel1",
+      "tel2": "Tel2",
+      "Adresse": "Adresse",
+      "Suivant": "Suivant",
+      "Valider": "Valider",
+      "NomParent": "NomParent",
+      "PrenomParent": "PrenomParent",
+      "Ecole": "Ecole",
+      "Tel1Parent": "Tel1 Parent",
+      "Tel2Parent": "Tel2 Parent",
+      "Niveau": "Niveau",
+      "Intro": "Intro",
+      "Description": "Description",
+      "Experience": "Experience",
+      "Approche": "Approche",
+      "VideoUrl": "VideoUrl",
+      "CvUrl": "CvUrl",
+      "PrixHrWeb": "Prix Hr Web",
+      "PrixHrHome": "Prix Hr Home",
+      "PrixHrWebGroupe": "Prix Hr WebGroupe",
+      "PrixHrHomeGroupe": "Prix Hr Home Groupe"
+
+
     }
   },
   "admin": {

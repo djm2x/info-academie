@@ -35,7 +35,8 @@ export class OffreComponent implements OnInit {
   getOffresStudents() {
     const names = ['1ére Primaire', '2éme Primaire', '3éme Primaire', '4éme Primaire', '5éme Primaire', '6éme Primaire', '1ére Collège', '2éme Collège', '3éme Collège', 'Tronc commun', '1ére Bac', '2éme Bac',];
 
-    this.uow.niveauScolaires.getAll2().subscribe(r => {
+    this.uow.niveauScolaires.get().subscribe(r => {
+      console.log(r)
       this.offresStudents = [
         { name: 'Cours à domicile individuel', list: r.map((e, i) => ({ name: names[i], value: e.coursDomicileIndividuel })) },
         { name: 'Cours à domicile groupe « 3 personnes » ', list: r.map((e, i) => ({ name: names[i], value: e.coursDomicileGroupe })) },

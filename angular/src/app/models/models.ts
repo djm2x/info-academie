@@ -6,7 +6,7 @@ export class User {
   tel2 = '00';
   email = '';
   password = '';
-  isActive = 0;
+  isActive = false;
   date = new Date();
   adresse = 'temara';
   imageUrl = '';
@@ -133,7 +133,7 @@ export class Prof {
 export class Student {
   id = 0;
   ecole = 'ecole';
-  niveau = '2';
+  niveau = 1;
   nomParent = 'nomParent';
   prenomParent = 'prenomParent';
   tel1Parent = 'tel1Parent';

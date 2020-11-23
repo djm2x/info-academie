@@ -5,6 +5,7 @@ import { AdminComponent } from './admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatModule } from '../mat.module';
+import { ThemeModule } from '../shared/theme.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MatModule } from '../mat.module';
     ReactiveFormsModule,
     HttpClientModule,
     MatModule,
+    ThemeModule,
   ]
 })
 export class AdminModule { }

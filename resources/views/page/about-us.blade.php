@@ -7,7 +7,7 @@
 @section('content')
 <section class="about-us" >
     <div class="{{ app()->getLocale() == 'fr' ? 'text-left container px-0' : 'text-right container px-0' }}" style=" margin-top: 100px;">
-        <div class="d-flex flex-wrap justify-content-center  mat-elevation-z20 align-items-center mt-3 mb-3 p-2">
+        <div class="d-flex flex-wrap justify-content-center  mat-elevation-z20 bg-white align-items-center mt-3 mb-3 p-2">
             <div class="col-md-6">
                 <h1 class="font-weight-bolder mb-5 text-purple" style="font-size: 3em">Qui sommes nous</h1>
 

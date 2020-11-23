@@ -1,4 +1,4 @@
-<mat-toolbar color="warn" class="mat-elevation-z6">
+<mat-toolbar color="primary" class="mat-elevation-z6">
   <mat-toolbar-row>
     <button mat-button (click)="snav.toggle()" routerLinkActive="active">
       <mat-icon>menu</mat-icon>
@@ -7,6 +7,8 @@
     <a class="ml-3 mat-raised-button mat-button-base" [href]="url" target="_blank" rel="noopener noreferrer">Vers le site</a>
     <!-- <button mat-raised-button class="ml-5" [routerLink]="['/desktop']">Systeme-info</button> -->
     <span style="flex: 1 1 auto;"></span>
+
+    <app-theme></app-theme>
 
     <button mat-button [matMenuTriggerFor]="beforeMenu">
       {{profile.name}} <b>({{profile.role}})</b>

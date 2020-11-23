@@ -7,6 +7,7 @@
 
 
 @section('content')
+<div>
 
     @include('page.home.first')
     @include('divider')
@@ -19,6 +20,7 @@
     {{-- @include('page.home.school', ['typeActivites' => $typeActivites])
     @include('divider') --}}
     {{-- @include('page.home.aide', ['videos' => $videos]) --}}
+</div>
 
 @stop
 

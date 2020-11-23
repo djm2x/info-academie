@@ -22,10 +22,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
 
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+// import { ThemeModule } from './shared/theme.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     MatSnackBarModule,
     MatDialogModule,
     //
+    // ThemeModule,
     // FormsModule,
     BrowserAnimationsModule,
     LoaderModule,

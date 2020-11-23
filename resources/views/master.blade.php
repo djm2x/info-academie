@@ -12,15 +12,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @yield('styles')
-
-    <style>
-        .mybtn {
-            padding: 2px 2px;
-            font-size: .8em;
-        }
-    </style>
-
-
 </head>
 
 <body style="{{ app()->getLocale() == 'fr' ? 'direction: ltr' : 'direction: rtl' }}">
@@ -29,10 +20,13 @@
     @include('navone')
 
 
-    <main class="mymain w-100">
+    <main class=" w-100">
         {{-- @include('reading-progress-bar')
         @include('reading-progress') --}}
-        @yield('content')
+        <div class="img1">
+
+            @yield('content')
+        </div>
     </main>
 
     <footer>

@@ -1,49 +1,65 @@
-import { Component, HostBinding, Inject, NgModule, OnInit, ViewChild } from '@angular/core';
-import {  FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, Inject, NgModule, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import {MatSlideToggle, MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-theme',
   template: `
-    <mat-slide-toggle #slide color="warn"  (change)="changeTheme($event.checked)"></mat-slide-toggle>
-    <!-- [formControl]="isChecked" -->
+    <!-- <mat-slide-toggle #slide color="warn" [formControl]="isChecked"></mat-slide-toggle> -->
+
+    <button mat-button [matMenuTriggerFor]="beforeMenuTheme">
+      theme
+    </button>
+    <mat-menu #beforeMenuTheme="matMenu" xPosition="before">
+      <!-- <button mat-menu-item (click)="changeTheme()">Se déconnecter</button> -->
+      <mat-radio-group [formControl]="theme" class="d-flex flex-column p-2">
+        <mat-radio-button matRipple value="gen-theme">gen-theme</mat-radio-button>
+        <mat-radio-button matRipple value="default-theme">default-theme</mat-radio-button>
+        <mat-radio-button matRipple value="dark-theme">dark-theme</mat-radio-button>
+      </mat-radio-group>
+    </mat-menu>
   `,
   styles: [`
 
   `]
 })
 export class ThemeComponent implements OnInit {
-  // @HostBinding('class.default-theme') defaultTheme = true;
-  // @HostBinding('class.dark-theme') darkTheme = false;
   isChecked = new FormControl(false);
-  @ViewChild('slide') slide: MatSlideToggle;
+  theme = new FormControl('default-theme');
 
   constructor(private overlayContainer: OverlayContainer, @Inject(DOCUMENT) private document: Document) { }
 
-
   ngOnInit() {
-
-
-
-    const isChecked: boolean = JSON.parse(localStorage.getItem('checked') ?? 'false');
+    const theme: string = localStorage.getItem('theme') ?? 'default-theme';
+    // const isChecked: boolean = JSON.parse(localStorage.getItem('checked') ?? 'false');
 
     // first run
-    this.isChecked.setValue(isChecked);
-    this.changeTheme(isChecked);
+    this.theme.setValue(theme);
+    setTimeout(() => {
+      this.changeTheme(theme);
+
+    }, 500);
 
     // on every change
-    this.isChecked.valueChanges.subscribe((checked: boolean) => this.changeTheme(checked));
+    this.theme.valueChanges.subscribe((t: string) => this.changeTheme(t));
+    // this.isChecked.valueChanges.subscribe((checked: boolean) => this.changeTheme(checked));
   }
 
-  changeTheme(checked: boolean) {
-    console.log(checked)
-    console.log(this.slide)
+  changeTheme(theme: string) {
+    localStorage.setItem('theme', theme);
+
+    document.body.querySelector('app-root').className = theme;
+
+    this.themeForBtnNav(theme);
+  }
+
+  changeTheme0(checked: boolean) {
     localStorage.setItem('checked', JSON.stringify(checked));
-    // this.defaultTheme = !checked;
-    // this.darkTheme = checked;
-    // this.service.filter = checked ? 'brightness(85%)' : '';
 
     document.body.querySelector('app-root').className = checked ? 'dark-theme' : 'default-theme';
 
@@ -70,6 +86,9 @@ export class ThemeComponent implements OnInit {
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatRadioModule,
   ],
   exports: [
     ThemeComponent
