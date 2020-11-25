@@ -10,6 +10,7 @@ import { MatModule } from '../mat.module';
 import { ResetComponent } from './reset/reset.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MyTranslateService } from '../my.translate.service';
+import { ThemeModule } from '../shared/theme.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MyTranslateService } from '../my.translate.service';
     HttpClientModule,
     MatModule,
     TranslateModule,
+    ThemeModule,
   ]
 })
 export class AuthModule {

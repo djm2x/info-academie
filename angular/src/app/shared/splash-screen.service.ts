@@ -21,7 +21,7 @@ export class SplashScreenService {
     if (this.splashScreenElem) {
       this.router.events.pipe(
         map((e: Event) => {
-          // console.log(e.url);
+          // console.log(e);
           return e;
         }),
         filter(event => event instanceof NavigationEnd),

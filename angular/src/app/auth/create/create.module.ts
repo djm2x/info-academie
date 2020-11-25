@@ -11,6 +11,7 @@ import { MatModule } from 'src/app/mat.module';
 import { ChooseComponent } from './choose/choose.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
+import { ThemeModule } from 'src/app/shared/theme.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
     MatModule,
     TranslateModule,
     ManageFilesModule,
+    ThemeModule,
   ]
 })
 export class CreateModule { }

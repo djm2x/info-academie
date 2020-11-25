@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" href="assets/fav.png" />
 </head>
 
-<body>
+<body class="mat-typography mat-app-background">
   <style>
     body {
       --background: #ffffff;
@@ -30,7 +30,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: var(--background);
+      /* background: var(--background); */
       z-index: 99999;
       pointer-events: none;
     }
@@ -46,7 +46,7 @@
     .footer p {
       margin: 0;
       font-weight: bold;
-      color: var(--footer-text-color);
+      /* color: var(--footer-text-color); */
     }
 
     .circle {
@@ -100,17 +100,17 @@
     }
   </style>
 
-  <div id="splash-screen">
+  <div id="splash-screen" class="mat-app-background">
     <div class="header">
-      <img src="assets/icon.jpg" width="250">
+      <img src="assets/icon.png" width="250">
     </div>
     <div class="circle">
       <div class="spinner"></div>
-      <div class="inner-circle"></div>
+      <div class="inner-circle mat-app-background"></div>
     </div>
     <div class="footer">
-      <img src="assets/fav.png" width="35">
-      <p>&copy; <span id="date"></span>&nbsp;info-academie</p>
+      <!-- <img src="assets/fav.png" width="35"> -->
+      <p>&copy; 2019-<span id="date"></span>&nbsp;info-academie</p>
     </div>
   </div>
   <app-root></app-root>

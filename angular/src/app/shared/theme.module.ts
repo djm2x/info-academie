@@ -6,17 +6,13 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-theme',
   template: `
-    <!-- <mat-slide-toggle #slide color="warn" [formControl]="isChecked"></mat-slide-toggle> -->
-
-    <button mat-button [matMenuTriggerFor]="beforeMenuTheme">
-      theme
-    </button>
+    <button mat-button [matMenuTriggerFor]="beforeMenuTheme" color="primary"><mat-icon>palette</mat-icon></button>
     <mat-menu #beforeMenuTheme="matMenu" xPosition="before">
-      <!-- <button mat-menu-item (click)="changeTheme()">Se déconnecter</button> -->
       <mat-radio-group [formControl]="theme" class="d-flex flex-column p-2">
         <mat-radio-button matRipple value="gen-theme">gen-theme</mat-radio-button>
         <mat-radio-button matRipple value="default-theme">default-theme</mat-radio-button>
@@ -29,41 +25,34 @@ import { MatRadioModule } from '@angular/material/radio';
   `]
 })
 export class ThemeComponent implements OnInit {
-  isChecked = new FormControl(false);
   theme = new FormControl('default-theme');
+
+  list = [
+    {id: 'gen-theme', name: 'gen-theme'},
+    {id: 'default-theme', name: 'default-theme'},
+    {id: 'dark-theme', name: 'dark-theme'},
+  ];
 
   constructor(private overlayContainer: OverlayContainer, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
-    const theme: string = localStorage.getItem('theme') ?? 'default-theme';
-    // const isChecked: boolean = JSON.parse(localStorage.getItem('checked') ?? 'false');
+    const theme: string = localStorage.getItem('theme') ?? this.list[0].id;
 
     // first run
     this.theme.setValue(theme);
-    setTimeout(() => {
-      this.changeTheme(theme);
-
-    }, 500);
+    this.changeTheme(theme);
 
     // on every change
     this.theme.valueChanges.subscribe((t: string) => this.changeTheme(t));
-    // this.isChecked.valueChanges.subscribe((checked: boolean) => this.changeTheme(checked));
   }
 
   changeTheme(theme: string) {
     localStorage.setItem('theme', theme);
 
-    document.body.querySelector('app-root').className = theme;
+    // document.body.querySelector('app-root').className = theme;
+    document.body.className = theme + ' mat-typography mat-app-background';
 
     this.themeForBtnNav(theme);
-  }
-
-  changeTheme0(checked: boolean) {
-    localStorage.setItem('checked', JSON.stringify(checked));
-
-    document.body.querySelector('app-root').className = checked ? 'dark-theme' : 'default-theme';
-
-    this.themeForBtnNav(checked ? 'dark-theme' : 'default-theme');
   }
 
   themeForBtnNav(theme) {
@@ -89,6 +78,7 @@ export class ThemeComponent implements OnInit {
     MatMenuModule,
     MatButtonModule,
     MatRadioModule,
+    MatIconModule,
   ],
   exports: [
     ThemeComponent

@@ -1,33 +1,28 @@
 <div class="row justify-content-center align-items-center w-100" style="height: 100vh;">
+    <mat-card class="mat-elevation-z8 w-100">
+      <app-theme></app-theme>
+        <div class="row py-4 px-2">
+            <div class="col-md-6 myselect mat-elevation-z1" [routerLink]="['/auth/create/prof']">
+              <h2 class="mytitle">Professeur</h2>
+              <img src="assets/prof.png" alt="" style="width: 100%;">
+          </div>
 
-
-    <mat-card class="mat-elevation-z8">
-
-        <div class="row p-2">
-
-
-            <div class="d-flex flex-column justify-content-between">
-                <img src="assets/prof.jpg" alt="" style="width: 350px;">
-                <button mat-raised-button [routerLink]="['/auth/create/prof']" style="height: 50px;" color="primary" class="mx-2 mt-2">Prof</button>
-            </div>
-
-            <mat-divider [vertical]="true"> </mat-divider>
-
-            <div class="d-flex flex-column justify-content-between">
-                <img src="assets/student.jpg" alt="" style="width: 350px;">
-                <button mat-raised-button [routerLink]="['/auth/create/student']" style="height: 50px;" color="accent" class="mx-2 mt-2">Student</button>
-
-            </div>
+          <div class="col-md-6 myselect mat-elevation-z1" [routerLink]="['/auth/create/student']">
+            <h2 class="mytitle">Etudiant</h2>
+              <img src="assets/student.png" alt="" style="width: 90%;">
+          </div>
         </div>
 
-        <button class="col-md-12 my-3" mat-raised-button color="warn" [routerLink]="['/auth']"
-        type="submit">Connexion</button>
+        <mat-divider>
+        </mat-divider>
+        <div class="row justify-content-between py-4 px-2">
+          <button class="col-md-4" mat-raised-button color="primary" [routerLink]="['/auth']"
+          type="submit">Connexion</button>
 
-        <!-- <a class="mt-3 mat-raised-button mat-button-base" [href]="url" target="_blank" rel="noopener noreferrer">
-            Vers le site
-         </a> -->
 
-         <button mat-raised-button [routerLink]="['/auth/create/choose']" >Retour</button>
+
+          <button class="col-md-4" mat-raised-button color="accent" [routerLink]="['/auth/login']" >Retour</button>
+        </div>
 
 
     </mat-card>
