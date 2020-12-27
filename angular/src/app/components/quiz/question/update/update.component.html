@@ -1,0 +1,46 @@
+<div class="">
+
+  <form [formGroup]="myForm">
+    <mat-form-field appearance="fill" class="col-md-10">
+      <mat-label>Question</mat-label>
+      <textarea matInput formControlName="value"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="col-md-2">
+      <mat-label>time (s)</mat-label>
+      <input matInput formControlName="time" required>
+    </mat-form-field>
+
+    <p class="col-md-12">Ajouter les chois et Cocher les reponse just</p>
+    <div class="col-md-12 px-0">
+      <div *ngFor="let e of listChoisesForm.controls; index as i;">
+        <div class="">
+          <mat-form-field appearance="fill" class="col-md-10">
+            <mat-label>Chois {{ i+1 }}</mat-label>
+            <input #text matInput [formControl]="listChoisesForm.controls[i]"
+              (change)="handleResponses(checkBox.checked, text.value, i)" required>
+
+            <mat-checkbox #checkBox matSuffix (change)="handleResponses(checkBox.checked, e.value, i)"></mat-checkbox>
+          </mat-form-field>
+          <button *ngIf="i > 0" mat-icon-button
+            (click)="listChoisesForm.removeAt(i);handleResponses(checkBox.checked, e.value, i);">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <!-- [disabled]="listForm.controls.length === 0 || listForm.controls[listForm.controls.length - 1]" -->
+      <button class="ml-3" mat-raised-button type="button" (click)="add()">
+        <mat-icon>add</mat-icon> Choix
+      </button>
+    </div>
+
+    {{o | json}}
+
+    <div class="d-flex flex-row-reverse mb-2 mr-2">
+      <button mat-raised-button color="primary" (click)="submit(myForm.getRawValue())">
+        <mat-icon>{{o.id === 0 ? 'add' : 'create'}}</mat-icon> Quiz
+      </button>
+    </div>
+
+  </form>
+</div>

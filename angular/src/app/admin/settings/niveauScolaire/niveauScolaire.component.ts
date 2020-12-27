@@ -64,7 +64,7 @@ export class NiveauScolaireComponent implements OnInit, OnDestroy {
     );
 
     this.subs.push(sub);
-
+    localStorage.setItem('tabIndexNiveauScolaire', '0');
   }
 
   reset() {

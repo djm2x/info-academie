@@ -48,16 +48,16 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.session.isStudent) {
-      const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(r => {
-        r === true ? this.paginator.pageIndex = 0 : r = r;
-        !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
-        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        this.isLoadingResults = true;
+      const sub = merge(...[/*this.sort.sortChange, this.paginator.page, */this.update]).pipe(startWith(null as any)).subscribe(r => {
+        // r === true ? this.paginator.pageIndex = 0 : r = r;
+        // !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
+        // const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        // this.isLoadingResults = true;
         this.getPage(
-          startIndex,
-          this.paginator.pageSize,
-          this.sort.active ? this.sort.active : 'id',
-          this.sort.direction ? this.sort.direction : 'desc',
+          0,
+          10,
+          'id',
+          'desc',
           this.nom.value === '' ? '*' : this.nom.value,
           this.nomAr.value === '' ? '*' : this.nomAr.value,
           this.idNiveauScolaire.value === 0 ? 0 : this.idNiveauScolaire.value,

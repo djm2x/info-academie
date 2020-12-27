@@ -1,16 +1,19 @@
 import { UowService } from 'src/app/services/uow.service';
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NiveauScolaire } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { CoursObsService } from '../cours-obs.service';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.scss']
 })
 export class UpdateComponent implements OnInit, OnDestroy {
+  @ViewChild('matTab', { static: true }) matTab: MatTabGroup;
   subs: Subscription[] = [];
 
   myForm: FormGroup;
@@ -24,7 +27,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   id = 0;
   parentObs = new Subject<number>();
   constructor(private fb: FormBuilder, private uow: UowService
-    , private route: ActivatedRoute, private router: Router) { }
+    , private route: ActivatedRoute, public coursObs: CoursObsService) { }
 
   async ngOnInit() {
     // this.o = this.data.model;
@@ -52,6 +55,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.parentObs.next(this.id);
       });
     }
+
+    this.handleTabIndex();
+  }
+
+  handleTabIndex() {
+    this.matTab.selectedIndex = +localStorage.getItem('tabIndexNiveauScolaire') ?? 0;
+  }
+
+  selectedTabChange(o: MatTabChangeEvent ) {
+    localStorage.setItem('tabIndexNiveauScolaire', o.index.toString());
   }
 
   submit(o: NiveauScolaire): void {
@@ -94,6 +107,8 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.subs.forEach(e => {
       e.unsubscribe();
     });
+
+    localStorage.setItem('tabIndexNiveauScolaire', 0 + '');
   }
 
 }

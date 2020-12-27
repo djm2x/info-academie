@@ -12,6 +12,8 @@ import { ManageFilesModule } from 'src/app/manage-files/manage-files.module';
 
 import { CoursComponent } from './cours/cours.component';
 import { UpdateCoursComponent } from './cours/update/update.component';
+import { QuizModule } from 'src/app/components/quiz/quiz.module';
+import { CoursObsService } from './cours-obs.service';
 
 @NgModule({
   declarations: [NiveauScolaireComponent, UpdateComponent, CoursComponent, UpdateCoursComponent],
@@ -22,9 +24,12 @@ import { UpdateCoursComponent } from './cours/update/update.component';
     MatModule,
     FormsModule,
     ReactiveFormsModule,
-    TitleModule,
+    // TitleModule,
     ManageFilesModule,
-
+    QuizModule,
+  ],
+  providers: [
+    CoursObsService,
   ]
 })
 export class NiveauScolaireModule { }

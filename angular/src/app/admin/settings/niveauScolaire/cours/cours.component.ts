@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy, Input, Output } from '@angular/core';
 import { merge, Subscription, Subject } from 'rxjs';
 import { UpdateCoursComponent } from './update/update.component';
 import { UowService } from 'src/app/services/uow.service';
@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { DownloadSheetComponent } from 'src/app/manage-files/download-sheet/download-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { CoursObsService } from '../cours-obs.service';
 
 @Component({
   selector: 'app-cours',
@@ -39,11 +40,12 @@ export class CoursComponent implements OnInit, OnDestroy {
   nomAr = new FormControl('');
   idNiveauScolaire = 0;
   @Input() parentObs = new Subject<number>();
+  @Output() tabChange = new Subject<number>();
   idBranche = new FormControl(0);
   branches;
 
   constructor(public uow: UowService, public dialog: MatDialog
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string
+    , private mydialog: DeleteService, public coursObs: CoursObsService
     , private bottomSheet: MatBottomSheet) {
   }
 
@@ -172,12 +174,12 @@ export class CoursComponent implements OnInit, OnDestroy {
     });
   }
 
-  detail(o: Cours) {
-    this.openDialog(o, `Détail Cours`, true).subscribe((result: Cours) => {
-      if (result) {
-        this.update.next(true);
-      }
-    });
+  addQuiz(o: Cours) {
+    this.coursObs.idCours = o.id;
+    this.tabChange.next(2);
+    this.coursObs.coursObs.next(o);
+
+    localStorage.setItem('tabIndexNiveauScolaire', '2');
   }
 
   async delete(o: Cours) {
@@ -191,59 +193,6 @@ export class CoursComponent implements OnInit, OnDestroy {
         const d = await this.uow.files.deleteFiles(deletes, 'cours').toPromise();
 
       }
-
-      this.subs.push(sub);
-    }
-  }
-
-  displayImage(urlImage: string) {
-    if (!urlImage) {
-      return 'assets/404.png';
-    }
-    if (urlImage && urlImage.startsWith('http')) {
-      return urlImage;
-    }
-
-    return `${this.url}/cours/${urlImage.replace(';', '')}`;
-  }
-
-  imgError(img: any) {
-    img.src = 'assets/404.png';
-  }
-
-  //check box
-  //
-  isSelected(row: Cours): boolean {
-    return this.selectedList.find(e => e.id === row.id) ? true : false;
-  }
-
-  check(row: Cours) {
-    const i = this.selectedList.findIndex(o => row.id === o.id);
-    const existe: boolean = i !== -1;
-
-    existe ? this.selectedList.splice(i, 1) : this.selectedList.push(row);
-  }
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected(): boolean {
-    const numSelected = this.selectedList.length;
-    const numRows = this.dataSource.length;
-
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ? this.selectedList = [] : this.selectedList = Array.from(this.dataSource);
-  }
-
-  async deleteList() {
-    const r = await this.mydialog.openDialog('role').toPromise();
-    if (r === 'ok') {
-      const sub = this.uow.cours.deleteRange(this.selectedList).subscribe(() => {
-        this.selectedList = [];
-        this.update.next(true);
-      });
 
       this.subs.push(sub);
     }

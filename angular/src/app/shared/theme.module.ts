@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-theme',
   template: `
-    <button mat-button [matMenuTriggerFor]="beforeMenuTheme" color="primary"><mat-icon>palette</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="beforeMenuTheme" color="accent"><mat-icon>palette</mat-icon></button>
     <mat-menu #beforeMenuTheme="matMenu" xPosition="before">
       <mat-radio-group [formControl]="theme" class="d-flex flex-column p-2">
         <mat-radio-button matRipple value="gen-theme">gen-theme</mat-radio-button>

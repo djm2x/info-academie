@@ -18,6 +18,31 @@ export class AdminComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   isMobileWidth = false;
   actuelRoute = this.router.url;
+  adminRoutes = [
+    { route: '/admin/settings/niveauScolaire', name: 'Niveau, Cours, Quiz' },
+    { route: '/admin/settings/branche', name: 'Branche' },
+    { route: '/admin/settings/activite', name: 'Activites' },
+    { route: '/admin/settings/contactUs', name: 'Contact Nous' },
+    { route: '/admin/settings/user', name: 'Users' },
+    { route: '/admin/settings/ville', name: 'Villes' },
+    { route: '/admin/settings/typeActivite', name: 'Type Activites' },
+    { route: '/admin/settings/typeCours', name: 'Type Cours' },
+    { route: '/admin/settings/lieuCours', name: 'lieu Cours' },
+    { route: '/admin/settings/video', name: 'Video' },
+    { route: '/admin/settings/offreProf', name: 'offre Prof' },
+    { route: '/admin/settings/eventProf', name: 'event Prof' },
+  ];
+
+  dashRoutes = [
+    { route: '/admin/dash/me', name: 'Moi' },
+    { route: '/admin/dash/profs', name: 'Profs' },
+    { route: '/admin/dash/chat', name: 'Message' },
+    { route: '/admin/dash/calendar', name: 'Calandrie' },
+    { route: '/admin/dash/cours', name: 'Cours' },
+    { route: '/admin/dash/info', name: 'Informations' },
+    { route: '/admin/dash/offre', name: 'Offres' },
+    // { route: '/admin/dash/facteurs', name: 'Facteurs' },
+  ];
   constructor(public session: SessionService, private router: Router
     , public myMedia: MediaService, @Inject('BASE_URL') public url: string
     , private toastr: ToastrService, public dialog: MatDialog

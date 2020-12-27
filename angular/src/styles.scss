@@ -3,7 +3,7 @@
 @import "../node_modules/bootstrap-css-only/css/bootstrap-grid.min.css";
 @import "../node_modules/bootstrap-css-only/css/bootstrap-reboot.min.css";
 // @import "../node_modules/bootstrap-css-only/css/bootstrap.min.css";
-@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/ngx-toastr/toastr.css";
 @import "./iconfont/material-icons.css";
 
@@ -41,15 +41,6 @@ body {
   overflow-x: hidden !important;
 }
 
-.green-snackbar {
-  background-color: green;
-  color: white;
-}
-
-.alert-snackbar {
-  background-color: #e45c0d;
-  color: white;
-}
 
 // dialogue css
 .dialog {

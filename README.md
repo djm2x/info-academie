@@ -93,3 +93,9 @@ import SampleJson from '../../assets/SampleJson.json';
 
 dans  tsconfig.json => 
 {  "compilerOptions": {  "resolveJsonModule": true, "esModuleInterop": true } }
+
+### add new migration => add new table or column
+php artisan make:migration create_quizs --table="table_name" 
+or
+php artisan make:model Response -mcrf
+php artisan migrate

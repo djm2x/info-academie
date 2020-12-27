@@ -23,6 +23,9 @@ import { EventProfService } from './eventProf.service';
 import { DiscussionService } from './discussion.service';
 
 import config from '../../assets/json/config.json';
+import { QuestionService } from './question.service';
+import { QuizService } from './quiz.service';
+import { ResponseService } from './response.service';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +53,10 @@ export class UowService {
   branches = new BrancheService();
   files = new FileUploadService();
   eventProfs = new EventProfService();
+
+  quizzes = new QuizService();
+  questions = new QuestionService();
+  responses = new ResponseService();
 
   config = config;
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');

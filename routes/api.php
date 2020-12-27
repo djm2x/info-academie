@@ -68,9 +68,22 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/contactUs/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{message}/{idUser}', 'ContactUsController@getAll');
     Route::apiResource('contactUs', 'ContactUsController');
 
+    // quizzes
+    Route::get('/quizzes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{idContext}', 'QuizController@getAll');
+    Route::apiResource('quizzes', 'QuizController');
+
+    // responses
+    Route::get('/responses/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{idContext}', 'ResponseController@getAll');
+    Route::apiResource('responses', 'ResponseController');
+
+    // questions
+    Route::get('/questions/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{idContext}', 'QuestionController@getAll');
+    Route::apiResource('questions', 'QuestionController');
+
     // niveauScolaires
     Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'NiveauScolaireController@getAll');
     Route::get('/niveauScolaires/getAll2', 'NiveauScolaireController@getAll2');
+    Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
     // cours
     Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}/{idBranche}', 'CoursController@getAll');
