@@ -16,11 +16,11 @@
       <div *ngFor="let e of listChoisesForm.controls; index as i;">
         <div class="">
           <mat-form-field appearance="fill" class="col-md-10">
-            <mat-label>Chois {{ i+1 }}</mat-label>
+            <mat-label>Choix {{ i+1 }}</mat-label>
             <input #text matInput [formControl]="listChoisesForm.controls[i]"
               (change)="handleResponses(checkBox.checked, text.value, i)" required>
 
-            <mat-checkbox #checkBox matSuffix (change)="handleResponses(checkBox.checked, e.value, i)"></mat-checkbox>
+            <mat-checkbox #checkBox matSuffix [checked]="myForm.get('responses').value.includes(e.value)" (change)="handleResponses(checkBox.checked, e.value, i)"></mat-checkbox>
           </mat-form-field>
           <button *ngIf="i > 0" mat-icon-button
             (click)="listChoisesForm.removeAt(i);handleResponses(checkBox.checked, e.value, i);">
@@ -34,7 +34,7 @@
       </button>
     </div>
 
-    {{o | json}}
+    <!-- {{o | json}} -->
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
       <button mat-raised-button color="primary" (click)="submit(myForm.getRawValue())">

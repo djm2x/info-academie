@@ -30,19 +30,27 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.handleChoises();
 
     this.parent.subscribe(r => {
-      console.log(r)
-      this.o = r.data;
-      this.createForm();
-      this.handleChoises();
+      if (r.data) {
+        this.o = r.data;
+        this.createForm();
+        this.handleChoises();
+      }
     });
   }
 
   handleChoises() {
     const list: string = this.myForm.get('choices').value;
+    const listR: string = this.myForm.get('responses').value;
+
+    this.listChoisesForm.controls = [];
 
     if (list) {
       this.listChoisesForm.removeAt(0);
       list.split(';').map(e => this.listChoisesForm.push(new FormControl(e)));
+    }
+
+    if (listR) {
+      listR.split(';').map((response, i) => this.listResponces.push({i, response}));
     }
 
     this.listChoisesForm.valueChanges.subscribe((r: string[]) => {
@@ -71,17 +79,17 @@ export class UpdateComponent implements OnInit, OnDestroy {
   submit(o: Question): void {
     let sub = null;
 
-    this.myForm.get('isMultiChoises').setValue(this.listResponces.length > 1);
+    o.isMultiChoises = this.listResponces.length > 1;
 
     if (o.id === 0) {
       sub = this.uow.questions.post(o).subscribe(r => {
-        // this.resetForm();
-        // this.parent.next({ update: true });
+        this.parent.next({ update: true });
+        this.resetForm();
       });
     } else {
       sub = this.uow.questions.put(o.id, o).subscribe(r => {
-        // this.resetForm();
-        // this.parent.next({ update: true });
+        this.parent.next({ update: true });
+        this.resetForm();
       });
     }
 
@@ -102,6 +110,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   }
 
   resetForm() {
+    this.listChoisesForm.controls = [];
     this.o = new Question();
     this.createForm();
   }
