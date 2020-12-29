@@ -20,7 +20,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   title = '';
 
   listChoisesForm = new FormArray([new FormControl('')]);
-  listResponces: {i: number, response: string}[] = [];
+  listResponces: string[] = [];
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -49,9 +49,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
       list.split(';').map(e => this.listChoisesForm.push(new FormControl(e)));
     }
 
+
+    this.listResponces = [];
     if (listR) {
-      listR.split(';').map((response, i) => this.listResponces.push({i, response}));
+      listR.split(';').map((response, i) => this.listResponces.push(response));
     }
+    console.log(this.listResponces)
 
     this.listChoisesForm.valueChanges.subscribe((r: string[]) => {
       if (r.filter(e => e.trim() !== '').length > 0) {
@@ -60,16 +63,16 @@ export class UpdateComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleResponses(checked: boolean, response: string, i: number) {
-    const index = this.listResponces.findIndex(e => e.i === i);
+  handleResponses(checked: boolean, response: string) {
+    const index = this.listResponces.findIndex(e => e.trim().toLowerCase() === response.trim().toLowerCase());
 
     if (checked) {
-      index === - 1 ? this.listResponces.push({i, response}) : this.listResponces.splice(index, 1);
+      index === - 1 ? this.listResponces.push(response) : this.listResponces.splice(index, 1);
     } else {
       this.listResponces.splice(index, 1)
     }
 
-    this.myForm.get('responses').setValue(this.listResponces.map(e => e.response).join(';'));
+    this.myForm.get('responses').setValue(this.listResponces.map(e => e).join(';'));
   }
 
   add() {

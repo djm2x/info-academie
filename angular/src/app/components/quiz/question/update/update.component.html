@@ -18,18 +18,19 @@
           <mat-form-field appearance="fill" class="col-md-10">
             <mat-label>Choix {{ i+1 }}</mat-label>
             <input #text matInput [formControl]="listChoisesForm.controls[i]"
-              (change)="handleResponses(checkBox.checked, text.value, i)" required>
+              (change)="handleResponses(checkBox.checked, text.value)" required>
 
-            <mat-checkbox #checkBox matSuffix [checked]="myForm.get('responses').value.includes(e.value)" (change)="handleResponses(checkBox.checked, e.value, i)"></mat-checkbox>
+            <mat-checkbox #checkBox matSuffix [checked]="listResponces.includes(e.value)" (change)="handleResponses(checkBox.checked, e.value)">
+            </mat-checkbox>
           </mat-form-field>
           <button *ngIf="i > 0" mat-icon-button
-            (click)="listChoisesForm.removeAt(i);handleResponses(checkBox.checked, e.value, i);">
+            (click)="listChoisesForm.removeAt(i);handleResponses(checkBox.checked, e.value);">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
       </div>
       <!-- [disabled]="listForm.controls.length === 0 || listForm.controls[listForm.controls.length - 1]" -->
-      <button class="ml-3" mat-raised-button type="button" (click)="add()">
+      <button class="ml-3" mat-raised-button type="button" (click)="add()" cdkFocusInitial>
         <mat-icon>add</mat-icon> Choix
       </button>
     </div>
@@ -37,8 +38,12 @@
     <!-- {{o | json}} -->
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
-      <button mat-raised-button color="primary" (click)="submit(myForm.getRawValue())">
+      <button mat-raised-button color="primary" [disabled]="myForm.invalid" (click)="submit(myForm.getRawValue())">
         <mat-icon>{{o.id === 0 ? 'add' : 'create'}}</mat-icon> Quiz
+      </button>
+      &nbsp;
+      <button mat-raised-button (click)="resetForm()">
+        <mat-icon>refresh</mat-icon>
       </button>
     </div>
 
