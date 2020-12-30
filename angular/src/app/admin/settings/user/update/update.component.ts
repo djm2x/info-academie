@@ -23,7 +23,7 @@ export class UpdateComponent implements OnInit {
   hide2 = true;
 
   villes = this.uow.villes.get();
-  niveaux = this.uow.niveaux;
+  branches = null;
 
   activites = this.uow.typeActivites.getAllWithActivites();
   niveauScolaires = this.uow.niveauScolaires.get();
@@ -64,6 +64,8 @@ export class UpdateComponent implements OnInit {
           console.log(this.prof)
         } else if (this.o.role === 'student') {
           this.student = await this.uow.students.getByIdUser(this.o.id).toPromise();
+
+          this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', +this.student.niveau);
         }
 
         this.initForms();
@@ -73,6 +75,10 @@ export class UpdateComponent implements OnInit {
     }
 
     this.optImage.imageFrom.subscribe(r => this.myForm.get('imageUrl').setValue(r));
+  }
+
+  selectChange(id: number) {
+    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', id);
   }
 
   initForms() {
@@ -119,7 +125,7 @@ export class UpdateComponent implements OnInit {
       adresse: [this.o.adresse, []],
       imageUrl: [this.o.imageUrl, []],
       cin: [this.o.cin, []],
-      role: ['prof'],
+      role: [this.o.role],
       idVille: [+this.o.idVille],
     });
   }
@@ -155,7 +161,8 @@ export class UpdateComponent implements OnInit {
     this.myFormStudent = this.fb.group({
       id: [this.student.id],
       ecole: [this.student.ecole, []],
-      niveau: [this.student.niveau, []],
+      niveau: [+this.student.niveau, []],
+      branche: [+this.student.branche, []],
       nomParent: [this.student.nomParent, []],
       prenomParent: [this.student.prenomParent],
       tel1Parent: [this.student.tel1Parent],
@@ -195,7 +202,7 @@ export class UpdateComponent implements OnInit {
 
       if (this.o.role === 'prof') {
         await this.uow.profs.put(prof.id, prof).toPromise();
-      } else if (this.o.role === 'prof') {
+      } else if (this.o.role === 'student') {
         await this.uow.students.put(student.id, student).toPromise();
       }
 

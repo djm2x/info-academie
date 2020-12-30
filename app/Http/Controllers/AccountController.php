@@ -6,15 +6,7 @@ use App\Prof;
 use App\Student;
 use Illuminate\Http\Request;
 use App\User;
-use Carbon\Carbon;
-use Tymon\JWTAuth\Claims\Issuer;
-use Tymon\JWTAuth\Claims\IssuedAt;
-use Tymon\JWTAuth\Claims\Expiration;
-use Tymon\JWTAuth\Claims\NotBefore;
-use Tymon\JWTAuth\Claims\Subject;
-use Tymon\JWTAuth\Claims\JwtId;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Facades\JWTFactory;
 
 // use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 

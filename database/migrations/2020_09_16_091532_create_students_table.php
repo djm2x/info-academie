@@ -17,6 +17,7 @@ class CreateStudentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('ecole')->nullable(true);
             $table->integer('niveau');
+            $table->integer('branche');
             $table->string('nomParent')->nullable(true);
             $table->string('prenomParent')->nullable(true);
             $table->string('tel1Parent')->nullable(true);

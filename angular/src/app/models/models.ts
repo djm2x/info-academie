@@ -134,6 +134,7 @@ export class Student {
   id = 0;
   ecole = 'ecole';
   niveau = 1;
+  branche = 1;
   nomParent = 'nomParent';
   prenomParent = 'prenomParent';
   tel1Parent = 'tel1Parent';

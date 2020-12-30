@@ -22,11 +22,11 @@ const routes: Routes = [
       { path: 'chat', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule) },
       // { path: 'calendar', component: MyCalendarComponent, },
       { path: 'calendar', loadChildren: () => import('./my-calendar/my-calendar.module').then(m => m.MyCalendarModule) },
+      { path: 'cours', loadChildren: () => import('./cours/cours.module').then(m => m.CoursModule) },
       { path: 'contactus', component: ContactusComponent, },
       { path: 'info', component: InfoComponent, },
       { path: 'profs', component: ProfsComponent, },
       { path: 'offre', component: OffreComponent, },
-      { path: 'cours', component: CoursComponent, },
     ]
   },
 ];

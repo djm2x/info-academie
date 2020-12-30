@@ -11,6 +11,7 @@ $factory->define(Student::class, function (Faker $faker) {
         //
         'ecole' => $faker->domainName ,
         'niveau' => $faker->numberBetween(1, 12) ,
+        'branche' => 1 ,
         'nomParent' => $faker->firstNameMale ,
         'prenomParent' => $faker->lastName ,
         'tel1Parent' => $faker->phoneNumber,

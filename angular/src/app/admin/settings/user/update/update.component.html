@@ -202,7 +202,7 @@
       <!-- {{myFormProf.value | json}} -->
 
 
-
+      {{o.role | json}}
 
 
       <form *ngIf="o.role === 'student'" [formGroup]="myFormStudent">
@@ -216,11 +216,19 @@
 
               <mat-form-field appearance="fill" class="col-md-6">
                   <mat-label>{{ 'auth.create.Niveau' | translate  }}</mat-label>
-                  <mat-select formControlName="niveau">
-                      <mat-option *ngFor="let e of niveaux | async" [value]="e.name">
-                          {{ e.name }}</mat-option>
+                  <mat-select formControlName="niveau" (selectionChange)="selectChange($event.value)">
+                      <mat-option *ngFor="let e of niveauScolaires | async" [value]="e.id">
+                          {{ e.nom }}</mat-option>
                   </mat-select>
               </mat-form-field>
+
+              <mat-form-field appearance="fill" class="col-md-6">
+                <mat-label>{{ 'auth.create.Branche' | translate  }}</mat-label>
+                <mat-select formControlName="branche">
+                    <mat-option *ngFor="let e of branches | async" [value]="e.id">
+                        {{ e.nom }}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
               <mat-form-field appearance="fill" class="col-md-6">
                   <mat-label>{{ 'auth.create.NomParent' | translate  }}</mat-label>

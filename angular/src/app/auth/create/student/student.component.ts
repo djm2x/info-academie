@@ -21,6 +21,7 @@ export class StudentComponent implements OnInit {
   hide = true;
   hide2 = true;
   niveaux = this.uow.niveauScolaires.get();
+  branches = null;
   villes = this.uow.villes.get();
 
   checkPassword = new FormControl('', [Validators.required]);
@@ -56,6 +57,10 @@ export class StudentComponent implements OnInit {
 
   }
 
+  selectChange(id: number) {
+    this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', id);
+  }
+
   createForm() {
     this.myForm = this.fb.group({
       id: [this.o.id],
@@ -80,6 +85,7 @@ export class StudentComponent implements OnInit {
       id: [this.student.id],
       ecole: [this.student.ecole, []],
       niveau: [this.student.niveau, []],
+      branche: [this.student.branche, []],
       nomParent: [this.student.nomParent, []],
       prenomParent: [this.student.prenomParent],
       tel1Parent: [this.student.tel1Parent],

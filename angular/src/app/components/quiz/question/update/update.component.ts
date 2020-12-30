@@ -69,7 +69,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     if (checked) {
       index === - 1 ? this.listResponces.push(response) : this.listResponces.splice(index, 1);
     } else {
-      this.listResponces.splice(index, 1)
+      this.listResponces.splice(index, 1);
     }
 
     this.myForm.get('responses').setValue(this.listResponces.map(e => e).join(';'));
