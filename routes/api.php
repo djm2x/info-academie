@@ -81,12 +81,13 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::apiResource('questions', 'QuestionController');
 
     // niveauScolaires
-    // Route::get('/niveauScolaires/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}', 'NiveauScolaireController@getAll');
+
     // Route::get('/niveauScolaires/getAll2', 'NiveauScolaireController@getAll2');
     // Route::apiResource('niveauScolaires', 'NiveauScolaireController');
 
     // cours
     Route::get('/cours/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{idNiveauScolaire}/{idBranche}', 'CoursController@getAll');
+    Route::get('/cours/getByNiveauAndBranche/{idNiveauScolaire}/{idBranche}', 'CoursController@getByNiveauAndBranche');
     Route::apiResource('cours', 'CoursController');
 
     // eventProf

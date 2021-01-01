@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Branche;
+use App\NiveauScolaire;
 use App\Prof;
 use App\Student;
 use Illuminate\Http\Request;
@@ -74,9 +76,15 @@ class AccountController extends SuperController
 
         // $user->password = "";
         $child = null;
+        $niveau = null;
+        $branche = null;
 
         if ($user->role == 'student') {
             $child = Student::where('idUser', $user->id)->first();
+            $niveau = NiveauScolaire::find(+$child->niveau);
+            if (+$child->branche != 0) {
+                $branche = Branche::find(+$child->branche);
+            }
         } else if ($user->role == 'prof') {
             $child = Prof::where('idUser', $user->id)->first();
         }
@@ -86,6 +94,8 @@ class AccountController extends SuperController
             'user' => $user,
             // 'id' => $user->id,
             'child' => $child,
+            'niveau' => $niveau,
+            'branche' => $branche,
             'token' => $this->createToken($user),
             'message' => 'Connexion reussite'
         ];

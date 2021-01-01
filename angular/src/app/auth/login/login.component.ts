@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       } else {
         // console.log(r)
         this.snackBar.notifyOk(200, r.message);
-        this.session.doSignIn(r.user, r.child, r.token);
+        this.session.doSignIn(r.user, r.child, r.niveau, r.branche, r.token);
         this.router.navigate(['/admin']);
       }
     });
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.snackBar.notifyAlert(400, r.message);
       } else {
         this.snackBar.notifyOk(200, r.message);
-        this.session.doSignIn(r.user, r.child, r.token);
+        this.session.doSignIn(r.user, r.child, null, null, r.token);
         this.router.navigate(['/admin']);
       }
     });

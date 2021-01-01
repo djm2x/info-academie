@@ -3,20 +3,20 @@
 
 <div *ngIf="session.isStudent">
   <h1>
-
-
-    niveau : {{session.student?.niveau}}
-    branche : {{session.student?.branche}}
+    Niveau : {{session.niveau?.nom}} | Branche : {{session.branche?.nom}}
     <!-- niveau : {{session.student | json}} -->
+
   </h1>
+  <div *ngFor="let e of cours; let i=index">
+    <button mat-button style="width: 100%; height: 50px;" (click)="detail(e)">
+      <b>{{e.nom}}</b>
+    </button>
+  </div>
 
 </div>
 
 <div *ngIf="session.isProf">
   <div class="p-3">
-
-
-
     <p style="font-size: 1.2em;">Chere professeur si vous avez des cour (PDF ou autre), ou bien des video tutorial (ex:
       Chaine youtube), Merci de les envoyez a nous
       dans l'email situe au desous.

@@ -33,6 +33,7 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.o = this.data.model;
+    // console.log(this.o)
     this.title = this.data.title;
     this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.o.idNiveauScolaire);
 
@@ -62,6 +63,7 @@ export class UpdateCoursComponent implements OnInit, OnDestroy {
 
   onOkClick(o: Cours): void {
     let sub = null;
+    o.idBranche = o.idBranche === 0 ? null : o.idBranche;
     if (o.id === 0) {
       sub = this.uow.cours.post(o).subscribe(r => {
         this.config.eventSubmitToUploader.next({ id: r.id });

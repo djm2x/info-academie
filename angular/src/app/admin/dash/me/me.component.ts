@@ -44,7 +44,7 @@ export class MeComponent implements OnInit {
           this.prof.lien = r.lien as string;
 
           console.log(r)
-          this.session.updateUser(this.user, this.prof);
+          this.session.updateUser(this.user, this.prof, null, null);
           this.snackBar.notifyOk(200, `Lien >>${r.lien}<< à été Crée`);
         }
       });

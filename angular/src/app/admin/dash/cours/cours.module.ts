@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { DetailComponent } from './detail/detail.component';
+import { DataService } from './data.service';
 
 
 @NgModule({
@@ -47,6 +48,9 @@ import { DetailComponent } from './detail/detail.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatTableModule,
+  ],
+  providers: [
+    DataService,
   ]
 })
 export class CoursModule { }

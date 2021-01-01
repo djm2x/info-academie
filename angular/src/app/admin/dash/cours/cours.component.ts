@@ -5,13 +5,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
-import { Cours } from 'src/app/models/models';
+import { Branche, Cours, NiveauScolaire } from 'src/app/models/models';
 
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { DownloadSheetComponent } from 'src/app/manage-files/download-sheet/download-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SessionService } from 'src/app/shared';
+import { DataService } from './data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cours',
@@ -42,17 +44,27 @@ export class CoursComponent implements OnInit, OnDestroy {
   niveauScolaires = this.uow.niveauScolaires.get();
   branches = null;
 
+  cours: Cours[] = [];
+
   constructor(public uow: UowService, public dialog: MatDialog, public session: SessionService
-    , private bottomSheet: MatBottomSheet, @Inject('BASE_URL') private url: string) {
+    , private bottomSheet: MatBottomSheet, public data: DataService, private router: Router) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.session.isStudent) {
       // const sub = null;
 
       // this.subs.push(sub);
+
+      this.cours = await this.uow.cours.getByNiveauAndBranche(+this.session.niveau.id, +this.session.branche.id).toPromise();
     }
 
+
+  }
+
+  detail(e) {
+    this.data.cours = e;
+    this.router.navigate(['/admin/dash/cours/detail', e.id]);
   }
 
   selectChange(id: number) {

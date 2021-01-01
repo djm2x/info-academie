@@ -186,10 +186,10 @@ export class InfoComponent implements OnInit {
 
       if (this.session.isProf) {
         await this.uow.profs.put(prof.id, prof).toPromise();
-        this.session.updateUser(o, prof);
+        this.session.updateUser(o, prof, null, null);
       } else if (this.session.isStudent) {
         await this.uow.students.put(student.id, student).toPromise();
-        this.session.updateUser(o, student);
+        this.session.updateUser(o, student, null, null);
       }
 
       this.initForms();

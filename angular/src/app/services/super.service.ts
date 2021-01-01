@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { InjectService } from '../inject.service';
 
 export class SuperService<T> implements ISuperService {
@@ -12,12 +12,19 @@ export class SuperService<T> implements ISuperService {
   constructor(public controller: string) { }
 
   getList(startIndex, pageSize, sortBy, sortDir) {
-    return this.http.get<{list: T[], count: number}>
-            (`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}`);
+    return this.http.get<{ list: T[], count: number }>
+      (`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}`);
   }
   get = () => this.http.get<T[]>(`${this.urlApi}/${this.controller}`);
   count = () => this.http.get<number>(`${this.urlApi}/${this.controller}/count`);
-  getOne = (id) => this.http.get<T>(`${this.urlApi}/${this.controller}/${id}`);
+  getOne = (id) => {
+    if (id) {
+      return this.http.get<T>(`${this.urlApi}/${this.controller}/${id}`);
+    }
+
+    return of<T>(null);
+  }
+
   post = (o: T) => this.http.post<T>(`${this.urlApi}/${this.controller}`, o);
   put = (id: number | string, o: T) => this.http.put<any>(`${this.urlApi}/${this.controller}/${id}`, o);
   delete = (id) => this.http.delete<any>(`${this.urlApi}/${this.controller}/${id}`);

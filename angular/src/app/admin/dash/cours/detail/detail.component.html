@@ -1,1 +1,24 @@
-<p>detail works!</p>
+<h1>
+  Niveau : {{session.niveau?.nom}} | Branche : {{session.branche?.nom}}
+  <!-- niveau : {{session.student | json}} -->
+
+</h1>
+
+
+
+<p>
+  {{cours.nom}}
+  {{cours.semester}}
+</p>
+
+<h6>Videos</h6>
+<div *ngFor="let e of videosUrls; let i=index">
+  <p> {{e}} </p>
+</div>
+
+<h6>files</h6>
+<div *ngFor="let e of filesUrls; let i=index">
+  <p> {{e}} </p>
+</div>
+
+

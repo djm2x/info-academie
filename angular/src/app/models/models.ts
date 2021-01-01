@@ -107,12 +107,12 @@ export class Activite {
 export class Prof {
   id = 0;
   lien = '';
-  description = 'description';
-  experience = 'experience';
-  approche = 'approche';
-  intro = 'intro';
-  videoUrl = 'videoUrl';
-  cvUrl = 'cvUrl';
+  description = '';
+  experience = '';
+  approche = '';
+  intro = '';
+  videoUrl = '';
+  cvUrl = '';
   note = 0;
 
   prixHrWeb = 0;

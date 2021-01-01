@@ -47,4 +47,20 @@ class CoursController extends SuperController
 
         return ['list' => $list, 'count' => $count];
     }
+
+
+    public function getByNiveauAndBranche(int $idNiveauScolaire, int $idBranche) // : Collection
+    {
+        $matchThese = [ ];
+
+        $idNiveauScolaire == 0 ?: array_push($matchThese, ['idNiveauScolaire', $idNiveauScolaire]);
+        $idBranche == 0 ?: array_push($matchThese, ['idBranche', $idBranche]);
+
+        $list = $this->_context
+            ->where($matchThese)
+            ->get()
+            ;
+
+        return $list;
+    }
 }

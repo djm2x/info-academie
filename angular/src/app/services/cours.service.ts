@@ -16,4 +16,8 @@ export class CoursService extends SuperService<Cours> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${nomAr}/${idNiveauScolaire}/${idBranche}`);
   }
 
+  getByNiveauAndBranche(idNiveauScolaire, idBranche) {
+    return this.http.get<Cours[]>(`${this.urlApi}/${this.controller}/getByNiveauAndBranche/${idNiveauScolaire}/${idBranche}`);
+  }
+
 }

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Prof, Student, User } from '../models/models';
+import { Branche, NiveauScolaire, Prof, Student, User } from '../models/models';
 
 const USER = 'USER';
 const NAME = 'NAME';
 const STUDENT = 'STUDENT';
+const NIVEAU = 'NIVEAU';
+const BRANCHE = 'BRANCHE';
 const PROF = 'PROF';
 const TOKEN = 'TOKEN';
 
@@ -16,6 +18,8 @@ export class SessionService {
 
   public user = new User();
   public student = new Student();
+  public niveau = new NiveauScolaire();
+  public branche = new Branche();
   public prof = new Prof();
   public token = '';
 
@@ -23,7 +27,7 @@ export class SessionService {
     this.getSession();
   }
   // se connecter
-  public doSignIn(user: User, child: Prof | Student, token) {
+  public doSignIn(user: User, child: Prof | Student, niveau, branche, token) {
     if (!user || !token) {
       return;
     }
@@ -34,6 +38,13 @@ export class SessionService {
     if (this.user.role === 'student') {
       this.student = child as Student;
       localStorage.setItem(STUDENT, (JSON.stringify(this.student)));
+
+      this.branche = branche;
+      localStorage.setItem(BRANCHE, (JSON.stringify(this.branche)));
+
+      this.niveau = niveau;
+      localStorage.setItem(NIVEAU, (JSON.stringify(this.niveau)));
+
     } else if (this.user.role === 'prof') {
       this.prof = child as Prof;
       localStorage.setItem(PROF, (JSON.stringify(this.prof)));
@@ -43,7 +54,7 @@ export class SessionService {
     localStorage.setItem(TOKEN, (JSON.stringify(this.token)));
   }
 
-  public updateUser(user: User, child: Prof | Student) {
+  public updateUser(user: User, child: Prof | Student, niveau, branche) {
     if (!user) {
       return;
     }
@@ -54,6 +65,14 @@ export class SessionService {
     if (this.user.role === 'student') {
       this.student = child as Student;
       localStorage.setItem(STUDENT, (JSON.stringify(this.student)));
+
+      // this.branche = branche;
+      // localStorage.setItem(BRANCHE, (JSON.stringify(this.branche)));
+
+      // this.niveau = niveau;
+      // localStorage.setItem(NIVEAU, (JSON.stringify(this.niveau)));
+
+
     } else if (this.user.role === 'prof') {
       this.prof = child as Prof;
       localStorage.setItem(PROF, (JSON.stringify(this.prof)));
@@ -68,10 +87,14 @@ export class SessionService {
   public doSignOut(): void {
     this.user = new User();
     this.student = new Student();
+    this.branche = new Branche();
+    this.niveau = new NiveauScolaire();
     this.prof = new Prof();
     this.token = '';
     localStorage.removeItem(USER);
     localStorage.removeItem(STUDENT);
+    localStorage.removeItem(BRANCHE);
+    localStorage.removeItem(NIVEAU);
     localStorage.removeItem(PROF);
     localStorage.removeItem(TOKEN);
     localStorage.removeItem(NAME);
@@ -89,6 +112,8 @@ export class SessionService {
 
       if (this.user.role === 'student') {
         this.student = JSON.parse(localStorage.getItem(STUDENT));
+        this.branche = JSON.parse(localStorage.getItem(BRANCHE));
+        this.niveau = JSON.parse(localStorage.getItem(NIVEAU));
       } else if (this.user.role === 'prof') {
         this.prof = JSON.parse(localStorage.getItem(PROF));
       }
