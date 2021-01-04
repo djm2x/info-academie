@@ -62,9 +62,9 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   }
 
-  detail(e) {
+  detail(e: Cours) {
     this.data.cours = e;
-    this.router.navigate(['/admin/dash/cours/detail', e.id]);
+    this.router.navigate(['/admin/dash/cours/list', `${e.nom.replace(' ', '-')}_${e.id}`]);
   }
 
   selectChange(id: number) {

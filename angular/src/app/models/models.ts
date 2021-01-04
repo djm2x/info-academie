@@ -224,6 +224,8 @@ export class Quiz {
   title = '';
   description = '';
   enableTime = true;
+  date = new Date();
+  isActive = true;
 
   idContext = 0;
   context = new Cours();

@@ -21,7 +21,7 @@ export class DetailComponent implements OnInit {
   async ngOnInit() {
 
     if (this.cours.id === 0) {
-      this.id = +this.route.snapshot.paramMap.get('id');
+      this.id = +this.route.snapshot.paramMap.get('id').split('_').reduceRight(e => e);
       this.cours = await this.uow.cours.getOne(this.id).toPromise();
     }
 

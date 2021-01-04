@@ -35,4 +35,17 @@ class QuizController extends SuperController
     {
         return $this->_context->where('idUser', $id)->first();
     }
+
+    public function getQuiz(int $idContext)
+    {
+        $list = $this->_context
+            ->where([
+                $idContext != 0 ? ['idContext', $idContext] : ['1','1']
+            ])
+            // ->with(['cours', 'questions'])
+            ->get()
+            ;
+
+        return $list;
+    }
 }

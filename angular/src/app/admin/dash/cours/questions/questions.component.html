@@ -1,0 +1,19 @@
+<p>questions works!</p>
+
+
+
+<mat-paginator #paginator [length]="resultsLength" pageIndex="0" pageSize="10" style="visibility:hidden; height: 0;"
+      [pageSizeOptions]="[5, 10, 25, 50, 100, 250]" showFirstLastButtons>
+    </mat-paginator>
+
+    <div class="d-flex justify-content-center align-items-center mt-2 mb-3">
+      <button mat-raised-button color="accent" [disabled]="!paginator.hasPreviousPage()"
+        (click)="paginator.previousPage(); div.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'})">
+        <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_left</mat-icon> Retour
+      </button>
+      &nbsp;&nbsp;
+      <button mat-raised-button color="accent" [disabled]="!paginator.hasNextPage()"
+        (click)="paginator.nextPage(); div.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'})">
+        Plus de produits <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>

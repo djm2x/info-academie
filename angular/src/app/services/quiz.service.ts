@@ -12,8 +12,12 @@ export class QuizService extends SuperService<Quiz> {
   }
 
   getAll(startIndex, pageSize, sortBy, sortDir, title, idContext ) {
-
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${title}/${idContext}`);
+  }
+
+  getQuiz(idContext) {
+    return this.http.get<Quiz[]>(`${this.urlApi}/${this.controller}/getQuiz/${idContext}`);
+
   }
 
 }

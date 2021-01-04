@@ -86,6 +86,8 @@ export class QuizComponent implements OnInit, OnDestroy {
       title: [this.o.title, [Validators.required,]],
       description: [this.o.description],
       enableTime: [this.o.enableTime, [Validators.required,]],
+      date: [this.o.date, [Validators.required,]],
+      isActive: [this.o.isActive, [Validators.required,]],
       idContext: [this.idContext.value, [Validators.required,]],
     });
   }

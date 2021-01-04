@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // quizzes
     Route::get('/quizzes/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{idContext}', 'QuizController@getAll');
+    Route::get('/quizzes/getQuiz/{idContext}', 'QuizController@getQuiz');
     Route::apiResource('quizzes', 'QuizController');
 
     // responses
@@ -78,6 +79,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // questions
     Route::get('/questions/getAll/{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{idContext}', 'QuestionController@getAll');
+    Route::get('/questions/getQuestions/{idQuiz}', 'QuestionController@getQuestions');
     Route::apiResource('questions', 'QuestionController');
 
     // niveauScolaires

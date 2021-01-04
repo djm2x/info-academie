@@ -17,7 +17,9 @@ class CreateQuizzesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('description')->nullable(true);
-            $table->boolean('enableTime');
+            $table->boolean('enableTime')->nullable(true);
+            $table->dateTime('date')->nullable(true);
+            $table->dateTime('isActive')->nullable(true);
 
             $table->unsignedBigInteger('idContext')->nullable(true);
             $table->foreign('idContext')->references('id')->on('cours')->onDelete('set null');

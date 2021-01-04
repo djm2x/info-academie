@@ -21,12 +21,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { DetailComponent } from './detail/detail.component';
 import { DataService } from './data.service';
+import { QuizComponent } from './quiz/quiz.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 
 @NgModule({
   declarations: [
     CoursComponent,
     DetailComponent,
+    QuizComponent,
+    QuestionsComponent,
   ],
   imports: [
     CommonModule,

@@ -12,4 +12,9 @@ class Question extends Model
     {
         return $this->belongsTo(Quiz::class, 'idQuiz');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'idQuiz');
+    }
 }
