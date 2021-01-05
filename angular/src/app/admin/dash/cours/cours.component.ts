@@ -3,8 +3,6 @@ import { merge, Subscription, Subject } from 'rxjs';
 import { UowService } from 'src/app/services/uow.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Branche, Cours, NiveauScolaire } from 'src/app/models/models';
 
 import { FormControl } from '@angular/forms';
@@ -46,7 +44,7 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   cours: Cours[] = [];
 
-  constructor(public uow: UowService, public dialog: MatDialog, public session: SessionService
+  constructor(public uow: UowService, public session: SessionService
     , private bottomSheet: MatBottomSheet, public data: DataService, private router: Router) {
   }
 

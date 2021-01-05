@@ -9,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { CoursComponent } from './cours.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -23,6 +22,8 @@ import { DetailComponent } from './detail/detail.component';
 import { DataService } from './data.service';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -52,6 +53,8 @@ import { QuestionsComponent } from './questions/questions.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [
     DataService,

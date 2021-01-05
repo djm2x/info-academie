@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { QuestionComponent } from 'src/app/components/quiz/question/question.component';
+import { QuestionsComponent } from './questions/questions.component';
 import { CoursComponent } from './cours.component';
 import { DetailComponent } from './detail/detail.component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'list', component: CoursComponent },
   { path: 'list/:id', component: DetailComponent },
   { path: 'list/:id/quiz', component: QuizComponent },
-  { path: 'list/:id/quiz/:title', component: QuestionComponent },
+  { path: 'list/:id/quiz/:title', component: QuestionsComponent },
 ];
 
 @NgModule({

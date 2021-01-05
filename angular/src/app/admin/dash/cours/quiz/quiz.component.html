@@ -8,8 +8,8 @@
 <div *ngIf="list.length !== 0">
   <div *ngFor="let e of list; let i=index">
     <button mat-raised-button color="accent"
-    [routerLink]="['/admin/dash/cours/list/'+param+'/quiz/' + e.title +'_'+e.id]">
-      {{e.title}} {{'/admin/dash/cours/list/'+param+'/quiz/' + e.title.replace(' ', '') +'_'+e.id}}
+    (click)="navigate(e)">
+      {{e.title}}
     </button>
   </div>
 </div>

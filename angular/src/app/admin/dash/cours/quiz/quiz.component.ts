@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Quiz } from 'src/app/models/models';
 import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
@@ -15,7 +15,7 @@ export class QuizComponent implements OnInit {
   param = '';
   list: Quiz[] = [];
   constructor(private route: ActivatedRoute, public uow: UowService
-    , public session: SessionService, public data: DataService) { }
+    , public session: SessionService, public data: DataService, private router: Router) { }
 
   ngOnInit(): void {
     this.param = this.route.snapshot.paramMap.get('id');
@@ -27,6 +27,11 @@ export class QuizComponent implements OnInit {
       console.log(r);
       this.list = r;
     });
+  }
+
+  navigate(e: Quiz) {
+
+    this.router.navigate([`/admin/dash/cours/list/${this.param}/quiz/${e.title.replace(/\s/g, '-')}_${e.id}`]);
   }
 
 }

@@ -1,19 +1,27 @@
-<p>questions works!</p>
+<div>
+  <input #index type="hidden" value="0">
+
+  <h2>Question {{+index.value + 1}} : {{list[+index.value]?.value}} </h2>
 
 
+  <div *ngFor="let e of list[+index.value]?.choices.split(';'); let i=index">
 
-<mat-paginator #paginator [length]="resultsLength" pageIndex="0" pageSize="10" style="visibility:hidden; height: 0;"
-      [pageSizeOptions]="[5, 10, 25, 50, 100, 250]" showFirstLastButtons>
-    </mat-paginator>
-
-    <div class="d-flex justify-content-center align-items-center mt-2 mb-3">
-      <button mat-raised-button color="accent" [disabled]="!paginator.hasPreviousPage()"
-        (click)="paginator.previousPage(); div.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'})">
-        <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_left</mat-icon> Retour
-      </button>
-      &nbsp;&nbsp;
-      <button mat-raised-button color="accent" [disabled]="!paginator.hasNextPage()"
-        (click)="paginator.nextPage(); div.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'})">
-        Plus de produits <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_right</mat-icon>
-      </button>
+    <div>
+      <mat-radio-button *ngIf="!list[+index.value].isMultiChoises" value="1"></mat-radio-button>
+      <mat-checkbox *ngIf="list[+index.value].isMultiChoises"></mat-checkbox>
+      <p>{{e}}</p>
     </div>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center mt-2 mb-3">
+    <button mat-raised-button color="accent" [disabled]="+index.value === 0"
+      (click)="index.value = +index.value - 1">
+      <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_left</mat-icon> Retour
+    </button>
+    &nbsp;&nbsp;
+    <button mat-raised-button color="accent" [disabled]="list.length === +index.value + 1"
+       (click)="index.value = +index.value + 1">
+      Plus de produits <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</div>
