@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatRadioButton } from '@angular/material/radio';
@@ -19,7 +20,8 @@ export class QuestionsComponent implements OnInit {
   responses: Response[] = [];
   noteGlobale = 0;
   constructor(private route: ActivatedRoute, public uow: UowService
-    , public session: SessionService, public data: DataService) { }
+    , public session: SessionService, public data: DataService
+    , public location: Location) { }
 
   async ngOnInit() {
     this.param = this.route.snapshot.paramMap.get('title');

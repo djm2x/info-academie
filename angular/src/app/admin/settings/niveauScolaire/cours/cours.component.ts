@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy, Input, Output } from '@angular/core';
-import { merge, Subscription, Subject } from 'rxjs';
+import { merge, Subscription, Subject, Observable } from 'rxjs';
 import { UpdateCoursComponent } from './update/update.component';
 import { UowService } from 'src/app/services/uow.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
-import { Cours } from 'src/app/models/models';
+import { Branche, Cours } from 'src/app/models/models';
 
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
@@ -42,7 +42,7 @@ export class CoursComponent implements OnInit, OnDestroy {
   @Input() parentObs = new Subject<number>();
   @Output() tabChange = new Subject<number>();
   idBranche = new FormControl(0);
-  branches;
+  branches: Observable<Branche[]>;
 
   constructor(public uow: UowService, public dialog: MatDialog
     , private mydialog: DeleteService, public coursObs: CoursObsService
@@ -51,7 +51,7 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.parentObs.subscribe(r => {
-      this.idNiveauScolaire = r;
+      this.idNiveauScolaire = +r;
 
       this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', this.idNiveauScolaire);
 
@@ -60,26 +60,22 @@ export class CoursComponent implements OnInit, OnDestroy {
 
     console.log('pere : ', this.idNiveauScolaire);
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update, this.idBranche.valueChanges])
-      .pipe(startWith(null as any)).subscribe(async r => {
-        r === true ? this.paginator.pageIndex = 0 : r = r;
-        !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
-        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        this.isLoadingResults = true;
-        this.getPage(
-          startIndex,
-          this.paginator.pageSize,
-          this.sort.active ? this.sort.active : 'id',
-          this.sort.direction ? this.sort.direction : 'desc',
-          this.nom.value === '' ? '*' : this.nom.value,
-          this.nomAr.value === '' ? '*' : this.nomAr.value,
-          this.idNiveauScolaire === 0 ? 0 : this.idNiveauScolaire,
-          this.idBranche.value === 0 ? 0 : this.idBranche.value,
-
-        );
-      }
+      /*.pipe(startWith(null as any))*/.subscribe(async r => {
+      r === true ? this.paginator.pageIndex = 0 : r = r;
+      !this.paginator.pageSize ? this.paginator.pageSize = 10 : r = r;
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      this.isLoadingResults = true;
+      this.getPage(
+        startIndex,
+        this.paginator.pageSize,
+        this.sort.active ? this.sort.active : 'id',
+        this.sort.direction ? this.sort.direction : 'desc',
+        this.nom.value === '' ? '*' : this.nom.value,
+        this.nomAr.value === '' ? '*' : this.nomAr.value,
+        this.idNiveauScolaire === 0 ? 0 : +this.idNiveauScolaire,
+        this.idBranche.value === 0 ? 0 : +this.idBranche.value,
       );
-
-
+    });
 
     this.subs.push(sub);
   }

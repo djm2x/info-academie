@@ -22,8 +22,9 @@ export class UpdateComponent implements OnInit, OnDestroy {
   listChoisesForm = new FormArray([new FormControl('')]);
   listResponces: string[] = [];
 
-  constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
-    , private fb: FormBuilder, private uow: UowService) { }
+  idQuiz = 0;
+
+  constructor(private fb: FormBuilder, private uow: UowService) { }
 
   ngOnInit() {
     this.createForm();
@@ -32,6 +33,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.parent.subscribe(r => {
       if (r.data) {
         this.o = r.data;
+        this.idQuiz = this.o.idQuiz;
         this.createForm();
         this.handleChoises();
       }
@@ -54,7 +56,6 @@ export class UpdateComponent implements OnInit, OnDestroy {
     if (listR) {
       listR.split(';').map((response, i) => this.listResponces.push(response));
     }
-    console.log(this.listResponces)
 
     this.listChoisesForm.valueChanges.subscribe((r: string[]) => {
       if (r.filter(e => e.trim() !== '').length > 0) {
@@ -107,7 +108,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       choices: [this.o.choices, [Validators.required,]],
       isMultiChoises: [this.o.isMultiChoises, [Validators.required,]],
       time: [this.o.time, [Validators.required,]],
-      idQuiz: [this.o.idQuiz, [Validators.required,]],
+      idQuiz: [this.idQuiz, [Validators.required,]],
 
     });
   }

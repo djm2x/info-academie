@@ -12,14 +12,14 @@
     <div class="d-flex align-items-center">
       <div class="pt-2">
         <mat-radio-button #checked *ngIf="+list[+index.value].isMultiChoises === 0" (change)="select(+index.value, e, checked)">
-
+          <span class="mx-3">{{e}}</span>
         </mat-radio-button>
         <mat-checkbox #checked *ngIf="+list[+index.value].isMultiChoises === 1" (change)="select(+index.value, e, checked)">
-
+          <span class="mx-3">{{e}}</span>
         </mat-checkbox>
       </div>
 
-      <span class="mx-3">{{e}}</span>
+
 
       <span *ngIf="showResult.checked">
         <mat-icon class="mx-3" color="primary" *ngIf="+responses[+index.value].note !== 0">done</mat-icon>
@@ -39,13 +39,15 @@
     </button>
   </div>
 
-  <div class="d-flex justify-content-center align-items-center mt-2 mb-3">
-    <!-- <button mat-raised-button color="accent">
-      <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_left</mat-icon> Voire les résultats
-    </button> -->
+  <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-3">
     <p *ngIf="showResult.checked">
       {{(noteGlobale * 20) / responses.length}} / 20
     </p>
+
+
+    <button mat-raised-button class="mt-5" (click)="location.back()">
+      <mat-icon>keyboard_backspace</mat-icon> Retour au list des quiz
+    </button>
   </div>
 
 

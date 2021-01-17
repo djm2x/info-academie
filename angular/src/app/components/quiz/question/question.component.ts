@@ -33,7 +33,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   // panelOpenState = false;
 
   value = new FormControl('');
-  idQuiz = new FormControl(0);
+  // idQuiz = new FormControl(0);
   // responses = new FormControl('');
   // choices = new FormControl('');
   // time = new FormControl(0);
@@ -42,7 +42,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   toChild = new Subject<{data?: Question, update?: boolean}>();
   quizPrent = new Quiz();
   constructor(public uow: UowService, public dialog: MatDialog , private mydialog: DeleteService
-    , public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    , public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: {model: Quiz}) {
   }
 
   ngOnInit() {
@@ -58,18 +58,17 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.value.value === '' ? '*' : this.value.value,
-          this.idQuiz.value === 0 ? 0 : this.idQuiz.value,
+          this.data.model.id
         );
       }
     );
 
     this.subs.push(sub);
 
-    this.quizPrent = this.data.model;
-
     // for add question, we add foreign key idQuiz
     const o = new Question();
-    o.idQuiz = this.quizPrent.id;
+    o.idQuiz = this.data.model.id;
+
     setTimeout(() => this.toChild.next({data: o}), 300);
 
     this.toChild.subscribe(r => {
@@ -84,7 +83,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     // this.responses.setValue('');
     // this.choices.setValue('');
     // this.time.setValue(0);
-    this.idQuiz.setValue(0);
+    // this.idQuiz.setValue(0);
 
     this.update.next(true);
   }
@@ -115,16 +114,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
   //   return dialogRef.afterClosed();
   // }
 
-  add() {
-    // this.openDialog(new Question(), `Ajouter Question`).subscribe(result => {
-    //   if (result) {
-    //     this.update.next(true);
-    //   }
-    // });
-  }
+  // add() {
+  //   const o = new Question();
+  //   o.idQuiz = this.data.model.id;
+
+  //   setTimeout(() => this.toChild.next({data: o}), 300);
+  // }
 
   edit(o: Question) {
-    o.idQuiz = this.quizPrent.id;
+    o.idQuiz = this.data.model.id;
     this.toChild.next({data: o});
   }
 

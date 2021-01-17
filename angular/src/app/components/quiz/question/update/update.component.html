@@ -33,9 +33,10 @@
       <button class="ml-3" mat-raised-button type="button" (click)="add()" cdkFocusInitial>
         <mat-icon>add</mat-icon> Choix
       </button>
+      <!-- {{myForm.value | json}}
+      > {{idQuiz }} < -->
     </div>
 
-    <!-- {{o | json}} -->
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
       <button mat-raised-button color="primary" [disabled]="myForm.invalid" (click)="submit(myForm.getRawValue())">

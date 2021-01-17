@@ -76,7 +76,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         // console.log(r)
         this.snackBar.notifyOk(200, r.message);
         this.session.doSignIn(r.user, r.child, r.niveau, r.branche, r.token);
-        this.router.navigate(['/admin']);
+
+        const routeSaved = localStorage.getItem('route');
+
+        this.router.navigate([routeSaved && routeSaved !== '/' ? routeSaved : '/admin']);
       }
     });
   }

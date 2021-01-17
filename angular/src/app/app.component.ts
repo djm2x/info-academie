@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SplashScreenService } from './shared/splash-screen.service';
 import { MyTranslateService } from './my.translate.service';
+import { NavigationStart, Router } from '@angular/router';
 
 
 @Component({
@@ -9,8 +10,9 @@ import { MyTranslateService } from './my.translate.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
-  constructor(public mytranslate: MyTranslateService, private splashScreenService: SplashScreenService) { }
+  route = this.router.url;
+  constructor(public mytranslate: MyTranslateService, private splashScreenService: SplashScreenService
+    , private router: Router) { }
 
   ngOnInit() {
     this.mytranslate.init();
@@ -18,20 +20,27 @@ export class AppComponent implements OnInit {
       this.mytranslate.lang.next(r.lang);
     });
 
-    // this.getRoute();
-
+    this.getRoute();
+    this.saveRoute();
 
 
   }
 
   // get patchRoute() { return this.route.split('/'); }
 
-  // getRoute() {
-  //   this.router.events.subscribe(route => {
-  //     if (route instanceof NavigationStart) {
-  //       this.route = route.url;
-  //       console.log(this.route);
-  //     }
-  //   });
-  // }
+  getRoute() {
+    this.router.events.subscribe(route => {
+      if (route instanceof NavigationStart) {
+        this.route = route.url;
+        this.saveRoute();
+      }
+    });
+  }
+
+  saveRoute() {
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : ', this.route);
+    if (!this.route.includes('auth')) {
+      localStorage.setItem('route', this.route);
+    }
+  }
 }
