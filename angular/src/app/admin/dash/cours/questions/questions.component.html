@@ -1,27 +1,54 @@
-<div>
+<div class="m-2">
   <input #index type="hidden" value="0">
+  <section class="d-flex justify-content-between">
 
-  <h2>Question {{+index.value + 1}} : {{list[+index.value]?.value}} </h2>
+    <h2>Question {{+index.value + 1}} / {{list.length}} : {{list[+index.value]?.value}} </h2>
+
+    <mat-checkbox class="pt-2" #showResult >Montrer les résultats</mat-checkbox>
+  </section>
 
 
   <div *ngFor="let e of list[+index.value]?.choices.split(';'); let i=index">
+    <div class="d-flex align-items-center">
+      <div class="pt-2">
+        <mat-radio-button #checked *ngIf="+list[+index.value].isMultiChoises === 0" (change)="select(+index.value, e, checked)">
 
-    <div>
-      <mat-radio-button *ngIf="!list[+index.value].isMultiChoises" value="1"></mat-radio-button>
-      <mat-checkbox *ngIf="list[+index.value].isMultiChoises"></mat-checkbox>
-      <p>{{e}}</p>
+        </mat-radio-button>
+        <mat-checkbox #checked *ngIf="+list[+index.value].isMultiChoises === 1" (change)="select(+index.value, e, checked)">
+
+        </mat-checkbox>
+      </div>
+
+      <span class="mx-3">{{e}}</span>
+
+      <span *ngIf="showResult.checked">
+        <mat-icon class="mx-3" color="primary" *ngIf="+responses[+index.value].note !== 0">done</mat-icon>
+        <mat-icon class="mx-3" color="warn" *ngIf="+responses[+index.value].note === 0">clear</mat-icon>
+      </span>
     </div>
   </div>
 
   <div class="d-flex justify-content-center align-items-center mt-2 mb-3">
-    <button mat-raised-button color="accent" [disabled]="+index.value === 0"
-      (click)="index.value = +index.value - 1">
+    <button mat-raised-button color="accent" [disabled]="+index.value === 0" (click)="index.value = +index.value - 1">
       <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_left</mat-icon> Retour
     </button>
     &nbsp;&nbsp;
     <button mat-raised-button color="accent" [disabled]="list.length === +index.value + 1"
-       (click)="index.value = +index.value + 1">
+      (click)="index.value = +index.value + 1">
       Plus de produits <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_right</mat-icon>
     </button>
   </div>
+
+  <div class="d-flex justify-content-center align-items-center mt-2 mb-3">
+    <!-- <button mat-raised-button color="accent">
+      <mat-icon style="margin-bottom: 2.5px;">keyboard_arrow_left</mat-icon> Voire les résultats
+    </button> -->
+    <p *ngIf="showResult.checked">
+      {{(noteGlobale * 20) / responses.length}} / 20
+    </p>
+  </div>
+
+
+
+  <!-- {{responses | json}} -->
 </div>

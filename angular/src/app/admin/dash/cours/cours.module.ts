@@ -24,19 +24,23 @@ import { QuizComponent } from './quiz/quiz.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-
-
+import { FileComponent } from './file/file.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { InlineSVGModule } from 'ng-inline-svg';
+import { VideoComponent } from './detail/video/video.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 @NgModule({
   declarations: [
     CoursComponent,
     DetailComponent,
     QuizComponent,
     QuestionsComponent,
+    FileComponent,
+    VideoComponent,
   ],
   imports: [
     CommonModule,
     CoursRoutingModule,
-    // MatListModule,
     MatButtonModule,
     MatCardModule,
     FormsModule,
@@ -55,6 +59,10 @@ import { MatRadioModule } from '@angular/material/radio';
     MatTableModule,
     MatCheckboxModule,
     MatRadioModule,
+    //
+    PdfViewerModule,
+    InlineSVGModule,
+    YouTubePlayerModule,
   ],
   providers: [
     DataService,

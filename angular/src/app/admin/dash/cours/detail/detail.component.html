@@ -1,27 +1,39 @@
-<h1>
-  Niveau : {{session.niveau?.nom}} | Branche : {{session.branche?.nom}}
-  <!-- niveau : {{session.student | json}} -->
+<div class="m-3">
+  <h2>
+    Niveau : {{session.niveau?.nom}} | Branche : {{session.branche?.nom}}
+    <!-- niveau : {{session.student | json}} -->
 
-</h1>
+  </h2>
 
+  <p>
+    Matier : {{cours.nom}} | semester : {{cours.semester}}
+  </p>
 
+  <mat-divider [inset]="true"> </mat-divider>
 
-<p>
-  {{cours.nom}}
-  {{cours.semester}}
-</p>
+  <h4 class="my-2">Videos</h4>
+  <section class="d-flex">
+    <div *ngFor="let e of videosUrls; let i=index">
+      <p (click)="openDialog(e)" class="mx-2">
+        <mat-icon style="color: red; cursor: pointer;">ondemand_video</mat-icon>
+      </p>
+    </div>
+  </section>
 
-<h6>Videos</h6>
-<div *ngFor="let e of videosUrls; let i=index">
-  <p> {{e}} </p>
+  <mat-divider [inset]="true"> </mat-divider>
+
+  <h4 class="my-2">files</h4>
+  <div *ngFor="let e of filesUrls; let i=index">
+    <!-- <span style="cursor: pointer;margin-bottom: 10px;" [routerLink]="[e]"> {{e.split('_').pop()}} </span> -->
+    <span style="cursor: pointer;margin-bottom: 10px;" (click)="openPdf(e)"> {{e.split('_').pop()}} </span>
+  </div>
+
+  <mat-divider [inset]="true"> </mat-divider>
+
+  <h4 class="my-2">Quizz</h4>
+
+  <button mat-raised-button color="accent"
+    [routerLink]="['/admin/dash/cours/list/' + cours.nom +'_'+cours.id + '/quiz']">
+    commencais le test
+  </button>
 </div>
-
-<h6>files</h6>
-<div *ngFor="let e of filesUrls; let i=index">
-  <p> {{e}} </p>
-</div>
-
-<button mat-raised-button color="primary"
-  [routerLink]="['/admin/dash/cours/list/' + cours.nom +'_'+cours.id + '/quiz']">
-  commencais le test
-</button>

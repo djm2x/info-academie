@@ -12,6 +12,16 @@ export class FileUploadService extends SuperService<any> {
     super('files');
   }
 
+  download(pathToFile) {
+    pathToFile = pathToFile.replace(new RegExp('/', 'g'), '@');
+    return this.http.get(`${this.urlApi}/${this.controller}/download/${pathToFile}`, { responseType: 'blob' });
+  }
+
+  download0(pathToFile: string) {
+    pathToFile = pathToFile.replace(new RegExp('/', 'g'), '@');
+    return this.http.get(`${this.urlApi}/${this.controller}/download/${pathToFile}`);
+  }
+
   deleteFiles(filenames: string[], folder) {
     if (filenames.length === 0) {
       return of(null);

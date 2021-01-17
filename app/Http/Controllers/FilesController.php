@@ -47,6 +47,18 @@ class FilesController extends Controller
         }
     }
 
+    public function download(string $pathToFile) // : Collection
+    {
+        $pathToFile = str_replace("@", "/", $pathToFile);
+        // return [
+        //     "pathToFile" => $pathToFile,
+        // ];
+        return File::get($pathToFile);
+        // return response()->file(public_path($pathToFile));
+        // return response()->download(public_path($pathToFile));
+        // return response()->file($pathToFile);
+    }
+
     public function angEditorUploadImage(Request $request, string $folder) // : Collection
     {
         $file = $request->file('file');
