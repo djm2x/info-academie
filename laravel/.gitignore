@@ -1,0 +1,14 @@
+
+# angular
+**/dist
+**/e2e
+**/.vscode
+**/node_modules
+# **composer.lock
+*.zip
+# api
+**/node_modules
+/vendor
+**/test
+**/package-lock.json
+
