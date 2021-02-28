@@ -15,8 +15,15 @@ export class User {
   idVille = 1;
 
   ville = new Ville();
-  activites: DetailUserActivite[] = [];
+  detailUserActivites: DetailUserActivite[] = [];
   contactUs: ContactUs[] = [];
+  discussions: Discussion[] = [];
+  otherUserDiscussions: Discussion[] = [];
+  messages: Message[] = [];
+  otherUserMessages: Message[] = [];
+  eventProfs: EventProf[] = [];
+  profs: Prof[] = [];
+  students: Student[] = [];
 }
 
 export class Discussion {
@@ -27,14 +34,14 @@ export class Discussion {
   idMe = 0;
   idOtherUser = 0;
   me = new User();
-  otheruser = new User();
+  otherUser = new User();
   messages: Message[] = [];
 }
 
 export class Message {
   id = 0;
   object = 'Lorem ipsum dolor sit amet.';
-  content = 'Lorem ipsum dolor sit amet.';
+  message = 'Lorem ipsum dolor sit amet.';
   vu = false;
   date = new Date();
   idCours = 0;
@@ -46,7 +53,7 @@ export class Message {
   idDiscussion = 0;
 
   me = new User();
-  otheruser = new User();
+  otherUser = new User();
   discussion = new Discussion();
 }
 
@@ -70,7 +77,7 @@ export class Ville {
   nom = '';
   nomAr = '';
 
-  villeUsers: User[] = [];
+  users: User[] = [];
 }
 
 export class DetailUserActivite {
@@ -101,7 +108,7 @@ export class Activite {
   idTypeActivite = 0;
 
   typeActivite = new TypeActivite();
-  activiteDetailUserActivites: DetailUserActivite[] = [];
+  detailUserActivites: DetailUserActivite[] = [];
 }
 
 export class Prof {
@@ -141,6 +148,7 @@ export class Student {
   tel2Parent = 'tel2Parent';
 
   idUser = 0;
+  idActivite = 0;
   user = new User();
   activite = new Activite();
 }
@@ -149,6 +157,7 @@ export class TypeCours {
   id = 0;
   nom = '';
   nomAr = '';
+  offreProfes: OffreProf[] = [];
 }
 
 export class LieuCours {
@@ -166,6 +175,9 @@ export class NiveauScolaire {
   coursLigneIndividuel = 0;
   coursDomicileGroupe = 0;
   coursDomicileIndividuel = 0;
+
+  branches: Branche[] = [];
+  courses: Cours[] = [];
 }
 
 export class Branche {
@@ -174,6 +186,7 @@ export class Branche {
   nomAr = '';
   idNiveauScolaire = 0;
   niveauScolaire = new NiveauScolaire();
+  courses: Cours[] = [];
 }
 
 export class Cours {
@@ -242,6 +255,7 @@ export class Question {
 
   idQuiz = 0;
   Quiz = new Quiz();
+  responses: Response[] = [];
 }
 
 export class Response {

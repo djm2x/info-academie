@@ -16,11 +16,11 @@ namespace Models
         public virtual DbSet<Activite> Activites { get; set; }
         public virtual DbSet<Prof> Profs { get; set; }
         public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<TypeCours> TypeCourss { get; set; }
-        public virtual DbSet<LieuCours> LieuCourss { get; set; }
+        public virtual DbSet<TypeCours> TypeCourses { get; set; }
+        public virtual DbSet<LieuCours> LieuCourses { get; set; }
         public virtual DbSet<NiveauScolaire> NiveauScolaires { get; set; }
         public virtual DbSet<Branche> Branches { get; set; }
-        public virtual DbSet<Cours> Courss { get; set; }
+        public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<ContactUs> ContactUss { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
         public virtual DbSet<OffreProf> OffreProfs { get; set; }
@@ -61,8 +61,8 @@ namespace Models
                 entity.Property(e => e.Date);
                 entity.Property(e => e.IdMe);
                 entity.Property(e => e.IdOtherUser);
-                entity.HasOne(e => e.Me).WithMany(e => e.Discussions).HasForeignKey(e => e.IdMe);
-                entity.HasOne(e => e.OtherUser).WithMany(e => e.Discussions).HasForeignKey(e => e.IdOtherUser);
+                entity.HasOne(e => e.Me).WithMany(e => e.Discussions).HasForeignKey(e => e.IdMe).OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(e => e.OtherUser).WithMany(e => e.OtherUserDiscussions).HasForeignKey(e => e.IdOtherUser).OnDelete(DeleteBehavior.NoAction);
                 entity.HasMany(e => e.Messages).WithOne(p => p.Discussion).HasForeignKey(e => e.IdDiscussion).OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -80,8 +80,8 @@ namespace Models
                 entity.Property(e => e.IdMe);
                 entity.Property(e => e.IdOtherUser);
                 entity.Property(e => e.IdDiscussion);
-                entity.HasOne(e => e.Me).WithMany(e => e.Messages).HasForeignKey(e => e.IdMe);
-                entity.HasOne(e => e.OtherUser).WithMany(e => e.Messages).HasForeignKey(e => e.IdOtherUser);
+                entity.HasOne(e => e.Me).WithMany(e => e.Messages).HasForeignKey(e => e.IdMe).OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(e => e.OtherUser).WithMany(e => e.OtherUserMessages).HasForeignKey(e => e.IdOtherUser).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(e => e.Discussion).WithMany(e => e.Messages).HasForeignKey(e => e.IdDiscussion);
             });
 
@@ -236,7 +236,7 @@ namespace Models
                 entity.Property(e => e.IdBranche);
                 entity.HasOne(e => e.Branche).WithMany(e => e.Courses).HasForeignKey(e => e.IdBranche);
                 entity.Property(e => e.IdNiveauScolaire);
-                entity.HasOne(e => e.NiveauScolaire).WithMany(e => e.Courses).HasForeignKey(e => e.IdNiveauScolaire);
+                entity.HasOne(e => e.NiveauScolaire).WithMany(e => e.Courses).HasForeignKey(e => e.IdNiveauScolaire).OnDelete(DeleteBehavior.NoAction);
                 entity.HasMany(e => e.Quizzes).WithOne(p => p.Context).HasForeignKey(e => e.IdContext).OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -318,26 +318,26 @@ namespace Models
 
             modelBuilder
                 .Videos()
-.LieuCourss()
-.TypeCourss()
-.TypeActivites()
-.Villes()
-.Users()
-.Discussions()
-.Messages()
-.EventProfs()
-.DetailUserActivites()
-.Activites()
-.Profs()
-.Students()
-.NiveauScolaires()
-.Branches()
-.Courss()
-.ContactUss()
-.OffreProfs()
-.Quizs()
-.Questions()
-.Responses()
+                .LieuCourses()
+                .TypeCourss()
+                .TypeActivites()
+                .Villes()
+                .Users()
+                .Discussions()
+                .Messages()
+                .EventProfs()
+                .DetailUserActivites()
+                .Students()
+                .Activites()
+                .Profs()
+                .NiveauScolaires()
+                .Branches()
+                .Courss()
+                .ContactUss()
+                .OffreProfs()
+                .Quizs()
+                .Questions()
+                .Responses()
 
                 ;
         }

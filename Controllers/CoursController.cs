@@ -22,7 +22,7 @@ namespace Controllers
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}/{filesUrl}/{videosUrl}/{semester}/{idBranche}/{idNiveauScolaire}")]
         public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nom, string nomAr, string filesUrl, string videosUrl, int semester, int idBranche, int idNiveauScolaire)
         {
-            var q = _context.Courss
+            var q = _context.Courses
                 .Where(e => nom == "*" ? true : e.Nom.ToLower().Contains(nom.ToLower()))
 .Where(e => nomAr == "*" ? true : e.NomAr.ToLower().Contains(nomAr.ToLower()))
 .Where(e => filesUrl == "*" ? true : e.FilesUrl.ToLower().Contains(filesUrl.ToLower()))
