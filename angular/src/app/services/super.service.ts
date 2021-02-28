@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { InjectService } from '../inject.service';
 
-export class SuperService<T> implements ISuperService {
+export class SuperService<T> {
 
   // @Inject(HttpClient) protected http: HttpClient;
   protected http = InjectService.injector.get(HttpClient);
@@ -15,19 +15,27 @@ export class SuperService<T> implements ISuperService {
     return this.http.get<{ list: T[], count: number }>
       (`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}`);
   }
-  get = () => this.http.get<T[]>(`${this.urlApi}/${this.controller}`);
-  count = () => this.http.get<number>(`${this.urlApi}/${this.controller}/count`);
-  getOne = (id) => {
-    if (id) {
-      return this.http.get<T>(`${this.urlApi}/${this.controller}/${id}`);
-    }
 
-    return of<T>(null);
+  get = () => this.http.get<T[]>(`${this.urlApi}/${this.controller}/get`);
+
+  count = () => this.http.get<number>(`${this.urlApi}/${this.controller}/count`);
+
+  getOne = (id) => this.http.get<T>(`${this.urlApi}/${this.controller}/get/${id}`);
+
+  post = (o: T) => this.http.post<T>(`${this.urlApi}/${this.controller}/post`, o);
+
+  put = (id: number | string, o: T) => this.http.put<any>(`${this.urlApi}/${this.controller}/put/${id}`, o);
+
+  /**
+   * Exemple
+   * const model = [ { op: "replace", path: "/email", value: obj.email }];
+   */
+  patch(id: number, model: { op: string, path: string, value: any }[]) {
+    return this.http.patch<T>(`${this.urlApi}/${this.controller}/patch/${id}`, model);
   }
 
-  post = (o: T) => this.http.post<T>(`${this.urlApi}/${this.controller}`, o);
-  put = (id: number | string, o: T) => this.http.put<any>(`${this.urlApi}/${this.controller}/${id}`, o);
-  delete = (id) => this.http.delete<any>(`${this.urlApi}/${this.controller}/${id}`);
+  delete = (id) => this.http.delete<any>(`${this.urlApi}/${this.controller}/delete/${id}`);
+
 
   updateRange(o: T[]) {
     return this.http.post(`${this.urlApi}/${this.controller}/updateRange`, o);
@@ -53,13 +61,4 @@ export class SuperService<T> implements ISuperService {
     return this.http.get<T[]>(`${this.urlApi}/${this.controller}/getByForeignkey/${propertyName}/${value}`);
   }
 
-}
-
-interface ISuperService {
-  getList(startIndex, pageSize, sortBy, sortDir): Observable<any>;
-  get(controller: string);
-  getOne(id, controller: string);
-  post(o);
-  put(id, o);
-  delete(id);
 }

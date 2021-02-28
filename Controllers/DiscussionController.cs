@@ -42,7 +42,7 @@ unReaded = e.UnReaded,
 date = e.Date,
 me = e.Me.Nom,
 idMe = e.IdMe,
-otherUser = e.OtherUser.Name,
+otherUser = e.OtherUser.Nom,
 idOtherUser = e.IdOtherUser,
 
 })

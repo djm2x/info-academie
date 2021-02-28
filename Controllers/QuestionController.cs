@@ -24,7 +24,7 @@ namespace Controllers
         {
             var q = _context.Questions
                 .Where(e => value == "*" ? true : e.Value.ToLower().Contains(value.ToLower()))
-.Where(e => responses == "*" ? true : e.Responses.ToLower().Contains(responses.ToLower()))
+.Where(e => responses == "*" ? true : e.ResponsesString.ToLower().Contains(responses.ToLower()))
 .Where(e => choices == "*" ? true : e.Choices.ToLower().Contains(choices.ToLower()))
 .Where(e => time == 0 ? true : e.Time == time)
 .Where(e => idQuiz == 0 ? true : e.IdQuiz == idQuiz)
@@ -41,7 +41,7 @@ namespace Controllers
 {
 id = e.Id,
 value = e.Value,
-responses = e.Responses,
+responses = e.ResponsesString,
 choices = e.Choices,
 isMultiChoises = e.IsMultiChoises,
 time = e.Time,

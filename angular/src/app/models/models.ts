@@ -34,7 +34,7 @@ export class Discussion {
 export class Message {
   id = 0;
   object = 'Lorem ipsum dolor sit amet.';
-  message = 'Lorem ipsum dolor sit amet.';
+  content = 'Lorem ipsum dolor sit amet.';
   vu = false;
   date = new Date();
   idCours = 0;
@@ -100,7 +100,7 @@ export class Activite {
   imageUrl = '';
   idTypeActivite = 0;
 
-  type_activite = new TypeActivite();
+  typeActivite = new TypeActivite();
   activiteDetailUserActivites: DetailUserActivite[] = [];
 }
 
@@ -173,7 +173,7 @@ export class Branche {
   nom = '';
   nomAr = '';
   idNiveauScolaire = 0;
-  niveau_scolaire = new NiveauScolaire();
+  niveauScolaire = new NiveauScolaire();
 }
 
 export class Cours {
@@ -186,7 +186,7 @@ export class Cours {
   idBranche = 0;
   branche = new Branche();
   idNiveauScolaire = 0;
-  niveau_scolaire = new NiveauScolaire();
+  niveauScolaire = new NiveauScolaire();
 
   quizzes: Quiz[] = [];
 }
@@ -216,7 +216,7 @@ export class OffreProf {
   interval = '';
   value = 0;
   idTypeCours = 0;
-  type_cours = new TypeCours();
+  typeCours = new TypeCours();
 }
 
 export class Quiz {
@@ -235,7 +235,7 @@ export class Quiz {
 export class Question {
   id = 0;
   value = '';
-  responses = '';
+  responsesString = '';
   choices = '';
   isMultiChoises = false;
   time = 60;

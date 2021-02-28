@@ -124,7 +124,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.myFormMessage = this.fb.group({
       id: [this.o.id, [Validators.required,]],
       object: [this.o.object, [Validators.required,]],
-      message: [this.o.message, [Validators.required,]],
+      message: [this.o.content, [Validators.required,]],
       vu: [this.o.vu, [Validators.required,]],
       date: [this.o.date, [Validators.required,]],
       idCours: [this.o.idCours, [Validators.required,]],

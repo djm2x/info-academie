@@ -16,7 +16,7 @@ namespace Controllers
     [ApiController]
     public class ProfsController : SuperController<Prof>
     {
-        public ProfsController(MyContext context ) : base(context)
+        public ProfsController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{lien}/{experience}/{approche}/{intro}/{videoUrl}/{cvUrl}/{note}/{prixHrWeb}/{prixHrHome}/{prixHrWebGroupe}/{prixHrHomeGroupe}/{idsTypeActivites}/{idsActivites}/{idsTypeCours}/{idsLieuCours}/{idsNiveauScolaires}/{idUser}")]
@@ -48,36 +48,31 @@ namespace Controllers
             var list = await q.OrderByName<Prof>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-lien = e.Lien,
-description = e.Description,
-experience = e.Experience,
-approche = e.Approche,
-intro = e.Intro,
-videoUrl = e.VideoUrl,
-cvUrl = e.CvUrl,
-note = e.Note,
-prixHrWeb = e.PrixHrWeb,
-prixHrHome = e.PrixHrHome,
-prixHrWebGroupe = e.PrixHrWebGroupe,
-prixHrHomeGroupe = e.PrixHrHomeGroupe,
-sTypeActivites = e.STypeActivites.Name,
-idSTypeActivites = e.IdSTypeActivites,
-sActivites = e.SActivites.Name,
-idSActivites = e.IdSActivites,
-sTypeCours = e.STypeCours.Name,
-idSTypeCours = e.IdSTypeCours,
-sLieuCours = e.SLieuCours.Name,
-idSLieuCours = e.IdSLieuCours,
-sNiveauScolaires = e.SNiveauScolaires.Name,
-idSNiveauScolaires = e.IdSNiveauScolaires,
-user = e.User.Nom,
-idUser = e.IdUser,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    lien = e.Lien,
+                    description = e.Description,
+                    experience = e.Experience,
+                    approche = e.Approche,
+                    intro = e.Intro,
+                    videoUrl = e.VideoUrl,
+                    cvUrl = e.CvUrl,
+                    note = e.Note,
+                    prixHrWeb = e.PrixHrWeb,
+                    prixHrHome = e.PrixHrHome,
+                    prixHrWebGroupe = e.PrixHrWebGroupe,
+                    prixHrHomeGroupe = e.PrixHrHomeGroupe,
+                    IdsTypeActivites = e.IdsTypeActivites,
+                    IdsActivites = e.IdsActivites,
+                    IdsTypeCours = e.IdsTypeCours,
+                    IdsLieuCours = e.IdsLieuCours,
+                    IdsNiveauScolaires = e.IdsNiveauScolaires,
+                    user = e.User.Nom,
+                    idUser = e.IdUser,
+
+                })
                 .ToListAsync()
                 ;
 

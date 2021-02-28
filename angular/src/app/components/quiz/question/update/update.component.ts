@@ -104,7 +104,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     this.myForm = this.fb.group({
       id: [this.o.id, [Validators.required,]],
       value: [this.o.value, [Validators.required,]],
-      responses: [this.o.responses, [Validators.required,]],
+      responses: [this.o.responsesString, [Validators.required,]],
       choices: [this.o.choices, [Validators.required,]],
       isMultiChoises: [this.o.isMultiChoises, [Validators.required,]],
       time: [this.o.time, [Validators.required,]],

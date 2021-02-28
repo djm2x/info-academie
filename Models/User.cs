@@ -18,7 +18,14 @@ public string Cin { get; set; }
 public string Role { get; set; }
 public int IdVille { get; set; }
 public virtual Ville Ville { get; set; }
-public virtual ICollection<DetailUserActivite> Activites { get; set; }
+public virtual ICollection<DetailUserActivite> DetailUserActivites { get; set; }
 public virtual ICollection<ContactUs> ContactUs { get; set; }
+public virtual ICollection<Discussion> Discussions { get; set; }
+public virtual ICollection<Message> Messages { get; set; }
+public virtual ICollection<EventProf> EventProfs { get; set; }
+public virtual ICollection<Prof> Profs { get; set; }
+public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Response> Responses { get; set; }
+
 }
 }

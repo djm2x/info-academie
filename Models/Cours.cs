@@ -12,7 +12,7 @@ public int Semester { get; set; }
 public int IdBranche { get; set; }
 public virtual Branche Branche { get; set; }
 public int IdNiveauScolaire { get; set; }
-public virtual NiveauScolaire Niveau_scolaire { get; set; }
+public virtual NiveauScolaire NiveauScolaire { get; set; }
 public virtual ICollection<Quiz> Quizzes { get; set; }
 }
 }

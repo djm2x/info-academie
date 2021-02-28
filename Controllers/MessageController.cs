@@ -20,11 +20,11 @@ namespace Controllers
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{message}/{idCours}/{otherUserName}/{otherUserImage}/{idMe}/{idOtherUser}/{idDiscussion}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string object, string message, int idCours, string otherUserName, string otherUserImage, int idMe, int idOtherUser, int idDiscussion)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string _object, string message, int idCours, string otherUserName, string otherUserImage, int idMe, int idOtherUser, int idDiscussion)
         {
             var q = _context.Messages
-                .Where(e => object == "*" ? true : e.Object.ToLower().Contains(object.ToLower()))
-.Where(e => message == "*" ? true : e.Message.ToLower().Contains(message.ToLower()))
+                .Where(e => _object == "*" ? true : e.Object.ToLower().Contains(_object.ToLower()))
+.Where(e => message == "*" ? true : e.Content.ToLower().Contains(message.ToLower()))
 .Where(e => idCours == 0 ? true : e.IdCours == idCours)
 .Where(e => otherUserName == "*" ? true : e.OtherUserName.ToLower().Contains(otherUserName.ToLower()))
 .Where(e => otherUserImage == "*" ? true : e.OtherUserImage.ToLower().Contains(otherUserImage.ToLower()))
@@ -43,17 +43,16 @@ namespace Controllers
                 .Select(e => new 
 {
 id = e.Id,
-object = e.Object,
-message = e.Message,
+_object = e.Object,
+message = e.Content,
 vu = e.Vu,
 date = e.Date,
-cours = e.Cours.Nom,
 idCours = e.IdCours,
 otherUserName = e.OtherUserName,
 otherUserImage = e.OtherUserImage,
 me = e.Me.Nom,
 idMe = e.IdMe,
-otherUser = e.OtherUser.Name,
+otherUser = e.OtherUser.Nom,
 idOtherUser = e.IdOtherUser,
 discussion = e.Discussion.UnReaded,
 idDiscussion = e.IdDiscussion,

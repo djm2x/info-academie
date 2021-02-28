@@ -7,6 +7,6 @@ public partial class OffreProf
 public string Interval { get; set; }
 public int Value { get; set; }
 public int IdTypeCours { get; set; }
-public virtual TypeCours Type_cours { get; set; }
+public virtual TypeCours TypeCours { get; set; }
 }
 }

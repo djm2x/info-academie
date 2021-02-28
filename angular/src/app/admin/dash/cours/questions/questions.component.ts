@@ -34,7 +34,7 @@ export class QuestionsComponent implements OnInit {
       this.responses = this.list.map(e => {
         return {
           id: 0,
-          trueResponse: e.responses,
+          trueResponse: e.responsesString,
           userResponse: '',
           date: new Date(),
           note: 0,

@@ -44,7 +44,6 @@ namespace Controllers
 id = e.Id,
 nom = e.Nom,
 nomAr = e.NomAr,
-cycle = e.Cycle.Name,
 idCycle = e.IdCycle,
 coursLigneGroupe = e.CoursLigneGroupe,
 coursLigneIndividuel = e.CoursLigneIndividuel,

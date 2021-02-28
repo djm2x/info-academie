@@ -20,10 +20,10 @@ namespace Controllers
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{object}/{msg}/{idUser}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string object, string msg, int idUser)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string _object, string msg, int idUser)
         {
             var q = _context.ContactUss
-                .Where(e => object == "*" ? true : e.Object.ToLower().Contains(object.ToLower()))
+                .Where(e => _object == "*" ? true : e.Object.ToLower().Contains(_object.ToLower()))
 .Where(e => msg == "*" ? true : e.Msg.ToLower().Contains(msg.ToLower()))
 .Where(e => idUser == 0 ? true : e.IdUser == idUser)
 
@@ -38,7 +38,7 @@ namespace Controllers
                 .Select(e => new 
 {
 id = e.Id,
-object = e.Object,
+_object = e.Object,
 msg = e.Msg,
 date = e.Date,
 user = e.User.Nom,
