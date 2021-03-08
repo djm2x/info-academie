@@ -11,14 +11,44 @@ namespace Models
         public static ModelBuilder Videos(this ModelBuilder modelBuilder)
         {
             int id = 1;
+            var list = new[] {
+                "جديد تعلم اللغه الانجليزيه عن طريق التواصل للمبتدئين ",
+                "EP13 حوارات لتعلم اللغة الفرنسية للمبتدئين : الذهاب إلى المحكمة",
+                "EP12  حوارات لتعلم اللغة الفرنسية للمبتدئين : حجز رحلة طيران",
+                "12 تعلم الإنجليزية من الصفر مع أنفو أكاديمي أسماء الحاجيات الشخصية  الحلقة",
+                "11تعلم الإنجليزية من الصفر مع أنفو أكاديمي أسماء الملابس الحلقة",
+                "EP 11 حوارات لتعلم اللغة الفرنسية للمبتدئين : الوجبات السريعة و بعض الصفات",
+                "جديد تعلم اللغه الانجليزيه عن طريق التواصل للمبتدئين ",
+                "EP13 حوارات لتعلم اللغة الفرنسية للمبتدئين : الذهاب إلى المحكمة",
+                "EP12  حوارات لتعلم اللغة الفرنسية للمبتدئين : حجز رحلة طيران",
+                "12 تعلم الإنجليزية من الصفر مع أنفو أكاديمي أسماء الحاجيات الشخصية  الحلقة",
+                "11تعلم الإنجليزية من الصفر مع أنفو أكاديمي أسماء الملابس الحلقة",
+                "EP 11 حوارات لتعلم اللغة الفرنسية للمبتدئين : الوجبات السريعة و بعض الصفات",
+            };
+
+            var videos = new[] {
+                "https://www.youtube.com/watch?v=5GI5Xma6WHA",
+                "https://www.youtube.com/watch?v=Pqe3kKoG_Ao",
+                "https://www.youtube.com/watch?v=vNjbwk4S-LI",
+                "https://www.youtube.com/watch?v=t7Rsnoxitnw",
+                "https://www.youtube.com/watch?v=98wpFWaGceg",
+                "https://www.youtube.com/watch?v=d_vUZEByM2o",
+                "https://www.youtube.com/watch?v=5GI5Xma6WHA",
+                "https://www.youtube.com/watch?v=Pqe3kKoG_Ao",
+                "https://www.youtube.com/watch?v=vNjbwk4S-LI",
+                "https://www.youtube.com/watch?v=t7Rsnoxitnw",
+                "https://www.youtube.com/watch?v=98wpFWaGceg",
+                "https://www.youtube.com/watch?v=d_vUZEByM2o",
+            };
+
             var faker = new Faker<Video>(DataSeeding.lang)
                 .CustomInstantiator(f => new Video { Id = id++ })
-.RuleFor(o => o.Title, f => f.Lorem.Word())
-.RuleFor(o => o.Order, f => f.Random.Number(1, 10))
-.RuleFor(o => o.Description, f => f.Lorem.Word())
-.RuleFor(o => o.Date, f => f.Date.Past())
-.RuleFor(o => o.UrlVideo, f => f.Lorem.Word())
-;
+                .RuleFor(o => o.Title, f => list[id - 2])
+                .RuleFor(o => o.Order, f => f.Random.Number(1, 10))
+                .RuleFor(o => o.Description, f => f.Lorem.Word())
+                .RuleFor(o => o.Date, f => f.Date.Past())
+                .RuleFor(o => o.UrlVideo, f => videos[id - 2])
+                ;
             modelBuilder.Entity<Video>().HasData(faker.Generate(10));
             return modelBuilder;
         }
@@ -37,29 +67,46 @@ namespace Models
             return modelBuilder;
         }
 
-        public static ModelBuilder TypeCourss(this ModelBuilder modelBuilder)
+        public static ModelBuilder TypeCourses(this ModelBuilder modelBuilder)
         {
             int id = 1;
+            var list = new[] {
+                "Cours a domicile individuel",
+                "Cours a domicile groupe",
+                "Cours en ligne individuel",
+                "Cours en ligne groupe",
+            };
+            var listAr = new[] {
+                "دروس منزلية فردية",
+                "دروس جماعية في المنزل",
+                "دورة فردية عبر الإنترنت" ,
+                "دورة جماعية عبر الإنترنت" ,
+            };
             var faker = new Faker<TypeCours>(DataSeeding.lang)
                 .CustomInstantiator(f => new TypeCours { Id = id++ })
-.RuleFor(o => o.Nom, f => f.Lorem.Word())
-.RuleFor(o => o.NomAr, f => f.Lorem.Word())
-;
-            modelBuilder.Entity<TypeCours>().HasData(faker.Generate(10));
+                .RuleFor(o => o.Nom, f => list[id - 2])
+                .RuleFor(o => o.NomAr, f => listAr[id - 2])
+                ;
+            modelBuilder.Entity<TypeCours>().HasData(faker.Generate(4));
             return modelBuilder;
         }
 
         public static ModelBuilder TypeActivites(this ModelBuilder modelBuilder)
         {
             int id = 1;
+            var list = new[] { "Soutien scolaire", "Langues", "Activites paralelle" };
+            var listAr = new[] { "الدفاع المدرسي", "لغة", "الأنشطة الموازية" };
+            var isActive = new[] { true, false, false };
+
             var faker = new Faker<TypeActivite>(DataSeeding.lang)
                 .CustomInstantiator(f => new TypeActivite { Id = id++ })
-.RuleFor(o => o.Nom, f => f.Lorem.Word())
-.RuleFor(o => o.NomAr, f => f.Lorem.Word())
-.RuleFor(o => o.ImageUrl, f => "")
-.RuleFor(o => o.Active, f => id - 1 == 1 ? true : f.Random.Bool())
-;
-            modelBuilder.Entity<TypeActivite>().HasData(faker.Generate(10));
+                .RuleFor(o => o.Nom, f => list[id - 2])
+                .RuleFor(o => o.NomAr, f => listAr[id - 2])
+                .RuleFor(o => o.ImageUrl, f => "")
+                .RuleFor(o => o.Active, f => isActive[id - 2])
+                ;
+
+            modelBuilder.Entity<TypeActivite>().HasData(faker.Generate(3));
             return modelBuilder;
         }
 
@@ -80,21 +127,21 @@ namespace Models
             int id = 1;
             var faker = new Faker<User>(DataSeeding.lang)
                 .CustomInstantiator(f => new User { Id = id++ })
-.RuleFor(o => o.Nom, f => f.Lorem.Word())
-.RuleFor(o => o.Prenom, f => f.Lorem.Word())
-.RuleFor(o => o.Tel1, f => f.Lorem.Word())
-.RuleFor(o => o.Tel2, f => f.Lorem.Word())
-.RuleFor(o => o.Email, f => id - 1 == 1 ? "sa@angular.io" : f.Internet.Email())
-.RuleFor(o => o.Password, f => "123")
-.RuleFor(o => o.IsActive, f => id - 1 == 1 ? true : f.Random.Bool())
-.RuleFor(o => o.Date, f => f.Date.Past())
-.RuleFor(o => o.Adresse, f => f.Lorem.Word())
-.RuleFor(o => o.ImageUrl, f => "")
-.RuleFor(o => o.Cin, f => f.Lorem.Word())
-.RuleFor(o => o.Role, f => f.Lorem.Word())
-.RuleFor(o => o.IdVille, f => f.Random.Number(1, 10))
-;
-            modelBuilder.Entity<User>().HasData(faker.Generate(10));
+                .RuleFor(o => o.Nom, f => f.Name.FirstName())
+                .RuleFor(o => o.Prenom, f => f.Name.LastName())
+                .RuleFor(o => o.Tel1, f => f.Phone.PhoneNumber())
+                .RuleFor(o => o.Tel2, f => f.Phone.PhoneNumber())
+                .RuleFor(o => o.Email, f => id - 1 == 1 ? "prof@angular.io" : (id - 1 == 51 ? "student@angular.io" : f.Internet.Email()))
+                .RuleFor(o => o.Password, f => "123")
+                .RuleFor(o => o.IsActive, f => id - 1 == 1 ? true : f.Random.Bool())
+                .RuleFor(o => o.Date, f => f.Date.Past())
+                .RuleFor(o => o.Adresse, f => f.Address.FullAddress())
+                .RuleFor(o => o.ImageUrl, f => "assets/prof.jpg")
+                .RuleFor(o => o.Cin, f => f.Lorem.Word())
+                .RuleFor(o => o.Role, f => id - 1 <= 50 ? "prof" : "student")
+                .RuleFor(o => o.IdVille, f => f.Random.Number(1, 3))
+                ;
+            modelBuilder.Entity<User>().HasData(faker.Generate(100));
             return modelBuilder;
         }
 
@@ -169,10 +216,10 @@ namespace Models
             int id = 1;
             var faker = new Faker<DetailUserActivite>(DataSeeding.lang)
                 .CustomInstantiator(f => new DetailUserActivite { Id = id++ })
-.RuleFor(o => o.Date, f => f.Date.Past())
-.RuleFor(o => o.IdUser, f => f.Random.Number(1, 10))
-.RuleFor(o => o.IdActivite, f => f.Random.Number(1, 10))
-;
+                .RuleFor(o => o.Date, f => f.Date.Past())
+                .RuleFor(o => o.IdUser, f => f.Random.Number(1, 10))
+                .RuleFor(o => o.IdActivite, f => f.Random.Number(1, 9))
+                ;
             modelBuilder.Entity<DetailUserActivite>().HasData(faker.Generate(10));
             return modelBuilder;
         }
@@ -200,25 +247,25 @@ namespace Models
             int id = 1;
             var faker = new Faker<Prof>(DataSeeding.lang)
                 .CustomInstantiator(f => new Prof { Id = id++ })
-.RuleFor(o => o.Lien, f => f.Lorem.Word())
-.RuleFor(o => o.Description, f => f.Lorem.Word())
-.RuleFor(o => o.Experience, f => f.Lorem.Word())
-.RuleFor(o => o.Approche, f => f.Lorem.Word())
-.RuleFor(o => o.Intro, f => f.Lorem.Word())
-.RuleFor(o => o.VideoUrl, f => f.Lorem.Word())
-.RuleFor(o => o.CvUrl, f => f.Lorem.Word())
-.RuleFor(o => o.Note, f => f.Random.Number(1, 10))
-.RuleFor(o => o.PrixHrWeb, f => f.Random.Number(1, 10))
-.RuleFor(o => o.PrixHrHome, f => f.Random.Number(1, 10))
-.RuleFor(o => o.PrixHrWebGroupe, f => f.Random.Number(1, 10))
-.RuleFor(o => o.PrixHrHomeGroupe, f => f.Random.Number(1, 10))
-.RuleFor(o => o.IdsTypeActivites, f => f.Lorem.Word())
-.RuleFor(o => o.IdsActivites, f => f.Lorem.Word())
-.RuleFor(o => o.IdsTypeCours, f => f.Lorem.Word())
-.RuleFor(o => o.IdsLieuCours, f => f.Lorem.Word())
-.RuleFor(o => o.IdsNiveauScolaires, f => f.Lorem.Word())
-.RuleFor(o => o.IdUser, f => f.Random.Number(1, 10))
-;
+                .RuleFor(o => o.Lien, f => "https://meet.google.com/iib-cxdx-joe")
+                .RuleFor(o => o.Description, f => f.Lorem.Paragraph())
+                .RuleFor(o => o.Experience, f => f.Lorem.Paragraph())
+                .RuleFor(o => o.Approche, f => f.Lorem.Paragraph())
+                .RuleFor(o => o.Intro, f => f.Lorem.Paragraph())
+                .RuleFor(o => o.VideoUrl, f => "")
+                .RuleFor(o => o.CvUrl, f => "")
+                .RuleFor(o => o.Note, f => f.Random.Number(100, 1000))
+                .RuleFor(o => o.PrixHrWeb, f => f.Random.Number(20, 100))
+                .RuleFor(o => o.PrixHrHome, f => f.Random.Number(20, 100))
+                .RuleFor(o => o.PrixHrWebGroupe, f => f.Random.Number(20, 100))
+                .RuleFor(o => o.PrixHrHomeGroupe, f => f.Random.Number(20, 100))
+                .RuleFor(o => o.IdsTypeActivites, f => f.PickRandom(new[] { ";1;", ";2;", ";3;" }))
+                .RuleFor(o => o.IdsActivites, f => f.PickRandom(new[] { ";1;", ";2;", ";3;", ";4;", ";5;", ";6;", ";7;", ";8;", ";9;" }))
+                .RuleFor(o => o.IdsTypeCours, f => f.PickRandom(new[] { ";1;", ";2;" }))
+                .RuleFor(o => o.IdsLieuCours, f => f.PickRandom(new[] { ";1;", ";2;", ";3;" }))
+                .RuleFor(o => o.IdsNiveauScolaires, f => f.PickRandom(new[] { ";1;", ";2;", ";3;", ";4;", ";5;", ";6;", ";7;", ";8;", ";9;" }))
+                .RuleFor(o => o.IdUser, f => id - 1)
+                ;
             modelBuilder.Entity<Prof>().HasData(faker.Generate(10));
             return modelBuilder;
         }
@@ -231,12 +278,12 @@ namespace Models
                 .RuleFor(o => o.Ecole, f => f.Lorem.Word())
                 .RuleFor(o => o.Niveau, f => f.Random.Number(1, 10))
                 .RuleFor(o => o.Branche, f => f.Random.Number(1, 10))
-                .RuleFor(o => o.NomParent, f => f.Lorem.Word())
-                .RuleFor(o => o.PrenomParent, f => f.Lorem.Word())
-                .RuleFor(o => o.Tel1Parent, f => f.Lorem.Word())
-                .RuleFor(o => o.Tel2Parent, f => f.Lorem.Word())
-                .RuleFor(o => o.IdUser, f => f.Random.Number(1, 10))
-                .RuleFor(o => o.IdActivite, f => f.Random.Number(1, 10))
+                .RuleFor(o => o.NomParent, f => f.Name.FirstName())
+                .RuleFor(o => o.PrenomParent, f => f.Name.LastName())
+                .RuleFor(o => o.Tel1Parent, f => f.Phone.PhoneNumber())
+                .RuleFor(o => o.Tel2Parent, f => f.Phone.PhoneNumber())
+                .RuleFor(o => o.IdUser, f => id - 1)
+                .RuleFor(o => o.IdActivite, f => f.Random.Number(1, 9))
                 ;
             modelBuilder.Entity<Student>().HasData(faker.Generate(10));
             return modelBuilder;
@@ -245,17 +292,66 @@ namespace Models
         public static ModelBuilder NiveauScolaires(this ModelBuilder modelBuilder)
         {
             int id = 1;
+            var list = new[] {
+                "1ére Primaire",
+                "2éme Primaire",
+                "3éme Primaire",
+                "4éme Primaire",
+                "5éme Primaire",
+                "6éme Primaire",
+                "1ére Collège",
+                "2éme Collège",
+                "3éme Collège",
+                "Tronc commun",
+                "1ére Bac",
+                "2éme Bac",
+            };
+
+            var listAr = new[] {
+                "الابتدائية",
+                "الثاني الابتدائي",
+                "الثالثة الابتدائية",
+                "الرابع الابتدائي",
+                "الخامسة الابتدائية",
+                "6 الابتدائية",
+                "1st كلية",
+                "2 الكلية",
+                "الكلية الثالثة",
+                "جذع مشترك",
+                "1st البكالوريا",
+                "2nd البكالوريا",
+            };
+
+            var values = new double[,]
+            {
+                {150, 127.5, 120, 105},
+                {150, 127.5, 120, 105},
+                {150, 127.5, 120, 105},
+                {150, 127.5, 120, 105},
+                {150, 127.5, 120, 105},
+
+                {180, 150, 142.5, 120},
+
+                {195, 172.5, 157.5, 142.5},
+                {195, 172.5, 157.5, 142.5},
+                {210, 187.5, 165, 150},
+
+                {225, 202.5, 180, 165},
+                {240, 217.5, 195, 180},
+                {255, 232.5, 210, 187.5},
+            };
+
             var faker = new Faker<NiveauScolaire>(DataSeeding.lang)
                 .CustomInstantiator(f => new NiveauScolaire { Id = id++ })
-.RuleFor(o => o.Nom, f => f.Lorem.Word())
-.RuleFor(o => o.NomAr, f => f.Lorem.Word())
-.RuleFor(o => o.IdCycle, f => f.Random.Number(1, 10))
-.RuleFor(o => o.CoursLigneGroupe, f => f.Random.Number(1, 10))
-.RuleFor(o => o.CoursLigneIndividuel, f => f.Random.Number(1, 10))
-.RuleFor(o => o.CoursDomicileGroupe, f => f.Random.Number(1, 10))
-.RuleFor(o => o.CoursDomicileIndividuel, f => f.Random.Number(1, 10))
-;
-            modelBuilder.Entity<NiveauScolaire>().HasData(faker.Generate(10));
+                .RuleFor(o => o.Nom, f => list[id - 2])
+                .RuleFor(o => o.NomAr, f => listAr[id - 2])
+                .RuleFor(o => o.IdCycle, f => (id - 2 <= 6) ? 1 : (id <= 9 ? 2 : 3))
+                .RuleFor(o => o.CoursLigneGroupe, f => values[id - 2, 0])
+                .RuleFor(o => o.CoursLigneIndividuel, f => values[id - 2, 1])
+                .RuleFor(o => o.CoursDomicileGroupe, f => values[id - 2, 2])
+                .RuleFor(o => o.CoursDomicileIndividuel, f => values[id - 2, 3])
+                ;
+            modelBuilder.Entity<NiveauScolaire>().HasData(faker.Generate(12));
             return modelBuilder;
         }
 
@@ -290,103 +386,103 @@ namespace Models
             return modelBuilder;
         }
 
-        public static ModelBuilder Courss(this ModelBuilder modelBuilder)
+        public static ModelBuilder Courses(this ModelBuilder modelBuilder)
         {
             int id = 1;
             var list = new Cours[] {
                  new Cours {Id = id++, IdBranche = 1, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 1, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
-            new Cours {Id = id++, IdBranche = 1, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 1, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 1, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 1, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
-            new Cours {Id = id++, IdBranche = 2, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 2, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
-            new Cours {Id = id++, IdBranche = 2, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 2, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 2, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 2, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
-            new Cours {Id = id++, IdBranche = 3, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 3, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
-            new Cours {Id = id++, IdBranche = 3, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 3, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 3, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 3, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
-            new Cours {Id = id++, IdBranche = 4, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
-            new Cours {Id = id++, IdBranche = 5, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
-            new Cours {Id = id++, IdBranche = 6, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
-            new Cours {Id = id++, IdBranche = 7, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 8, Nom = "Technologie Industrielle", NomAr = "التكنولوجيا الصناعية"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Technologie Industrielle", NomAr = "التكنولوجيا الصناعية"},
-            new Cours {Id = id++, IdBranche = 9, Nom = "Anglais", NomAr = "الإنجليزية"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "'Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Philosophie", NomAr = "الفلسفة"},
-            new Cours {Id = id++, IdBranche = 10, Nom = "Anglais", NomAr = "الإنجليزية"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Philosophie", NomAr = "الفلسفة"},
-            new Cours {Id = id++, IdBranche = 11, Nom = "Anglais", NomAr = "الإنجليزية"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Mathématiques", NomAr = "الرياضيات"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Arabe", NomAr = "العربية"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Français", NomAr = "الفرنسية"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Philosophie", NomAr = "الفلسفة"},
-            new Cours {Id = id++, IdBranche = 12, Nom = "Anglais", NomAr = "الإنجليزية"}
+            new Cours {Id = id++, IdNiveauScolaire = 1 , IdBranche = null, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
+            new Cours {Id = id++, IdNiveauScolaire = 1 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 1 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 1 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 1 , IdBranche = null, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
+            new Cours {Id = id++, IdNiveauScolaire = 2 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 2 , IdBranche = null, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
+            new Cours {Id = id++, IdNiveauScolaire = 2 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 2 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 2 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 2 , IdBranche = null, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
+            new Cours {Id = id++, IdNiveauScolaire = 3 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 3 , IdBranche = null, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
+            new Cours {Id = id++, IdNiveauScolaire = 3 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 3 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 3 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 3 , IdBranche = null, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
+            new Cours {Id = id++, IdNiveauScolaire = 4 , IdBranche = null, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
+            new Cours {Id = id++, IdNiveauScolaire = 5 , IdBranche = null, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Activité scientifique", NomAr = "النشاط العلمي"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Éducation artistique", NomAr = "التربية الفنية"},
+            new Cours {Id = id++, IdNiveauScolaire = 6 , IdBranche = null, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
+            new Cours {Id = id++, IdNiveauScolaire = 7 , IdBranche = null, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 8 , IdBranche = null, Nom = "Technologie Industrielle", NomAr = "التكنولوجيا الصناعية"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Technologie Industrielle", NomAr = "التكنولوجيا الصناعية"},
+            new Cours {Id = id++, IdNiveauScolaire = 9 , IdBranche = null, Nom = "Anglais", NomAr = "الإنجليزية"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Informatique", NomAr = "علوم الكمبيوتر"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Philosophie", NomAr = "الفلسفة"},
+            new Cours {Id = id++, IdNiveauScolaire = 10, IdBranche = 1, Nom = "Anglais", NomAr = "الإنجليزية"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Histoire Géographie", NomAr = "التاريخ والجغرافيا"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Philosophie", NomAr = "الفلسفة"},
+            new Cours {Id = id++, IdNiveauScolaire = 11, IdBranche = 6, Nom = "Anglais", NomAr = "الإنجليزية"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Mathématiques", NomAr = "الرياضيات"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Physique et Chimie", NomAr = "الفيزياء والكيمياء"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Sciences de la Vie et de la Terre ", NomAr = "علوم الأرض والحياة"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Arabe", NomAr = "العربية"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Français", NomAr = "الفرنسية"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Education Islamique", NomAr = "تربية إسلامية"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Philosophie", NomAr = "الفلسفة"},
+            new Cours {Id = id++, IdNiveauScolaire = 12, IdBranche = 13, Nom = "Anglais", NomAr = "الإنجليزية"}
             };
 
             modelBuilder.Entity<Cours>().HasData(list);
@@ -398,11 +494,11 @@ namespace Models
             int id = 1;
             var faker = new Faker<ContactUs>(DataSeeding.lang)
                 .CustomInstantiator(f => new ContactUs { Id = id++ })
-.RuleFor(o => o.Object, f => f.Lorem.Word())
-.RuleFor(o => o.Msg, f => f.Lorem.Word())
-.RuleFor(o => o.Date, f => f.Date.Past())
-.RuleFor(o => o.IdUser, f => f.Random.Number(1, 10))
-;
+                .RuleFor(o => o.Object, f => f.Lorem.Word())
+                .RuleFor(o => o.Msg, f => f.Lorem.Word())
+                .RuleFor(o => o.Date, f => f.Date.Past())
+                .RuleFor(o => o.IdUser, f => f.Random.Number(1, 10))
+                ;
             modelBuilder.Entity<ContactUs>().HasData(faker.Generate(10));
             return modelBuilder;
         }
@@ -410,13 +506,20 @@ namespace Models
         public static ModelBuilder OffreProfs(this ModelBuilder modelBuilder)
         {
             int id = 1;
+            var list = new[] {
+                "65% - 95%",
+                "55% - 95%",
+                "55% - 95%",
+                "50% - 95%",
+            };
+
             var faker = new Faker<OffreProf>(DataSeeding.lang)
                 .CustomInstantiator(f => new OffreProf { Id = id++ })
-.RuleFor(o => o.Interval, f => f.Lorem.Word())
-.RuleFor(o => o.Value, f => f.Random.Number(1, 10))
-.RuleFor(o => o.IdTypeCours, f => f.Random.Number(1, 10))
-;
-            modelBuilder.Entity<OffreProf>().HasData(faker.Generate(10));
+                .RuleFor(o => o.Interval, f => list[id - 2])
+                .RuleFor(o => o.Value, f => 75)
+                .RuleFor(o => o.IdTypeCours, f => id - 1)
+                ;
+            modelBuilder.Entity<OffreProf>().HasData(faker.Generate(4));
             return modelBuilder;
         }
 

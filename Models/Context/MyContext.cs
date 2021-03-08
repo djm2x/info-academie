@@ -319,7 +319,7 @@ namespace Models
             modelBuilder
                 .Videos()
                 .LieuCourses()
-                .TypeCourss()
+                .TypeCourses()
                 .TypeActivites()
                 .Villes()
                 .Users()
@@ -332,7 +332,7 @@ namespace Models
                 .Profs()
                 .NiveauScolaires()
                 .Branches()
-                .Courss()
+                .Courses()
                 .ContactUss()
                 .OffreProfs()
                 .Quizs()
