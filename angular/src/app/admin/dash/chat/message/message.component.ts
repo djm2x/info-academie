@@ -44,9 +44,9 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
         // localStorage.setItem('selectedUser', btoa(JSON.stringify(r)));
         this.discussion.id = r.idDiscussion;
         this.discussion.idMe = r.me.id;
-        this.discussion.idOtherUser = r.otheruser.id;
+        this.discussion.idOtherUser = r.otherUser.id;
         this.discussion.me = r.me;
-        this.discussion.otheruser = r.otheruser;
+        this.discussion.otherUser = r.otherUser;
 
         this.getContacts(this.discussion.id);
         this.createForm();
@@ -88,9 +88,9 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
       return `${this.session.user.nom} ${this.session.user.prenom}`;
     } else {
       return e.otherUserName;
-      return e.otheruser.nom + ' ' + e.otheruser.prenom;
+      return e.otherUser.nom + ' ' + e.otherUser.prenom;
     }
-    // return e.otheruser.nom + ' ' + e.otheruser.prenom;
+    // return e.otherUser.nom + ' ' + e.otherUser.prenom;
   }
 
   scrollToBottom(): void {
@@ -124,7 +124,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.myFormMessage = this.fb.group({
       id: [this.o.id, [Validators.required,]],
       object: [this.o.object, [Validators.required,]],
-      message: [this.o.content, [Validators.required,]],
+      message: [this.o.message, [Validators.required,]],
       vu: [this.o.vu, [Validators.required,]],
       date: [this.o.date, [Validators.required,]],
       idCours: [this.o.idCours, [Validators.required,]],
@@ -145,7 +145,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       delete dd.messages;
       delete dd.me;
-      delete dd.otheruser;
+      delete dd.otherUser;
 
       const d = await this.uow.discussions.post(dd).toPromise();
       o.idDiscussion = d.id;

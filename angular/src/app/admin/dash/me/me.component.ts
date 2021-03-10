@@ -25,7 +25,7 @@ export class MeComponent implements OnInit {
     this.user = this.session.user;
     if (this.session.isProf) {
       this.prof = this.session.prof;
-      this.lien.setValue(this.prof.lien)
+      this.lien.setValue(this.prof?.lien)
     } else if (this.session.isStudent) {
       this.student = this.session.student;
     }

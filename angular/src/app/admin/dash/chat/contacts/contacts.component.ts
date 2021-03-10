@@ -35,7 +35,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     d.idMe = this.session.user.id;
     d.me = this.session.user;
     d.idOtherUser = e.id;
-    d.otheruser = e;
+    d.otherUser = e;
 
     this.list.unshift(d);
 
@@ -49,20 +49,20 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
     this.idSelected = e.id;
 
-    let me, otheruser;
+    let me, otherUser;
 
     if (+e.idMe === +this.session.user.id) {
       me = e.me;
-      otheruser = e.otheruser;
+      otherUser = e.otherUser;
     } else {
-      me = e.otheruser;
-      otheruser = e.me;
+      me = e.otherUser;
+      otherUser = e.me;
     }
 
     this.info.next({
       idDiscussion: e.id,
       me,
-      otheruser,
+      otherUser,
     });
   }
 
@@ -75,7 +75,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   other(e: Discussion): User {
     if (+e.idMe === +this.session.user.id) {
-      return e.otheruser;
+      return e.otherUser;
     } else {
       return e.me;
     }
