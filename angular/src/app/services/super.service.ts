@@ -20,7 +20,7 @@ export class SuperService<T> {
 
   count = () => this.http.get<number>(`${this.urlApi}/${this.controller}/count`);
 
-  getOne = (id) => this.http.get<T>(`${this.urlApi}/${this.controller}/get/${id}`);
+  getOne = (id) => this.http.get<T>(`${this.urlApi}/${this.controller}/getById/${id}`);
 
   post = (o: T) => this.http.post<T>(`${this.urlApi}/${this.controller}/post`, o);
 

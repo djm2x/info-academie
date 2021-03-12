@@ -18,7 +18,6 @@ namespace Controllers
             _context = context;
         }
 
-        // [Authorize(Roles = "ADMIN, SHOP, APPROVING_SHOP")]
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}")]
         public virtual async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir)
         {
@@ -33,7 +32,6 @@ namespace Controllers
             return Ok(new { list = list, count = count });
         }
 
-        // [Authorize(Roles = "ADMIN, SHOP, APPROVING_SHOP")]
         [HttpGet]
         public virtual async Task<IActionResult> Get()
         {
@@ -43,20 +41,25 @@ namespace Controllers
         }
 
         [HttpGet("{id}")]
-        // [Authorize(Roles = "ADMIN, SHOP, APPROVING_SHOP")]
         public virtual async Task<IActionResult> GetById(int id)
         {
             var model = await _context.Set<T>().FindAsync(id);
 
-            // if (model == null)
-            // {
-            //     return NotFound();
-            // }
-
             return Ok(model);
         }
 
-        // [Authorize(Roles = "ADMIN, SHOP, APPROVING_SHOP")]
+        // [HttpGet("{propertyName}/{id}")]
+        // public virtual async Task<IActionResult> GetByForeignkey(string propertyName, int id)
+        // {
+        //      int i = typeof(T).FullName.LastIndexOf('.');
+        //     string tableName = typeof(T).FullName.Substring(i + 1) + "s";
+
+
+        //     var list = await _context.Set<T>().FromSqlInterpolated($"SELECT * From {tableName} Where {propertyName} = {id}").ToListAsync();
+
+        //     return Ok(list);
+        // }
+
         [HttpPost]
         public virtual async Task<IActionResult> Add(T model)
         {

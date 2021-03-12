@@ -12,7 +12,8 @@ class ContactUsController extends SuperController
         parent::__construct($model);
     }
 
-    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $object, string $message, int $idUser) // : Collection
+    public function getAll(int $startIndex, int $pageSize, string $sortBy
+    , string $sortDir, string $object, string $message, int $idUser) // : Collection
     {
         $matchThese = [ ];
 

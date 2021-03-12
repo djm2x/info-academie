@@ -45,11 +45,11 @@ namespace Controllers
         {
             try
             {
-                
+
                 _context.Users.Add(model);
                 await _context.SaveChangesAsync();
 
-                
+
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -59,7 +59,7 @@ namespace Controllers
             return Ok(model);
         }
 
-        
+
 
         [HttpGet("{email}/{returnUrl}/{lang}")]
         public async Task<ActionResult> SendEmailForResetPassword(string email, string returnUrl, string lang)
@@ -127,39 +127,66 @@ namespace Controllers
         public async Task<ActionResult<User>> LogIn(UserDTO model)
         {
             if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+            {
                 return Ok(new { message = "Login ou Mot sont vide", code = -4 });
+            }
 
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == model.Email);
 
-            // check if Nom exists
             if (user == null)
-                return Ok(new { message = "Login érroné, vous pouvez utiliser l'option de réinitialisation de mot de passe.", code = -3 });
-
-            if (user.Password == model.Password)
             {
-                
-
-                // remove password before returning
-                user.Password = "";
-                //  await _context.Entry(model).Reference(e => e.Role).LoadAsync();
-
-                
-                if (user.IsActive == false)
-                {
-                    return Ok(new { message = "Veuillez patienter que votre compte soit active par l'administration", code = -2 });
-                }
-
-                var claims = new Claim[]
-                    {
-                        new Claim(ClaimTypes.Name, user.Id.ToString()),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        // new Claim(ClaimTypes.Role, user.Role.ToString()),
-                    };
-
-                return Ok(new { code = 1, user, token = _tokkenHandler.GenerateTokken(claims), message = "connexion réussite" });
+                return Ok(new { message = "Login érroné, vous pouvez utiliser l'option de réinitialisation de mot de passe.", code = -3 });
             }
 
-            return Ok(new { message = "Mot de passe érroné, vous pouvez utiliser l'option de réinitialisation de mot de passe.", code = -1 });
+            if (user.Password != model.Password)
+            {
+                return Ok(new { message = "Mot de passe érroné, vous pouvez utiliser l'option de réinitialisation de mot de passe.", code = -1 });
+            }
+
+
+            // remove password before returning
+            user.Password = "";
+            //  await _context.Entry(model).Reference(e => e.Role).LoadAsync();
+
+            object child = null;
+            NiveauScolaire niveau = null;
+            Branche branche = null;
+
+            if (user.Role == "student")
+            {
+                child = await _context.Students.Where(e => e.IdUser == user.Id).FirstOrDefaultAsync() as Student;
+                
+                if (child != null)
+                {
+
+                    niveau = await _context.NiveauScolaires.Where(e => e.Id == ((Student)child).Niveau).FirstOrDefaultAsync();
+
+                    if (((Student)child).Branche != 0)
+                    {
+                        branche = await _context.Branches.Where(e => e.Id == ((Student)child).Branche).FirstOrDefaultAsync();
+                    }
+                }
+            }
+            else
+            {
+                child = await _context.Profs.Where(e => e.IdUser == user.Id).FirstOrDefaultAsync() as Prof;
+            }
+
+
+            if (user.IsActive == false)
+            {
+                return Ok(new { message = "Veuillez patienter que votre compte soit active par l'administration", code = -2 });
+            }
+
+            var claims = new Claim[]
+                {
+                        new Claim(ClaimTypes.Name, user.Id.ToString()),
+                        new Claim(ClaimTypes.Email, user.Email),
+                    // new Claim(ClaimTypes.Role, user.Role.ToString()),
+                };
+
+            return Ok(new { code = 1, child, niveau, branche, user, token = _tokkenHandler.GenerateTokken(claims), message = "connexion réussite" });
+
         }
     }
 

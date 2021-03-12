@@ -3,7 +3,7 @@
         <img #img (error)="imgError(img)" [src]="displayImage(user.imageUrl)" style="width: 170px; height: 170px;">
 
         <div *ngIf="session.isProf">
-            <p>Intro : {{prof.intro}}</p>
+            <p>Intro : {{prof?.intro}}</p>
         </div>
 
         <p>{{user.nom}} {{user.prenom}}</p>

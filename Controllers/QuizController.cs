@@ -14,9 +14,9 @@ namespace Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class QuizsController : SuperController<Quiz>
+    public class QuizzesController : SuperController<Quiz>
     {
-        public QuizsController(MyContext context ) : base(context)
+        public QuizzesController(MyContext context ) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{idContext}")]
@@ -24,7 +24,7 @@ namespace Controllers
         {
             var q = _context.Quizs
                 .Where(e => title == "*" ? true : e.Title.ToLower().Contains(title.ToLower()))
-.Where(e => idContext == 0 ? true : e.IdContext == idContext)
+                .Where(e => idContext == 0 ? true : e.IdContext == idContext)
 
                 ;
 
@@ -35,17 +35,17 @@ namespace Controllers
                 .Take(pageSize)
                 
                 .Select(e => new 
-{
-id = e.Id,
-title = e.Title,
-description = e.Description,
-enableTime = e.EnableTime,
-date = e.Date,
-isActive = e.IsActive,
-context = e.Context.Nom,
-idContext = e.IdContext,
+                {
+                id = e.Id,
+                title = e.Title,
+                description = e.Description,
+                enableTime = e.EnableTime,
+                date = e.Date,
+                isActive = e.IsActive,
+                context = e.Context.Nom,
+                idContext = e.IdContext,
 
-})
+                })
                 .ToListAsync()
                 ;
 
