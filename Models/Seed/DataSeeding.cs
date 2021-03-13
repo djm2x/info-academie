@@ -266,7 +266,7 @@ namespace Models
                 .RuleFor(o => o.IdsNiveauScolaires, f => f.PickRandom(new[] { ";1;", ";2;", ";3;", ";4;", ";5;", ";6;", ";7;", ";8;", ";9;" }))
                 .RuleFor(o => o.IdUser, f => id - 1)
                 ;
-            modelBuilder.Entity<Prof>().HasData(faker.Generate(10));
+            modelBuilder.Entity<Prof>().HasData(faker.Generate(50));
             return modelBuilder;
         }
 
@@ -282,10 +282,10 @@ namespace Models
                 .RuleFor(o => o.PrenomParent, f => f.Name.LastName())
                 .RuleFor(o => o.Tel1Parent, f => f.Phone.PhoneNumber())
                 .RuleFor(o => o.Tel2Parent, f => f.Phone.PhoneNumber())
-                .RuleFor(o => o.IdUser, f => id - 1)
+                .RuleFor(o => o.IdUser, f => (id - 1) + 50)
                 .RuleFor(o => o.IdActivite, f => f.Random.Number(1, 9))
                 ;
-            modelBuilder.Entity<Student>().HasData(faker.Generate(10));
+            modelBuilder.Entity<Student>().HasData(faker.Generate(50));
             return modelBuilder;
         }
 

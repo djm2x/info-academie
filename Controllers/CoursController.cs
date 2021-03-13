@@ -58,5 +58,16 @@ namespace Controllers
 
             return Ok(new { list = list, count = count });
         }
+
+        [HttpGet("{idNiveauScolaire}/{idBranche}")]
+        public async Task<IActionResult> GetByNiveauAndBranche(int idNiveauScolaire, int idBranche)
+        {
+            var list = await _context.Courses.Where(e => idNiveauScolaire == 0 ? true : e.IdNiveauScolaire == idNiveauScolaire)
+            .Where(e => idBranche == 0 ? true : e.IdBranche == idBranche)
+            .ToListAsync()
+            ;
+
+            return Ok(list);
+        }
     }
 }

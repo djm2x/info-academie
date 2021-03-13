@@ -14,9 +14,9 @@ namespace Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class TypeCourssController : SuperController<TypeCours>
+    public class TypeCoursController : SuperController<TypeCours>
     {
-        public TypeCourssController(MyContext context ) : base(context)
+        public TypeCoursController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}")]
@@ -24,7 +24,7 @@ namespace Controllers
         {
             var q = _context.TypeCourses
                 .Where(e => nom == "*" ? true : e.Nom.ToLower().Contains(nom.ToLower()))
-.Where(e => nomAr == "*" ? true : e.NomAr.ToLower().Contains(nomAr.ToLower()))
+                .Where(e => nomAr == "*" ? true : e.NomAr.ToLower().Contains(nomAr.ToLower()))
 
                 ;
 
@@ -33,14 +33,14 @@ namespace Controllers
             var list = await q.OrderByName<TypeCours>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-nom = e.Nom,
-nomAr = e.NomAr,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    nom = e.Nom,
+                    nomAr = e.NomAr,
+
+                })
                 .ToListAsync()
                 ;
 

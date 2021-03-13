@@ -19,13 +19,13 @@ namespace Controllers
         public EventProfsController(MyContext context) : base(context)
         { }
 
-        [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{color}/{resizable}/{month}/{year}/{idUser}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string title, string color, string resizable, int month, int year, int idUser)
+        [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{year}/{month}/{idUser}/{title}")]
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, int year, int month, int idUser, string title)
         {
             var q = _context.EventProfs
                 .Where(e => title == "*" ? true : e.Title.ToLower().Contains(title.ToLower()))
-                .Where(e => color == "*" ? true : e.Color.ToLower().Contains(color.ToLower()))
-                .Where(e => resizable == "*" ? true : e.Resizable.ToLower().Contains(resizable.ToLower()))
+                // .Where(e => color == "*" ? true : e.Color.ToLower().Contains(color.ToLower()))
+                // .Where(e => resizable == "*" ? true : e.Resizable.ToLower().Contains(resizable.ToLower()))
                 .Where(e => month == 0 ? true : e.Month == month)
                 .Where(e => year == 0 ? true : e.Year == year)
                 .Where(e => idUser == 0 ? true : e.IdUser == idUser)
@@ -49,7 +49,7 @@ namespace Controllers
                     resizable = e.Resizable,
                     month = e.Month,
                     year = e.Year,
-                    user = e.User.Nom,
+                    user = e.User.Nom + " " + e.User.Prenom,
                     idUser = e.IdUser,
 
                 })

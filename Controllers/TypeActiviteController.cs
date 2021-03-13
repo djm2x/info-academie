@@ -16,7 +16,7 @@ namespace Controllers
     [ApiController]
     public class TypeActivitesController : SuperController<TypeActivite>
     {
-        public TypeActivitesController(MyContext context ) : base(context)
+        public TypeActivitesController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{nomAr}")]
@@ -33,20 +33,31 @@ namespace Controllers
             var list = await q.OrderByName<TypeActivite>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-nom = e.Nom,
-nomAr = e.NomAr,
-imageUrl = e.ImageUrl,
-active = e.Active,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    nom = e.Nom,
+                    nomAr = e.NomAr,
+                    imageUrl = e.ImageUrl,
+                    active = e.Active,
+
+                })
                 .ToListAsync()
                 ;
 
             return Ok(new { list = list, count = count });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllWithActivites()
+        {
+            var list = await _context.TypeActivites//.OrderBy(e => e.Id)
+            .Include(e => e.Activites)
+            .ToListAsync()
+            ;
+
+            return Ok(list);
         }
     }
 }

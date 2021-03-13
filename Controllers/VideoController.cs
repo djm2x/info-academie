@@ -16,16 +16,16 @@ namespace Controllers
     [ApiController]
     public class VideosController : SuperController<Video>
     {
-        public VideosController(MyContext context ) : base(context)
+        public VideosController(MyContext context) : base(context)
         { }
 
-        [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}/{order}/{urlVideo}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string title, int order, string urlVideo)
+        [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{title}")]
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string title)
         {
             var q = _context.Videos
                 .Where(e => title == "*" ? true : e.Title.ToLower().Contains(title.ToLower()))
-.Where(e => order == 0 ? true : e.Order == order)
-.Where(e => urlVideo == "*" ? true : e.UrlVideo.ToLower().Contains(urlVideo.ToLower()))
+                // .Where(e => order == 0 ? true : e.Order == order)
+                // .Where(e => urlVideo == "*" ? true : e.UrlVideo.ToLower().Contains(urlVideo.ToLower()))
 
                 ;
 
@@ -34,17 +34,17 @@ namespace Controllers
             var list = await q.OrderByName<Video>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-title = e.Title,
-order = e.Order,
-description = e.Description,
-date = e.Date,
-urlVideo = e.UrlVideo,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    title = e.Title,
+                    order = e.Order,
+                    description = e.Description,
+                    date = e.Date,
+                    urlVideo = e.UrlVideo,
+
+                })
                 .ToListAsync()
                 ;
 

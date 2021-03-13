@@ -65,7 +65,10 @@ export class UpdateComponent implements OnInit {
         } else if (this.o.role === 'student') {
           this.student = await this.uow.students.getByIdUser(this.o.id).toPromise();
 
-          this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', +this.student.niveau);
+          console.log(this.student)
+          if (this.student) {
+            this.branches = this.uow.branches.getByForeignkey('idNiveauScolaire', +this.student.niveau);
+          }
         }
 
         this.initForms();

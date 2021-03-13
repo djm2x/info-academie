@@ -16,7 +16,7 @@ namespace Controllers
     [ApiController]
     public class DiscussionsController : SuperController<Discussion>
     {
-        public DiscussionsController(MyContext context ) : base(context)
+        public DiscussionsController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{unReaded}/{idMe}/{idOtherUser}")]
@@ -24,8 +24,8 @@ namespace Controllers
         {
             var q = _context.Discussions
                 .Where(e => unReaded == 0 ? true : e.UnReaded == unReaded)
-.Where(e => idMe == 0 ? true : e.IdMe == idMe)
-.Where(e => idOtherUser == 0 ? true : e.IdOtherUser == idOtherUser)
+                .Where(e => idMe == 0 ? true : e.IdMe == idMe)
+                .Where(e => idOtherUser == 0 ? true : e.IdOtherUser == idOtherUser)
 
                 ;
 
@@ -34,22 +34,34 @@ namespace Controllers
             var list = await q.OrderByName<Discussion>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-unReaded = e.UnReaded,
-date = e.Date,
-me = e.Me.Nom,
-idMe = e.IdMe,
-otherUser = e.OtherUser.Nom,
-idOtherUser = e.IdOtherUser,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    unReaded = e.UnReaded,
+                    date = e.Date,
+                    me = e.Me.Nom,
+                    idMe = e.IdMe,
+                    otherUser = e.OtherUser.Nom,
+                    idOtherUser = e.IdOtherUser,
+
+                })
                 .ToListAsync()
                 ;
 
             return Ok(new { list = list, count = count });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetContacts(int id)
+        {
+            var list = await _context.Discussions.Where(e => e.IdMe == id)
+            .Include(e => e.Me)
+            .Include(e => e.OtherUser)
+            .ToListAsync()
+            ;
+
+            return Ok(list);
         }
     }
 }
