@@ -11,7 +11,9 @@ class UserController extends SuperController
         parent::__construct($model);
     }
 
-    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir, string $nom, string $prenom, string $email, string $tel, string $adresse, string $cin, string $role, int $idVille) // : Collection
+    public function getAll(int $startIndex, int $pageSize, string $sortBy, string $sortDir
+    , string $nom, string $prenom, string $email, string $tel, string $adresse
+    , string $cin, string $role, int $idVille) // : Collection
     {
 
         $matchThese = [];

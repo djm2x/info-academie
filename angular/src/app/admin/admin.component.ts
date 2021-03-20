@@ -66,25 +66,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     // });
   }
 
-  // toastrChat(chat: Chat) {
-  //   const conf: Partial<IndividualConfig> = {
-  //     positionClass: 'toast-top-right',
-  //     // positionClass: 'toast-bottom-left',
-  //     closeButton: true,
-  //     disableTimeOut: false,
-  //     tapToDismiss: false,
-  //     enableHtml: true,
-  //     progressBar: true,
-  //     progressAnimation: 'decreasing',
-  //     timeOut: 2500,
-  //     // preventDuplicates: false,
-  //   };
-
-  //   this.toastr.success(chat.message, chat.senderName, conf).onTap.subscribe(r => {
-  //     this.router.navigate(['admin/ticketSupport/update', chat.idTicketSupport]);
-  //   } )
-  // }
-
   getRoute() {
     this.router.events.pipe().subscribe(route => {
       if (route instanceof NavigationStart) {
