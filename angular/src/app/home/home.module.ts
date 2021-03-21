@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '../mat.module';
 import { ThemeModule } from '../shared/theme.module';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ThemeModule } from '../shared/theme.module';
     HttpClientModule,
     MatModule,
     ThemeModule,
+    SlickCarouselModule,
   ]
 })
 export class HomeModule { }

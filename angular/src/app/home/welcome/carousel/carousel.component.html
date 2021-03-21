@@ -1,0 +1,40 @@
+<section class="activites">
+  <div class="py-5">
+    <div class="container">
+
+      <div class="d-flex justify-content-center align-items-center mb-5">
+        <p class="h1 text-primary2 font-weight-bolder">
+          {{ 'fr' == 'fr' && list.length > 0 ? list[0]?.typeActivite.nom : list[0]?.typeActivite.nomAr }}
+        </p>
+      </div>
+
+      <owl-carousel-o [options]="customOptions">
+
+        <ng-container *ngFor="let e of list; let i=index" class="col-md-12 px-2 py-2">
+          {{e | json}}
+          <ng-template carouselSlide [id]="i">
+            <div class="card mat-elevation-z2">
+              <img
+                [src]="e.imageUrl.startsWith('http') !== false ? e.imageUrl : 'activites/'+e.id+'/'+e.imageUrl.replace(';', '')"
+                onerror="src='/assets/404.png';" alt="..." style="width: 100%; height: 300px;">
+
+              <div class="card-body">
+                <!-- <p class="card-text m-0 text-dark font-weight-bold">${e.title}</p>
+                <p class="card-text m-0 text-dark text-muted">
+                  ${e.description.substring(0, 50)} ...
+                </p> -->
+                <div class="d-flex flex-row-reverse justify-content-between align-items-center mt-3">
+                  <a class="btn btn-purple text-uppercase"
+                  style="border-radius: 0%;">
+                  <!-- href={{"profs/0/20/".e.id."/".e.id."/0/0/0/*/0"}} -->
+                    {{ 'fr' == 'fr' ? e.nom : e.nomAr }} <i class="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+  </div>
+</section>

@@ -15,6 +15,7 @@ import { slideInAnimation } from '../shared/animations';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   actuelRoute = this.router.url;
+  date = new Date();
   constructor(public session: SessionService, private router: Router
     , public myMedia: MediaService, @Inject('BASE_URL') public url: string
     , private toastr: ToastrService, public dialog: MatDialog

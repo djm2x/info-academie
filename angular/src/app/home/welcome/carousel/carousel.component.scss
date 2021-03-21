@@ -1,0 +1,32 @@
+.activites {
+  position: relative;
+}
+.activites::before {
+  content: "";
+  z-index: -1;
+  background-color: #9561e217;
+  position: absolute;
+  height: 300px;
+  left: 0;
+  width: 300px;
+  top: 50px;
+  border-radius: 50%;
+}
+
+.activites::after {
+  content: "";
+  z-index: -1;
+  background-color: #9561e225;
+  position: absolute;
+  height: 300px;
+  right: 150px;
+  width: 300px;
+  bottom: 50px;
+  border-radius: 50%;
+}
+
+.item {
+  height: 10rem;
+  background: #4dc7a0;
+  padding: 1rem;
+}

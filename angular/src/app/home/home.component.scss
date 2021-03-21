@@ -1,0 +1,32 @@
+// slick
+
+
+
+.footer {
+  // color: #a3b1be;
+  color: rgba(255, 255, 255, 0.815);
+  background-color: #7e20e6;
+  // padding: 0 3rem 1rem 3rem;
+  position: relative;
+  z-index: 2;
+}
+.footer::before {
+  clip-path: polygon(56% 0, 100% 21%, 100% 100%, 0 100%, 0 0);
+  position: absolute;
+  content: "";
+  z-index: -1;
+  background-color: var(--primary);
+  height: 100%;
+  width: 100%;
+}
+.last {
+  background-color: #4d1290;
+  color: #bdbdbd;
+}
+a {
+  color: #bdbdbd;
+}
+
+a:hover {
+  color: rgb(255, 223, 174);
+}

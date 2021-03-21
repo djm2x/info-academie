@@ -26,6 +26,7 @@ import config from '../../assets/json/config.json';
 import { QuestionService } from './question.service';
 import { QuizService } from './quiz.service';
 import { ResponseService } from './response.service';
+import { HomeService } from './home.service';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,8 @@ export class UowService {
   quizzes = new QuizService();
   questions = new QuestionService();
   responses = new ResponseService();
+
+  home = new HomeService();
 
   config = config;
   niveaux = this.http.get<{ name: string }[]>('assets/json/niveaux.json');

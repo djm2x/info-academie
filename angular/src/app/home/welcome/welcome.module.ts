@@ -8,9 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from 'src/app/mat.module';
 import { ThemeModule } from 'src/app/shared/theme.module';
 import { SecondComponent } from './second/second.component';
-
+import { ProfsComponent } from './profs/profs.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @NgModule({
-  declarations: [WelcomeComponent, FirstComponent, SecondComponent],
+  declarations: [WelcomeComponent, FirstComponent, SecondComponent, ProfsComponent, CarouselComponent],
   imports: [
     CommonModule,
     WelcomeRoutingModule,
@@ -19,6 +22,8 @@ import { SecondComponent } from './second/second.component';
     HttpClientModule,
     MatModule,
     ThemeModule,
+    SlickCarouselModule,
+    CarouselModule,
   ]
 })
 export class WelcomeModule { }
