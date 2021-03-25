@@ -25,8 +25,13 @@
   border-radius: 50%;
 }
 
-.item {
-  height: 10rem;
-  background: #4dc7a0;
-  padding: 1rem;
+// .item {
+//   height: 10rem;
+//   background: #4dc7a0;
+//   padding: 1rem;
+// }
+
+::ng-deep .owl-item {
+  // margin: 10px 1px;
+  padding:5px 4px;
 }

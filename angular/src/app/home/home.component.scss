@@ -1,16 +1,40 @@
-// slick
+.router-active {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+
+mat-toolbar {
+  min-height: 50px;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  span {
+    cursor: pointer;
+  }
+}
+
+mat-sidenav-container {
+  mat-sidenav {
+
+    // box-shadow: 3px 0  5px -1px rgba(56, 56, 56, 0.2), 6px 0 10px 0 rgba(65, 65, 65, 0.14), 1px 0 18px 0 rgba(65, 65, 65, 0.12);
+  }
+}
 
 
 
-.footer {
+.footer-home {
   // color: #a3b1be;
   color: rgba(255, 255, 255, 0.815);
-  background-color: #7e20e6;
+  background-color: var(--accent);
   // padding: 0 3rem 1rem 3rem;
   position: relative;
   z-index: 2;
 }
-.footer::before {
+.footer-home::before {
   clip-path: polygon(56% 0, 100% 21%, 100% 100%, 0 100%, 0 0);
   position: absolute;
   content: "";
@@ -20,7 +44,7 @@
   width: 100%;
 }
 .last {
-  background-color: #4d1290;
+  background-color: var(--accent);
   color: #bdbdbd;
 }
 a {

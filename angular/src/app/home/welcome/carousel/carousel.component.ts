@@ -22,10 +22,11 @@ export class CarouselComponent implements OnInit {
     // mouseDrag: false,
     // touchDrag: false,
     // pullDrag: false,
-    dots: false,
+    dots: true,
     navSpeed: 700,
-    navText: ['', ''],
-    margin: 10,
+    navText: ['Previous', 'Next'],
+    nav: true,
+    // margin: 5,
     responsive: {
       0: {
         items: 1
@@ -40,7 +41,6 @@ export class CarouselComponent implements OnInit {
         items: 4
       }
     },
-    nav: true
   }
 
   constructor() { }

@@ -51,6 +51,8 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 .default-theme {
   @include angular-material-theme($candy-app-theme);
   --primary: #{mat-color($candy-app-primary)};
+  --accent: #{mat-color($candy-app-accent)};
+  --warn: #{mat-color($candy-app-warn)};
 }
 
 
@@ -64,6 +66,8 @@ $alt-theme: mat-dark-theme($alt-primary, $alt-accent, $alt-warn);
 .dark-theme {
   @include angular-material-theme($alt-theme);
   --primary: #{mat-color($alt-primary)};
+  --accent: #{mat-color($alt-accent)};
+  --warn: #{mat-color($alt-warn)};
 }
 
 
