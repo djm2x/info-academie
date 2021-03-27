@@ -16,8 +16,7 @@ export class ActiviteService extends SuperService<Activite> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nom}/${nomAr}/${idTypeActivite}`);
   }
 
-  getAllForStatistique(nom, nomAr, idTypeActivite, ) {
-    return this.http.get(`${this.urlApi}/${this.controller}/getAllForStatistique/${nom}/${nomAr}/${idTypeActivite}`);
+  getActiviteByType(id) {
+    return this.http.get(`${this.urlApi}/${this.controller}/getActiviteByType/${id}`);
   }
-
 }

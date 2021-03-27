@@ -100,7 +100,15 @@ class HomeController extends Controller
     }
 
     public function profs(Request $request
-    , int $startIndex, int $pageSize, int $typeActivite, int $activite, int $typeCours, int $lieuCours, int $niveauScolaire, string $prof, int $ville)
+    , int $startIndex, 
+    int $pageSize, 
+    int $typeActivite, 
+    int $activite, 
+    int $typeCours, 
+    int $lieuCours, 
+    int $niveauScolaire, 
+    string $prof, 
+    int $ville)
     {
         // $activite = $request->input('activite');
         // $typeCours = $request->input('typeCours');

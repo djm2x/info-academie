@@ -8,7 +8,9 @@ const routes: Routes = [
     path: '', component: HomeComponent,
     children: [
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule) }, ]
+      { path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule) },
+      { path: 'profs', loadChildren: () => import('./profs/profs.module').then(m => m.ProfsModule) },
+    ]
   },
 ];
 

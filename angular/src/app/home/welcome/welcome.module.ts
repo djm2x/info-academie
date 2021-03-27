@@ -12,6 +12,7 @@ import { ProfsComponent } from './profs/profs.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [WelcomeComponent, FirstComponent, SecondComponent, ProfsComponent, CarouselComponent],
   imports: [
@@ -21,9 +22,10 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     ReactiveFormsModule,
     HttpClientModule,
     MatModule,
-    ThemeModule,
+    // ThemeModule,
     SlickCarouselModule,
     CarouselModule,
+    TranslateModule,
   ]
 })
 export class WelcomeModule { }
