@@ -66,7 +66,7 @@ namespace Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Profs(
+        public async Task<IActionResult> SearchProfs(
           [FromQuery] int startIndex = 0,
           [FromQuery] int pageSize = 10,
           [FromQuery] int typeActivite = 0,
@@ -78,20 +78,35 @@ namespace Controllers
           [FromQuery] int ville = 0
         )
         {
+            var g = prof == null;
 
             var q = _context.Profs
               .Where(e => typeActivite == 0 ? true : e.IdsTypeActivites.Contains($";{typeActivite};"))
               .Where(e => activite == 0 ? true : e.IdsActivites.Contains($";{activite};"))
               .Where(e => typeCours == 0 ? true : e.IdsTypeCours.Contains($";{typeCours};"))
               .Where(e => niveauScolaire == 0 ? true : e.IdsNiveauScolaires.Contains($";{niveauScolaire};"))
-              .Where(e => e.User.Nom.ToLower().Contains(prof.ToLower()) || e.User.Prenom.ToLower().Contains(prof.ToLower()))
+              .Where(e => prof == null || prof == "" ? true : e.User.Nom.ToLower().Contains(prof.ToLower()) || e.User.Prenom.ToLower().Contains(prof.ToLower()))
               .Where(e => ville == 0 ? true : e.User.IdVille == ville)
               ;
 
             var count = await q.CountAsync();
 
-            var list = q.Skip(startIndex)
+            var list = await q.Skip(startIndex)
               .Take(pageSize)
+              .Select(e => new
+              {
+                  note = e.Note,
+                  intro = e.Intro,
+                  Description = e.Description,
+                  IdsActivites = e.IdsActivites,
+                  user = new
+                  {
+                      id = e.User.Id,
+                      imageUrl = e.User.ImageUrl,
+                      Nom = e.User.Nom,
+                      Prenom = e.User.Prenom,
+                  }
+              })
               .ToListAsync()
               ;
 

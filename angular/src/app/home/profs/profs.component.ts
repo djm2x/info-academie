@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Prof } from 'src/app/models/models';
+import { take } from 'rxjs/operators';
+import { Activite, Prof } from 'src/app/models/models';
 import { MyTranslateService } from 'src/app/my.translate.service';
 import { UowService } from 'src/app/services/uow.service';
 
@@ -13,7 +14,7 @@ import { UowService } from 'src/app/services/uow.service';
 export class ProfsComponent implements OnInit {
   typeCours = this.uow.typeCours.get();
   niveauScolaires = this.uow.niveauScolaires.get();
-  activites = this.uow.activites.get();
+  activites: Activite[] = [];
 
   prof = new FormControl('');
   idTypeCours = new FormControl(0);
@@ -28,28 +29,73 @@ export class ProfsComponent implements OnInit {
     , public myTrans: MyTranslateService, private router: Router) { }
 
   ngOnInit() {
-    this.route.queryParams
-      // .filter(params => params.order)
-      .subscribe(params => {
-        console.log(params); // { order: "popular" }
-        this.queryParams = params;
-        // this.order = params.order;
-        // console.log(this.order); // popular
-      });
+    this.route.queryParams.subscribe(params => {
+
+      this.idTypeCours.setValue(params.typeCours ? +params.typeCours : 0);
+      this.idNiveauScolaires.setValue(params.niveauScolaire ? +params.niveauScolaire : 0);
+      this.prof.setValue(params.prof ?? '');
+
+      this.queryParams = {
+        startIndex: params.startIndex ?? 0,
+        pageSize: params.pageSize ?? 10,
+        // typeActivite :0;
+        activite: params.activite ?? 0,
+        // lieuCours :0
+        ville: params.ville ?? 0,
+        typeCours: this.idTypeCours.value,
+        niveauScolaire: this.idNiveauScolaires.value,
+        prof: this.prof.value,
+      };
+
+      console.log(this.queryParams);
+
+      this.get(this.queryParams);
+    });
+
+    this.uow.activites.get().subscribe(r => {
+      this.activites = r;
+    });
   }
 
   submit() {
-    this.queryParams['startIndex'] = 0;
-    this.queryParams.pageSize = 10;
-    // this.queryParams.typeActivite = 0;
-    // this.queryParams.activite = 0
-    // this.queryParams.lieuCours = 0
-    // this.queryParams.ville = 0
-    this.queryParams.typeCours = this.idTypeCours.value;
-    this.queryParams.niveauScolaire = this.idNiveauScolaires.value;
-    this.queryParams.prof = this.prof.value;
+    this.queryParams = {
+      // startIndex: 0,
+      // pageSize: 10,
+      // // typeActivite :0;
+      // activite: this.queryParams.activite,
+      // // lieuCours :0
+      // ville: this.queryParams.ville,
+      typeCours: this.idTypeCours.value,
+      niveauScolaire: this.idNiveauScolaires.value,
+      prof: this.prof.value,
+    }
 
     this.router.navigate(['/home/profs'], { queryParams: this.queryParams, queryParamsHandling: 'merge' });
+
+    // this.get(this.queryParams);
+  }
+
+  activiteChange(idActivite: number) {
+    this.router.navigate(['/home/profs'], { queryParams: {activite: idActivite}, queryParamsHandling: 'merge' });
+  }
+
+  reset() {
+    this.queryParams = {
+      typeCours: 0,
+      niveauScolaire: 0,
+      activite: 0,
+      prof: '',
+    }
+
+    this.router.navigate(['/home/profs'], { queryParams: this.queryParams, queryParamsHandling: 'merge' });
+  }
+
+  get(queryParams: { [key: string]: any }) {
+    this.uow.home.searchProfs(queryParams).subscribe(r => {
+      console.log(r)
+      this.list = r.list;
+      this.count = r.count;
+    });
   }
 
 }
