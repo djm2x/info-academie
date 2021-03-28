@@ -9,10 +9,12 @@ import { MatModule } from '../mat.module';
 import { ThemeModule } from '../shared/theme.module';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProfComponent } from './prof/prof.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, ProfComponent],
+  declarations: [HomeComponent, ProfComponent, AboutUsComponent, ContactComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
