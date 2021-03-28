@@ -8,10 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatModule } from '../mat.module';
 import { ThemeModule } from '../shared/theme.module';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ProfComponent } from './prof/prof.component';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, ProfComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

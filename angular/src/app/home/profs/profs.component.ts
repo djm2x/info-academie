@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { merge } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 import { Activite, Prof } from 'src/app/models/models';
 import { MyTranslateService } from 'src/app/my.translate.service';
 import { UowService } from 'src/app/services/uow.service';
@@ -22,6 +25,10 @@ export class ProfsComponent implements OnInit {
 
   queryParams: Params;
 
+  //pagination
+  paginatorEvent = new BehaviorSubject<PageEvent>({ pageIndex: 0, pageSize: 10, length: 0 });
+  update = new Subject();
+  pageSize = 5;
   count = 0;
   list: Prof[] = [];
 
@@ -29,18 +36,25 @@ export class ProfsComponent implements OnInit {
     , public myTrans: MyTranslateService, private router: Router) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    merge(...[this.paginatorEvent, this.route.queryParams]).pipe(startWith(null as any)).subscribe(_ => {
+      // paginator.pageIndex = r ? 0 : paginator.pageIndex;
+      const params = this.route.snapshot.queryParams;
+      const paginator = this.paginatorEvent.getValue();
+
+      paginator.pageSize = paginator.pageSize ? paginator.pageSize : this.pageSize;
+
+      const startIndex = paginator.pageIndex * paginator.pageSize;
 
       this.idTypeCours.setValue(params.typeCours ? +params.typeCours : 0);
       this.idNiveauScolaires.setValue(params.niveauScolaire ? +params.niveauScolaire : 0);
       this.prof.setValue(params.prof ?? '');
 
       this.queryParams = {
-        startIndex: params.startIndex ?? 0,
-        pageSize: params.pageSize ?? 10,
-        // typeActivite :0;
+        startIndex: startIndex ?? 0,
+        pageSize: paginator.pageSize ?? 10,
+        typeActivite :params.typeActivite ?? 0,
         activite: params.activite ?? 0,
-        // lieuCours :0
+        lieuCours :params.lieuCours ?? 0,
         ville: params.ville ?? 0,
         typeCours: this.idTypeCours.value,
         niveauScolaire: this.idNiveauScolaires.value,
@@ -50,7 +64,14 @@ export class ProfsComponent implements OnInit {
       console.log(this.queryParams);
 
       this.get(this.queryParams);
+
     });
+    // this.route.queryParams.subscribe(params => {
+
+    //   console.log(this.route.snapshot.queryParams)
+
+
+    // });
 
     this.uow.activites.get().subscribe(r => {
       this.activites = r;
@@ -76,7 +97,7 @@ export class ProfsComponent implements OnInit {
   }
 
   activiteChange(idActivite: number) {
-    this.router.navigate(['/home/profs'], { queryParams: {activite: idActivite}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/home/profs'], { queryParams: { activite: idActivite }, queryParamsHandling: 'merge' });
   }
 
   reset() {

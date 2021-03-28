@@ -95,6 +95,7 @@ namespace Controllers
               .Take(pageSize)
               .Select(e => new
               {
+                  Id = e.Id,
                   note = e.Note,
                   intro = e.Intro,
                   Description = e.Description,
@@ -112,6 +113,42 @@ namespace Controllers
 
 
             return Ok(new { list, count });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Prof(int id)
+        {
+            var model = await _context.Profs.Where(e => e.Id == id)
+            .Select(e => new
+            {
+                // Id = e.Id,
+                note = e.Note,
+                intro = e.Intro,
+                Description = e.Description,
+                Experience = e.Experience,
+                Approche = e.Approche,
+                IdsTypeActivites = e.IdsTypeActivites,
+                IdsActivites = e.IdsActivites,
+                IdsTypeCours = e.IdsTypeCours,
+                IdsLieuCours = e.IdsLieuCours,
+                IdsNiveauScolaires = e.IdsNiveauScolaires,
+                user = new
+                {
+                    id = e.User.Id,
+                    imageUrl = e.User.ImageUrl,
+                    Nom = e.User.Nom,
+                    Prenom = e.User.Prenom,
+                }
+            })
+            .FirstOrDefaultAsync();
+
+            var typeActivites = await _context.TypeActivites.ToListAsync();
+            var activites = await _context.Activites.ToListAsync();
+            var typeCours = await _context.TypeCourses.ToListAsync();
+            var lieuCours = await _context.LieuCourses.ToListAsync();
+            var niveauScolaires = await _context.NiveauScolaires.ToListAsync();
+
+            return Ok(new {model, activites, typeCours, lieuCours, niveauScolaires});
         }
     }
 }

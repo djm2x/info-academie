@@ -20,4 +20,15 @@ export class HomeService extends SuperService<any> {
     return this.http.get<{ list: Prof[], count: number }>(`${this.urlApi}/${this.controller}/searchProfs`, { params: q });
   }
 
+  prof(id) {
+    return this.http.get<{
+      model: Prof,
+      typeActivites: any[],
+      activites: any[],
+      typeCours: any[],
+      lieuCours: any[],
+      niveauScolaires: any[],
+    }>(`${this.urlApi}/${this.controller}/prof/${id}`);
+  }
+
 }
